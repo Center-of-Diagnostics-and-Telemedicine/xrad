@@ -1,0 +1,92 @@
+﻿// Doxygen
+#error Файл с документацией, не компилируется
+/*!
+\page pg_ThreadSetup Инициализация библиотеки для потока ThreadSetup
+
+Для настройки обработки ислючений в каждом потоке должны вызываться
+определенные функции инициализации. Они заключены в классе ThreadSetup.
+Этот класс в конструкторе делает необходимые настройки, в деструкторе
+возвращает настройки в состояние, соответствующее настройкам по умолчанию для
+используемой платформы. Реализация класса платформенно-зависимая.
+
+Класс не допускает копирование объектов.
+
+Прототип класса выглядит следующим образом:
+\verbatim
+class ThreadSetup
+{
+	public:
+		ThreadSetup()
+		{
+			// Platform-specific
+			...
+		}
+		~ThreadSetup()
+		{
+			// Platform-specific
+			...
+		}
+		ThreadSetup(const ThreadSetup&) = delete;
+		ThreadSetup &operator=(const ThreadSetup&) = delete;
+
+		// Platform-specific
+		...
+};
+\endverbatim
+
+Move-операции на данный момент не реализованы, но могут быть реализованы.
+
+В одном потоке можно создавать более одного объекта ThreadSetup.
+
+В каждой функции, выполняемой в новом потоке, необходимо создать объект
+ThreadSetup. При выходе из функции объект должен быть уничтожен.
+Это относится и к коду, распараллеливаемому при помощи `#pragma omp`.
+
+Примеры:
+
+\verbatim
+void foo()
+{
+	std::thread t([]()
+			{
+				ThreadSetup ths;
+				try
+				{
+					RaiseDivisionByZero();
+				}
+				catch (std::exception &e)
+				{
+					printf("Error: %s.\n", e.what());
+				}
+			});
+}
+\endverbatim
+
+\verbatim
+// Здесь также иллюстрируется использование ThreadErrorCollector.
+void foo()
+{
+	ThreadErrorCollector ec("foo");
+	#pragma omp parallel for schedule (guided)
+	for(int i = 0; i < count; ++i)
+	{
+		if (ec.HasErrors())
+			break;
+		ThreadSetup ts; (void)ts;
+		try
+		{
+			// do something
+			...
+		}
+		catch (...)
+		{
+			ec.CatchException();
+		}
+	}
+	ec.ThrowIfErrors();
+}
+\endverbatim
+
+\sa \ref xrad::ThreadSetup.
+
+*/

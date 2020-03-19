@@ -1,0 +1,35 @@
+﻿// Doxygen
+#error Файл с документацией, не компилируется
+/*!
+
+	\mainpage Документация по XRAD
+
+	> The system was finished, the tests were concluded,<br/>
+	> The users’ last changes were even included.<br/>
+	> And the users exclaimed, with a snarl and a taunt,<br/>
+	> “It’s just what we asked for, but not what we want!”<br/>
+	> <br/>
+	> Unknown author
+
+  XRAD — библиотека C++ для разработки алгоритмов цифровой обработки
+  сигналов.
+
+*/
+
+/*!
+	\defgroup gr_Debug Функции для отладки
+
+	Группа определена в файле XRAD.dox.
+*/
+
+/*!
+	\defgroup gr_XRAD_Basic Базовые механизмы XRAD
+
+	Группа определена в файле XRAD.dox.
+*/
+
+/*!
+	\defgroup gr_EntryPoint Файлы внешнего интерфейса библиотеки
+
+	Группа определена в файле XRAD.dox.
+*/
