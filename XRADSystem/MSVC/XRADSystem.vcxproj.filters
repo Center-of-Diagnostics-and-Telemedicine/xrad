@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="MSVC">
+      <UniqueIdentifier>{2fe840b1-bcd2-4251-9231-2fc6d5b3b0c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{2740e17d-0c2e-4d1e-b772-18a36301fa2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\CFile">
+      <UniqueIdentifier>{88a270ef-b143-4e09-9d2c-635b62e62ca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\IniFile">
+      <UniqueIdentifier>{4aa692d1-2e50-407e-a8a5-acc102b97e9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\PlatformSpecific">
+      <UniqueIdentifier>{bbcc89fc-5742-49e9-b03b-ff64ef52f83f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\PlatformSpecific\MSVC">
+      <UniqueIdentifier>{156e1f1f-f6d9-42c2-a66b-7dfdc960111f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\PlatformSpecific\MSVC\Internal">
+      <UniqueIdentifier>{fc7a197f-c090-463e-afaa-5f2249f73fe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\PlatformSpecific\Qt">
+      <UniqueIdentifier>{685af893-00bb-4140-a634-d572821d1261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\PlatformSpecific\Qt\Internal">
+      <UniqueIdentifier>{010f8a66-562c-404f-abd4-ad1a9a67aaed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\System">
+      <UniqueIdentifier>{026f50c2-fc17-4007-a5c0-d394c2350ddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\TextFile">
+      <UniqueIdentifier>{e0ed9e18-d519-49ef-ba72-225c2b480491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Utils">
+      <UniqueIdentifier>{a3d0d383-457d-4ec0-8e17-29daab341a89}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="XRADSystem_pre.cpp">
+      <Filter>MSVC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\CFile\shared_cfile.cpp">
+      <Filter>Sources\CFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\IniFile\XRADIniFile.cpp">
+      <Filter>Sources\IniFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\FileNameOperations_Win32.cpp">
+      <Filter>Sources\PlatformSpecific\MSVC\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\FileSystem_Win32.cpp">
+      <Filter>Sources\PlatformSpecific\MSVC\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\PlatformSpecific\Qt\Internal\FileSystem_Qt.cpp">
+      <Filter>Sources\PlatformSpecific\Qt\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\System\FileNameOperations.cpp">
+      <Filter>Sources\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\System\FileNamePatternMatch.cpp">
+      <Filter>Sources\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\System\FileSystem.cpp">
+      <Filter>Sources\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\TextFile\text_encoding.cpp">
+      <Filter>Sources\TextFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\TextFile\text_file.cpp">
+      <Filter>Sources\TextFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\BitmapFile.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pre.h">
+      <Filter>MSVC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\CFile\shared_cfile.h">
+      <Filter>Sources\CFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\IniFile\IniParser.hh">
+      <Filter>Sources\IniFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\IniFile\XRADIniFile.h">
+      <Filter>Sources\IniFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\FileNameOperations_Win32.h">
+      <Filter>Sources\PlatformSpecific\MSVC\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\FileSystem_Win32.h">
+      <Filter>Sources\PlatformSpecific\MSVC\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADSystemLink.h">
+      <Filter>Sources\PlatformSpecific\MSVC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\Qt\Internal\FileSystem_Qt.h">
+      <Filter>Sources\PlatformSpecific\Qt\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\System\FileNameOperations.h">
+      <Filter>Sources\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\System\FileNamePatternMatch.h">
+      <Filter>Sources\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\System\FileSystem.h">
+      <Filter>Sources\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\System\FileSystemDefs.h">
+      <Filter>Sources\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\System\SystemConfig.h">
+      <Filter>Sources\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TextFile\text_encoding.h">
+      <Filter>Sources\TextFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\TextFile\text_file.h">
+      <Filter>Sources\TextFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\BitmapFile.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CFile.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\System.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TextFile.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
