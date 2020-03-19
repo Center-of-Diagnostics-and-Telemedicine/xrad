@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="DisplayFunctions">
+      <UniqueIdentifier>{1864e7b7-d762-49eb-bc64-b12324dee23a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\XRADDicomGUI\DisplayFunctions\DisplayAcquisitionXRay.cpp">
+      <Filter>DisplayFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicomGUI\DisplayFunctions\DisplayProcessAcquisition.cpp">
+      <Filter>DisplayFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicomGUI\DisplayFunctions\DisplayTomogram_CTAcquisition.cpp">
+      <Filter>DisplayFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicomGUI\DisplayFunctions\DisplayTomogram_GenericAcquisition.cpp">
+      <Filter>DisplayFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicomGUI\DisplayFunctions\DisplayTomogram_MRAcquisition.cpp">
+      <Filter>DisplayFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicomGUI\DisplayFunctions\DisplayTomogram_MRAcquisitionSiemens.cpp">
+      <Filter>DisplayFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicomGUI\SelectSeriesInteractive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XRADDicomGUI_pre.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicomGUI\dialogs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\XRADDicomGUI\DisplayFunctions\DisplayAcquisitionXRay.h">
+      <Filter>DisplayFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicomGUI\DisplayFunctions\DisplayProcessAcquisition.h">
+      <Filter>DisplayFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicomGUI\XRADDicomGUI.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicomGUI\DisplayFunctions\DisplayTomogram_CTAcquisition.h">
+      <Filter>DisplayFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicomGUI\DisplayFunctions\DisplayTomogram_GenericAcquisition.h">
+      <Filter>DisplayFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicomGUI\DisplayFunctions\DisplayTomogram_MRAcquisition.h">
+      <Filter>DisplayFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicomGUI\DisplayFunctions\DisplayTomogram_MRAcquisitionSiemens.h">
+      <Filter>DisplayFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicomGUI\SelectSeriesInteractive.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pre.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicomGUI\dialogs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
