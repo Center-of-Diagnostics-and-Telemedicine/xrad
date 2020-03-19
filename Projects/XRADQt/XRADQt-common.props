@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Platform)'=='Win32'" Label="UserMacros">
+    <QTDIR_P>$(QTDIR5x86)</QTDIR_P>
+    <QWTDIR_P>$(QWTDIR5x86)</QWTDIR_P>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x64'" Label="UserMacros">
+    <QTDIR_P>$(QTDIR5x64)</QTDIR_P>
+    <QWTDIR_P>$(QWTDIR5x64)</QWTDIR_P>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="QTDIR_P">
+      <Value>$(QTDIR_P)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="QWTDIR_P">
+      <Value>$(QWTDIR_P)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalLibraryDirectories>$(QTDIR_P)\lib;$(QWTDIR_P)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>

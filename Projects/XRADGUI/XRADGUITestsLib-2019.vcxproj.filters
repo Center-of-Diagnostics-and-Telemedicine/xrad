@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include=".">
+      <UniqueIdentifier>{58176736-9fbb-4b40-af0d-0abd1ba0fc96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".\Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include=".\Generated Files\Release">
+      <UniqueIdentifier>{fb75fb2d-9079-4dea-880f-82f0fbda0a15}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include=".\Generated Files\Debug">
+      <UniqueIdentifier>{e7fb5a20-ec04-4173-b4b2-ed8654349b69}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="XRAD/Tests">
+      <UniqueIdentifier>{f2cdbf4d-9b49-4093-a99b-7ca28f4dc2c6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Sources\XRAD\Tests\StringConverters_Qt_Test.cpp">
+      <Filter>XRAD/Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="pre_GUI_tests.cpp">
+      <Filter>.</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pre_GUI.h">
+      <Filter>.</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\XRAD\Tests\StringConverters_Qt_Test.h">
+      <Filter>XRAD/Tests</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

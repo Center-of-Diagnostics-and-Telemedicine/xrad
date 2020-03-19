@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/cursors">
+        <file>brightness_contrast.png</file>
+    </qresource>
+</RCC>

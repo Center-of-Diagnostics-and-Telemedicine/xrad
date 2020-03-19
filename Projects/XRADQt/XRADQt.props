@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Condition="'$(Configuration)'=='Debug'" Label="PropertySheets">
+    <Import Project="XRADQt-debug.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)'=='Release'" Label="PropertySheets">
+    <Import Project="XRADQt-release.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)'=='DebugEHA'" Label="PropertySheets">
+    <Import Project="XRADQt-debug.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)'=='ReleaseEHA'" Label="PropertySheets">
+    <Import Project="XRADQt-release.props" />
+  </ImportGroup>
+</Project>
