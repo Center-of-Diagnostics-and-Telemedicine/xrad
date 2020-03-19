@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <PreprocessorDefinitions>XRAD_MSVC_EHA=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup Label="UserMacros">
+    <XRAD_MSVC_EHA>1</XRAD_MSVC_EHA>
+    <XRAD_LibEHASuffix>EHA</XRAD_LibEHASuffix>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="XRAD_MSVC_EHA">
+      <Value>$(XRAD_MSVC_EHA)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="XRAD_LibEHASuffix">
+      <Value>$(XRAD_LibEHASuffix)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <!-- References: -->
+  <!-- Natvis format: https://msdn.microsoft.com/en-us/library/jj620914.aspx -->
+  <!-- Data format specifiers: https://msdn.microsoft.com/en-us/library/75w45ekt.aspx -->
+<!--TODO something
+
+-->
+
+  <Type Name="xrad::physical_speed">
+    <DisplayString>{value} cm/sec</DisplayString>
+    <Expand>
+      <Item Name="[mm/sec]">value*1.e1</Item>
+      <Item Name="[m/sec]">value*1.e-2</Item>
+      <Item Name="[km/sec]">value*1.e-5</Item>
+      <Item Name="[mm/mks]">value*1.e-5</Item>
+      <Item Name="[cm/mks]">value*1.e-6</Item>
+      <Item Name="[km/h]">value*3.6/100.</Item>
+    </Expand>
+  </Type>
+
+
+  <Type Name="xrad::physical_length">
+    <DisplayString>{value} cm</DisplayString>
+    <Expand>
+      <Item Name="[mkm]">value*1.e4</Item>
+      <Item Name="[mm]">value*1.e1</Item>
+      <Item Name="[dm]">value*1.e-1</Item>
+      <Item Name="[meter]">value*1.e-2</Item>
+      <Item Name="[km]">value*1.e-5</Item>
+      <Item Name="[inch]">value/2.54</Item>
+      <Item Name="[foot]">value/30.48</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::physical_frequency">
+    <DisplayString>{value} Hz</DisplayString>
+    <Expand>
+      <Item Name="[KHz]">value/1000</Item>
+      <Item Name="[MHz]">value/1.0e6</Item>
+      <Item Name="[Rad/s]">value*2*3.1415926</Item>
+      <Item Name="[KRad/s]">value*2.*3.1415926/1.e3</Item>
+      <Item Name="[MRad/s]">value*2.*3.1415926/1.e6</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::physical_time">
+    <DisplayString>{value} sec</DisplayString>
+    <Expand>
+      <Item Name="[msec]">value*1000</Item>
+      <Item Name="[mksec]">value*1.0e6</Item>
+      <Item Name="[minutes]">value/60</Item>
+      <Item Name="[hours]">value/3600</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::physical_length">
+    <DisplayString>{value} cm</DisplayString>
+    <Expand>
+      <Item Name="[mkm]">value*10000</Item>
+      <Item Name="[mm]">value*10</Item>
+      <Item Name="[m]">value/100</Item>
+      <Item Name="[km]">value/100000</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::physical_angle">
+    <DisplayString>{value*57.295779513082320876798154814105} degrees</DisplayString>
+    <Expand>
+      <Item Name="[radians]">value</Item>
+      <Item Name="[grad]">value*57.295779513082320876798154814105/0.9</Item>
+      <Item Name="[turns]">value/(2*3.1415926)</Item>
+    </Expand>
+  </Type>
+
+
+  <!-- TODO: Реализовать остальные physical units. -->
+
+  <Type Name="xrad::iterator_range_checker&lt;*,*&gt;">
+    <!-- У отладчика VS проблемы с арифметикой 64-битных целых чисел (операции выполняются, как с беззнаковыми целыми).
+      Поэтому приходится отдельно вычислять значения для положительной и отрицательной разности указателей. -->
+    <DisplayString Condition="kernel_ptr->m_current_datum &lt; kernel_ptr->m_data">{{ position={-(kernel_ptr->m_data - kernel_ptr->m_current_datum)/kernel_ptr->m_step} [{-((char*)kernel_ptr->m_data - (char*)kernel_ptr->m_current_datum)%((kernel_ptr->m_step&lt;0?-kernel_ptr->m_step:kernel_ptr->m_step)*sizeof($T1))} b], min_pos={min_pos/kernel_ptr->m_step}, max_pos={max_pos/kernel_ptr->m_step}, value={kernel_ptr->m_current_datum} }}</DisplayString>
+    <DisplayString>{{ position={(kernel_ptr->m_current_datum - kernel_ptr->m_data)/kernel_ptr->m_step} [{((char*)kernel_ptr->m_current_datum - (char*)kernel_ptr->m_data)%((kernel_ptr->m_step&lt;0?-kernel_ptr->m_step:kernel_ptr->m_step)*sizeof($T1))}], min. position={min_pos/kernel_ptr->m_step}, max. position={max_pos/kernel_ptr->m_step}, value={kernel_ptr->m_current_datum} }}</DisplayString>
+    <Expand>
+      <Item Name="[raw_position]" Condition="kernel_ptr->m_current_datum &lt; kernel_ptr->m_data">-(kernel_ptr->m_data - kernel_ptr->m_current_datum)</Item>
+      <Item Name="[raw_position]" Condition="kernel_ptr->m_current_datum &gt;= kernel_ptr->m_data">(kernel_ptr->m_current_datum - kernel_ptr->m_data)</Item>
+      <Item Name="[raw_residual, bytes]" Condition="kernel_ptr->m_current_datum &lt; kernel_ptr->m_data">-((char*)kernel_ptr->m_data - (char*)kernel_ptr->m_current_datum)%((kernel_ptr->m_step&lt;0?-kernel_ptr->m_step:kernel_ptr->m_step)*sizeof($T1))</Item>
+      <Item Name="[raw_residual, bytes]" Condition="kernel_ptr->m_current_datum &gt;= kernel_ptr->m_data">((char*)kernel_ptr->m_current_datum - (char*)kernel_ptr->m_data)%((kernel_ptr->m_step&lt;0?-kernel_ptr->m_step:kernel_ptr->m_step)*sizeof($T1))</Item>
+      <Item Name="[raw_value_size, bytes]">sizeof($T1)</Item>
+      <Item Name="[raw_min_pos]">min_pos</Item>
+      <Item Name="[raw_max_pos]">max_pos</Item>
+      <Item Name="[raw_step]">kernel_ptr->m_step</Item>
+      <Item Name="[normalized_position]" Condition="kernel_ptr->m_current_datum &lt; kernel_ptr->m_data">-(kernel_ptr->m_data - kernel_ptr->m_current_datum)/kernel_ptr->m_step</Item>
+      <Item Name="[normalized_position]" Condition="kernel_ptr->m_current_datum &gt;= kernel_ptr->m_data">(kernel_ptr->m_current_datum - kernel_ptr->m_data)/kernel_ptr->m_step</Item>
+      <Item Name="[normalized_min_pos]">min_pos/kernel_ptr->m_step</Item>
+      <Item Name="[normalized_max_pos]">max_pos/kernel_ptr->m_step</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::DataOwner&lt;*&gt;">
+    <!-- <AlternativeType Name="xrad::FixedSizeArray&lt;*,*&gt;"></AlternativeType> - выделено в отдельный шаблон -->
+    <DisplayString Condition="m_size == 0">{{ empty }}</DisplayString>
+    <DisplayString Condition="m_step == 1">{{ size={m_size}, step={m_step}, own={m_ownData}, ({m_data,[m_size]na}) }}</DisplayString>
+    <!-- Если m_step != 1, показ элементов массива в DisplayString встроенными средствами невозможен. Показываем вручную. -->
+    <DisplayString Condition="m_size == 1">{{ size={m_size}, step={m_step}, own={m_ownData}, ({{ {m_data[0]} }}) }}</DisplayString>
+    <DisplayString Condition="m_size == 2">{{ size={m_size}, step={m_step}, own={m_ownData}, ({{ {m_data[0]}, {m_data[m_step]} }}) }}</DisplayString>
+    <DisplayString Condition="m_size == 3">{{ size={m_size}, step={m_step}, own={m_ownData}, ({{ {m_data[0]}, {m_data[m_step]}, {m_data[2*m_step]} }}) }}</DisplayString>
+    <DisplayString Condition="m_size == 4">{{ size={m_size}, step={m_step}, own={m_ownData}, ({{ {m_data[0]}, {m_data[m_step]}, {m_data[2*m_step]}, {m_data[3*m_step]} }}) }}</DisplayString>
+    <!-- Если m_step != 1 и количество элементов больше 4, показываем первые 4 элемента и многоточие. -->
+    <DisplayString>{{size={m_size}, step={m_step}, own={m_ownData}, ({{ {m_data[0]}, {m_data[m_step]}, {m_data[2*m_step]}, {m_data[3*m_step]}, ...}}) }}</DisplayString>
+    <Expand>
+      <Item Name="[size]">m_size</Item>
+      <Item Name="[step]">m_step</Item>
+      <Item Name="[own]">m_ownData</Item>
+      <Item Name="[data]" Condition="m_size == 0">m_data</Item>
+      <Synthetic Name="[data]" Condition="m_size != 0 &amp;&amp; m_step == 1">
+        <Expand>
+          <ArrayItems>
+            <Size>m_size</Size>
+            <ValuePointer>m_data</ValuePointer>
+          </ArrayItems>
+        </Expand>
+      </Synthetic>
+      <Synthetic Name="[data]" Condition="m_size != 0 &amp;&amp; m_step != 1">
+        <Expand>
+          <IndexListItems>
+            <Size>m_size</Size>
+            <ValueNode>m_data[$i * m_step]</ValueNode>
+          </IndexListItems>
+        </Expand>
+      </Synthetic>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::FixedSizeArray&lt;*,*&gt;">
+    <DisplayString Condition="$T2 == 0">{{ empty }}</DisplayString>
+    <DisplayString>{{ size={$T2}, ({($T1*)m_data,[$T2]na}) }}</DisplayString>
+    <Expand>
+      <Item Name="[size]">$T2</Item>
+      <ArrayItems Condition="$T2 != 0 &amp;&amp; $T2 &lt;= 10">
+        <Size>m_size</Size>
+        <ValuePointer>m_data</ValuePointer>
+      </ArrayItems>
+      <Synthetic Name="[data]" Condition="$T2 &gt; 10">
+        <Expand>
+          <ArrayItems>
+            <Size>m_size</Size>
+            <ValuePointer>m_data</ValuePointer>
+          </ArrayItems>
+        </Expand>
+      </Synthetic>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::point_2&lt;*,*,*&gt;">
+    <DisplayString>{{ x={m_data[x_position]}, y={m_data[y_position]} }}</DisplayString>
+    <Expand>
+      <Item Name="[x]">m_data[x_position]</Item>
+      <Item Name="[y]">m_data[y_position]</Item>
+      <Item Name="[parent]">(parent*)this,ndna</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::point_3&lt;*,*,*&gt;">
+    <DisplayString>{{ x={m_data[x_position]}, y={m_data[y_position]}, z={m_data[z_position]} }}</DisplayString>
+    <Expand>
+      <Item Name="[x]">m_data[x_position]</Item>
+      <Item Name="[y]">m_data[y_position]</Item>
+      <Item Name="[z]">m_data[z_position]</Item>
+      <Item Name="[parent]">(parent*)this,ndna</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::range_1&lt;*,*,*&gt;">
+    <DisplayString>{{ {m_data[x1_position]}÷{m_data[x2_position]} }}</DisplayString>
+    <Expand>
+      <Item Name="[x1]">m_data[x1_position]</Item>
+      <Item Name="[x2]">m_data[x2_position]</Item>
+      <Item Name="[parent]">(parent*)this,ndna</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::range_2&lt;*,*,*&gt;">
+    <DisplayString>{{ x={m_data[x1_position]}÷{m_data[x2_position]}, y={m_data[y1_position]}÷{m_data[y2_position]} }}</DisplayString>
+    <Expand>
+      <Item Name="[x1]">m_data[x1_position]</Item>
+      <Item Name="[x2]">m_data[x2_position]</Item>
+      <Item Name="[y1]">m_data[y1_position]</Item>
+      <Item Name="[y2]">m_data[y2_position]</Item>
+      <Item Name="[parent]">(parent*)this,ndna</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::range_3&lt;*,*,*&gt;">
+    <DisplayString>{{ x={m_data[x1_position]}÷{m_data[x2_position]}, y={m_data[y1_position]}÷{m_data[y2_position]}, z={m_data[z1_position]}÷{m_data[z2_position]} }}</DisplayString>
+    <Expand>
+      <Item Name="[x1]">m_data[x1_position]</Item>
+      <Item Name="[x2]">m_data[x2_position]</Item>
+      <Item Name="[y1]">m_data[y1_position]</Item>
+      <Item Name="[y2]">m_data[y2_position]</Item>
+      <Item Name="[z1]">m_data[z1_position]</Item>
+      <Item Name="[z2]">m_data[z2_position]</Item>
+      <Item Name="[parent]">(parent*)this,ndna</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::DataArray2D&lt;*&gt;">
+    <DisplayString Condition="m_size == 0">{{ empty }}</DisplayString>
+    <DisplayString Condition="m_size != 0 &amp;&amp; m_step == 1 &amp;&amp; m_steps[1] == 1 &amp;&amp; m_steps[0] == m_sizes[1] &amp;&amp; origin_offset == 0">{{ sizes={&amp;*m_sizes,[m_dimensions_number]na}, steps={&amp;*m_steps,[m_dimensions_number]na} x {m_step}, own={m_ownData}, ({m_data,[m_size]na}) }}</DisplayString>
+    <DisplayString>{{ sizes={&amp;*m_sizes,[m_dimensions_number]na}, steps={&amp;*m_steps,[m_dimensions_number]na} x {m_step}, own={m_ownData}, origin={origin_offset}, ({{ {m_data[origin_offset]}, ...}}) }}</DisplayString>
+    <Expand>
+      <Item Name="[sizes]">&amp;*m_sizes,[m_dimensions_number]na</Item>
+      <Item Name="[steps]">&amp;*m_steps,[m_dimensions_number]na</Item>
+      <Item Name="[origin_offset]">origin_offset</Item>
+      <Item Name="[own]">m_ownData</Item>
+      <Item Name="[data]" Condition="m_size == 0">m_data</Item>
+      <Synthetic Name="[rows]" Condition="m_size != 0">
+        <Expand>
+          <IndexListItems>
+            <Size>m_sizes[0]</Size>
+            <ValueNode>m_rows.m_data[$i]</ValueNode>
+          </IndexListItems>
+        </Expand>
+      </Synthetic>
+      <Synthetic Name="[columns]" Condition="m_size != 0">
+        <Expand>
+          <IndexListItems>
+            <Size>m_sizes[1]</Size>
+            <ValueNode>m_columns.m_data[$i]</ValueNode>
+          </IndexListItems>
+        </Expand>
+      </Synthetic>
+      <Synthetic Name="[data]" Condition="m_size != 0 &amp;&amp; m_step == 1 &amp;&amp; m_steps[1] == 1">
+        <Expand>
+          <ArrayItems>
+            <Direction>Forward</Direction>
+            <Rank>m_dimensions_number</Rank>
+            <Size>m_sizes[$i]</Size>
+            <ValuePointer>m_data</ValuePointer>
+          </ArrayItems>
+        </Expand>
+      </Synthetic>
+      <!-- Выводим нижележащий DataOwner<T> -->
+      <Item Name="[parent]">(parent*)this,ndna</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="xrad::DataArrayMD&lt;*&gt;">
+    <DisplayString Condition="m_size == 0">{{ empty }}</DisplayString>
+    <DisplayString>{{ dim={m_sizes.m_size}, sizes={&amp;*m_sizes.m_data,[m_sizes.m_size]na}, steps={&amp;*m_steps.m_data,[m_steps.m_size]na} x {m_step}, own={m_ownData}, ({m_data}...) }}</DisplayString>
+    <Expand>
+      <Item Name="[dim]">m_sizes.m_size</Item>
+      <Item Name="[sizes]">&amp;*m_sizes.m_data,[m_sizes.m_size]na</Item>
+      <Item Name="[steps]">&amp;*m_steps.m_data,[m_steps.m_size]na</Item>
+      <Item Name="[own]">m_ownData</Item>
+      <Item Name="[data]" Condition="m_size == 0">m_data</Item>
+      <!-- Отображаем одномерные подмножества: один из индексов массива пробегает от 0 до max, остальные индексы равны 0. -->
+      <Synthetic Name="[data[i0=*,i*=0]]" Condition="m_sizes.m_size &gt; 0" Optional="true">
+        <Expand>
+          <IndexListItems>
+            <Size>m_sizes.m_data[0]</Size>
+            <ValueNode>m_data[$i * m_steps.m_data[0]]</ValueNode>
+          </IndexListItems>
+        </Expand>
+      </Synthetic>
+      <Synthetic Name="[data[i1=*,i*=0]]" Condition="m_sizes.m_size &gt; 1" Optional="true">
+        <Expand>
+          <IndexListItems>
+            <Size>m_sizes.m_data[1]</Size>
+            <ValueNode>m_data[$i * m_steps.m_data[1]]</ValueNode>
+          </IndexListItems>
+        </Expand>
+      </Synthetic>
+      <Synthetic Name="[data[i2=*,i*=0]]" Condition="m_sizes.m_size &gt; 2" Optional="true">
+        <Expand>
+          <IndexListItems>
+            <Size>m_sizes.m_data[2]</Size>
+            <ValueNode>m_data[$i * m_steps.m_data[2]]</ValueNode>
+          </IndexListItems>
+        </Expand>
+      </Synthetic>
+      <Synthetic Name="[data[i3=*,i*=0]]" Condition="m_sizes.m_size &gt; 3" Optional="true">
+        <Expand>
+          <IndexListItems>
+            <Size>m_sizes.m_data[3]</Size>
+            <ValueNode>m_data[$i * m_steps.m_data[3]]</ValueNode>
+          </IndexListItems>
+        </Expand>
+      </Synthetic>
+      <Synthetic Name="[data[i4=*,i*=0]]" Condition="m_sizes.m_size &gt; 4" Optional="true">
+        <Expand>
+          <IndexListItems>
+            <Size>m_sizes.m_data[4]</Size>
+            <ValueNode>m_data[$i * m_steps.m_data[4]]</ValueNode>
+          </IndexListItems>
+        </Expand>
+      </Synthetic>
+      <!-- Ограничиваемся пятью измерениями. Если измерений больше, выводим многоточие. -->
+      <Synthetic Name="[...]" Condition="m_sizes.m_size &gt; 5">
+        <DisplayString>...multidimensional...</DisplayString>
+      </Synthetic>
+      <!-- Выводим нижележащий DataOwner<T> -->
+      <Item Name="[parent]">(parent*)this,ndna</Item>
+    </Expand>
+  </Type>
+</AutoVisualizer>

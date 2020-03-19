@@ -1,0 +1,763 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{de09b193-22c8-426f-acbc-ab64f26cc8d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Algebra">
+      <UniqueIdentifier>{cbfaa917-7586-4405-b66a-d6485614b5c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Containers">
+      <UniqueIdentifier>{fea8b027-f943-4583-bdd6-09aed972209a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Core">
+      <UniqueIdentifier>{2cb8750d-38b9-4a68-bee0-bddda21dabc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\DataArrayIO">
+      <UniqueIdentifier>{b40d4fb1-d09e-4db8-b937-8e1580735157}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Fourier">
+      <UniqueIdentifier>{cde2c58f-e647-480c-9736-7d59580efbae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Math">
+      <UniqueIdentifier>{5295ff95-b7c0-4fd7-bb62-457098922300}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\PlatformSpecific/MSVC">
+      <UniqueIdentifier>{b9c9b5a3-dc25-4880-af76-4a88585c345f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\PlatformSpecific/MSVC\Internal">
+      <UniqueIdentifier>{9f854d0e-2dab-4a72-b866-e4e829f39fd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\SampleTypes">
+      <UniqueIdentifier>{b0f6f30d-656f-4819-90b1-315b9545c0fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\ScanConverter">
+      <UniqueIdentifier>{b40d4fb1-d09e-4db8-b937-8e1580735850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Utils">
+      <UniqueIdentifier>{b40d4fb1-d09e-4db8-b937-8e9cd602da81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Projects">
+      <UniqueIdentifier>{62b41888-09de-478b-8ad0-d452b1a35d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{0f534fa5-9196-4cdc-9e8c-1e49fc416881}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\nlohmann">
+      <UniqueIdentifier>{1e7cd58e-8174-47e5-8833-fd90157f3162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\md5">
+      <UniqueIdentifier>{86b29ff0-ea29-416e-a2df-5e29f5f50747}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Sources\Containers\ContainersBasic.cpp">
+      <Filter>Sources\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Containers\InterpolationAuxiliaries.cpp">
+      <Filter>Sources\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Containers\UniversalInterpolation.cpp">
+      <Filter>Sources\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Containers\UniversalInterpolation2D.cpp">
+      <Filter>Sources\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Containers\WindowFunction.cpp">
+      <Filter>Sources\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\BasicUtils.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\CompilerSpecificChecks.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\EscapeSequences.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\Exceptions.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\FlowControl.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\PerformanceCounter.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\String.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\StringEncode.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\i18n.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\DataArrayIO\DataArrayIOFunctions.cpp">
+      <Filter>Sources\DataArrayIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\DataArrayIO\DataArrayIOTypes.cpp">
+      <Filter>Sources\DataArrayIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Fourier\CooleyTukeyFFT.cpp">
+      <Filter>Sources\Fourier</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Fourier\DecompositionFFT.cpp">
+      <Filter>Sources\Fourier</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Fourier\FourierBasic.cpp">
+      <Filter>Sources\Fourier</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Math\SpecialFunctions.cpp">
+      <Filter>Sources\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\CoreUtils_MS.cpp">
+      <Filter>Sources\PlatformSpecific/MSVC\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\StringConverters_MS.cpp">
+      <Filter>Sources\PlatformSpecific/MSVC\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\ThreadSetup_MS.cpp">
+      <Filter>Sources\PlatformSpecific/MSVC\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\BSplines.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\ConsoleProgress.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\DistributionContainer.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\DistributionTransformer.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\FibonacciRandoms.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\GradientPalette.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\LeastSquares.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\ProgressProxyApi.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\RandomNoiseGenerator.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\StatisticUtils.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\ThreadUtils.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\TimeProfiler.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="XRADBasic_pre.cpp">
+      <Filter>Projects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\ProgressIndicatorScheduler.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\SampleTypes\HLSColorSample.cpp">
+      <Filter>Sources\SampleTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\SampleTypes\LABColorSample.cpp">
+      <Filter>Sources\SampleTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\BitmapContainer.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ThirdParty\md5\md5_core.cpp">
+      <Filter>ThirdParty\md5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\md5.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\date_utils.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\numbers_in_string.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\BooleanFunctionTypes.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Containers.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ContainersAlgebra.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Core.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DataArrayIO.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FFT1D.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FFT2D.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FFTMD.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FIRFilterKernelTypes.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FIRFilterKernelTypes2D.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LinearVectorTypes.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Math.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MathFunctionTypes.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MathFunctionTypes2D.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MathFunctionTypesMD.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MathMatrixTypes.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SampleTypes.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\AlgebraElement.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\AlgebraicAlgorithms2D.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\AlgebraicAlgorithmsDataArray.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\AlgebraicAlgorithmsFixedSizeArray.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\AlgebraicAlgorithmsMD.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\AlgebraicStructures1D.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\AlgebraicStructures2D.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\AlgebraicStructuresMD.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\BooleanAlgebraElement.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\ComplexAlgebraElement.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\ComplexFieldElement.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\FieldElement.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Algebra\FieldTraits.h">
+      <Filter>Sources\Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ArrayAnalyzeFunctors.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\BasicArrayInteractions1D.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\BasicArrayInteractions2D.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\BasicArrayInteractionsMD.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\BooleanFunction.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\BooleanFunction2D.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ColorContainer.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ColorContainer.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ComplexContainer.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ComplexContainer.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ComplexFunction.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ComplexFunction.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ComplexFunction2D.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ComplexFunction2D.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ComplexFunctionMD.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ComplexFunctionMD.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ContainerCheck.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ContainersBasic.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataArray.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataArray.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataArray2D.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataArray2D.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataArrayAnalyze.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataArrayAnalyze2D.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataArrayAnalyzeMD.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataArrayHistogram.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataArrayHistogram2D.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataArrayMD.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataArrayMD.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataOwner.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\DataOwner.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\FIRFilterKernel.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\FIRFilterKernel.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\FIRFilterKernel2D.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\FIRFilterKernel2D.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\FixedSizeArray.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\FixedSizeArray.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\FixedSizeArrayAnalyze.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\IndexVector.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\InterpolationAuxiliaries.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\Iterators.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\Iterators.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\LinearVector.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\LinearVectorFixedDimensions.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\LinearVectorFixedDimensions.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\MathFunction.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\MathFunction.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\MathFunction2D.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\MathFunction2D.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\MathFunctionMD.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\MathFunctionMD.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\MathMatrix.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\MathMatrix.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\RealFunction.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\RealFunction.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\ReferenceOwner.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\SpaceCoordinates.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\UniversalInterpolation.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\UniversalInterpolation.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\UniversalInterpolation2D.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\UniversalInterpolation2D.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\WindowFunction.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\WindowFunction.hh">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\BasicMacros.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\BasicUtils.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\cloning_ptr.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\CommonConfig.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\CompilerSpecific.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\CompilerSpecificQC.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Config.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Endian.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\EscapeSequences.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Exceptions.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\FlowControl.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\ForceDebugBreak.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Functional.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Functors.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\HexChar.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\i18n.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Limits.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Main.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\MathConstants.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\NumberTraits.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\PerformanceCounter.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\String.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\StringEncode.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\ThreadSetup.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\ThreadSetup.hh">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\DataArrayIO\DataArrayIOFunctions.h">
+      <Filter>Sources\DataArrayIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\DataArrayIO\DataArrayIOFunctions.hh">
+      <Filter>Sources\DataArrayIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\DataArrayIO\DataArrayIOEnum.h">
+      <Filter>Sources\DataArrayIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\DataArrayIO\DataArrayIOTypes.h">
+      <Filter>Sources\DataArrayIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\DataArrayIO\DataArrayIOTypesHelpers.h">
+      <Filter>Sources\DataArrayIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Fourier\CooleyTukeyFFT.h">
+      <Filter>Sources\Fourier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Fourier\DecompositionFFT.h">
+      <Filter>Sources\Fourier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Fourier\FourierBasic.h">
+      <Filter>Sources\Fourier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Fourier\FourierDefs.h">
+      <Filter>Sources\Fourier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Fourier\FourierPhasors.h">
+      <Filter>Sources\Fourier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Fourier\FourierPhasors.hh">
+      <Filter>Sources\Fourier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Fourier\WinogradShortFFT.h">
+      <Filter>Sources\Fourier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Fourier\WinogradShortFFT.hh">
+      <Filter>Sources\Fourier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Math\SpecialFunctions.h">
+      <Filter>Sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADBasicLink.h">
+      <Filter>Sources\PlatformSpecific/MSVC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\CoreUtils_MS.h">
+      <Filter>Sources\PlatformSpecific/MSVC\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\MSVCCompilerSpecific.h">
+      <Filter>Sources\PlatformSpecific/MSVC\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\StringConverters_MS.h">
+      <Filter>Sources\PlatformSpecific/MSVC\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\ThreadSetup_MS.h">
+      <Filter>Sources\PlatformSpecific/MSVC\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\SampleTypes\BooleanSample.h">
+      <Filter>Sources\SampleTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\SampleTypes\ColorSample.h">
+      <Filter>Sources\SampleTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\SampleTypes\ColorSample.hh">
+      <Filter>Sources\SampleTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\SampleTypes\ComplexSample.h">
+      <Filter>Sources\SampleTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\SampleTypes\ComplexSample.hh">
+      <Filter>Sources\SampleTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\SampleTypes\HLSColorSample.h">
+      <Filter>Sources\SampleTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\SampleTypes\HomomorphSamples.h">
+      <Filter>Sources\SampleTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\SampleTypes\LABColorSample.h">
+      <Filter>Sources\SampleTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\ScanConverter\ScanAreaGeometry.h">
+      <Filter>Sources\ScanConverter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\ScanConverter\ScanConverter.h">
+      <Filter>Sources\ScanConverter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\ScanConverter\ScanConverter.hh">
+      <Filter>Sources\ScanConverter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\ScanConverter\ScanConverterOptions.h">
+      <Filter>Sources\ScanConverter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\ScanConverter\TableInterpolator.h">
+      <Filter>Sources\ScanConverter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\BSplines.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\ConsoleProgress.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\Crayons.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\DistributionContainer.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\DistributionTransformer.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\FibonacciRandoms.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\FibonacciRandoms.hh">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\GradientPalette.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\LeastSquares.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\LeastSquaresAlgorithms.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\LeastSquaresAlgorithms.hh">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\ParallelProcessor.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\PhysicalUnits.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\ProcessorPoolDispatcher.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\ProcessorPoolDispatcher.hh">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\ProgressProxyApi.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\RandomNoiseGenerator.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\SolveLinearSystem.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\StatisticUtils.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\ThreadUtils.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\TimeProfiler.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="pre.h">
+      <Filter>Projects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\Predicate.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\ProgressIndicatorScheduler.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\ValuePredicates.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Containers\VectorFunction.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\SampleTypes\FixedPointSample.h">
+      <Filter>Sources\SampleTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\ExponentialBlurAlgorithms.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\ExponentialBlurAlgorithms.hh">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\ImageUtils.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\ImageUtils.hh">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\BitmapContainer.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\nlohmann\json.hpp">
+      <Filter>ThirdParty\nlohmann</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\md5\md5_core.h">
+      <Filter>ThirdParty\md5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\md5.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\date_utils.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\numbers_in_string.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Sources\Algebra\FieldElement.dox">
+      <Filter>Sources\Algebra</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\ThirdParty\nlohmann\readme.txt">
+      <Filter>ThirdParty\nlohmann</Filter>
+    </Text>
+    <Text Include="..\ThirdParty\md5\readme.txt">
+      <Filter>ThirdParty\md5</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

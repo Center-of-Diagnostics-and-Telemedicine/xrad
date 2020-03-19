@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)-$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(ConfigurationType)'!='StaticLibrary'">
+    <OutDir>$(SolutionDir)bin\$(PlatformTarget)-$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(ConfigurationType)'=='StaticLibrary'">
+    <OutDir>$(SolutionDir)lib\$(PlatformTarget)-$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Label="UserMacros">
+    <XRAD_LibDir>$(SolutionDir)lib\$(PlatformTarget)-$(Configuration)\</XRAD_LibDir>
+    <XRAD_CommonLibDir>$(XRADInstall)\lib\MSVC2015\$(PlatformTarget)-$(XRAD_Config_Debug)$(XRAD_LibEHASuffix)\</XRAD_CommonLibDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="XRAD_LibDir">
+      <Value>$(XRAD_LibDir)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="XRAD_CommonLibDir">
+      <Value>$(XRAD_CommonLibDir)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(XRADRoot);$(XRADThirdParty)\vld\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pre.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <ProgramDataBaseFileName Condition="'$(ConfigurationType)'=='StaticLibrary'">$(OutDir)\$(TargetName).pdb</ProgramDataBaseFileName>
+      <OpenMPSupport>true</OpenMPSupport>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(XRAD_CommonLibDir);$(XRAD_LibDir);$(XRADThirdParty)\vld\lib\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ImportLibrary Condition="'$(ConfigurationType)'=='DynamicLibrary'">$(XRAD_LibDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+    <ResourceCompile>
+      <AdditionalOptions>/c65001 %(AdditionalOptions)</AdditionalOptions>
+    </ResourceCompile>
+    <PostBuildEvent Condition="'$(ConfigurationType)'!='StaticLibrary'">
+      <Command>%(Command)
+call $(XRADRoot)\XRADBasic\MSVC\CopyMSVCRuntime.bat $(OutDir) $(PlatformTarget) $(XRAD_Config_Debug)
+call $(XRADRoot)\XRADBasic\MSVC\CopyVLDRuntime.bat $(OutDir) $(PlatformTarget) $(XRAD_Config_Debug)
+call $(XRADRoot)\XRADBasic\MSVC\CopyNatvis.bat $(SolutionDir)bin</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+</Project>

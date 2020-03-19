@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugEHA|Win32">
+      <Configuration>DebugEHA</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugEHA|x64">
+      <Configuration>DebugEHA</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseEHA|Win32">
+      <Configuration>ReleaseEHA</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseEHA|x64">
+      <Configuration>ReleaseEHA</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B347299D-9533-4E3A-86F4-C0595B114C68}</ProjectGuid>
+    <RootNamespace>XRADBasic</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>XRADBasic</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADBasic-2019.props" />
+    <Import Project="XRAD-2019-StdTarget.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADBasic-2019.props" />
+    <Import Project="XRAD-2019-StdTarget.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADBasic-2019.props" />
+    <Import Project="XRAD-2019-StdTarget.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADBasic-2019.props" />
+    <Import Project="XRAD-2019-StdTarget.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADBasic-2019.props" />
+    <Import Project="XRAD-2019-StdTarget.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADBasic-2019.props" />
+    <Import Project="XRAD-2019-StdTarget.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADBasic-2019.props" />
+    <Import Project="XRAD-2019-StdTarget.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADBasic-2019.props" />
+    <Import Project="XRAD-2019-StdTarget.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'">
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Sources\Containers\ContainersBasic.cpp" />
+    <ClCompile Include="..\Sources\Containers\InterpolationAuxiliaries.cpp" />
+    <ClCompile Include="..\Sources\Containers\UniversalInterpolation.cpp" />
+    <ClCompile Include="..\Sources\Containers\UniversalInterpolation2D.cpp" />
+    <ClCompile Include="..\Sources\Containers\WindowFunction.cpp" />
+    <ClCompile Include="..\Sources\Core\BasicUtils.cpp" />
+    <ClCompile Include="..\Sources\Core\CompilerSpecificChecks.cpp" />
+    <ClCompile Include="..\Sources\Core\EscapeSequences.cpp" />
+    <ClCompile Include="..\Sources\Core\Exceptions.cpp" />
+    <ClCompile Include="..\Sources\Core\FlowControl.cpp" />
+    <ClCompile Include="..\Sources\Core\PerformanceCounter.cpp" />
+    <ClCompile Include="..\Sources\Core\String.cpp" />
+    <ClCompile Include="..\Sources\Core\StringEncode.cpp" />
+    <ClCompile Include="..\Sources\Core\i18n.cpp" />
+    <ClCompile Include="..\Sources\DataArrayIO\DataArrayIOFunctions.cpp" />
+    <ClCompile Include="..\Sources\DataArrayIO\DataArrayIOTypes.cpp" />
+    <ClCompile Include="..\Sources\Fourier\CooleyTukeyFFT.cpp" />
+    <ClCompile Include="..\Sources\Fourier\DecompositionFFT.cpp" />
+    <ClCompile Include="..\Sources\Fourier\FourierBasic.cpp" />
+    <ClCompile Include="..\Sources\Math\SpecialFunctions.cpp" />
+    <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\CoreUtils_MS.cpp" />
+    <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\StringConverters_MS.cpp" />
+    <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\ThreadSetup_MS.cpp" />
+    <ClCompile Include="..\Sources\SampleTypes\HLSColorSample.cpp" />
+    <ClCompile Include="..\Sources\SampleTypes\LABColorSample.cpp" />
+    <ClCompile Include="..\Sources\Utils\BitmapContainer.cpp" />
+    <ClCompile Include="..\Sources\Utils\BSplines.cpp" />
+    <ClCompile Include="..\Sources\Utils\ConsoleProgress.cpp" />
+    <ClCompile Include="..\Sources\Utils\date_utils.cpp" />
+    <ClCompile Include="..\Sources\Utils\DistributionContainer.cpp" />
+    <ClCompile Include="..\Sources\Utils\DistributionTransformer.cpp" />
+    <ClCompile Include="..\Sources\Utils\FibonacciRandoms.cpp" />
+    <ClCompile Include="..\Sources\Utils\GradientPalette.cpp" />
+    <ClCompile Include="..\Sources\Utils\LeastSquares.cpp" />
+    <ClCompile Include="..\Sources\Utils\md5.cpp" />
+    <ClCompile Include="..\Sources\Utils\numbers_in_string.cpp" />
+    <ClCompile Include="..\Sources\Utils\ProgressIndicatorScheduler.cpp" />
+    <ClCompile Include="..\Sources\Utils\ProgressProxyApi.cpp" />
+    <ClCompile Include="..\Sources\Utils\RandomNoiseGenerator.cpp" />
+    <ClCompile Include="..\Sources\Utils\StatisticUtils.cpp" />
+    <ClCompile Include="..\Sources\Utils\ThreadUtils.cpp" />
+    <ClCompile Include="..\Sources\Utils\TimeProfiler.cpp" />
+    <ClCompile Include="..\ThirdParty\md5\md5_core.cpp" />
+    <ClCompile Include="XRADBasic_pre.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\BooleanFunctionTypes.h" />
+    <ClInclude Include="..\Containers.h" />
+    <ClInclude Include="..\ContainersAlgebra.h" />
+    <ClInclude Include="..\Core.h" />
+    <ClInclude Include="..\DataArrayIO.h" />
+    <ClInclude Include="..\FFT1D.h" />
+    <ClInclude Include="..\FFT2D.h" />
+    <ClInclude Include="..\FFTMD.h" />
+    <ClInclude Include="..\FIRFilterKernelTypes.h" />
+    <ClInclude Include="..\FIRFilterKernelTypes2D.h" />
+    <ClInclude Include="..\LinearVectorTypes.h" />
+    <ClInclude Include="..\Math.h" />
+    <ClInclude Include="..\MathFunctionTypes.h" />
+    <ClInclude Include="..\MathFunctionTypes2D.h" />
+    <ClInclude Include="..\MathFunctionTypesMD.h" />
+    <ClInclude Include="..\MathMatrixTypes.h" />
+    <ClInclude Include="..\SampleTypes.h" />
+    <ClInclude Include="..\Sources\Algebra\AlgebraElement.h" />
+    <ClInclude Include="..\Sources\Algebra\AlgebraicAlgorithms2D.h" />
+    <ClInclude Include="..\Sources\Algebra\AlgebraicAlgorithmsDataArray.h" />
+    <ClInclude Include="..\Sources\Algebra\AlgebraicAlgorithmsFixedSizeArray.h" />
+    <ClInclude Include="..\Sources\Algebra\AlgebraicAlgorithmsMD.h" />
+    <ClInclude Include="..\Sources\Algebra\AlgebraicStructures1D.h" />
+    <ClInclude Include="..\Sources\Algebra\AlgebraicStructures2D.h" />
+    <ClInclude Include="..\Sources\Algebra\AlgebraicStructuresMD.h" />
+    <ClInclude Include="..\Sources\Algebra\BooleanAlgebraElement.h" />
+    <ClInclude Include="..\Sources\Algebra\ComplexAlgebraElement.h" />
+    <ClInclude Include="..\Sources\Algebra\ComplexFieldElement.h" />
+    <ClInclude Include="..\Sources\Algebra\FieldElement.h" />
+    <ClInclude Include="..\Sources\Algebra\FieldTraits.h" />
+    <ClInclude Include="..\Sources\Containers\ArrayAnalyzeFunctors.h" />
+    <ClInclude Include="..\Sources\Containers\BasicArrayInteractions1D.h" />
+    <ClInclude Include="..\Sources\Containers\BasicArrayInteractions2D.h" />
+    <ClInclude Include="..\Sources\Containers\BasicArrayInteractionsMD.h" />
+    <ClInclude Include="..\Sources\Containers\BooleanFunction.h" />
+    <ClInclude Include="..\Sources\Containers\BooleanFunction2D.h" />
+    <ClInclude Include="..\Sources\Containers\ColorContainer.h" />
+    <ClInclude Include="..\Sources\Containers\ColorContainer.hh" />
+    <ClInclude Include="..\Sources\Containers\ComplexContainer.h" />
+    <ClInclude Include="..\Sources\Containers\ComplexContainer.hh" />
+    <ClInclude Include="..\Sources\Containers\ComplexFunction.h" />
+    <ClInclude Include="..\Sources\Containers\ComplexFunction.hh" />
+    <ClInclude Include="..\Sources\Containers\ComplexFunction2D.h" />
+    <ClInclude Include="..\Sources\Containers\ComplexFunction2D.hh" />
+    <ClInclude Include="..\Sources\Containers\ComplexFunctionMD.h" />
+    <ClInclude Include="..\Sources\Containers\ComplexFunctionMD.hh" />
+    <ClInclude Include="..\Sources\Containers\ContainerCheck.h" />
+    <ClInclude Include="..\Sources\Containers\ContainersBasic.h" />
+    <ClInclude Include="..\Sources\Containers\DataArray.h" />
+    <ClInclude Include="..\Sources\Containers\DataArray.hh" />
+    <ClInclude Include="..\Sources\Containers\DataArray2D.h" />
+    <ClInclude Include="..\Sources\Containers\DataArray2D.hh" />
+    <ClInclude Include="..\Sources\Containers\DataArrayAnalyze.h" />
+    <ClInclude Include="..\Sources\Containers\DataArrayAnalyze2D.h" />
+    <ClInclude Include="..\Sources\Containers\DataArrayAnalyzeMD.h" />
+    <ClInclude Include="..\Sources\Containers\DataArrayHistogram.h" />
+    <ClInclude Include="..\Sources\Containers\DataArrayHistogram2D.h" />
+    <ClInclude Include="..\Sources\Containers\DataArrayMD.h" />
+    <ClInclude Include="..\Sources\Containers\DataArrayMD.hh" />
+    <ClInclude Include="..\Sources\Containers\DataOwner.h" />
+    <ClInclude Include="..\Sources\Containers\DataOwner.hh" />
+    <ClInclude Include="..\Sources\Containers\FIRFilterKernel.h" />
+    <ClInclude Include="..\Sources\Containers\FIRFilterKernel.hh" />
+    <ClInclude Include="..\Sources\Containers\FIRFilterKernel2D.h" />
+    <ClInclude Include="..\Sources\Containers\FIRFilterKernel2D.hh" />
+    <ClInclude Include="..\Sources\Containers\FixedSizeArray.h" />
+    <ClInclude Include="..\Sources\Containers\FixedSizeArray.hh" />
+    <ClInclude Include="..\Sources\Containers\FixedSizeArrayAnalyze.h" />
+    <ClInclude Include="..\Sources\Containers\IndexVector.h" />
+    <ClInclude Include="..\Sources\Containers\InterpolationAuxiliaries.h" />
+    <ClInclude Include="..\Sources\Containers\Iterators.h" />
+    <ClInclude Include="..\Sources\Containers\Iterators.hh" />
+    <ClInclude Include="..\Sources\Containers\LinearVector.h" />
+    <ClInclude Include="..\Sources\Containers\LinearVectorFixedDimensions.h" />
+    <ClInclude Include="..\Sources\Containers\LinearVectorFixedDimensions.hh" />
+    <ClInclude Include="..\Sources\Containers\MathFunction.h" />
+    <ClInclude Include="..\Sources\Containers\MathFunction.hh" />
+    <ClInclude Include="..\Sources\Containers\MathFunction2D.h" />
+    <ClInclude Include="..\Sources\Containers\MathFunction2D.hh" />
+    <ClInclude Include="..\Sources\Containers\MathFunctionMD.h" />
+    <ClInclude Include="..\Sources\Containers\MathFunctionMD.hh" />
+    <ClInclude Include="..\Sources\Containers\MathMatrix.h" />
+    <ClInclude Include="..\Sources\Containers\MathMatrix.hh" />
+    <ClInclude Include="..\Sources\Containers\RealFunction.h" />
+    <ClInclude Include="..\Sources\Containers\RealFunction.hh" />
+    <ClInclude Include="..\Sources\Containers\ReferenceOwner.h" />
+    <ClInclude Include="..\Sources\Containers\SpaceCoordinates.h" />
+    <ClInclude Include="..\Sources\Containers\UniversalInterpolation.h" />
+    <ClInclude Include="..\Sources\Containers\UniversalInterpolation.hh" />
+    <ClInclude Include="..\Sources\Containers\UniversalInterpolation2D.h" />
+    <ClInclude Include="..\Sources\Containers\UniversalInterpolation2D.hh" />
+    <ClInclude Include="..\Sources\Containers\VectorFunction.h" />
+    <ClInclude Include="..\Sources\Containers\WindowFunction.h" />
+    <ClInclude Include="..\Sources\Containers\WindowFunction.hh" />
+    <ClInclude Include="..\Sources\Core\BasicMacros.h" />
+    <ClInclude Include="..\Sources\Core\BasicUtils.h" />
+    <ClInclude Include="..\Sources\Core\CommonConfig.h" />
+    <ClInclude Include="..\Sources\Core\CompilerSpecific.h" />
+    <ClInclude Include="..\Sources\Core\CompilerSpecificQC.h" />
+    <ClInclude Include="..\Sources\Core\Config.h" />
+    <ClInclude Include="..\Sources\Core\Endian.h" />
+    <ClInclude Include="..\Sources\Core\EscapeSequences.h" />
+    <ClInclude Include="..\Sources\Core\Exceptions.h" />
+    <ClInclude Include="..\Sources\Core\FlowControl.h" />
+    <ClInclude Include="..\Sources\Core\ForceDebugBreak.h" />
+    <ClInclude Include="..\Sources\Core\Functional.h" />
+    <ClInclude Include="..\Sources\Core\Functors.h" />
+    <ClInclude Include="..\Sources\Core\HexChar.h" />
+    <ClInclude Include="..\Sources\Core\Limits.h" />
+    <ClInclude Include="..\Sources\Core\Main.h" />
+    <ClInclude Include="..\Sources\Core\MathConstants.h" />
+    <ClInclude Include="..\Sources\Core\NumberTraits.h" />
+    <ClInclude Include="..\Sources\Core\PerformanceCounter.h" />
+    <ClInclude Include="..\Sources\Core\String.h" />
+    <ClInclude Include="..\Sources\Core\StringEncode.h" />
+    <ClInclude Include="..\Sources\Core\ThreadSetup.h" />
+    <ClInclude Include="..\Sources\Core\ThreadSetup.hh" />
+    <ClInclude Include="..\Sources\Core\cloning_ptr.h" />
+    <ClInclude Include="..\Sources\Core\i18n.h" />
+    <ClInclude Include="..\Sources\DataArrayIO\DataArrayIOFunctions.h" />
+    <ClInclude Include="..\Sources\DataArrayIO\DataArrayIOFunctions.hh" />
+    <ClInclude Include="..\Sources\DataArrayIO\DataArrayIOEnum.h" />
+    <ClInclude Include="..\Sources\DataArrayIO\DataArrayIOTypes.h" />
+    <ClInclude Include="..\Sources\DataArrayIO\DataArrayIOTypesHelpers.h" />
+    <ClInclude Include="..\Sources\Fourier\CooleyTukeyFFT.h" />
+    <ClInclude Include="..\Sources\Fourier\DecompositionFFT.h" />
+    <ClInclude Include="..\Sources\Fourier\FourierBasic.h" />
+    <ClInclude Include="..\Sources\Fourier\FourierDefs.h" />
+    <ClInclude Include="..\Sources\Fourier\FourierPhasors.h" />
+    <ClInclude Include="..\Sources\Fourier\FourierPhasors.hh" />
+    <ClInclude Include="..\Sources\Fourier\WinogradShortFFT.h" />
+    <ClInclude Include="..\Sources\Fourier\WinogradShortFFT.hh" />
+    <ClInclude Include="..\Sources\Math\SpecialFunctions.h" />
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\CoreUtils_MS.h" />
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\MSVCCompilerSpecific.h" />
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\StringConverters_MS.h" />
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\ThreadSetup_MS.h" />
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADBasicLink.h" />
+    <ClInclude Include="..\Sources\SampleTypes\BooleanSample.h" />
+    <ClInclude Include="..\Sources\SampleTypes\ColorSample.h" />
+    <ClInclude Include="..\Sources\SampleTypes\ColorSample.hh" />
+    <ClInclude Include="..\Sources\SampleTypes\ComplexSample.h" />
+    <ClInclude Include="..\Sources\SampleTypes\ComplexSample.hh" />
+    <ClInclude Include="..\Sources\SampleTypes\FixedPointSample.h" />
+    <ClInclude Include="..\Sources\SampleTypes\HLSColorSample.h" />
+    <ClInclude Include="..\Sources\SampleTypes\HomomorphSamples.h" />
+    <ClInclude Include="..\Sources\SampleTypes\LABColorSample.h" />
+    <ClInclude Include="..\Sources\ScanConverter\ScanAreaGeometry.h" />
+    <ClInclude Include="..\Sources\ScanConverter\ScanConverter.h" />
+    <ClInclude Include="..\Sources\ScanConverter\ScanConverter.hh" />
+    <ClInclude Include="..\Sources\ScanConverter\ScanConverterOptions.h" />
+    <ClInclude Include="..\Sources\ScanConverter\TableInterpolator.h" />
+    <ClInclude Include="..\Sources\Utils\BitmapContainer.h" />
+    <ClInclude Include="..\Sources\Utils\BSplines.h" />
+    <ClInclude Include="..\Sources\Utils\ConsoleProgress.h" />
+    <ClInclude Include="..\Sources\Utils\Crayons.h" />
+    <ClInclude Include="..\Sources\Utils\date_utils.h" />
+    <ClInclude Include="..\Sources\Utils\DistributionContainer.h" />
+    <ClInclude Include="..\Sources\Utils\DistributionTransformer.h" />
+    <ClInclude Include="..\Sources\Utils\ExponentialBlurAlgorithms.h" />
+    <ClInclude Include="..\Sources\Utils\ExponentialBlurAlgorithms.hh" />
+    <ClInclude Include="..\Sources\Utils\FibonacciRandoms.h" />
+    <ClInclude Include="..\Sources\Utils\FibonacciRandoms.hh" />
+    <ClInclude Include="..\Sources\Utils\GradientPalette.h" />
+    <ClInclude Include="..\Sources\Utils\ImageUtils.h" />
+    <ClInclude Include="..\Sources\Utils\ImageUtils.hh" />
+    <ClInclude Include="..\Sources\Utils\LeastSquares.h" />
+    <ClInclude Include="..\Sources\Utils\LeastSquaresAlgorithms.h" />
+    <ClInclude Include="..\Sources\Utils\LeastSquaresAlgorithms.hh" />
+    <ClInclude Include="..\Sources\Utils\md5.h" />
+    <ClInclude Include="..\Sources\Utils\numbers_in_string.h" />
+    <ClInclude Include="..\Sources\Utils\ParallelProcessor.h" />
+    <ClInclude Include="..\Sources\Utils\PhysicalUnits.h" />
+    <ClInclude Include="..\Sources\Utils\Predicate.h" />
+    <ClInclude Include="..\Sources\Utils\ProcessorPoolDispatcher.h" />
+    <ClInclude Include="..\Sources\Utils\ProcessorPoolDispatcher.hh" />
+    <ClInclude Include="..\Sources\Utils\ProgressIndicatorScheduler.h" />
+    <ClInclude Include="..\Sources\Utils\ProgressProxyApi.h" />
+    <ClInclude Include="..\Sources\Utils\RandomNoiseGenerator.h" />
+    <ClInclude Include="..\Sources\Utils\SolveLinearSystem.h" />
+    <ClInclude Include="..\Sources\Utils\StatisticUtils.h" />
+    <ClInclude Include="..\Sources\Utils\ThreadUtils.h" />
+    <ClInclude Include="..\Sources\Utils\TimeProfiler.h" />
+    <ClInclude Include="..\Sources\Utils\ValuePredicates.h" />
+    <ClInclude Include="..\ThirdParty\md5\md5_core.h" />
+    <ClInclude Include="..\ThirdParty\nlohmann\json.hpp" />
+    <ClInclude Include="pre.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Sources\Algebra\FieldElement.dox" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\ThirdParty\md5\readme.txt" />
+    <Text Include="..\ThirdParty\nlohmann\readme.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

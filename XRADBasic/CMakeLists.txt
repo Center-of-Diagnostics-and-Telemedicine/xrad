@@ -1,0 +1,281 @@
+﻿cmake_minimum_required (VERSION 3.8)
+
+project ("XRADBasic")
+
+configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/CMake/pre.h.in
+		${CMAKE_CURRENT_BINARY_DIR}/pre.h @ONLY)
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
+
+set(XRADBasic_Sources_cpp
+	Sources/Containers/ContainersBasic.cpp
+	Sources/Containers/InterpolationAuxiliaries.cpp
+	Sources/Containers/UniversalInterpolation.cpp
+	Sources/Containers/UniversalInterpolation2D.cpp
+	Sources/Containers/WindowFunction.cpp
+	Sources/Core/BasicUtils.cpp
+	Sources/Core/CompilerSpecificChecks.cpp
+	Sources/Core/EscapeSequences.cpp
+	Sources/Core/Exceptions.cpp
+	Sources/Core/FlowControl.cpp
+	Sources/Core/i18n.cpp
+	Sources/Core/PerformanceCounter.cpp
+	Sources/Core/String.cpp
+	Sources/Core/StringEncode.cpp
+	Sources/DataArrayIO/DataArrayIOFunctions.cpp
+	Sources/DataArrayIO/DataArrayIOTypes.cpp
+	Sources/Fourier/CooleyTukeyFFT.cpp
+	Sources/Fourier/DecompositionFFT.cpp
+	Sources/Fourier/FourierBasic.cpp
+	Sources/Math/SpecialFunctions.cpp
+	Sources/SampleTypes/HLSColorSample.cpp
+	Sources/SampleTypes/LABColorSample.cpp
+	Sources/Utils/BitmapContainer.cpp
+	Sources/Utils/BSplines.cpp
+	Sources/Utils/ConsoleProgress.cpp
+	Sources/Utils/date_utils.cpp
+	Sources/Utils/DistributionContainer.cpp
+	Sources/Utils/DistributionTransformer.cpp
+	Sources/Utils/FibonacciRandoms.cpp
+	Sources/Utils/GradientPalette.cpp
+	Sources/Utils/LeastSquares.cpp
+	Sources/Utils/md5.cpp
+	Sources/Utils/numbers_in_string.cpp
+	Sources/Utils/ProgressIndicatorScheduler.cpp
+	Sources/Utils/ProgressProxyApi.cpp
+	Sources/Utils/RandomNoiseGenerator.cpp
+	Sources/Utils/StatisticUtils.cpp
+	Sources/Utils/ThreadUtils.cpp
+	Sources/Utils/TimeProfiler.cpp
+	ThirdParty/md5/md5_core.cpp
+)
+
+set(XRADBasic_Sources_h
+	BooleanFunctionTypes.h
+	Containers.h
+	ContainersAlgebra.h
+	Core.h
+	DataArrayIO.h
+	FFT1D.h
+	FFT2D.h
+	FFTMD.h
+	FIRFilterKernelTypes.h
+	FIRFilterKernelTypes2D.h
+	LinearVectorTypes.h
+	Math.h
+	MathFunctionTypes.h
+	MathFunctionTypes2D.h
+	MathFunctionTypesMD.h
+	MathMatrixTypes.h
+	SampleTypes.h
+	Sources/Algebra/AlgebraElement.h
+	Sources/Algebra/AlgebraicAlgorithms2D.h
+	Sources/Algebra/AlgebraicAlgorithmsDataArray.h
+	Sources/Algebra/AlgebraicAlgorithmsFixedSizeArray.h
+	Sources/Algebra/AlgebraicAlgorithmsMD.h
+	Sources/Algebra/AlgebraicStructures1D.h
+	Sources/Algebra/AlgebraicStructures2D.h
+	Sources/Algebra/AlgebraicStructuresMD.h
+	Sources/Algebra/BooleanAlgebraElement.h
+	Sources/Algebra/ComplexAlgebraElement.h
+	Sources/Algebra/ComplexFieldElement.h
+	Sources/Algebra/FieldElement.h
+	Sources/Algebra/FieldTraits.h
+	Sources/Containers/ArrayAnalyzeFunctors.h
+	Sources/Containers/BasicArrayInteractions1D.h
+	Sources/Containers/BasicArrayInteractions2D.h
+	Sources/Containers/BasicArrayInteractionsMD.h
+	Sources/Containers/BooleanFunction.h
+	Sources/Containers/BooleanFunction2D.h
+	Sources/Containers/ColorContainer.h
+	Sources/Containers/ColorContainer.hh
+	Sources/Containers/ComplexContainer.h
+	Sources/Containers/ComplexContainer.hh
+	Sources/Containers/ComplexFunction.h
+	Sources/Containers/ComplexFunction.hh
+	Sources/Containers/ComplexFunction2D.h
+	Sources/Containers/ComplexFunction2D.hh
+	Sources/Containers/ComplexFunctionMD.h
+	Sources/Containers/ComplexFunctionMD.hh
+	Sources/Containers/ContainerCheck.h
+	Sources/Containers/ContainersBasic.h
+	Sources/Containers/DataArray.h
+	Sources/Containers/DataArray.hh
+	Sources/Containers/DataArray2D.h
+	Sources/Containers/DataArray2D.hh
+	Sources/Containers/DataArrayAnalyze.h
+	Sources/Containers/DataArrayAnalyze2D.h
+	Sources/Containers/DataArrayAnalyzeMD.h
+	Sources/Containers/DataArrayHistogram.h
+	Sources/Containers/DataArrayHistogram2D.h
+	Sources/Containers/DataArrayMD.h
+	Sources/Containers/DataArrayMD.hh
+	Sources/Containers/DataOwner.h
+	Sources/Containers/DataOwner.hh
+	Sources/Containers/FIRFilterKernel.h
+	Sources/Containers/FIRFilterKernel.hh
+	Sources/Containers/FIRFilterKernel2D.h
+	Sources/Containers/FIRFilterKernel2D.hh
+	Sources/Containers/FIRFilterKernelFunctions.h
+	Sources/Containers/FIRFilterKernelFunctions.hh
+	Sources/Containers/FixedSizeArray.h
+	Sources/Containers/FixedSizeArray.hh
+	Sources/Containers/FixedSizeArrayAnalyze.h
+	Sources/Containers/IndexVector.h
+	Sources/Containers/InterpolationAuxiliaries.h
+	Sources/Containers/Iterators.h
+	Sources/Containers/Iterators.hh
+	Sources/Containers/LinearVector.h
+	Sources/Containers/LinearVectorFixedDimensions.h
+	Sources/Containers/LinearVectorFixedDimensions.hh
+	Sources/Containers/MathFunction.h
+	Sources/Containers/MathFunction.hh
+	Sources/Containers/MathFunction2D.h
+	Sources/Containers/MathFunction2D.hh
+	Sources/Containers/MathFunctionMD.h
+	Sources/Containers/MathFunctionMD.hh
+	Sources/Containers/MathMatrix.h
+	Sources/Containers/MathMatrix.hh
+	Sources/Containers/RealFunction.h
+	Sources/Containers/RealFunction.hh
+	Sources/Containers/ReferenceOwner.h
+	Sources/Containers/SpaceCoordinates.h
+	Sources/Containers/UniversalInterpolation.h
+	Sources/Containers/UniversalInterpolation.hh
+	Sources/Containers/UniversalInterpolation2D.h
+	Sources/Containers/UniversalInterpolation2D.hh
+	Sources/Containers/VectorFunction.h
+	Sources/Containers/WindowFunction.h
+	Sources/Containers/WindowFunction.hh
+	Sources/Core/BasicMacros.h
+	Sources/Core/BasicUtils.h
+	Sources/Core/cloning_ptr.h
+	Sources/Core/CommonConfig.h
+	Sources/Core/CompilerSpecific.h
+	Sources/Core/CompilerSpecificQC.h
+	Sources/Core/Config.h
+	Sources/Core/Endian.h
+	Sources/Core/EscapeSequences.h
+	Sources/Core/Exceptions.h
+	Sources/Core/FlowControl.h
+	Sources/Core/ForceDebugBreak.h
+	Sources/Core/Functional.h
+	Sources/Core/Functors.h
+	Sources/Core/HexChar.h
+	Sources/Core/i18n.h
+	Sources/Core/Limits.h
+	Sources/Core/Main.h
+	Sources/Core/MathConstants.h
+	Sources/Core/NumberTraits.h
+	Sources/Core/PerformanceCounter.h
+	Sources/Core/String.h
+	Sources/Core/StringEncode.h
+	Sources/Core/ThreadSetup.h
+	Sources/Core/ThreadSetup.hh
+	Sources/DataArrayIO/DataArrayIOEnum.h
+	Sources/DataArrayIO/DataArrayIOFunctions.h
+	Sources/DataArrayIO/DataArrayIOFunctions.hh
+	Sources/DataArrayIO/DataArrayIOTypes.h
+	Sources/DataArrayIO/DataArrayIOTypesHelpers.h
+	Sources/Fourier/CooleyTukeyFFT.h
+	Sources/Fourier/DecompositionFFT.h
+	Sources/Fourier/FourierBasic.h
+	Sources/Fourier/FourierDefs.h
+	Sources/Fourier/FourierPhasors.h
+	Sources/Fourier/FourierPhasors.hh
+	Sources/Fourier/WinogradShortFFT.h
+	Sources/Fourier/WinogradShortFFT.hh
+	Sources/Math/SpecialFunctions.h
+	Sources/SampleTypes/BooleanSample.h
+	Sources/SampleTypes/ColorSample.h
+	Sources/SampleTypes/ColorSample.hh
+	Sources/SampleTypes/ComplexSample.h
+	Sources/SampleTypes/ComplexSample.hh
+	Sources/SampleTypes/FixedPointSample.h
+	Sources/SampleTypes/HLSColorSample.h
+	Sources/SampleTypes/HomomorphSamples.h
+	Sources/SampleTypes/LABColorSample.h
+	Sources/ScanConverter/ScanAreaGeometry.h
+	Sources/ScanConverter/ScanConverter.h
+	Sources/ScanConverter/ScanConverter.hh
+	Sources/ScanConverter/ScanConverterOptions.h
+	Sources/ScanConverter/TableInterpolator.h
+	Sources/Utils/BitmapContainer.h
+	Sources/Utils/BSplines.h
+	Sources/Utils/ConsoleProgress.h
+	Sources/Utils/Crayons.h
+	Sources/Utils/date_utils.h
+	Sources/Utils/DistributionContainer.h
+	Sources/Utils/DistributionTransformer.h
+	Sources/Utils/ExponentialBlurAlgorithms.h
+	Sources/Utils/ExponentialBlurAlgorithms.hh
+	Sources/Utils/FibonacciRandoms.h
+	Sources/Utils/FibonacciRandoms.hh
+	Sources/Utils/GradientPalette.h
+	Sources/Utils/ImageUtils.h
+	Sources/Utils/ImageUtils.hh
+	Sources/Utils/LeastSquares.h
+	Sources/Utils/LeastSquaresAlgorithms.h
+	Sources/Utils/LeastSquaresAlgorithms.hh
+	Sources/Utils/md5.h
+	Sources/Utils/numbers_in_string.h
+	Sources/Utils/ParallelProcessor.h
+	Sources/Utils/PhysicalUnits.h
+	Sources/Utils/Predicate.h
+	Sources/Utils/ProcessorPoolDispatcher.h
+	Sources/Utils/ProcessorPoolDispatcher.hh
+	Sources/Utils/ProgressIndicatorScheduler.h
+	Sources/Utils/ProgressProxyApi.h
+	Sources/Utils/RandomNoiseGenerator.h
+	Sources/Utils/SolveLinearSystem.h
+	Sources/Utils/StatisticUtils.h
+	Sources/Utils/TableFunction.h
+	Sources/Utils/TableFunction.hh
+	Sources/Utils/ThreadUtils.h
+	Sources/Utils/TimeProfiler.h
+	Sources/Utils/ValuePredicates.h
+	ThirdParty/md5/md5_core.h
+	ThirdParty/nlohmann/json.hpp
+)
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+	# MSVC/XRADBasic_pre.cpp
+	set(XRADBasic_Sources_PlatformSpecific_cpp
+		Sources/PlatformSpecific/MSVC/Internal/CoreUtils_MS.cpp
+		Sources/PlatformSpecific/MSVC/Internal/StringConverters_MS.cpp
+		Sources/PlatformSpecific/MSVC/Internal/ThreadSetup_MS.cpp
+	)
+	#	Sources/PlatformSpecific/MSVC/XRADNatvisTest.cpp
+	set(XRADBasic_Sources_PlatformSpecific_h
+		Sources/PlatformSpecific/MSVC/Internal/CoreUtils_MS.h
+		Sources/PlatformSpecific/MSVC/Internal/MSVCCompilerSpecific.h
+		Sources/PlatformSpecific/MSVC/Internal/StringConverters_MS.h
+		Sources/PlatformSpecific/MSVC/Internal/ThreadSetup_MS.h
+		Sources/PlatformSpecific/MSVC/MSVC_XRADBasicLink.h
+		Sources/PlatformSpecific/MSVC/MSVC_XRADLink-Suffix.h
+	)
+	#	Sources/PlatformSpecific/MSVC/XRADNatvisTest.h
+
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
+	# Имя "XRADBasicD.lib": используется текущее соглашение об именах конфигурации Debug в MSVC
+	set(CMAKE_DEBUG_POSTFIX "D")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+	set(XRADBasic_Sources_PlatformSpecific_cpp)
+	set(XRADBasic_Sources_PlatformSpecific_h
+		Sources/PlatformSpecific/gcc/GCCCompilerSpecific.h
+	)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fopenmp")
+else()
+	message(FATAL_ERROR "Unsupported CMAKE_CXX_COMPILER_ID: \"${CMAKE_CXX_COMPILER_ID}\".")
+endif()
+
+set(XRADBasic_Sources_All
+	${XRADBasic_Sources_cpp}
+	${XRADBasic_Sources_h}
+	${XRADBasic_Sources_PlatformSpecific_cpp}
+	${XRADBasic_Sources_PlatformSpecific_h}
+)
+
+add_library(XRADBasic STATIC ${XRADBasic_Sources_All})
