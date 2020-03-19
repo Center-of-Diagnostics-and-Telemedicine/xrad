@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DCMTKAccess">
+      <UniqueIdentifier>{0add766c-d587-4b33-a67f-8ad72620f310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DicomClasses">
+      <UniqueIdentifier>{224f59c8-c27e-49fa-bb23-e1aee6335fe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DicomClasses\Instances">
+      <UniqueIdentifier>{e27dbc57-f536-4cdf-a2aa-f38f46887117}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DicomClasses\ProcessContainers">
+      <UniqueIdentifier>{abdcf7ab-0a98-4f81-bba2-376220cca0b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DicomClasses\Instances\generic">
+      <UniqueIdentifier>{04af1f38-ed3c-43f2-8b8b-d83d1c0a991c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DicomClasses\Instances\image">
+      <UniqueIdentifier>{ee1dec42-e983-4fd6-ac03-cc4206a9ed49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DicomClasses\Instances\image\tomogram">
+      <UniqueIdentifier>{16199ad0-9001-42c4-886a-9f6fb5759584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DicomClasses\Instances\image\xray_image">
+      <UniqueIdentifier>{c1a1faf1-6f64-4aaf-96c1-cf29de5559e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DicomClasses\ProcessContainers\tomogram">
+      <UniqueIdentifier>{4bbf6ad3-2c7e-47cb-858c-14637d949c5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DicomClasses\ProcessContainers\xray">
+      <UniqueIdentifier>{3c43a15c-f670-478c-be1d-f9eb616d6afa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DicomClasses\DataContainers">
+      <UniqueIdentifier>{d106d2cf-8b0c-4db9-8204-e82a400656fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DicomClasses\Indexing">
+      <UniqueIdentifier>{3ef9d4d0-0638-470a-ad0d-c4cfeff4a744}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\XRADDicom\DCMTKAccess\dcmtkUtils.cpp">
+      <Filter>DCMTKAccess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DCMTKAccess\dcmtkElementsTools.cpp">
+      <Filter>DCMTKAccess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\DicomFilenameFilter.cpp">
+      <Filter>DicomClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DCMTKAccess\dcmtkCodec.cpp">
+      <Filter>DCMTKAccess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\DicomPredicates.cpp">
+      <Filter>DicomClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Instances\CreateInstance.cpp">
+      <Filter>DicomClasses\Instances</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Instances\LoadGenericClasses.cpp">
+      <Filter>DicomClasses\Instances</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\ProcessContainers\ProcessAcquisition.cpp">
+      <Filter>DicomClasses\ProcessContainers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Instances\Modality.cpp">
+      <Filter>DicomClasses\Instances\generic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Instances\ct_slice.cpp">
+      <Filter>DicomClasses\Instances\image\tomogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Instances\tomogram_slice.cpp">
+      <Filter>DicomClasses\Instances\image\tomogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Instances\mr_slice.cpp">
+      <Filter>DicomClasses\Instances\image\tomogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Instances\xray_image.cpp">
+      <Filter>DicomClasses\Instances\image\xray_image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Instances\image.cpp">
+      <Filter>DicomClasses\Instances\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Instances\instance.cpp">
+      <Filter>DicomClasses\Instances\generic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Instances\source.cpp">
+      <Filter>DicomClasses\Instances\generic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Instances\mr_slice_siemens.cpp">
+      <Filter>DicomClasses\Instances\image\tomogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\ProcessContainers\CTAcquisition.cpp">
+      <Filter>DicomClasses\ProcessContainers\tomogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\ProcessContainers\MRAcquisition.cpp">
+      <Filter>DicomClasses\ProcessContainers\tomogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\ProcessContainers\TomogramAcquisition.cpp">
+      <Filter>DicomClasses\ProcessContainers\tomogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\ProcessContainers\CreateProcessAcquisition.cpp">
+      <Filter>DicomClasses\ProcessContainers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\ProcessContainers\MRAcquisitionSiemens.cpp">
+      <Filter>DicomClasses\ProcessContainers\tomogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Hierarchy.cpp">
+      <Filter>DicomClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\ProcessContainers\XRAYAcquisition.cpp">
+      <Filter>DicomClasses\ProcessContainers\xray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\ProcessContainers\XRAYInstance.cpp">
+      <Filter>DicomClasses\ProcessContainers\xray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DCMTKAccess\pacsTools.cpp">
+      <Filter>DCMTKAccess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Instances\instance_cache.cpp">
+      <Filter>DicomClasses\Instances\generic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\DataContainers\datasource.cpp">
+      <Filter>DicomClasses\DataContainers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\DicomStorageAnalyze.cpp">
+      <Filter>DicomClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\Utils.cpp" />
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\DataContainers\Container.cpp">
+      <Filter>DicomClasses\DataContainers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\DataContainers\ContainerDCMTK.cpp">
+      <Filter>DicomClasses\DataContainers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DCMTKAccess\pacsUtils.cpp">
+      <Filter>DCMTKAccess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\XRADDicomGeneral.cpp">
+      <Filter>DicomClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\XRADDicomTools.cpp" />
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Indexing\DicomDirectoryIndex.cpp">
+      <Filter>DicomClasses\Indexing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Indexing\DicomFileIndex.cpp">
+      <Filter>DicomClasses\Indexing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Indexing\DicomCatalogIndex.cpp">
+      <Filter>DicomClasses\Indexing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Indexing\DicomClustering.cpp">
+      <Filter>DicomClasses\Indexing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Indexing\DicomDirectoryIndexJson.cpp">
+      <Filter>DicomClasses\Indexing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\XRADDicom\DicomClasses\Indexing\DicomFileIndexJson.cpp">
+      <Filter>DicomClasses\Indexing</Filter>
+    </ClCompile>
+    <ClCompile Include="XRADDicom_pre.cpp" />
+    <ClCompile Include="..\..\XRADDicom\logger.cpp" />
+    <ClCompile Include="..\..\XRADDicom\file_info.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Instances\LoadGenericClasses.h">
+      <Filter>DicomClasses\Instances</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Instances\CreateInstance.h">
+      <Filter>DicomClasses\Instances</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\ProcessContainers\ProcessAcquisition.h">
+      <Filter>DicomClasses\ProcessContainers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Instances\Modality.h">
+      <Filter>DicomClasses\Instances\generic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Instances\ct_slice.h">
+      <Filter>DicomClasses\Instances\image\tomogram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Instances\tomogram_slice.h">
+      <Filter>DicomClasses\Instances\image\tomogram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Instances\mr_slice.h">
+      <Filter>DicomClasses\Instances\image\tomogram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Instances\xray_image.h">
+      <Filter>DicomClasses\Instances\image\xray_image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Hierarchy.h">
+      <Filter>DicomClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\XRADDicom.h" />
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Instances\image.h">
+      <Filter>DicomClasses\Instances\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Instances\instance.h">
+      <Filter>DicomClasses\Instances\generic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Instances\source.h">
+      <Filter>DicomClasses\Instances\generic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Instances\mr_slice_siemens.h">
+      <Filter>DicomClasses\Instances\image\tomogram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\ProcessContainers\CTAcquisition.h">
+      <Filter>DicomClasses\ProcessContainers\tomogram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\ProcessContainers\MRAcquisition.h">
+      <Filter>DicomClasses\ProcessContainers\tomogram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\ProcessContainers\TomogramAcquisition.h">
+      <Filter>DicomClasses\ProcessContainers\tomogram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\ProcessContainers\CreateProcessAcquisition.h">
+      <Filter>DicomClasses\ProcessContainers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\ProcessContainers\MRAcquisitionSiemens.h">
+      <Filter>DicomClasses\ProcessContainers\tomogram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\dataelement.h">
+      <Filter>DicomClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\ProcessContainers\XRAYAcquisition.h">
+      <Filter>DicomClasses\ProcessContainers\xray</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\ProcessContainers\XRAYInstance.h">
+      <Filter>DicomClasses\ProcessContainers\xray</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DCMTKAccess\dcmtkCodec.h">
+      <Filter>DCMTKAccess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DCMTKAccess\dcmtkElementsTools.h">
+      <Filter>DCMTKAccess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DCMTKAccess\dcmtkUtils.h">
+      <Filter>DCMTKAccess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DCMTKAccess\pacsTools.h">
+      <Filter>DCMTKAccess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Instances\instance_cache.h">
+      <Filter>DicomClasses\Instances\generic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\DataContainers\datasource.h">
+      <Filter>DicomClasses\DataContainers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\DicomStorageAnalyze.h">
+      <Filter>DicomClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\Utils.h" />
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\DataContainers\Container.h">
+      <Filter>DicomClasses\DataContainers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\DataContainers\ContainerDCMTK.h">
+      <Filter>DicomClasses\DataContainers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DCMTKAccess\pacsUtils.h">
+      <Filter>DCMTKAccess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\XRADDicomGeneral.h">
+      <Filter>DicomClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\XRADDicomTools.h" />
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\tags_enum.h">
+      <Filter>DicomClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Indexing\DicomDirectoryIndex.h">
+      <Filter>DicomClasses\Indexing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Indexing\DicomFileIndex.h">
+      <Filter>DicomClasses\Indexing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Indexing\DicomCatalogIndex.h">
+      <Filter>DicomClasses\Indexing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Indexing\DicomClustering.h">
+      <Filter>DicomClasses\Indexing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Indexing\DicomDirectoryIndexJson.h">
+      <Filter>DicomClasses\Indexing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADDicom\DicomClasses\Indexing\DicomFileIndexJson.h">
+      <Filter>DicomClasses\Indexing</Filter>
+    </ClInclude>
+    <ClInclude Include="pre.h" />
+    <ClInclude Include="..\..\XRADDicom\logger.h" />
+    <ClInclude Include="..\..\XRADDicom\file_info.h" />
+  </ItemGroup>
+</Project>
