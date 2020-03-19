@@ -1,0 +1,28 @@
+# Common
+*.bak
+*.tmp
+*.~*
+thumbs.db
+old/
+temp/
+
+# Version control systems
+*.orig
+*.rej
+
+# VisualC
+.vs/
+ipch/
+*.user
+*.db
+*.suo
+*.sdf
+*.opensdf
+*.opendb
+CMakeSettings.json
+
+# Build system
+bin/
+lib/
+obj/
+out/
