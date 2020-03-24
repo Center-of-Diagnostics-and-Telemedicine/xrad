@@ -1,22 +1,12 @@
 ﻿/*!
-	* \file Tools.cpp
-	* \date 26/08/2019 13:10
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 26/08/2019 13:10
+	\author kovbas
 */
 #include "pre.h"
 #include "XRADDicomTools.h"
 
-//#include <XRADDicom/DCMTKAccess/dcmtkElementsTools.h> //чтобы вытащить инструменты для общего использования
-
 XRAD_BEGIN
-
 
 namespace Dicom
 {
@@ -27,6 +17,5 @@ namespace Dicom
 void xrad__dummy_XRADDicomTools() {}
 
 } //end namespace Dicom
-
 
 XRAD_END

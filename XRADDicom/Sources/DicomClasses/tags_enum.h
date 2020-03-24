@@ -1,18 +1,12 @@
 ﻿/*!
-	* \file tags.h
-	* \date 12/26/2017 1:35:14 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 12/26/2017 1:35:14 PM
+	\author kovbas
 */
 #ifndef tags_h__
 #define tags_h__
 
+#include <XRADBasic/Core.h>
 #include <cstdint>
 
 XRAD_BEGIN

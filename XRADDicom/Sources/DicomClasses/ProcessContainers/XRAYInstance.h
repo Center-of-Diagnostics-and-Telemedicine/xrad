@@ -1,18 +1,10 @@
 ﻿/*!
-	* \file RGInstance.h
-	* \date 4/19/2018 5:50:09 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 4/19/2018 5:50:09 PM
+	\author kovbas
 */
 #ifndef XRAYInstance_h__
 #define XRAYInstance_h__
-
 
 #include "ProcessAcquisition.h"
 

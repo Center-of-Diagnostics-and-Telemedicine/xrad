@@ -1,23 +1,13 @@
 ﻿/*!
-	* \file XRAYAcquisition.h
-	* \date 4/23/2018 12:19:45 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 4/23/2018 12:19:45 PM
+	\author kovbas
 */
 #ifndef XRAYAcquisition_h__
 #define XRAYAcquisition_h__
 
-#include <list>
 #include "XRAYInstance.h"
-#include <XRADDicom/DicomClasses/Instances/LoadGenericClasses.h>
-
-#include <XRADDicom/DicomClasses/Instances/xray_image.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/LoadGenericClasses.h>
 
 XRAD_BEGIN
 
@@ -40,9 +30,9 @@ public:
 		return{ (*m_acquisition_loader).size(), first_slice.vsize(), first_slice.hsize() };
 	}
 
-	
+
 	RealFunction2D_F32	slice(size_t pos) const;		// получить 2D изображение среза с номером pos
-	vector<RealFunction2D_F32>	slices() const;				// получить вектор 2D изображений 
+	vector<RealFunction2D_F32>	slices() const;				// получить вектор 2D изображений
 };
 
 XRAD_END

@@ -1,26 +1,18 @@
 ﻿/*!
-	* \file CreateProcessAcquisition.cpp
-	* \date 5/4/2018 12:30:02 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 5/4/2018 12:30:02 PM
+	\author kovbas
 */
 #include "pre.h"
 #include "CreateProcessAcquisition.h"
 
-
-#include <XRADDicom/DicomClasses/ProcessContainers/TomogramAcquisition.h>
-#include <XRADDicom/DicomClasses/ProcessContainers/CTAcquisition.h>
-#include <XRADDicom/DicomClasses/ProcessContainers/MRAcquisition.h>
-#include <XRADDicom/DicomClasses/ProcessContainers/MRAcquisitionSiemens.h>
+#include "TomogramAcquisition.h"
+#include "CTAcquisition.h"
+#include "MRAcquisition.h"
+#include "MRAcquisitionSiemens.h"
 
 //image
-#include <XRADDicom/DicomClasses/ProcessContainers/XRAYAcquisition.h>
+#include "XRAYAcquisition.h"
 
 //instance
 

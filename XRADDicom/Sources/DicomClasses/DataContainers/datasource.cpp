@@ -1,19 +1,10 @@
 ﻿/*!
-	* \file datasource.cpp
-	* \date 10/18/2018 12:47:56 PM
-	*
-	* \author Kovbas (kovbas)
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 10/18/2018 12:47:56 PM
+	\author Kovbas (kovbas)
 */
 #include "pre.h"
 #include "datasource.h"
-
-
 
 XRAD_BEGIN
 
@@ -26,6 +17,5 @@ namespace Dicom
 void xrad__dummy_datasource() {}
 
 } //namespace Dicom
-
 
 XRAD_END

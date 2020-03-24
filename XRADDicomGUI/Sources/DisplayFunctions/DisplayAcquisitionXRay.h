@@ -1,20 +1,12 @@
 ﻿/*!
-* \file XRAYAcquisition.h
-* \date 4/23/2018 5:47:27 PM
-*
-* \author kovbas
-*
-* \brief
-*
-* TODO: long description
-*
-* \note
+	\file
+	\date 4/23/2018 5:47:27 PM
+	\author kovbas
 */
 #ifndef DisplayAcquisitionXRay_h__
 #define DisplayAcquisitionXRay_h__
 
-
-#include <XRADDicom/DicomClasses/ProcessContainers/XRAYAcquisition.h>
+#include <XRADDicom/Sources/DicomClasses/ProcessContainers/XRAYAcquisition.h>
 
 XRAD_BEGIN
 

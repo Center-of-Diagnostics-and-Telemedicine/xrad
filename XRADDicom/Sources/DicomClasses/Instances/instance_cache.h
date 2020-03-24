@@ -2,16 +2,12 @@
 	\file
 	\date 2018/09/21 15:01
 	\author kulberg
-
-	\brief
 */
 #ifndef instance_cache_h__
 #define instance_cache_h__
 
-
-#include <XRADDicom/DicomClasses/XRADDicomGeneral.h>
-#include <XRADDicom/DicomClasses/DataContainers/Container.h>
-
+#include <XRADDicom/Sources/DicomClasses/XRADDicomGeneral.h>
+#include <XRADDicom/Sources/DicomClasses/DataContainers/Container.h>
 
 XRAD_BEGIN
 

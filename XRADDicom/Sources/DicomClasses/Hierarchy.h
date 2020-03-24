@@ -1,14 +1,10 @@
 ﻿/*!
 	\file
-
 	\date 2018/04/11 17:21
 	\author nicholas
-
-	\brief
 */
 #ifndef Hierarchy_h__
 #define Hierarchy_h__
-
 
 #include "Instances/instance.h" //for complete_study_id_t
 

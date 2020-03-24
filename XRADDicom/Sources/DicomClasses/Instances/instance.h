@@ -1,14 +1,10 @@
 ﻿/*!
 	\file
-
 	\date 2018/03/8 15:00
 	\author nicholas
-
-	\brief
 */
 #ifndef instance_h__
 #define instance_h__
-
 
 #include "Modality.h"
 #include "source.h"

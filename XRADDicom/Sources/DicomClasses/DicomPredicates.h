@@ -1,6 +1,5 @@
 ﻿#ifndef dicom_predicates_h__
 #define dicom_predicates_h__
-
 /*!
 	\file
 	\date 2018/02/20 10:59
@@ -9,8 +8,8 @@
 	\brief  предикаты для сортировки Dicom
 */
 
+#include "Instances/LoadGenericClasses.h"
 #include <XRADBasic/Sources/Utils/Predicate.h>
-#include <XRADDicom/DicomClasses/Instances/LoadGenericClasses.h>
 
 XRAD_BEGIN
 

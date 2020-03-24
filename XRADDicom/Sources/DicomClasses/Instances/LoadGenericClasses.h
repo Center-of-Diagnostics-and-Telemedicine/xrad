@@ -1,21 +1,13 @@
 ﻿/*!
-	* \file LoadGenericClasses.h
-	* \date 12/18/2017 2:46:43 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 12/18/2017 2:46:43 PM
+	\author kovbas
 */
 #ifndef LoadGenericClasses_h__
 #define LoadGenericClasses_h__
 
-
-#include <XRADDicom/DicomClasses/Instances/Instance.h>
-#include <XRADDicom/DicomClasses/Hierarchy.h>
+#include "instance.h"
+#include <XRADDicom/Sources/DicomClasses/Hierarchy.h>
 #include <XRADBasic/Sources/Utils/Predicate.h>
 
 XRAD_BEGIN

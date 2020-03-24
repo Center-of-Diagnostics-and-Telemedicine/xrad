@@ -1,12 +1,8 @@
-﻿/********************************************************************
-	created:	2016/12/22
-	created:	22:12:2016   12:26
-	file:	 	SelectSeriesInteractive.cpp
-
-	author:		KNS
-
-	purpose:
-*********************************************************************/
+﻿/*!
+	\file
+	\date 22:12:2016 12:26
+	\author KNS
+*/
 #include "pre.h"
 #include "SelectSeriesInteractive.h"
 

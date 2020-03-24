@@ -20,15 +20,12 @@
     </BuildMacro>
   </ItemGroup>
   <ItemDefinitionGroup>
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(XRADRoot);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(XRAD_DCMTKInstallPath)lib;$(XRAD_OpenJPEGInstallPath)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent Condition="'$(ConfigurationType)'!='StaticLibrary'">
       <Command>%(Command)
-call "$(XRADRoot)\Projects\XRADDicom\XRADDicom-CopyRuntime.bat" $(OutDir) $(PlatformTarget) $(XRAD_DCMTKConfiguration)</Command>
+call "$(XRADRoot)\XRADDicom\MSVC\XRADDicom-CopyRuntime.bat" $(OutDir) $(PlatformTarget) $(XRAD_DCMTKConfiguration)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
 </Project>

@@ -1,16 +1,12 @@
-﻿/********************************************************************
-	created:	2016/12/22
-	created:	22:12:2016   12:28
-	file:	 	SelectSeriesInteractive.h
-
-	author:		kns
-
-	purpose:
-*********************************************************************/
+﻿/*!
+	\file
+	\date 22:12:2016 12:28
+	\author kns
+*/
 #ifndef SelectSeriesInteractive_h__
 #define SelectSeriesInteractive_h__
 
-#include <XRADDicom/DicomClasses/Instances/LoadGenericClasses.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/LoadGenericClasses.h>
 
 XRAD_BEGIN
 

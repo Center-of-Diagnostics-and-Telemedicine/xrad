@@ -8,7 +8,7 @@
 #include "TomogramAcquisition.h"
 
 #include <XRADBasic/Sources/Utils/ParallelProcessor.h>
-#include <XRADDicom/DicomClasses/DicomStorageAnalyze.h>
+//#include <XRADDicom/DicomClasses/DicomStorageAnalyze.h>
 
 XRAD_BEGIN
 

@@ -1,22 +1,14 @@
 ﻿/*!
-	* \file CreateProcessAcquisition.h
-	* \date 5/4/2018 12:30:02 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 5/4/2018 12:30:02 PM
+	\author kovbas
 */
 #ifndef CreateProcessAcquisition_h__
 #define CreateProcessAcquisition_h__
 
-
 #include "ProcessAcquisition.h"
 
-#include "XRADDicom/DicomClasses/Instances/instance.h"
+#include <XRADDicom/Sources/DicomClasses/Instances/instance.h>
 
 XRAD_BEGIN
 

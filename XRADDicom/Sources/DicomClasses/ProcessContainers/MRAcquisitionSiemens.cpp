@@ -1,20 +1,10 @@
 ﻿/*!
-	* \file MRAcquisitionSiemens.cpp
-	* \date 5/4/2018 1:12:18 PM
-	*
-	* \author Kovbas (kovbas)
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 5/4/2018 1:12:18 PM
+	\author Kovbas (kovbas)
 */
 #include "pre.h"
 #include "MRAcquisitionSiemens.h"
-
-
-#include <XRADDicom/DicomClasses/Instances/mr_slice_siemens.h>
 
 XRAD_BEGIN
 /*

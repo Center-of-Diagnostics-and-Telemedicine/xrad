@@ -1,20 +1,11 @@
 ﻿/*!
-	* \file ProcessAcquisition.cpp
-	* \date 4/19/2018 2:27:56 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 4/19/2018 2:27:56 PM
+	\author kovbas
 */
 #include "pre.h"
 #include "ProcessAcquisition.h"
-#include <XRADDicom/DicomClasses/Instances/CreateInstance.h>
-//#include "DicomClasses/distortion_data.h"
-
+#include <XRADDicom/Sources/DicomClasses/Instances/CreateInstance.h>
 
 XRAD_BEGIN
 

@@ -1,14 +1,13 @@
-﻿/********************************************************************
-created:	2015/07/09
-created:	9:7:2015   14:58
-author:		MSU
-*********************************************************************/
+﻿/*!
+	\file
+	\date 9:7:2015 14:58
+	\author MSU
+*/
 #ifndef DicomStorageAnalyze_h__
 #define DicomStorageAnalyze_h__
 
-
-#include <XRADDicom/DicomClasses/DataContainers/datasource.h>
-#include <XRADDicom/DicomClasses/Instances/tomogram_slice.h>
+#include "DataContainers/datasource.h"
+#include "Instances/tomogram_slice.h"
 #include "DicomFilenameFilter.h"
 #include <XRADBasic/Containers.h>
 

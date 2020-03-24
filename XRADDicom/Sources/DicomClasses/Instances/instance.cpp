@@ -1,10 +1,7 @@
 ﻿/*!
 	\file
-
 	\date 2018/03/8 15:00
 	\author nicholas
-
-	\brief
 */
 #include "pre.h"
 #include "instance.h"

@@ -1,28 +1,15 @@
 ﻿#ifndef dcmtkUtils_h__
 #define dcmtkUtils_h__
-/*!
- * \file .
- * \date  :
- *
- * \author %USERNAME%
- *
- * \brief
- *
- * TODO: long description
- *
- * \note
-*/
 
 #include <XRADBasic/Core.h>
+#include <dcmtk/dcmdata/dcfilefo.h>  // DcmFileFormat
 #include <string>
-#include "dcmtk/dcmdata/dcfilefo.h"  // DcmFileFormat
-
 
 XRAD_BEGIN
 
 void checkOFResult(const OFCondition &, const std::string &);
 
-//! DCMTK загружает строки из файла в переменную std::string, однако на практике эти строки закодированы в utf-8. 
+//! DCMTK загружает строки из файла в переменную std::string, однако на практике эти строки закодированы в utf-8.
 //! Это несоответствие типа содержимому следует устранять сразу же после загрузки данных с помощью следующих функций.
 //! UPD Такие же ситуации стали возникать в других проектах в связи с JSON. Сделаны универсальные преобразования,
 //!	частные реализации удаляем
@@ -33,4 +20,3 @@ void checkOFResult(const OFCondition &, const std::string &);
 XRAD_END
 
 #endif // dcmtkUtils_h__
-

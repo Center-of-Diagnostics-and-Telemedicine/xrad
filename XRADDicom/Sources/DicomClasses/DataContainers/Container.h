@@ -1,14 +1,7 @@
 ﻿/*!
-	 * \file AbstractDicomFile.h
-	 * \date 2017/10/02 17:28
-	 *
-	 * \author kulberg
-	 *
-	 * \brief
-	 *
-	 * TODO: long description
-	 *
-	 * \note
+	\file
+	\date 2017/10/02 17:28
+	\author kulberg
 */
 #ifndef DicomDataContainer_h__
 #define DicomDataContainer_h__
@@ -18,8 +11,8 @@
 #include <XRADBasic/Core.h>
 #include <XRADBasic/Sources/Core/cloning_ptr.h>
 
-#include <XRADDicom/DicomClasses/XRADDicomGeneral.h>
-#include <XRADDicom/DicomClasses/DataContainers/datasource.h>
+#include <XRADDicom/Sources/DicomClasses/XRADDicomGeneral.h>
+#include "datasource.h"
 #include <XRADBasic/MathFunctionTypesMD.h>
 
 XRAD_BEGIN

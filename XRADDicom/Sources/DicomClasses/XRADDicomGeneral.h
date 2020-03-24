@@ -1,22 +1,13 @@
 ﻿/*!
-	* \file XRADDicomGeneral.h
-	* \date 2/16/2018 2:28:02 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 2/16/2018 2:28:02 PM
+	\author kovbas
 */
 #ifndef XRADDicomGeneral_h__
 #define XRADDicomGeneral_h__
 
-
-#include <XRADDicom/DicomClasses/tags_enum.h>
-#include <XRADDicom/DicomClasses/dataelement.h>
-
+#include "tags_enum.h"
+#include "dataelement.h"
 
 XRAD_BEGIN
 

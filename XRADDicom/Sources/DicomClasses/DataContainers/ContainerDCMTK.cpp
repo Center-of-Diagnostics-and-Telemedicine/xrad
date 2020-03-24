@@ -1,29 +1,22 @@
 ﻿/*!
-	\file ContainerDCMTK.cpp
+	\file
 	\date 2017/10/03 14:40
-
 	\author kulberg
-
-	\brief
-
-	TODO: long description
-
-	\note
 */
 #include "pre.h"
 #include "ContainerDCMTK.h"
 
-#include <XRADDicom/DCMTKAccess/dcmtkElementsTools.h>
-#include <XRADDicom/DCMTKAccess/dcmtkCodec.h>
-#include <XRADDicom/DCMTKAccess/dcmtkUtils.h>
-#include <XRADDicom/Utils.h>
+#include <XRADDicom/Sources/DCMTKAccess/dcmtkElementsTools.h>
+#include <XRADDicom/Sources/DCMTKAccess/dcmtkCodec.h>
+#include <XRADDicom/Sources/DCMTKAccess/dcmtkUtils.h>
+#include <XRADDicom/Sources/Utils/Utils.h>
 
-#include <XRADDicom/DCMTKAccess/pacsTools.h>
-#include <XRADDicom/DCMTKAccess/pacsUtils.h>
+#include <XRADDicom/Sources/DCMTKAccess/pacsTools.h>
+#include <XRADDicom/Sources/DCMTKAccess/pacsUtils.h>
 
 #include <cwchar>
 
-#include <XRADDicom/logger.h>
+#include <XRADDicom/Sources/Utils/logger.h>
 
 XRAD_BEGIN
 

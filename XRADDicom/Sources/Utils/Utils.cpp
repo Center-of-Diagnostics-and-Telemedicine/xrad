@@ -1,20 +1,12 @@
 ﻿/*!
-	* \file XRADDicomUtils.cpp
-	* \date 3/22/2018 12:10:31 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 3/22/2018 12:10:31 PM
+	\author kovbas
 */
 #include "pre.h"
-#include <XRADDicom/Utils.h>
+#include "Utils.h"
 
 #include <XRADBasic/Sources/Utils/numbers_in_string.h>
-
 
 XRAD_BEGIN
 

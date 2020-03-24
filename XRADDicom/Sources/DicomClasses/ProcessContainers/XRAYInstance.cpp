@@ -1,18 +1,10 @@
 ﻿/*!
-	* \file XRAYInstance.cpp
-	* \date 4/19/2018 5:50:09 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 4/19/2018 5:50:09 PM
+	\author kovbas
 */
 #include "pre.h"
 #include "XRAYInstance.h"
-
 
 XRAD_BEGIN
 

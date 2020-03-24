@@ -1,22 +1,20 @@
-﻿#include "pre.h"
+﻿/*!
+	\file
+	\date 2019/09/24 10:30
+	\author novik
+
+	\brief Реализация функции для обработки json файлов и кластеризации имён
+
+	Функции работы с json файлом вынесены с файл DicomFileIndexJson.cpp
+*/
+#include "pre.h"
 #include "DicomClustering.h"
+
 #include <fstream>
 #include <map>
-#include <sys/stat.h>
-
-
-
-/*!
-\file
-\date 2019/09/24 10:30
-\author novik
-
-\brief 	Реализация функции для обработки json файлов и кластеризации имён
-
-Функции работы с json файлом вынесены с файл DicomFileIndexJson.cpp
-*/
 
 XRAD_BEGIN
+
 
 
 namespace Dicom

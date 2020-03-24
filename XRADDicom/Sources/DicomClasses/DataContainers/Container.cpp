@@ -1,18 +1,12 @@
 ﻿/*!
-	 * \file DicomFile.cpp
-	 * \date 2017/10/02 17:30
-	 *
-	 * \author kulberg
-	 *
-	 * \brief Возможно, этот файл и не нужен вовсе, надо подумать. кнс
-	 *
-	 * TODO: long description
-	 *
-	 * \note
+	\file
+	\date 2017/10/02 17:30
+	\author kulberg
+
+	\todo Возможно, этот файл и не нужен вовсе, надо подумать. кнс
 */
 #include "pre.h"
 #include "Container.h"
-
 
 XRAD_BEGIN
 

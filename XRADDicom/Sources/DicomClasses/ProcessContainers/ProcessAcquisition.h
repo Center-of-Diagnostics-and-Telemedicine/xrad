@@ -1,22 +1,14 @@
 ﻿/*!
-	* \file ProcessAcquisition.h
-	* \date 4/19/2018 2:27:56 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 4/19/2018 2:27:56 PM
+	\author kovbas
 */
 #ifndef ProcessAcquisition_h__
 #define ProcessAcquisition_h__
 
-
-#include <XRADDicom/DicomClasses/XRADDicomGeneral.h>
-#include <XRADDicom/DicomClasses/Instances/instance.h>
-#include <XRADDicom/DicomClasses/Instances/tomogram_slice.h>
+#include <XRADDicom/Sources/DicomClasses/XRADDicomGeneral.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/instance.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/tomogram_slice.h>
 
 XRAD_BEGIN
 

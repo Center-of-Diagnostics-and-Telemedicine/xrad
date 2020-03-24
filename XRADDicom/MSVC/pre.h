@@ -1,57 +1,75 @@
-﻿#ifndef pre_XRADDicom_h__
-#define pre_XRADDicom_h__
+﻿#ifndef XRAD__File_XRADDicom_pre_h
+#define XRAD__File_XRADDicom_pre_h
+//--------------------------------------------------------------
 
+// XRAD
 #include <XRADBasic/Core.h>
 #include <XRADSystem/System.h>
 
-/**************************************************************
-DCMTK, OpenJPEG
-**************************************************************/
-/**************
-libs
-***************/
-#ifdef XRAD_COMPILER_MSC
-	#include <XRAD/PlatformSpecific/MSVC/PC_DCMTKLink.h>
-#endif
+//--------------------------------------------------------------
 
-/*********
-headers
-**********/
+// DCMTK
+
 #ifdef UNICODE
 	#error You shoud undefine this macro in project settings
-//#undef UNICODE // dcmtk не работает с определённым UNICODE http://support.dcmtk.org/docs/file_install.html  http://forum.dcmtk.org/viewtopic.php?f=3&t=3882
-// поэтому отключаем
+	// dcmtk не работает с определённым UNICODE:
+	// http://support.dcmtk.org/docs/file_install.html
+	// http://forum.dcmtk.org/viewtopic.php?f=3&t=3882
 #endif
 
-#include "dcmtk/config/osconfig.h" // общий для заголовков dcmtk заголовок
+// общий для заголовков dcmtk заголовок
+#include <dcmtk/config/osconfig.h>
 
-#include "dcmtk/dcmdata/dcfilefo.h"  // DcmFileFormat
-#include "dcmtk/dcmdata/dcdeftag.h" // теги
-#include "dcmtk/dcmimgle/dcmimage.h" // нужен для извлечения изображения из dicom файла
+// DcmFileFormat
+#include <dcmtk/dcmdata/dcfilefo.h>
+// теги
+#include <dcmtk/dcmdata/dcdeftag.h>
+// нужен для извлечения изображения из dicom файла
+#include <dcmtk/dcmimgle/dcmimage.h>
 
-//for compressed image
-#include "dcmtk/dcmdata/dctk.h"
-#include "dcmtk/dcmdata/dcpxitem.h"
-#include "dcmtk/dcmjpeg/djdecode.h" //jpeg
-#include "dcmtk/dcmjpls/djdecode.h" //JPEG-LS
+// for compressed image
 
-//for compress image
-#include "dcmtk/dcmjpeg/djencode.h"
-#include "dcmtk/dcmjpeg/djrplol.h"
+#include <dcmtk/dcmdata/dctk.h>
+#include <dcmtk/dcmdata/dcpxitem.h>
+// jpeg
+#include <dcmtk/dcmjpeg/djdecode.h>
+// JPEG-LS
+#include <dcmtk/dcmjpls/djdecode.h>
 
-//словарь тегов
-#include "dcmtk/dcmdata/dcdict.h"
+// for compress image
+#include <dcmtk/dcmjpeg/djencode.h>
+#include <dcmtk/dcmjpeg/djrplol.h>
 
-//network part
-#include <dcmtk/dcmnet/scu.h>     /* Covers most common dcmdata classes */ // https://support.dcmtk.org/redmine/projects/dcmtk/wiki/Howto_DcmSCU
-#include <dcmtk/dcmnet/dstorscp.h> //StoreSCP receive data from PACS
-#include <dcmtk/dcmnet/dstorscu.h> //StoreSCU send data to PACS
-#include <dcmtk/dcmdata/dcuid.h> //generate UUID
+// словарь тегов
+#include <dcmtk/dcmdata/dcdict.h>
+
+// network part
+
+// Covers most common dcmdata classes
+// https://support.dcmtk.org/redmine/projects/dcmtk/wiki/Howto_DcmSCU
+#include <dcmtk/dcmnet/scu.h>
+// StoreSCP receive data from PACS
+#include <dcmtk/dcmnet/dstorscp.h>
+// StoreSCU send data to PACS
+#include <dcmtk/dcmnet/dstorscu.h>
+// generate UUID
+#include <dcmtk/dcmdata/dcuid.h>
 #include <dcmtk/dcmnet/diutil.h>
 
-//openjpeg for decode/encode JPEG2000
-extern "C" {
-#include "openjpeg.h"
+#ifndef XRAD_NO_LIBRARIES_LINKS
+#ifdef XRAD_COMPILER_MSC
+#include <XRADDicom/Sources/PlatformSpecific/MSVC/MSVC_DCMTKLink.h>
+#endif // XRAD_COMPILER_MSC
+#endif // XRAD_NO_LIBRARIES_LINKS
+
+//--------------------------------------------------------------
+
+// openjpeg for decode/encode JPEG2000
+
+extern "C"
+{
+#include <openjpeg.h>
 }
 
-#endif //pre_XRADDicom_h__
+//--------------------------------------------------------------
+#endif // XRAD__File_XRADDicom_pre_h

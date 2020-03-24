@@ -1,18 +1,10 @@
 ﻿/*!
-	* \file XRADDicomGeneral.cpp
-	* \date 2/16/2018 2:28:02 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 2/16/2018 2:28:02 PM
+	\author kovbas
 */
 #include "pre.h"
 #include "XRADDicomGeneral.h"
-
 
 XRAD_BEGIN
 

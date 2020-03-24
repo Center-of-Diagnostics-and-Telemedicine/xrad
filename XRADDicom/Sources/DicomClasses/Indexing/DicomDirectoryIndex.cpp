@@ -1,25 +1,22 @@
-﻿#include "pre.h"
-#include <XRADDicom/DicomClasses/Indexing/DicomFileIndex.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomDirectoryIndex.h>
-#include <XRADDicom/XRADDicom.h>
-#include <typeinfo>
+﻿/*!
+	\file
+	\date 2019/09/26 14:00
+	\author novik
 
+	\brief 	Имплементация функционала DicomDirectoryIndex - структуры для работы с файлами в одной директории
 
-#include <XRADDicom/DicomClasses/instances/ct_slice.h>
-#include <XRADDicom/DicomClasses/instances/xray_image.h>
-#include <XRADDicom/DicomClasses/instances/mr_slice.h>
-#include <XRADDicom/DicomClasses/instances/mr_slice_siemens.h>
-
-
-/*!
-\file
-\date 2019/09/26 14:00
-\author novik
-
-\brief 	Имплементация функционала DicomDirectoryIndex - структуры для работы с файлами в одной директории
-
-Функции работы с json файлом вынесены в файл DicomDirectoryIndexJson.cpp
+	Функции работы с json файлом вынесены в файл DicomDirectoryIndexJson.cpp
 */
+#include "pre.h"
+#include "DicomDirectoryIndex.h"
+
+#include <XRADDicom/XRADDicom.h>
+#include <XRADDicom/Sources/DicomClasses/instances/ct_slice.h>
+#include <XRADDicom/Sources/DicomClasses/instances/xray_image.h>
+#include <XRADDicom/Sources/DicomClasses/instances/mr_slice.h>
+#include <XRADDicom/Sources/DicomClasses/instances/mr_slice_siemens.h>
+
+#include <typeinfo>
 
 XRAD_BEGIN
 

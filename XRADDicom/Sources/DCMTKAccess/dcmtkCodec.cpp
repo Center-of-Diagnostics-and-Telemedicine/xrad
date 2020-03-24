@@ -1,19 +1,10 @@
-﻿#include "pre.h"
-#include "dcmtkCodec.h"
-/*!
-	 * \file Codec.cpp
-	 * \date
-	 *
-	 * \author kovbas
-	 *
-	 * \brief
-	 *
-	 * TODO: long description
-	 *
-	 * \note
+﻿/*!
+	\file
+	\author kovbas
 */
-
-#include <XRADDicom/DCMTKAccess/dcmtkElementsTools.h>
+#include "pre.h"
+#include "dcmtkCodec.h"
+#include "dcmtkElementsTools.h"
 #include <mutex>
 
 XRAD_BEGIN

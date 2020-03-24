@@ -1,18 +1,10 @@
 ﻿/*!
-	* \file xray_image.h
-	* \date 4/23/2018 4:55:29 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 4/23/2018 4:55:29 PM
+	\author kovbas
 */
 #ifndef xray_image_h__
 #define xray_image_h__
-
 
 #include "image.h"
 

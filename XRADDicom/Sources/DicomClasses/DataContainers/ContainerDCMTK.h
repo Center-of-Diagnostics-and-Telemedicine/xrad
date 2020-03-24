@@ -1,20 +1,12 @@
 ﻿/*!
-	 * \file ContainerDCMTK.h
-	 * \date 2017/10/03 14:43
-	 *
-	 * \author kulberg
-	 *
-	 * \brief
-	 *
-	 * TODO: long description
-	 *
-	 * \note
+	\file
+	\date 2017/10/03 14:43
+	\author kulberg
 */
 #ifndef DicomDataContainerDCMTK_h__
 #define DicomDataContainerDCMTK_h__
 
-
-#include <XRADDicom/DicomClasses/DataContainers/Container.h>
+#include "Container.h"
 #include <mutex>
 
 XRAD_BEGIN
@@ -104,9 +96,9 @@ namespace Dicom
 		friend list<int32_t>	GetTagList(Container &dcm_generic);
 
 		mutable mutex dicom_file_mutex;
-		
+
 		//!	Временное решение для Dicom-файлов, содержащих в себе кодировку 1251.
-		//!	Стандарт Dicom не допускает использование такой кодировки, однако 
+		//!	Стандарт Dicom не допускает использование такой кодировки, однако
 		//!	некоторые разработчики de facto пишут в ней текстовые данные.
 		//!	Если в файле выявлено некорректное значение по тэгу 0x00080005,
 		//!	этот флаг устанавливается в true. При чтении и записи данные

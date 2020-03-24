@@ -1,9 +1,7 @@
 ﻿#ifndef __DicomParameterCounter_h__
 #define __DicomParameterCounter_h__
-
 /*!
 	\file
-
 	\date 2018/02/28 10:38
 	\author nicholas
 
@@ -36,7 +34,7 @@
 	После выполнения объект result содержит список всех модальностей, найденных в исследовании, и количество instances для каждой найденной модальности
 */
 
-#include <XRADDicom/DicomClasses/DicomProcessors.h>
+#include "DicomProcessors.h"
 #include <map>
 
 XRAD_BEGIN

@@ -1,20 +1,12 @@
 ﻿/*!
-* \file DisplayTomogram_MRAcquisitionSiemens.h
-* \date 4/23/2018 5:46:58 PM
-*
-* \author kovbas
-*
-* \brief
-*
-* TODO: long description
-*
-* \note
+	\file
+	\date 4/23/2018 5:46:58 PM
+	\author kovbas
 */
 #ifndef DisplayTomogram_MRAcquisitionSiemens_h__
 #define DisplayTomogram_MRAcquisitionSiemens_h__
 
-
-#include <XRADDicom/DicomClasses/ProcessContainers/MRAcquisitionSiemens.h>
+#include <XRADDicom/Sources/DicomClasses/ProcessContainers/MRAcquisitionSiemens.h>
 
 XRAD_BEGIN
 

@@ -2,12 +2,9 @@
 	\file
 	\date 2018/03/02 15:32
 	\author kulberg
-
-	\brief
 */
 #include "pre.h"
 #include "CreateInstance.h"
-
 
 //tomogram
 #include "tomogram_slice.h"

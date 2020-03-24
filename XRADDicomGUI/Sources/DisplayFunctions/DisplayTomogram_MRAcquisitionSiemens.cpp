@@ -1,20 +1,10 @@
 ﻿/*!
-	* \file DisplayTomogram_MRAcquisitionSiemens.cpp
-	* \date 4/23/2018 5:46:58 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 4/23/2018 5:46:58 PM
+	\author kovbas
 */
 #include "pre.h"
 #include "DisplayTomogram_MRAcquisitionSiemens.h"
-
-
-
 
 XRAD_BEGIN
 

@@ -1,20 +1,14 @@
 ﻿#ifndef dcmtkCodec_h__
 #define dcmtkCodec_h__
+/*!
+	\file
+	\author Kovbas
+	\brief Содержит инструменты для кодирования/декодирования изображений, включения необходимых для DCMTK кодеров/декодеров при создании объекта.
+*/
 
 #include <XRADBasic/Core.h>
 
-/*!
-	\file Codec.h
-	\date
-
-	\author Kovbas
-
-	\brief Содержит инструменты для кодирования/декодирования изображений, включения необходимых для DCMTK кодеров/декодеров при создании объекта.
-
-	\note
-*/
-
-#include <XRADDicom/DicomClasses/XRADDicomGeneral.h>
+#include <XRADDicom/Sources/DicomClasses/XRADDicomGeneral.h>
 
 XRAD_BEGIN
 

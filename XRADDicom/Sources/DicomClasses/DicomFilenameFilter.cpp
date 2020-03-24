@@ -1,7 +1,4 @@
-﻿/*!
-
-*/
-#include "pre.h"
+﻿#include "pre.h"
 #include "DicomFilenameFilter.h"
 
 XRAD_BEGIN

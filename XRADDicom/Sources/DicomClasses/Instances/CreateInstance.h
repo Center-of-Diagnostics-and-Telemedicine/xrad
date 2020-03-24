@@ -2,16 +2,12 @@
 	\file
 	\date 2018/03/02 15:31
 	\author kulberg
-
-	\brief
 */
 #ifndef CreateInstance_h__
 #define CreateInstance_h__
 
-
 #include "instance.h"
-
-#include <XRADDicom/DicomClasses/Instances/LoadGenericClasses.h>
+#include "LoadGenericClasses.h"
 
 XRAD_BEGIN
 

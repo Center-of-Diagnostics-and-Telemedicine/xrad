@@ -1,24 +1,14 @@
 ﻿/*!
-	* \file LoadGenericClasses.cpp
-	* \date 12/18/2017 2:46:43 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 12/18/2017 2:46:43 PM
+	\author kovbas
 */
 #include "pre.h"
 #include "LoadGenericClasses.h"
 
-
 #include <XRADBasic/Sources/Utils/ParallelProcessor.h>
 
-
 XRAD_BEGIN
-
 
 namespace Dicom
 {

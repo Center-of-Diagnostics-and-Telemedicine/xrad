@@ -1,20 +1,11 @@
 ﻿/*!
-	* \file XRAYAcquisition.cpp
-	* \date 4/23/2018 12:19:45 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 4/23/2018 12:19:45 PM
+	\author kovbas
 */
 #include "pre.h"
-
 #include "XRAYAcquisition.h"
-//#include <XRADDicom/DicomClasses/Instances/xray_image.h>
-
+#include <XRADDicom/Sources/DicomClasses/Instances/xray_image.h>
 
 XRAD_BEGIN
 

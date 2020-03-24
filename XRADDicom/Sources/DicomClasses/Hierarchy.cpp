@@ -1,20 +1,10 @@
 ﻿/*!
-	* \file Hierarchy.cpp
-	* \date 5/11/2018 13:07:02
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 5/11/2018 13:07:02
+	\author kovbas
 */
 #include "pre.h"
 #include "Hierarchy.h"
-
-
-
 
 XRAD_BEGIN
 

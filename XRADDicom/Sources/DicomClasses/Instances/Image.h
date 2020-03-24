@@ -1,22 +1,13 @@
 ﻿/*!
-	* \file image.h
-	* \date 2/21/2018 3:39:35 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 2/21/2018 3:39:35 PM
+	\author kovbas
 */
 #ifndef image_h__
 #define image_h__
 
-
-#include <XRADDicom/DicomClasses/Instances/LoadGenericClasses.h>
-
-#include <XRADBasic/MathFunctionTypesMD.h>
+#include "LoadGenericClasses.h"
+#include <XRADBasic/MathFunctionTypes2D.h>
 
 XRAD_BEGIN
 

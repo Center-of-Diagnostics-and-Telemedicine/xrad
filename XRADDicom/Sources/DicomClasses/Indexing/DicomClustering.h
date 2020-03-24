@@ -1,15 +1,13 @@
 ﻿#ifndef DicomClustering_h__
 #define DicomClustering_h__
-
 /*!
 	\file
 	\date 2019/09/24 10:30
 	\author novik
 	\brief  Объявление вспомогательных функции кластеризации имён файлов и работы с json файлами
-
 */
-#include <XRADDicom/XRADDicom.h>
 
+#include <XRADDicom/XRADDicom.h>
 #include <XRADBasic/ThirdParty/nlohmann/json.hpp>
 
 XRAD_BEGIN

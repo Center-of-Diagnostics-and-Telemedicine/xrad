@@ -1,15 +1,12 @@
 ﻿#ifndef __DicomProcessors_h__
 #define __DicomProcessors_h__
-
 /*!
 	\file
 	\date 2018/02/12 13:44
 	\author kulberg
-
-	\brief
 */
 
-#include <XRADDicom/DicomClasses/Instances/LoadGenericClasses.h>
+#include "Instances/LoadGenericClasses.h"
 #include <XRADBasic/Sources/Utils/ProgressIndicatorScheduler.h>
 #include <XRADBasic/Sources/Utils/ParallelProcessor.h>
 

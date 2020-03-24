@@ -1,17 +1,13 @@
-﻿/********************************************************************
-created:	2016/09/30
-created:	30:9:2016   15:37
-author:		kns
-*********************************************************************/
+﻿/*!
+	\file
+	\date 30:9:2016 15:37
+	\author kns
+*/
 #include "pre.h"
 #include "MRAcquisition.h"
 
-#include <XRADBasic/Sources/Containers/DataArrayAnalyze2D.h>
-#include <omp.h>
-
-#include <XRADDicom/DicomClasses/DicomStorageAnalyze.h>
-
-#include <XRADDicom/DicomClasses/Instances/mr_slice.h>
+#include <XRADDicom/Sources/DicomClasses/DicomStorageAnalyze.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/mr_slice.h>
 
 XRAD_BEGIN
 /*?

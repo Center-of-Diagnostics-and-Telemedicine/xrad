@@ -1,20 +1,13 @@
 ﻿/*!
-	* \file dialogs.h
-	* \date 2/11/2019 5:37:36 PM
-	*
-	* \author Kovbas (kovbas)
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 2/11/2019 5:37:36 PM
+	\author Kovbas (kovbas)
 */
 #ifndef dialogs_h__
 #define dialogs_h__
 
 #include <XRADDicom/XRADDicom.h>
-#include <XRAD/GUI/DynamicDialog.h> //for DynamicDialog
+#include <XRAD/GUI/DynamicDialog.h>
 
 XRAD_BEGIN
 

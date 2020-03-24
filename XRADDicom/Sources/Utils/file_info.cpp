@@ -1,14 +1,10 @@
 ﻿/*!
 	\file
-
 	\date 2018/03/9 13:27
 	\author nicholas
-
-	\brief
 */
 #include "pre.h"
 #include "file_info.h"
-
 
 #include <XRADSystem/System.h>
 

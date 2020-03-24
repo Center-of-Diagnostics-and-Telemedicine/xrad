@@ -1,7 +1,6 @@
-﻿// file PC_DCMTKLink.h
-//--------------------------------------------------------------
-#ifndef __PC_DCMTKLink_h
-#define __PC_DCMTKLink_h
+﻿//--------------------------------------------------------------
+#ifndef XRAD__File_MSVC_DCMTKLink_h
+#define XRAD__File_MSVC_DCMTKLink_h
 //--------------------------------------------------------------
 
 #ifndef _MSC_VER
@@ -22,4 +21,4 @@
 #endif
 
 //--------------------------------------------------------------
-#endif // __PC_DCMTKLink_h
+#endif // XRAD__File_MSVC_DCMTKLink_h

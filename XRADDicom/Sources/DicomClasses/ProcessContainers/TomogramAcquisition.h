@@ -1,20 +1,17 @@
-﻿// file TomogramAcquisition.h
-//--------------------------------------------------------------
-#ifndef TomogramAcquisition_h__
+﻿#ifndef TomogramAcquisition_h__
 #define TomogramAcquisition_h__
 /*!
 	\file
 	\date 2016-09-29 11:43
 	\author kns
 */
+//--------------------------------------------------------------
 
-#include <XRADDicom/DicomClasses/ProcessContainers/ProcessAcquisition.h>
+#include "ProcessAcquisition.h"
 #include <XRADBasic/LinearVectorTypes.h>
 #include <XRADBasic/MathFunctionTypesMD.h>
 #include <XRADBasic/Sources/Containers/VectorFunction.h>
 #include <set>
-
-#include <XRADDicom/DicomClasses/Instances/tomogram_slice.h>
 
 XRAD_BEGIN
 

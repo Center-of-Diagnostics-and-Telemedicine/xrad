@@ -1,20 +1,17 @@
 ﻿#ifndef DicomCatalogIndex_h__
 #define DicomCatalogIndex_h__
-
-
 /*!
 	\file
 	\date 2019/10/21 10:00
 	\author novik
-	\brief  Объявление функций и полей класса DicomCatalogIndex, предназначенных для работы с файлами и директориями каталога
+	\brief Объявление функций и полей класса DicomCatalogIndex, предназначенных для работы с файлами
+	и директориями каталога
 
-	Класса DicomCatalogIndex  предназначен для обработки всех поддиректорий некоторого каталога.
-
+	Класс DicomCatalogIndex  предназначен для обработки всех поддиректорий некоторого каталога.
 */
 
-
-#include <XRADDicom/DicomClasses/Indexing/DicomDirectoryIndex.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomDirectoryIndexJson.h>
+#include "DicomDirectoryIndex.h"
+#include "DicomDirectoryIndexJson.h"
 
 XRAD_BEGIN
 

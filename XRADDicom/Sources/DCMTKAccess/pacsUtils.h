@@ -1,23 +1,16 @@
 ﻿/*!
-	* \file pacsUtils.h
-	* \date 10/10/2018 3:58:45 PM
-	*
-	* \author Kovbas (kovbas)
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 10/10/2018 3:58:45 PM
+	\author Kovbas (kovbas)
 */
 #ifndef pacsUtils_h__
 #define pacsUtils_h__
 
-#include <XRADDicom/DicomClasses/XRADDicomGeneral.h>
-#include <XRADDicom/DicomClasses/DataContainers/datasource.h>
-#include <set>
+#include <XRADDicom/Sources/DicomClasses/XRADDicomGeneral.h>
+#include <XRADDicom/Sources/DicomClasses/DataContainers/datasource.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/LoadGenericClasses.h>
 
-#include <XRADDicom/DicomClasses/Instances/LoadGenericClasses.h>
+#include <set>
 
 #undef dcmtklog
 

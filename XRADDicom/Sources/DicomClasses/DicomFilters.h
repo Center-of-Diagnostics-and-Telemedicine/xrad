@@ -8,7 +8,7 @@
 #ifndef dicom_filters_h__
 #define dicom_filters_h__
 
-#include <XRADDicom/DicomClasses/DicomFilterCore.h>
+#include "DicomFilterCore.h"
 
 XRAD_BEGIN
 

@@ -1,26 +1,23 @@
-﻿#include "pre.h"
-#include <XRADDicom/DicomClasses/Indexing/DicomFileIndex.h>
-#include <XRADDicom/XRADDicom.h>
+﻿/*!
+	\file
+	\date 2019/10/17 13:00
+	\author novik
 
-
-#include <typeinfo>
-
-
-#include <XRADDicom/DicomClasses/instances/ct_slice.h>
-#include <XRADDicom/DicomClasses/instances/xray_image.h>
-#include <XRADDicom/DicomClasses/instances/mr_slice.h>
-#include <XRADDicom/DicomClasses/instances/mr_slice_siemens.h>
-
-
-/*!
-\file
-\date 2019/10/17 13:00
-\author novik
-
-\brief 	Имплементация функционала класса DicomFileIndex - структуры для работы с тэгами одного файла
+	\brief Имплементация функционала класса DicomFileIndex - структуры для работы с тэгами одного файла
 
 	Функции работы с json файлом вынесены в файл DicomFileIndexJson.cpp
 */
+#include "pre.h"
+#include "DicomFileIndex.h"
+
+#include <XRADDicom/XRADDicom.h>
+
+#include <XRADDicom/Sources/DicomClasses/instances/ct_slice.h>
+#include <XRADDicom/Sources/DicomClasses/instances/xray_image.h>
+#include <XRADDicom/Sources/DicomClasses/instances/mr_slice.h>
+#include <XRADDicom/Sources/DicomClasses/instances/mr_slice_siemens.h>
+
+#include <typeinfo>
 
 XRAD_BEGIN
 

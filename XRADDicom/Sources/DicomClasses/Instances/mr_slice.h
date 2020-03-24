@@ -1,18 +1,10 @@
 ﻿/*!
-* \file mr_slice.h
-* \date 4/2/2018 12:58:26 PM
-*
-* \author kovbas
-*
-* \brief
-*
-* TODO: long description
-*
-* \note
+	\file
+	\date 4/2/2018 12:58:26 PM
+	\author kovbas
 */
 #ifndef mr_slice_h__
 #define mr_slice_h__
-
 
 #include "tomogram_slice.h"
 

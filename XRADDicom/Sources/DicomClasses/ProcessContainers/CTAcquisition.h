@@ -1,15 +1,14 @@
-﻿/********************************************************************
-created:	2016/09/30
-created:	30:9:2016   15:35
-author:		kns
-*********************************************************************/
+﻿/*!
+	\file
+	\date 30:9:2016 15:35
+	\author kns
+*/
 #ifndef ProcessCTSeries_h__
 #define ProcessCTSeries_h__
 
-#include <XRADDicom/DicomClasses/ProcessContainers/TomogramAcquisition.h>
+#include "TomogramAcquisition.h"
 
 XRAD_BEGIN
-
 
 class CTAcquisition : public TomogramAcquisition
 {

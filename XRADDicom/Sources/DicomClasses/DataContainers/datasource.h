@@ -1,25 +1,15 @@
 ﻿/*!
-	* \file datasource.h
-	* \date 10/18/2018 12:47:56 PM
-	*
-	* \author Kovbas (kovbas)
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 10/18/2018 12:47:56 PM
+	\author Kovbas (kovbas)
 */
 #ifndef datasource_h__
 #define datasource_h__
 
-
-
-#include <XRADDicom/DicomClasses/dataelement.h>
+#include <XRADDicom/Sources/DicomClasses/dataelement.h>
 #include <XRADBasic/Sources/Core/cloning_ptr.h>
-#include <XRADDicom/file_info.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomFileIndex.h>
-
+#include <XRADDicom/Sources/Utils/file_info.h>
+#include <XRADDicom/Sources/DicomClasses/Indexing/DicomFileIndex.h>
 
 XRAD_BEGIN
 
@@ -214,7 +204,7 @@ namespace Dicom
 	};
 
 
-	class instancestorage_file_pre_indexed : public instancestorage_file, public DicomFileIndex 
+	class instancestorage_file_pre_indexed : public instancestorage_file, public DicomFileIndex
 	{
 		// сюда добавить информацию из индекса
 		PARENT(instancestorage_file);
@@ -293,7 +283,6 @@ namespace Dicom
 	using instancestorage_ptr = cloning_ptr<instancestorage_t>;
 
 } //namespace Dicom
-
 
 XRAD_END
 

@@ -1,7 +1,5 @@
 ﻿#ifndef DicomDirectoryIndexJson_h__
 #define DicomDirectoryIndexJson_h__
-
-
 /*!
 	\file
 	\date 2019/10/21 10:00
@@ -9,13 +7,11 @@
 	\brief Объявления функций для создания-записи-считывания json объектов с информацией о файлах в директории
 */
 
-
-#include <XRADDicom/DicomClasses/Indexing/DicomFileIndex.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomDirectoryIndex.h>
+#include "DicomFileIndex.h"
+#include "DicomDirectoryIndex.h"
 #include <XRADBasic/ThirdParty/nlohmann/json.hpp>
 
 XRAD_BEGIN
-
 
 namespace Dicom
 {

@@ -1,10 +1,9 @@
 ﻿#ifndef logger_h__
 #define logger_h__
 /*!
-* \file
-* \date 1/12/2018 12:12:47 PM
-*
-* \author kovbas
+	\file
+	\date 1/12/2018 12:12:47 PM
+	\author kovbas
 */
 
 #include <XRADSystem/TextFile.h>
@@ -32,11 +31,7 @@ class	Logger
 		std::mutex	m;
 };
 
-
-
 } //namespace Dicom
-
-
 
 XRAD_END
 

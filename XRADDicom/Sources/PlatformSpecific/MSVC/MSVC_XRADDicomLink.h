@@ -1,7 +1,6 @@
-﻿// file PC_XRADDicomLink.h
-//--------------------------------------------------------------
-#ifndef PC_XRADDicomLink_h__
-#define PC_XRADDicomLink_h__
+﻿//--------------------------------------------------------------
+#ifndef XRAD__File_MSVC_XRADDicomLink_h
+#define XRAD__File_MSVC_XRADDicomLink_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Sources/PlatformSpecific/MSVC/MSVC_XRADLink-Suffix.h>
@@ -17,4 +16,4 @@
 #endif
 
 //--------------------------------------------------------------
-#endif // PC_XRADDicomLink_h__
+#endif // XRAD__File_MSVC_XRADDicomLink_h

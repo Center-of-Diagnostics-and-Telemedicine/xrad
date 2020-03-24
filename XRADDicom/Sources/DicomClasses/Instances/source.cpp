@@ -1,15 +1,12 @@
 ﻿/*!
 	\file
-
 	\date 2018/03/8 15:15
 	\author nicholas
-
-	\brief
 */
 #include "pre.h"
 #include "source.h"
 
-#include <XRADDicom/Utils.h>
+#include <XRADDicom/Sources/Utils/Utils.h>
 
 XRAD_BEGIN
 

@@ -1,18 +1,10 @@
 ﻿/*!
-	* \file image.cpp
-	* \date 2/21/2018 3:39:35 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 2/21/2018 3:39:35 PM
+	\author kovbas
 */
 #include "pre.h"
 #include "image.h"
-
 
 XRAD_BEGIN
 

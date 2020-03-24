@@ -1,7 +1,5 @@
-﻿// file PC_DicomGUILink.h
-//--------------------------------------------------------------
-#ifndef PC_DicomGUILink_h__
-#define PC_DicomGUILink_h__
+﻿#ifndef XRAD__File_MSVC_XRADDicomGUILink_h
+#define XRAD__File_MSVC_XRADDicomGUILink_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Sources/PlatformSpecific/MSVC/MSVC_XRADLink-Suffix.h>
@@ -17,4 +15,4 @@
 #endif
 
 //--------------------------------------------------------------
-#endif // PC_DicomGUILink_h__
+#endif // XRAD__File_MSVC_XRADDicomGUILink_h

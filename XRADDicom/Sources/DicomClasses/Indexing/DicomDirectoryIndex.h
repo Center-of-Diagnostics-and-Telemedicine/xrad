@@ -1,6 +1,5 @@
 ﻿#ifndef DicomDirectoryIndex_h__
 #define DicomDirectoryIndex_h__
-
 /*!
 	\file
 	\date 2019/10/21 10:00
@@ -10,10 +9,7 @@
 	Класс DicomDirectoryIndex  предназначен для обработки файлов в одной директории.
 */
 
-
-
-#include <XRADDicom/DicomClasses/Indexing/DicomFileIndex.h>
-
+#include "DicomFileIndex.h"
 
 XRAD_BEGIN
 

@@ -1,26 +1,17 @@
 ﻿/*!
-	* \file pacsTools.cpp
-	* \date 10/10/2018 3:58:45 PM
-	*
-	* \author Kovbas (kovbas)
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 10/10/2018 3:58:45 PM
+	\author Kovbas (kovbas)
 */
 #include "pre.h"
 #include "pacsTools.h"
 
-#include <XRADDicom/DCMTKAccess/pacsUtils.h>
-#include <XRADDicom/DCMTKAccess/dcmtkElementsTools.h>
+#include "pacsUtils.h"
+#include "dcmtkElementsTools.h"
 #include <XRADSystem/TextFile.h>
 
 #include <thread>
-
 #include <sstream>
-
 
 XRAD_BEGIN
 

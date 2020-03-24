@@ -1,19 +1,12 @@
 ﻿/*!
-	* \file XRADDicomTools.h
-	* \date 26/08/2019 13:10
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 26/08/2019 13:10
+	\author kovbas
 */
 #ifndef XRADDicomTools_h__
 #define XRADDicomTools_h__
 
-#include <XRADDicom/DicomClasses/dataelement.h>
+#include <XRADDicom/Sources/DicomClasses/dataelement.h>
 
 XRAD_BEGIN
 

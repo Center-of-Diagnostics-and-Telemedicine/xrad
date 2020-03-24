@@ -1,18 +1,12 @@
 ﻿/*!
-	* \file dataelement.h
-	* \date 5/16/2018 4:28:48 PM
-	*
-	* \author Kovbas (kovbas)
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 5/16/2018 4:28:48 PM
+	\author Kovbas (kovbas)
 */
 #ifndef dataelement_h__
 #define dataelement_h__
 
+#include <XRADBasic/Core.h>
 #include <map>
 #include <list>
 

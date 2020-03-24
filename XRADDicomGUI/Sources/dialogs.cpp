@@ -1,20 +1,10 @@
 ﻿/*!
-	* \file dialogs.cpp
-	* \date 2/11/2019 5:37:36 PM
-	*
-	* \author Kovbas (kovbas)
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 2/11/2019 5:37:36 PM
+	\author Kovbas (kovbas)
 */
 #include "pre.h"
 #include "dialogs.h"
-
-#include <XRAD/GUI/DynamicDialog.h> //for DynamicDialog
-
 
 XRAD_BEGIN
 

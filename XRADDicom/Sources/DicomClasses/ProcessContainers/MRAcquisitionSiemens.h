@@ -1,18 +1,10 @@
 ﻿/*!
-	* \file MRAcquisitionSiemens.h
-	* \date 5/4/2018 1:12:18 PM
-	*
-	* \author Kovbas (kovbas)
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 5/4/2018 1:12:18 PM
+	\author Kovbas (kovbas)
 */
 #ifndef MRAcquisitionSiemens_h__
 #define MRAcquisitionSiemens_h__
-
 
 #include "MRAcquisition.h"
 

@@ -1,18 +1,10 @@
 ﻿/*!
-	* \file TomogramGeneric.cpp
-	* \date 4/23/2018 5:46:06 PM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 4/23/2018 5:46:06 PM
+	\author kovbas
 */
 #include "pre.h"
 #include "DisplayTomogram_GenericAcquisition.h"
-
 
 XRAD_BEGIN
 

@@ -1,16 +1,12 @@
 ﻿/*!
 	\file
-
 	\date 2018/03/9 13:29
 	\author nicholas
-
-	\brief
 */
 #ifndef __file_info_h__
 #define __file_info_h__
 
-//#include <filesystem> //for std::filesystem
-
+#include <XRADBasic/Core.h>
 
 XRAD_BEGIN
 

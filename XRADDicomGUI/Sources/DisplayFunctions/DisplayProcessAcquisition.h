@@ -1,16 +1,12 @@
-﻿/********************************************************************
-	created:	2016/12/22
-	created:	22:12:2016   12:45
-	file:	 	TomogramGUI.h
-
-	author:		kns
-
-	purpose:
-*********************************************************************/
+﻿/*!
+	\file
+	\date 22:12:2016 12:45
+	\author kns
+*/
 #ifndef TomogramGUI_h__
 #define TomogramGUI_h__
 
-#include <XRADDicom/DicomClasses/ProcessContainers/ProcessAcquisition.h>
+#include <XRADDicom/Sources/DicomClasses/ProcessContainers/ProcessAcquisition.h>
 
 XRAD_BEGIN
 

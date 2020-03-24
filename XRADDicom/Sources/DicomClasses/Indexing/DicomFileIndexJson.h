@@ -1,6 +1,5 @@
 ﻿#ifndef DicomFileIndexJson_h__
 #define DicomFileIndexJson_h__
-
 /*!
 	\file
 	\date 2019/10/17 13:00
@@ -8,16 +7,14 @@
 	\brief Объявления функций для создания-записи-считывания json объектов с информацией о файле
 */
 
-
-#include <XRADDicom/DicomClasses/Indexing/DicomFileIndex.h>
+#include "DicomFileIndex.h"
 #include <XRADBasic/ThirdParty/nlohmann/json.hpp>
 
 XRAD_BEGIN
 
 namespace Dicom
 {
-	/// класс для обработки и хранения инф-ции об одном файле
-	using DicomFileIndex = Dicom::DicomFileIndex;
+	using json = nlohmann::json;
 
 	/// из json объекта заданного типа сформировать DicomFileIndex объект
 	/// универсальная функция для двух типов json объектов
@@ -41,9 +38,5 @@ namespace Dicom
 }   // end namespace Dicom
 
 XRAD_END
-
-
-
-
 
 #endif // DicomFileIndexJson_h__

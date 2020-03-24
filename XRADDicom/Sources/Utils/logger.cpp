@@ -1,18 +1,16 @@
 ﻿/*!
-* \file
-* \date 1/12/2018 12:12:47 PM
-*
-* \author kovbas
-*
-* \brief Здесь предполагается реализация логгера для XRADDicom
+	\file
+	\date 1/12/2018 12:12:47 PM
+	\author kovbas
+
+	\brief Здесь предполагается реализация логгера для XRADDicom
 */
 #include "pre.h"
-
 #include "logger.h"
 
-#include "dcmtk/config/osconfig.h"
-#include "dcmtk/oflog/consap.h"
-#include "dcmtk/oflog/nullap.h"
+#include <dcmtk/config/osconfig.h>
+#include <dcmtk/oflog/consap.h>
+#include <dcmtk/oflog/nullap.h>
 
 XRAD_BEGIN
 

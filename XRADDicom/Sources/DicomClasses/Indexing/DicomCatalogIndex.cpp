@@ -1,10 +1,10 @@
 ﻿#include "pre.h"
+#include "DicomCatalogIndex.h"
 
-#include <XRADDicom/DicomClasses/Indexing/DicomClustering.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomCatalogIndex.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomDirectoryIndex.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomCatalogIndex.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomDirectoryIndexJson.h>
+#include "DicomClustering.h"
+#include "DicomCatalogIndex.h"
+#include "DicomDirectoryIndex.h"
+#include "DicomDirectoryIndexJson.h"
 
 
 /// define TEST_JSON для тестирования работы индексатора

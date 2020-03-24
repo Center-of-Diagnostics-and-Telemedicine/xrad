@@ -1,18 +1,18 @@
 ﻿#include "pre.h"
-#include <XRADDicom/DicomClasses/Indexing/DicomClustering.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomCatalogIndex.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomDirectoryIndex.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomFileIndex.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomFileIndexJson.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomDirectoryIndexJson.h>
+#include "DicomDirectoryIndexJson.h"
+
+#include "DicomClustering.h"
+#include "DicomCatalogIndex.h"
+#include "DicomFileIndexJson.h"
+
+#include <XRADDicom/Sources/DicomClasses/instances/ct_slice.h>
+#include <XRADDicom/Sources/DicomClasses/instances/xray_image.h>
+#include <XRADDicom/Sources/DicomClasses/instances/mr_slice.h>
+#include <XRADDicom/Sources/DicomClasses/instances/mr_slice_siemens.h>
+
 #include <XRADDicom/XRADDicom.h>
 
 #include <typeinfo>
-
-#include <XRADDicom/DicomClasses/instances/ct_slice.h>
-#include <XRADDicom/DicomClasses/instances/xray_image.h>
-#include <XRADDicom/DicomClasses/instances/mr_slice.h>
-#include <XRADDicom/DicomClasses/instances/mr_slice_siemens.h>
 
 /// директива для возможности тестирования записанных и считанных json объектов
 #define TEST_JSON

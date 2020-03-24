@@ -1,20 +1,12 @@
 ﻿/*!
-* \file DisplayTomogram_GenericAcquisition.h
-* \date 4/23/2018 5:46:06 PM
-*
-* \author kovbas
-*
-* \brief
-*
-* TODO: long description
-*
-* \note
+	\file
+	\date 4/23/2018 5:46:06 PM
+	\author kovbas
 */
 #ifndef DisplayTomogram_GenericAcquisition_h__
 #define DisplayTomogram_GenericAcquisition_h__
 
-
-#include <XRADDicom/DicomClasses/ProcessContainers/TomogramAcquisition.h>
+#include <XRADDicom/Sources/DicomClasses/ProcessContainers/TomogramAcquisition.h>
 
 XRAD_BEGIN
 

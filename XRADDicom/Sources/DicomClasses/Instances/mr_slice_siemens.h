@@ -1,18 +1,10 @@
 ﻿/*!
-* \file mr_slice_siemens.h
-* \date 5/3/2018 12:17:49 PM
-*
-* \author kovbas
-*
-* \brief
-*
-* TODO: long description
-*
-* \note
+	\file
+	\date 5/3/2018 12:17:49 PM
+	\author kovbas
 */
 #ifndef mr_slice_siemens_h__
 #define mr_slice_siemens_h__
-
 
 #include "mr_slice.h"
 

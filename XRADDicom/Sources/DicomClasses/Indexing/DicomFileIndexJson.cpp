@@ -1,28 +1,25 @@
-﻿#include "pre.h"
+﻿/*!
+	\file
+	\date 2019/10/17 13:00
+	\author novik
+
+	\brief Реализация функций для создания-записи-считывания json объектов с информацией о файле
+*/
+#include "pre.h"
+#include "DicomFileIndexJson.h"
+
 #include "DicomClustering.h"
-#include <XRADDicom/DicomClasses/Indexing/DicomFileIndex.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomFileIndexJson.h>
+
+#include <XRADDicom/Sources/DicomClasses/instances/ct_slice.h>
+#include <XRADDicom/Sources/DicomClasses/instances/xray_image.h>
+#include <XRADDicom/Sources/DicomClasses/instances/mr_slice.h>
+#include <XRADDicom/Sources/DicomClasses/instances/mr_slice_siemens.h>
+
 #include <XRADDicom/XRADDicom.h>
 
 #include <typeinfo>
 
-
-#include <XRADDicom/DicomClasses/instances/ct_slice.h>
-#include <XRADDicom/DicomClasses/instances/xray_image.h>
-#include <XRADDicom/DicomClasses/instances/mr_slice.h>
-#include <XRADDicom/DicomClasses/instances/mr_slice_siemens.h>
-
-
-/*!
-\file
-\date 2019/10/17 13:00
-\author novik
-
-\brief Реализация функций для создания-записи-считывания json объектов с информацией о файле
-*/
-
 XRAD_BEGIN
-
 
 namespace Dicom
 {

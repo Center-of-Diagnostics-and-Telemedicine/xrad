@@ -1,22 +1,20 @@
 ﻿#include "pre.h"
 #include "DicomStorageAnalyze.h"
 
+#include <XRADDicom/Sources/DCMTKAccess/dcmtkElementsTools.h>
+#include <XRADDicom/Sources/DCMTKAccess/pacsTools.h>
+#include "DicomProcessors.h"
+#include "DicomFilters.h"
+#include "Instances/CreateInstance.h"
+
+#include "Indexing/DicomCatalogIndex.h"
+#include "Indexing/DicomFileIndex.h"
+
 #include <XRADSystem/System.h>
 #include <XRADBasic/Sources/Utils/ParallelProcessor.h>
 
 #include <set>
 #include <mutex>
-
-//#include <typeinfo>
-
-#include <XRADDicom/DCMTKAccess/dcmtkElementsTools.h>
-#include <XRADDicom/DCMTKAccess/pacsTools.h>
-#include <XRADDicom/DicomClasses/DicomProcessors.h>
-#include "DicomFilters.h"
-#include "Instances/CreateInstance.h"
-
-#include <XRADDicom/DicomClasses/Indexing/DicomCatalogIndex.h>
-#include <XRADDicom/DicomClasses/Indexing/DicomFileIndex.h>
 
 XRAD_BEGIN
 

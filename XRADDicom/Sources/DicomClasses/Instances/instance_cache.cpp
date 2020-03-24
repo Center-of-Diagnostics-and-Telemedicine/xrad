@@ -2,14 +2,11 @@
 	\file
 	\date 2018/09/21 15:00
 	\author kulberg
-
-	\brief
 */
 #include "pre.h"
 #include "instance_cache.h"
 
-
-#include <XRADDicom/Utils.h>
+#include <XRADDicom/Sources/Utils/Utils.h>
 
 XRAD_BEGIN
 

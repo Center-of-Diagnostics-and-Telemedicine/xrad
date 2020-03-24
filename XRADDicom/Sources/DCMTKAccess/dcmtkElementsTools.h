@@ -1,19 +1,11 @@
 ﻿/*!
-	 * \file dcmtkElementsTools.h
-	 * \date
-	 *
-	 * \author kovbas
-	 *
-	 * \brief
-	 *
-	 * TODO: long description
-	 *
-	 * \note
+	\file
+	\author kovbas
 */
 #ifndef dcmtkElementsTools_h__
 #define dcmtkElementsTools_h__
 
-#include <XRADDicom/DicomClasses/XRADDicomGeneral.h>
+#include <XRADDicom/Sources/DicomClasses/XRADDicomGeneral.h>
 
 XRAD_BEGIN
 

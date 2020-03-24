@@ -1,12 +1,6 @@
-﻿#ifndef __pre_DicomGUI_h
-#define __pre_DicomGUI_h
-
-#define __pre_DicomGUI_h
+﻿#ifndef XRAD__File_XRADDicomGUI_pre_h
+#define XRAD__File_XRADDicomGUI_pre_h
 
 #include <XRAD.h>
-// это заготовка
-//#include <XRADDicom/XRADDicom.h> //note (Kovbas) убрано, т.к. XRADDicom имеет много изменений и каждый раз ждать пересборки прекомпайл хедера занимает много времени.
 
-#undef __pre_DicomGUI_h
-
-#endif //__pre_DicomGUI_h
+#endif // XRAD__File_XRADDicomGUI_pre_h

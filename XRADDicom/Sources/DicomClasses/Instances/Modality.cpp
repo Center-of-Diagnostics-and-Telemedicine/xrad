@@ -1,14 +1,10 @@
 ﻿/*!
 	\file
-
 	\date 2018/03/8 12:34
 	\author nicholas
-
-	\brief
 */
 #include "pre.h"
 #include "Modality.h"
-
 
 XRAD_BEGIN
 

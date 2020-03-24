@@ -1,20 +1,16 @@
 ﻿/*!
 	\file
-
 	\date 2018/03/8 15:15
 	\author nicholas
-
-	\brief
 */
 #ifndef source_h__
 #define source_h__
 
-#include <XRADDicom/DicomClasses/XRADDicomGeneral.h>
-#include <XRADDicom/DicomClasses/DataContainers/datasource.h>
-#include <XRADDicom/DicomClasses/DataContainers/Container.h>
-#include <set>
-
+#include <XRADDicom/Sources/DicomClasses/XRADDicomGeneral.h>
+#include <XRADDicom/Sources/DicomClasses/DataContainers/datasource.h>
+#include <XRADDicom/Sources/DicomClasses/DataContainers/Container.h>
 #include <XRADBasic/Sources/Core/cloning_ptr.h>
+#include <set>
 
 XRAD_BEGIN
 

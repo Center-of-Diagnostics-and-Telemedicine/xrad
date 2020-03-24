@@ -1,7 +1,5 @@
 ﻿#ifndef DicomFileIndex_h__
 #define DicomFileIndex_h__
-
-
 /*!
 	\file
 	\date 2019/10/17 13:00
@@ -11,7 +9,7 @@
 	Класс DicomFileIndex  предназначен для обработки одного файла.
 */
 
-#include <XRADDicom/DicomClasses/tags_enum.h>
+#include <XRADDicom/Sources/DicomClasses/tags_enum.h>
 
 XRAD_BEGIN
 

@@ -2,16 +2,12 @@
 	\file
 	\date 2018/03/01 15:52
 	\author kulberg
-
-	\brief
 */
 #include "pre.h"
 #include "DicomPredicates.h"
 
-
 #include "DicomFilters.h"
 #include "Instances/tomogram_slice.h"
-
 
 XRAD_BEGIN
 

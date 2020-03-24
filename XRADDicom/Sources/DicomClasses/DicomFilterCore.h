@@ -1,20 +1,15 @@
 ﻿#ifndef DicomFilterCore_h__
 #define DicomFilterCore_h__
-
 /*!
 	\file
 	\date 2018/03/01 15:44
 	\author kulberg
-
-	\brief
 */
 
-#include <XRADDicom/DicomClasses/DicomPredicates.h>
-#include <XRADDicom/DicomClasses/DicomProcessors.h>
-
+#include "DicomPredicates.h"
+#include "DicomProcessors.h"
 
 XRAD_BEGIN
-
 
 
 

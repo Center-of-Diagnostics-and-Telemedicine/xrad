@@ -1,24 +1,16 @@
 ﻿/*!
-	* \file pacsUtils.cpp
-	* \date 10/10/2018 3:58:45 PM
-	*
-	* \author Kovbas (kovbas)
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 10/10/2018 3:58:45 PM
+	\author Kovbas (kovbas)
 */
 #include "pre.h"
 #include "pacsUtils.h"
 
+#include <XRADDicom/Sources/DicomClasses/dataelement.h>
+#include "dcmtkElementsTools.h"
 
-#include <XRADDicom/DicomClasses/dataelement.h>
-#include <XRADDicom/DCMTKAccess/dcmtkElementsTools.h>
-
-#include <XRADDicom/DicomClasses/DataContainers/ContainerDCMTK.h>
-#include <XRADDicom/DicomClasses/Instances/ct_slice.h>
+#include <XRADDicom/Sources/DicomClasses/DataContainers/ContainerDCMTK.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/ct_slice.h>
 
 #include <thread>
 

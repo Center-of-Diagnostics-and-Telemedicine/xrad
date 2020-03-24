@@ -1,23 +1,18 @@
-﻿/********************************************************************
-	created:	2016/12/22
-	created:	22:12:2016   12:45
-	file:	 	DisplayProcessAcquisition.cpp
-
-	author:		kns
-
-	purpose:
-*********************************************************************/
+﻿/*!
+	\file
+	\date 22:12:2016 12:45
+	\author kns
+*/
 #include "pre.h"
 #include "DisplayProcessAcquisition.h"
 
+#include "DisplayTomogram_GenericAcquisition.h"
+#include "DisplayTomogram_CTAcquisition.h"
+#include "DisplayTomogram_MRAcquisition.h"
+#include "DisplayTomogram_MRAcquisitionSiemens.h"
+#include "DisplayAcquisitionXRay.h"
+
 #include <XRADGUI.h>
-
-#include <XRADDicomGUI/DisplayFunctions/DisplayTomogram_GenericAcquisition.h>
-#include <XRADDicomGUI/DisplayFunctions/DisplayTomogram_CTAcquisition.h>
-#include <XRADDicomGUI/DisplayFunctions/DisplayTomogram_MRAcquisition.h>
-#include <XRADDicomGUI/DisplayFunctions/DisplayTomogram_MRAcquisitionSiemens.h>
-
-#include <XRADDicomGUI/DisplayFunctions/DisplayAcquisitionXRay.h>
 
 XRAD_BEGIN
 

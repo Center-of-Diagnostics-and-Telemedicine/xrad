@@ -1,14 +1,13 @@
-﻿/********************************************************************
-	created:	2016/12/26
-	created:	26:12:2016   13:15
-	author:		kns
-*********************************************************************/
+﻿/*!
+	\file
+	\date 26:12:2016 13:15
+	\author kns
+*/
 #ifndef tomogram_slice_h__
 #define tomogram_slice_h__
 
-
-#include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 #include "image.h"
+#include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 
 XRAD_BEGIN
 
