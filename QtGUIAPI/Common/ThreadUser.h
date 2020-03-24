@@ -2,7 +2,7 @@
 //	Created by IRD on 05.2013
 //  Version 3.0.2
 /*!
-* \file ThreadUser.h
+* \file
 * \brief Описание класса ThreadUser
 * \details что-то добавить?.
 * \version 3.0.2.
