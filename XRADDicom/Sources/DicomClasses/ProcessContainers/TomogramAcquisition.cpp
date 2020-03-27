@@ -91,7 +91,7 @@ point3_F64 TomogramAcquisition::scales() const
 
 RealFunctionF32 TomogramAcquisition::prepare_RealFunctionF32(Dicom::tag_e elem_tag) const
 {
-	RealFunctionF32 arrTmp({ m_acquisition_loader->size() });
+	RealFunctionF32 arrTmp(m_acquisition_loader->size());
 	//size_t	z_size = source_tomogram.size();
 	//size_t	y_size = first_frame.vsize();
 	//size_t	x_size = first_frame.hsize();
@@ -107,7 +107,7 @@ RealFunctionF32 TomogramAcquisition::prepare_RealFunctionF32(Dicom::tag_e elem_t
 
 RealFunctionF64 TomogramAcquisition::prepare_RealFunctionF64(Dicom::tag_e elem_tag) const
 {
-	RealFunctionF64 arrTmp({ m_acquisition_loader->size() });
+	RealFunctionF64 arrTmp(m_acquisition_loader->size());
 	//size_t	z_size = source_tomogram.size();
 	//size_t	y_size = first_frame.vsize();
 	//size_t	x_size = first_frame.hsize();
