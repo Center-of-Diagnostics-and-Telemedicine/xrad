@@ -532,7 +532,7 @@ public:
 	//! \details
 	//! Фиктивный параметр V нужен для удовлетворения стандарту языка при создании специализации
 	//! для D = element_t.
-	template <class D, class V = void>
+	template <class D, class V>
 	struct ProcessorType;
 
 	template <class V>
@@ -542,7 +542,7 @@ public:
 	};
 
 	template <class D>
-	using ProcessorType_t = typename ProcessorType<D>::type;
+	using ProcessorType_t = typename ProcessorType<D, void>::type;
 
 public:
 	//! \brief Конструктор от обработчика элементов
@@ -581,8 +581,8 @@ public:
 	//! \details
 	//! Фиктивный параметр V нужен для удовлетворения стандарту языка при создании специализации
 	//! для D = element_t.
-	template <class D, class V = void>
-	struct ProcessorType: public element_processor_recursive_t::template ProcessorType<D> {};
+	template <class D, class V>
+	struct ProcessorType: public element_processor_recursive_t::template ProcessorType<D, void> {};
 
 	template <class V>
 	struct ProcessorType<element_t, V>
@@ -591,7 +591,7 @@ public:
 	};
 
 	template <class D>
-	using ProcessorType_t = typename ProcessorType<D>::type;
+	using ProcessorType_t = typename ProcessorType<D, void>::type;
 
 public:
 	//! \brief Конструктор от обработчика элементов, непосредственно содержащихся в контейнере Data
