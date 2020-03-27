@@ -529,20 +529,20 @@ public:
 	using element_t = copy_const_t<data_t, typename data_t::value_type>;
 	using element_context_t = ContextCat_t<context_t, data_t>;
 
-	//! \details
-	//! Фиктивный параметр V нужен для удовлетворения стандарту языка при создании специализации
-	//! для D = element_t.
-	template <class D, class V>
+	template <class D, class Element, class ElementContext>
 	struct ProcessorType;
 
-	template <class V>
-	struct ProcessorType<element_t, V>
+	template <class Element, class ElementContext>
+	struct ProcessorType<Element, Element, ElementContext>
 	{
-		using type = AbstractProcessorCtx<element_t, element_context_t>;
+		using type = AbstractProcessorCtx<Element, ElementContext>;
 	};
 
 	template <class D>
-	using ProcessorType_t = typename ProcessorType<D, void>::type;
+	using ProcessorType_s = ProcessorType<D, element_t, element_context_t>;
+
+	template <class D>
+	using ProcessorType_t = typename ProcessorType<D, element_t, element_context_t>::type;
 
 public:
 	//! \brief Конструктор от обработчика элементов
@@ -578,20 +578,20 @@ public:
 	using element_context_t = ContextCat_t<context_t, data_t>;
 	using element_processor_recursive_t = DataProcessorRecursiveCtx<element_t, element_context_t>;
 
-	//! \details
-	//! Фиктивный параметр V нужен для удовлетворения стандарту языка при создании специализации
-	//! для D = element_t.
-	template <class D, class V>
-	struct ProcessorType: public element_processor_recursive_t::template ProcessorType<D, void> {};
+	template <class D, class Element, class ElementContext>
+	struct ProcessorType: public DataProcessorRecursiveCtx<Element, ElementContext>::template ProcessorType_s<D> {};
 
-	template <class V>
-	struct ProcessorType<element_t, V>
+	template <class Element, class ElementContext>
+	struct ProcessorType<Element, Element, ElementContext>
 	{
-		using type = AbstractProcessorCtx<element_t, element_context_t>;
+		using type = AbstractProcessorCtx<Element, ElementContext>;
 	};
 
 	template <class D>
-	using ProcessorType_t = typename ProcessorType<D, void>::type;
+	using ProcessorType_s = ProcessorType<D, element_t, element_context_t>;
+
+	template <class D>
+	using ProcessorType_t = typename ProcessorType<D, element_t, element_context_t>::type;
 
 public:
 	//! \brief Конструктор от обработчика элементов, непосредственно содержащихся в контейнере Data
