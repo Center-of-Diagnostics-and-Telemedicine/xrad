@@ -27,7 +27,7 @@ namespace Dicom
 	template <class T>
 	instance_ptr	TryCreateInstance_template(const instance_ptr &instance_in, instance_ptr TryCreateAnother(const instance_ptr&))
 	{
-		instance_ptr result = make_unique<T>();
+		instance_ptr result = unique_ptr<instance>(make_unique<T>());
 		result->copy_container(*instance_in);
 		if (result->exist_and_correct_essential_data())
 			return result;

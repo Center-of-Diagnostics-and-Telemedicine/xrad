@@ -298,7 +298,7 @@ namespace Dicom
 			//при использовании, например, ключа CIF_UsePartialAccessToPixelData извлечение изображений куда быстрее, но к ним применены преобразования, которые нам не требуются
 			//note (Kovbas) последняя договорённость, что мы забираем изображения с уже применёнными преобразованиями
 			//unique_ptr<DicomImage> image(new DicomImage(&dcmDataset, xfer, CIF_IgnoreModalityTransformation, unsigned long(numOfFrame), 1 /* fcount */));
-			unique_ptr<DicomImage> image(new DicomImage(&dcmDataset, xfer, CIF_UsePartialAccessToPixelData, unsigned long(numOfFrame), 1 /* fcount */));
+			unique_ptr<DicomImage> image(new DicomImage(&dcmDataset, xfer, CIF_UsePartialAccessToPixelData, (unsigned long)(numOfFrame), 1 /* fcount */));
 			vs_in = image->getHeight();
 			hs_in = image->getWidth();
 			ncomp = image->isMonochrome() ? 1 : 3;
@@ -927,7 +927,6 @@ namespace Dicom
 				opj_destroy_codec(l_codec);
 				opj_image_destroy(image);
 				throw runtime_error(msgHdr + "Failed to allocate output stream memory.\n");
-				return (FALSE);
 			}
 			////Set the color stuff.
 			//switch (image->color_space)
@@ -1010,7 +1009,7 @@ namespace Dicom
 
 					size_t byteN = cmptparms_in->bpp / CHAR_BIT;
 					for (size_t byteNum = 0; byteNum < byteN; byteNum++)
-						ch[byteNum] = unsigned char(*ptrSrc++);
+						ch[byteNum] = (unsigned char)(*ptrSrc++);
 
 					if (cmptparms_in->sgnd)
 						*ptrImg = static_cast<char>(ch[byteN - 1]);
@@ -1111,7 +1110,7 @@ namespace Dicom
 		// а вот это интересно (то, что выше)
 		// If debug > 0, print when finished
 		//if (DebugLevel > 0) SystemDebug.printf("OpenJP2 compress time %u milliseconds.\n", (clock() - starttime) / 1000);
-		return TRUE;
+		return true;
 	}
 
 	bool dcmtkCodec::compressPixelDataJPEG2000(unique_ptr<char[]> &dst, size_t &dst_len, const unique_ptr<char[]> &src, size_t src_len, size_t hs, size_t vs, size_t prec, size_t bpp, bool sign)

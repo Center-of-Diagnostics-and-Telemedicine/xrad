@@ -59,7 +59,7 @@ class DicomCatalogIndex
 
 	public:
 		/// стереть все данные, освободить память
-		void сlear();
+		void clear();
 
 		/// проверка равенства двух DicomFileIndex объектов
 		bool operator== (const DicomCatalogIndex& a)  const;

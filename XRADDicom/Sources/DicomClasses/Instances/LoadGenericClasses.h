@@ -35,9 +35,9 @@ namespace Dicom
 		acquisition_loader(const size_t id_in, const wstring &in_description) : acquisition<instance_ptr>(acquisition_id_t(id_in, point2_ST(0, 0), vector<double>()), in_description) {}
 		acquisition_loader(const instance &in_instance) : acquisition<instance_ptr>(in_instance.acquisition_id(), L"") {}
 
-		self(const self &s2) = default;
+		acquisition_loader(const self &s2) = default;
 		self& operator=(const self &s2) = default;
-		self(self &&s2) = default;
+		acquisition_loader(self &&s2) = default;
 		self& operator=(self &&s2) = default;
 
 		wstring	detect_root_folder_name() const;
@@ -81,9 +81,9 @@ namespace Dicom
 		stack_loader(const instance &in_instance) : stack<acquisition_loader>(in_instance.stack_id(), L"") {}
 		wstring	detect_root_folder_name() const;
 
-		self(const self &s2) = default;
+		stack_loader(const self &s2) = default;
 		self& operator=(const self &s2) = default;
-		self(self &&s2) = default;
+		stack_loader(self &&s2) = default;
 		self& operator=(self &&s2) = default;
 	};
 
@@ -93,9 +93,9 @@ namespace Dicom
 		series_loader(const complete_series_id_t &id_in, const wstring &in_description) : series<stack_loader>(id_in, in_description) {}
 		series_loader(const instance &in_instance) : series<stack_loader>(in_instance.complete_series_id(), in_instance.series_description()) {}
 
-		self(const self &s2) = default;
+		series_loader(const self &s2) = default;
 		self& operator=(const self &s2) = default;
-		self(self &&s2) = default;
+		series_loader(self &&s2) = default;
 		self& operator=(self &&s2) = default;
 
 		wstring	detect_root_folder_name() const;
@@ -109,9 +109,9 @@ namespace Dicom
 		study_loader(const complete_study_id_t &id_in, const wstring &in_description) : study<series_loader>(id_in, in_description){}
 		study_loader(const instance &in_instance) : study<series_loader>(in_instance.complete_study_id(), in_instance.study_description()){}
 
-		self(const self &s2) = default;
+		study_loader(const self &s2) = default;
 		self& operator=(const self &s2) = default;
-		self(self &&s2) = default;
+		study_loader(self &&s2) = default;
 		self& operator=(self &&s2) = default;
 
 		wstring	detect_root_folder_name() const;
@@ -125,9 +125,9 @@ namespace Dicom
 		patient_loader(const instance &in_instance) : patient<study_loader>(in_instance.patient_id(), in_instance.patient_name()) {}
 		wstring	detect_root_folder_name() const;
 
-		self(const self &s2) = default;
+		patient_loader(const self &s2) = default;
 		self& operator=(const self &s2) = default;
-		self(self &&s2) = default;
+		patient_loader(self &&s2) = default;
 		self& operator=(self &&s2) = default;
 	};
 

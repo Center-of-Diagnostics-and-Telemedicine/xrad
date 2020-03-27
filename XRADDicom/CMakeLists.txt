@@ -139,6 +139,15 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 	set(XRADDicom_Sources_PlatformSpecific_cpp)
 	set(XRADDicom_Sources_PlatformSpecific_h)
+
+	set(XRADThirdPartyInstall $ENV{XRADThirdPartyInstall} CACHE PATH "XRAD third party install directory.")
+	if("${XRADThirdPartyInstall}" STREQUAL "")
+		message(FATAL_ERROR "The XRAD third party install directory must be set.")
+	endif()
+
+	include_directories(${XRADThirdPartyInstall}/include)
+	include_directories(${XRADThirdPartyInstall}/include/openjpeg-2.2)
+
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fopenmp")
 else()
 	message(FATAL_ERROR "Unsupported CMAKE_CXX_COMPILER_ID: \"${CMAKE_CXX_COMPILER_ID}\".")

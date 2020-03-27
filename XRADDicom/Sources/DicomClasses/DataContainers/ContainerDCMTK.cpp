@@ -865,7 +865,7 @@ namespace Dicom
 		(void)ncomp; //note (Kovbas) нужно будет для сохранения цветных изображений
 		//разбираем и отдаём в объект файла данные изображения
 		//todo (Kovbas) попробовать переделать так, чтобы было в одну строку (возможно, достаточно одного реинтерпрета). 20180601 - не знаю как это можно сделать и возможно ли.
-		unsigned long pixDataLen = unsigned long(img_in.vsize()*img_in.hsize()*bpp / CHAR_BIT); //явное преобразование для передачи в DCMTK
+		unsigned long pixDataLen = (unsigned long)(img_in.vsize()*img_in.hsize()*bpp / CHAR_BIT); //явное преобразование для передачи в DCMTK
 		// отправляем в объект файла сырое изображение. При сохранении оно будет жато в зависимости от выбора.
 		if (is_signed)
 		{

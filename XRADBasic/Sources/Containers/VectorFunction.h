@@ -56,8 +56,8 @@ public:
 			AlgebraicStructures::AlgebraicAlgorithmsDataArray,
 			FIELD_TAG>);
 
-	typedef typename VectorFunction<T,ST,FIELD_TAG,N> self;
-	typedef typename VectorFunction<const T,ST,FIELD_TAG,N> invariable;
+	typedef VectorFunction<T,ST,FIELD_TAG,N> self;
+	typedef VectorFunction<const T,ST,FIELD_TAG,N> invariable;
 	typedef ReferenceOwner<self> ref;
 	typedef ReferenceOwner<invariable> ref_invariable;
 		// про invariable см. подробный комментарий в DataOwner.h
@@ -87,11 +87,6 @@ public:
 	//
 	//	inherited methods
 	//
-
-	typedef typename parent::iterator iterator;
-	typedef typename parent::const_iterator const_iterator;
-	typedef typename parent::reverse_iterator reverse_iterator;
-	typedef typename parent::const_reverse_iterator const_reverse_iterator;
 
 	using parent::realloc;
 	using parent::size;

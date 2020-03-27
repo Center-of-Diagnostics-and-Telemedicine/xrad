@@ -114,7 +114,7 @@ void	RemoveEmptySublists(T &data)
 template<class PROC_TYPE>
 class ProcessorRecursive : public PROC_TYPE
 {
-	typedef typename PROC_TYPE processor_t;
+	typedef PROC_TYPE processor_t;
 	typedef typename processor_t::data_t data_t;
 	//typedef typename processor_t::element_t element_t;
 	typedef typename processor_t::element_processor_t element_processor_t;
@@ -123,7 +123,6 @@ class ProcessorRecursive : public PROC_TYPE
 	template<class T>
 	size_t	complexity(const T&item) { return item.n_instances(); }
 
-	template<>
 	size_t	complexity(const cloning_ptr<Dicom::instance >&) { return 1; }
 
 	//! brief Член, определяющий возможность многопоточной обработки. По умолчанию false для обработчиков всех уровней, кроме acquisition
@@ -260,7 +259,7 @@ class PatientProcessorRecursive : public ProcessorRecursive<PatientProcessor<PAT
 {
 	PARENT(ProcessorRecursive<PatientProcessor<PATIENT>>);
 
-	typedef	typename PATIENT patient_t;
+	typedef PATIENT patient_t;
 	typedef	typename patient_t::study_t study_t;
 	typedef	typename patient_t::series_t series_t;
 	typedef	typename patient_t::stack_t stack_t;
@@ -284,7 +283,7 @@ class PatientsProcessorRecursive : public ProcessorRecursive<PatientsProcessor<P
 {
 	PARENT(ProcessorRecursive<PatientsProcessor<PATIENTS>>);
 
-	typedef typename PATIENTS patients_t;
+	typedef PATIENTS patients_t;
 	typedef typename patients_t::patient_t patient_t;
 	typedef typename patients_t::study_t study_t;
 	typedef	typename patients_t::series_t series_t;
@@ -376,7 +375,7 @@ template<class PROC_TYPE, class ElementProcessor>
 class ProcessorRecursiveCtx : public PROC_TYPE
 {
 public:
-	using processor_t = typename PROC_TYPE;
+	using processor_t = PROC_TYPE;
 	using data_t = typename processor_t::data_t;
 	using context_t = typename processor_t::context_t;
 	using element_processor_t = ElementProcessor;
@@ -435,7 +434,6 @@ private:
 	template<class T>
 	size_t	complexity(const T&item) { return item.n_instances(); }
 
-	template<>
 	size_t	complexity(const cloning_ptr<Dicom::instance >&) { return 1; }
 
 	// Произвольный доступ к элементам списка, нужный для многопоточной обработки.
@@ -531,11 +529,14 @@ public:
 	using element_t = copy_const_t<data_t, typename data_t::value_type>;
 	using element_context_t = ContextCat_t<context_t, data_t>;
 
-	template <class D>
+	//! \details
+	//! Фиктивный параметр V нужен для удовлетворения стандарту языка при создании специализации
+	//! для D = element_t.
+	template <class D, class V = void>
 	struct ProcessorType;
 
-	template <>
-	struct ProcessorType<element_t>
+	template <class V>
+	struct ProcessorType<element_t, V>
 	{
 		using type = AbstractProcessorCtx<element_t, element_context_t>;
 	};
@@ -577,11 +578,14 @@ public:
 	using element_context_t = ContextCat_t<context_t, data_t>;
 	using element_processor_recursive_t = DataProcessorRecursiveCtx<element_t, element_context_t>;
 
-	template <class D>
+	//! \details
+	//! Фиктивный параметр V нужен для удовлетворения стандарту языка при создании специализации
+	//! для D = element_t.
+	template <class D, class V = void>
 	struct ProcessorType: public element_processor_recursive_t::template ProcessorType<D> {};
 
-	template <>
-	struct ProcessorType<element_t>
+	template <class V>
+	struct ProcessorType<element_t, V>
 	{
 		using type = AbstractProcessorCtx<element_t, element_context_t>;
 	};

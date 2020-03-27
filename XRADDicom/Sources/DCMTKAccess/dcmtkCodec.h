@@ -61,10 +61,10 @@ namespace Dicom
 
 		//additional functions
 		void initialize();
-		void dcmtkCodec::decoder_initializer(e_compression_type_t codec_type_in);
-		void dcmtkCodec::encoder_initializer(e_compression_type_t codec_type_in);
-		void dcmtkCodec::decoder_uninitializer(e_compression_type_t codec_type_in);
-		void dcmtkCodec::encoder_uninitializer(e_compression_type_t codec_type_in);
+		void decoder_initializer(e_compression_type_t codec_type_in);
+		void encoder_initializer(e_compression_type_t codec_type_in);
+		void decoder_uninitializer(e_compression_type_t codec_type_in);
+		void encoder_uninitializer(e_compression_type_t codec_type_in);
 
 		//компрессия/декомпрессия изображений
 		bool compressPixelDataJPEG2000(unique_ptr<char[]> &dst, size_t &dst_len, const unique_ptr<char[]> &src, size_t src_len, size_t hs, size_t vs, size_t prec, size_t bpp, bool sign);

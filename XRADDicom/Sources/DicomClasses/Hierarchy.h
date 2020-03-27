@@ -29,14 +29,18 @@ namespace Dicom
 	public:
 		typedef	INSTANCE instance_t;
 		typedef acquisition<INSTANCE> self;
+		PARENT(vector<INSTANCE>);
+
+	public:
+		using parent::size;
 
 		//constructors
 		acquisition(const acquisition_id_t &in_acquisition_id, const wstring &in_description) : m_description(in_description), m_acquisition_id(in_acquisition_id) {}
 
 
-		self(const self &s2) = default;
+		acquisition(const self &s2) = default;
 		self& operator=(const self &s2) = default;
-		self(self &&s2) = default;
+		acquisition(self &&s2) = default;
 		self& operator=(self &&s2) = default;
 
 
@@ -98,13 +102,16 @@ namespace Dicom
 		typedef	ACQUISITION acquisition_t;
 		typedef	typename acquisition_t::instance_t instance_t;
 		typedef stack<ACQUISITION> self;
+		PARENT(list<ACQUISITION>);
+
+		using parent::size;
 
 		//constructors
 		stack(const wstring &in_stack_id, const wstring &in_description) : m_stack_id(in_stack_id), m_description(in_description) {}
 
-		self(const self &s2) = default;
+		stack(const self &s2) = default;
 		self& operator=(const self &s2) = default;
-		self(self &&s2) = default;
+		stack(self &&s2) = default;
 		self& operator=(self &&s2) = default;
 
 		//gets
@@ -157,6 +164,9 @@ namespace Dicom
 		typedef	typename stack_t::acquisition_t acquisition_t;
 		typedef	typename stack_t::instance_t instance_t;
 		typedef series<STACK> self;
+		PARENT(list<STACK>);
+
+		using parent::size;
 
 		//constructors
 		series(const complete_series_id_t &complete_series_id_p, const wstring &description_p)
@@ -164,9 +174,9 @@ namespace Dicom
 			, m_description(description_p)
 		{}
 
-		self(const self &s2) = default;
+		series(const self &s2) = default;
 		self& operator=(const self &s2) = default;
-		self(self &&s2) = default;
+		series(self &&s2) = default;
 		self& operator=(self &&s2) = default;
 
 
@@ -246,6 +256,9 @@ namespace Dicom
 		typedef	typename series_t::acquisition_t acquisition_t;
 		typedef	typename series_t::instance_t instance_t;
 		typedef study<SERIES> self;
+		PARENT(vector<SERIES>);
+
+		using parent::size;
 
 		//constructors
 		study(const complete_study_id_t &complete_study_id_p, const wstring &description_p)
@@ -253,9 +266,9 @@ namespace Dicom
 			, m_description{ description_p }
 		{}
 
-		self(const self &s2) = default;
+		study(const self &s2) = default;
 		self& operator=(const self &s2) = default;
-		self(self &&s2) = default;
+		study(self &&s2) = default;
 		self& operator=(self &&s2) = default;
 
 		//gets
@@ -328,13 +341,16 @@ namespace Dicom
 		typedef	typename study_t::acquisition_t acquisition_t;
 		typedef	typename study_t::instance_t instance_t;
 		typedef patient<STUDY> self;
+		PARENT(list<STUDY>);
+
+		using parent::size;
 
 		//constructors
 		patient(const wstring &in_patient_id, const wstring &in_description) : m_patient_id(in_patient_id), m_description(in_description) {};
 
-		self(const self &s2) = default;
+		patient(const self &s2) = default;
 		self& operator=(const self &s2) = default;
-		self(self &&s2) = default;
+		patient(self &&s2) = default;
 		self& operator=(self &&s2) = default;
 
 		//gets
@@ -412,6 +428,9 @@ namespace Dicom
 		typedef	typename patient_t::stack_t stack_t;
 		typedef	typename patient_t::acquisition_t acquisition_t;
 		typedef	typename patient_t::instance_t instance_t;
+		PARENT(list<PATIENT>);
+
+		using parent::size;
 
 		size_t	n_instances() const
 		{

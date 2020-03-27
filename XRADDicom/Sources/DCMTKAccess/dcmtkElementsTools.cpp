@@ -328,7 +328,7 @@ namespace Dicom
 		if (pixitem == NULL) throw runtime_error(string("pixitem == null"));
 
 		// в случае передачи указателя на NULL putUint8Array ничего не делает
-		pixitem->putUint8Array(reinterpret_cast<const Uint8*>(pixDataCompr.get()), unsigned long(pixDataLen)); // приведение для отправки данных в DCMTK
+		pixitem->putUint8Array(reinterpret_cast<const Uint8*>(pixDataCompr.get()), (unsigned long)(pixDataLen)); // приведение для отправки данных в DCMTK
 
 		return true;
 	}

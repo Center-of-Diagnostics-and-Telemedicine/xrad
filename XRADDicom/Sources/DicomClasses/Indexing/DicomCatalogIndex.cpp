@@ -75,7 +75,7 @@ void DicomCatalogIndex::fill_from_fileinfo(const wstring &path,
 	}
 }
 
-void DicomCatalogIndex::сlear()
+void DicomCatalogIndex::clear()
 {
 	m_data.clear();
 	m_data.shrink_to_fit();

@@ -222,26 +222,24 @@ namespace Dicom
 		//virtual bool	is_ct_slice() const { return get_ImageType_ct_slice(); }
 	};
 
-	namespace
+	//note (Kovbas) Используется для объединения параметров PACS и информации об инстансе. Используется как родитель для instancestorage_pacs
+	class pacs_params_instance_t : public pacs_params_t
 	{
-		//note (Kovbas) Используется для объединения параметров PACS и информации об инстансе. Используется как родитель для instancestorage_pacs
-		class pacs_params_instance_t : public pacs_params_t
-		{
-		public:
-			pacs_params_instance_t() = delete;
-			pacs_params_instance_t(const wstring &address_pacs_p, size_t port_pacs_p, const wstring &AETitle_pacs_p, const wstring &AETitle_local_p, size_t port_local_p, const elemsmap_t &elems_p)
-				:pacs_params_t(address_pacs_p, port_pacs_p, AETitle_pacs_p, AETitle_local_p, port_local_p), m_elems(elems_p)
-			{}
-			pacs_params_instance_t(const pacs_params_t &datasrc_pacs_in, const elemsmap_t &elems)
-				:pacs_params_t(datasrc_pacs_in), m_elems(elems)
-			{}
+	public:
+		pacs_params_instance_t() = delete;
+		pacs_params_instance_t(const wstring &address_pacs_p, size_t port_pacs_p, const wstring &AETitle_pacs_p, const wstring &AETitle_local_p, size_t port_local_p, const elemsmap_t &elems_p)
+			:pacs_params_t(address_pacs_p, port_pacs_p, AETitle_pacs_p, AETitle_local_p, port_local_p), m_elems(elems_p)
+		{}
+		pacs_params_instance_t(const pacs_params_t &datasrc_pacs_in, const elemsmap_t &elems)
+			:pacs_params_t(datasrc_pacs_in), m_elems(elems)
+		{}
 
-			const elemsmap_t& elems() const { return m_elems; }
+		const elemsmap_t& elems() const { return m_elems; }
 
-		private:
-			elemsmap_t m_elems;
-		};
-	}
+	private:
+		elemsmap_t m_elems;
+	};
+
 	class instancestorage_pacs: public instancestorage_t, public pacs_params_instance_t
 	{
 	public:

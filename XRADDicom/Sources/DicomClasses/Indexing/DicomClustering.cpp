@@ -216,10 +216,14 @@ namespace Dicom
 	bool save_json(const json &json_to_save, wstring report_dst)
 	{
 #if 1
-		// TODO: Unicode
+		// TODO: Unicode, GetPathNativeFromGeneric
 		// сохранить json файл
 		ofstream	out_file;
+#ifdef XRAD_COMPILER_MSC
 		out_file.open(report_dst);
+#else
+		out_file.open(convert_to_string(report_dst));
+#endif
 
 		if (!out_file.is_open())
 			return false;
@@ -247,9 +251,13 @@ namespace Dicom
 	*/
 	bool	 load_json(json& json_loaded, const wstring& json_fname)
 	{
-		// TODO: Unicode
+		// TODO: Unicode, GetPathNativeFromGeneric
 		ifstream in_file;
+#ifdef XRAD_COMPILER_MSC
 		in_file.open(json_fname);
+#else
+		in_file.open(convert_to_string(json_fname));
+#endif
 		if (!in_file.is_open())
 			return false;  // empty json
 

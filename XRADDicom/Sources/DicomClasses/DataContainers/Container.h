@@ -51,7 +51,7 @@ namespace Dicom
 			, m_is_dicomdir{false}
 			, m_last_used_instancestorage {nullptr}
 		{}
-		virtual ~Container() = 0 {}
+		virtual ~Container() = default;
 
 		const instancestorage_ptr &last_used_instancestorage() const { return m_last_used_instancestorage; }
 		instancestorage_ptr &last_used_instancestorage() { return m_last_used_instancestorage; }
