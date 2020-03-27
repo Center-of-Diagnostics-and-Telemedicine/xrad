@@ -10,6 +10,7 @@
 */
 
 #include <XRADDicom/Sources/DicomClasses/tags_enum.h>
+#include <XRADSystem/Sources/System/FileSystem.h>
 
 XRAD_BEGIN
 
