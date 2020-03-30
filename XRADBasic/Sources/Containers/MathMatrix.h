@@ -111,5 +111,6 @@ class matrix_algorithm_error : public logic_error
 XRAD_END
 
 #include "MathMatrix.hh"
+// здесь должно появиться включение файла с операциями
 
 #endif //__math_matrix_h
