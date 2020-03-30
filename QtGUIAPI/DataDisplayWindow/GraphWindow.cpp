@@ -988,7 +988,7 @@ void GraphWindow::DrawCurrentValue(QMouseEvent *mEvent)
 		point2_I32	cursor_position = main_zoom->RelativeCursorPosition(mEvent);
 		point2_F64	cursor_values = main_zoom->InvertTransformCoordinates(cursor_position);
 
-		wstring	current_value_string = ssprintf(L"cursor [%s=%g; %s=%g] ",
+		wstring	current_value_string = ssprintf(L"cursor [%ls=%g; %ls=%g] ",
 												x_label.isEmpty()?
 													L"x":
 													qstring_to_wstring(x_label).c_str(),
@@ -1027,22 +1027,22 @@ void GraphWindow::DrawCurrentValue(QMouseEvent *mEvent)
 				auto label = qstring_to_wstring(yLabelTransformed(graph_labels[graph_no]));
 				if (print_x_data)
 				{
-					label = ssprintf(L"%s(%g)", label.c_str(), data.x());
+					label = ssprintf(L"%ls(%g)", label.c_str(), data.x());
 				}
 				if(!lines_added)
 				{
 					if(n_curves == 1)
 					{
-						current_value_string += ssprintf(L"data: [%s=%g", label.c_str(), data.y());
+						current_value_string += ssprintf(L"data: [%ls=%g", label.c_str(), data.y());
 					}
 					else
 					{
-						current_value_string += ssprintf(L"graphs: [%s=%g", label.c_str(), data.y());
+						current_value_string += ssprintf(L"graphs: [%ls=%g", label.c_str(), data.y());
 					}
 				}
 				else
 				{
-					current_value_string += ssprintf(L", %s=%g", label.c_str(), data.y());
+					current_value_string += ssprintf(L", %ls=%g", label.c_str(), data.y());
 				}
 				++lines_added;
 			}

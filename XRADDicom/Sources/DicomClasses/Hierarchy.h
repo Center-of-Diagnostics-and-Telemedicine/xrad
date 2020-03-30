@@ -225,14 +225,14 @@ namespace Dicom
 		{
 			if (m_description.size() != 0)
 			{
-				return ssprintf(L"%s [SE#%s] -- %s",
+				return ssprintf(L"%Ls [SE#%Ls] -- %Ls",
 					EnsureType<const wchar_t*>(m_description.c_str()),
 					EnsureType<const wchar_t*>(id_string().c_str()),
 					EnsureType<const wchar_t*>(items_number_string().c_str()));
 			}
 			else
 			{
-				return ssprintf(L"[SE#%s] -- %s",
+				return ssprintf(L"[SE#%Ls] -- %Ls",
 					EnsureType<const wchar_t*>(id_string().c_str()),
 					EnsureType<const wchar_t*>(items_number_string().c_str()));
 			}

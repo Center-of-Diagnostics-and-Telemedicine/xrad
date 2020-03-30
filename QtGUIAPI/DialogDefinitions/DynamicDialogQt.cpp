@@ -1193,13 +1193,13 @@ bool RadioButtonContainerApi::TryAccept(QString *err_message)
 		wstring message;
 		if (use_frame && caption.length())
 		{
-			message = ssprintf(L"%s: %s.",
+			message = ssprintf(L"%ls: %ls.",
 					EnsureType<const wchar_t*>(caption.c_str()),
 					EnsureType<const wchar_t*>(message_details));
 		}
 		else
 		{
-			message = ssprintf(L"%s (%s...).",
+			message = ssprintf(L"%ls (%ls...).",
 					EnsureType<const wchar_t*>(message_details),
 					EnsureType<const wchar_t*>(controls.front()->Caption().c_str()));
 		}
@@ -1456,13 +1456,13 @@ bool ComboBoxApi::TryAccept(QString *err_message)
 	wstring message;
 	if (use_caption && caption.length())
 	{
-		message = ssprintf(L"%s: %s.",
+		message = ssprintf(L"%ls: %ls.",
 				EnsureType<const wchar_t*>(caption.c_str()),
 				EnsureType<const wchar_t*>(message_details));
 	}
 	else
 	{
-		message = ssprintf(L"%s (%s...).",
+		message = ssprintf(L"%ls (%ls...).",
 				EnsureType<const wchar_t*>(message_details),
 				EnsureType<const wchar_t*>(items.front().c_str()));
 	}
@@ -3109,7 +3109,7 @@ void FileNameEditApi::VisualizeValueValidity(ValueValidity validity)
 		auto palette = ui_edit_default_palette;
 		palette.setColor(QPalette::Highlight, Qt::red);
 		palette.setColor(QPalette::HighlightedText, Qt::white);
-		
+
 #if QT_VERSION <= 0x50600
 		palette.setColor(QPalette::Text, Qt::red);
 

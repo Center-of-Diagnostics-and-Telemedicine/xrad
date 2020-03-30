@@ -14,22 +14,22 @@ namespace Dicom
 	wstring instance::get_summary_info_string() const
 	{
 		wstring	result;
-		result += ssprintf(L"Patient name =\t%s\n", dicom_container()->get_wstring(e_patient_name).c_str());
-		result += ssprintf(L"Patient sex =\t%s\n", dicom_container()->get_wstring(e_patient_sex).c_str());
-		result += ssprintf(L"Patient birthdate =\t%s\n", dicom_container()->get_wstring(e_patient_birthdate).c_str());
-		result += ssprintf(L"Patient age =\t%s\n", dicom_container()->get_wstring(e_patient_age).c_str());
-		result += ssprintf(L"Patient id =\t%s\n", dicom_container()->get_wstring(e_patient_id).c_str());
-		result += ssprintf(L"Study id =\t%s\n", study_id().c_str());
-		result += ssprintf(L"Accession no =\t%s\n", accession_number().c_str());
-		result += ssprintf(L"Series id =\t%s\n", dicom_container()->get_wstring(e_series_instance_uid).c_str());
-		result += ssprintf(L"Modality =\t%s\n", dicom_container()->get_wstring(e_modality).c_str());
-		result += ssprintf(L"Study date =\t%s\n", dicom_container()->get_wstring(e_study_date).c_str());
-		result += ssprintf(L"Study time =\t%s\n", dicom_container()->get_wstring(e_study_time).c_str());
-		result += ssprintf(L"Series time =\t%s\n", dicom_container()->get_wstring(e_series_time).c_str());
-		result += ssprintf(L"Series description =\t%s\n", dicom_container()->get_wstring(e_series_description).c_str());
-		result += ssprintf(L"Protocol name =\t%s\n", dicom_container()->get_wstring(e_protocol_name).c_str());
-		result += ssprintf(L"Content time =\t%s\n", dicom_container()->get_wstring(e_content_time).c_str());
-		result += ssprintf(L"Root datasource =\t%s\n", instance_storage()->print().c_str());
+		result += ssprintf(L"Patient name =\t%Ls\n", dicom_container()->get_wstring(e_patient_name).c_str());
+		result += ssprintf(L"Patient sex =\t%Ls\n", dicom_container()->get_wstring(e_patient_sex).c_str());
+		result += ssprintf(L"Patient birthdate =\t%Ls\n", dicom_container()->get_wstring(e_patient_birthdate).c_str());
+		result += ssprintf(L"Patient age =\t%Ls\n", dicom_container()->get_wstring(e_patient_age).c_str());
+		result += ssprintf(L"Patient id =\t%Ls\n", dicom_container()->get_wstring(e_patient_id).c_str());
+		result += ssprintf(L"Study id =\t%Ls\n", study_id().c_str());
+		result += ssprintf(L"Accession no =\t%Ls\n", accession_number().c_str());
+		result += ssprintf(L"Series id =\t%Ls\n", dicom_container()->get_wstring(e_series_instance_uid).c_str());
+		result += ssprintf(L"Modality =\t%Ls\n", dicom_container()->get_wstring(e_modality).c_str());
+		result += ssprintf(L"Study date =\t%Ls\n", dicom_container()->get_wstring(e_study_date).c_str());
+		result += ssprintf(L"Study time =\t%Ls\n", dicom_container()->get_wstring(e_study_time).c_str());
+		result += ssprintf(L"Series time =\t%Ls\n", dicom_container()->get_wstring(e_series_time).c_str());
+		result += ssprintf(L"Series description =\t%Ls\n", dicom_container()->get_wstring(e_series_description).c_str());
+		result += ssprintf(L"Protocol name =\t%Ls\n", dicom_container()->get_wstring(e_protocol_name).c_str());
+		result += ssprintf(L"Content time =\t%Ls\n", dicom_container()->get_wstring(e_content_time).c_str());
+		result += ssprintf(L"Root datasource =\t%Ls\n", instance_storage()->print().c_str());
 		return result;
 	}
 	/*

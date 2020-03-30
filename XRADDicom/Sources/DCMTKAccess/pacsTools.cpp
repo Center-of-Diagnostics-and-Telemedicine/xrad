@@ -97,7 +97,7 @@ namespace Dicom
 		void	append(const wstring id)
 		{
 			ids.insert(id);
-			auto message = ssprintf(L"%s", id.c_str());
+			auto message = ssprintf(L"%Ls", id.c_str());
 
 			log.open_append(complete_filename);
 			log.printf_((message + L"\n").c_str());

@@ -806,7 +806,7 @@ void	DisplayMathFunction2DTemplate(const A2DT &img, const wstring &title, const 
 				case e_row:
 				{
 					row_no = GetUnsigned("Row to display:", row_no, 0, img.vsize()-1);
-					wstring	row_title = no_scan_converter ? ssprintf(L"Row # %d", row_no) : ssprintf(L"Row #%d at %g %s", row_no, lateral_start + row_no*lateral_increment, lateral_label.c_str());
+					wstring	row_title = no_scan_converter ? ssprintf(L"Row # %d", row_no) : ssprintf(L"Row #%d at %g %Ls", row_no, lateral_start + row_no*lateral_increment, lateral_label.c_str());
 
 					DisplayMathFunction(img.row(row_no), axial_start, axial_increment, row_title, L"signal", axial_label);
 				}
@@ -883,7 +883,7 @@ void	DisplayMathFunction2DTemplate(const A2DT &img, const wstring &title, const 
 				case e_col:
 				{
 					col_no = GetUnsigned("Column to display:", col_no, 0, img.hsize()-1);
-					wstring	column_title = no_scan_converter ? ssprintf(L"Column # %d", col_no) : ssprintf(L"Column #%d at %g %s", col_no, axial_start + col_no*axial_increment, axial_label.c_str());
+					wstring	column_title = no_scan_converter ? ssprintf(L"Column # %d", col_no) : ssprintf(L"Column #%d at %g %Ls", col_no, axial_start + col_no*axial_increment, axial_label.c_str());
 
 					DisplayMathFunction(img.col(col_no), lateral_start, lateral_increment, column_title, L"signal", lateral_label);
 					break;

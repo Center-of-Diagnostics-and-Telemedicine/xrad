@@ -237,7 +237,7 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 
 	bool	derivative_per_samples = false;
 
-	wstring option_title = ssprintf(L"Display '%s'", data_title.c_str());
+	wstring option_title = ssprintf(L"Display '%Ls'", data_title.c_str());
 
 	for (;;)
 	{
@@ -361,28 +361,28 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 					case magnitude_phase_option:
 					{
 						GraphSet	gs(data_title, L"", xlegend.label);
-						gs.AddGraphUniform(phase, xlegend.min_value, xlegend.step, ssprintf(L"phase(%s)", phase_unit_label.c_str()));
-						gs.AddGraphUniform(magnitude, xlegend.min_value, xlegend.step, (magnitude_unit_label.size() ? ssprintf(L"magnitude(%s)", magnitude_unit_label.c_str()) : L"magnitude(linear)"));
+						gs.AddGraphUniform(phase, xlegend.min_value, xlegend.step, ssprintf(L"phase(%Ls)", phase_unit_label.c_str()));
+						gs.AddGraphUniform(magnitude, xlegend.min_value, xlegend.step, (magnitude_unit_label.size() ? ssprintf(L"magnitude(%Ls)", magnitude_unit_label.c_str()) : L"magnitude(linear)"));
 						gs.Display();
 					}
 					break;
 
 					case real_option:
 					{
-						DisplayMathFunction(real(data), xlegend.min_value, xlegend.step, ssprintf(L"%s <Real part>", data_title.c_str()), vlegend.label, xlegend.label);
+						DisplayMathFunction(real(data), xlegend.min_value, xlegend.step, ssprintf(L"%Ls <Real part>", data_title.c_str()), vlegend.label, xlegend.label);
 					}
 					break;
 
 					case imag_option:
 					{
-						DisplayMathFunction(imag(data), xlegend.min_value, xlegend.step, ssprintf(L"%s <Imaginary part>", data_title.c_str()), vlegend.label, xlegend.label);
+						DisplayMathFunction(imag(data), xlegend.min_value, xlegend.step, ssprintf(L"%Ls <Imaginary part>", data_title.c_str()), vlegend.label, xlegend.label);
 					}
 					break;
 
 					case linear_magnitude_option:
 					case log_magnitude_option:
 					{
-						wstring	magnitude_title = log_magnitude ? ssprintf(L"%s <Log. magnitude>", data_title.c_str()) : ssprintf(L"%s <Linear magnitude>", data_title.c_str());
+						wstring	magnitude_title = log_magnitude ? ssprintf(L"%Ls <Log. magnitude>", data_title.c_str()) : ssprintf(L"%Ls <Linear magnitude>", data_title.c_str());
 						DisplayMathFunction(magnitude, xlegend.min_value, xlegend.step, magnitude_title, magnitude_unit_label, xlegend.label);
 					}
 					break;
@@ -390,7 +390,7 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 					case phase_continued_option:
 					case phase_cut_option:
 					{
-						DisplayMathFunction(phase, xlegend.min_value, xlegend.step, ssprintf(L"%s <Phase>", data_title.c_str()), phase_unit_label, xlegend.label);
+						DisplayMathFunction(phase, xlegend.min_value, xlegend.step, ssprintf(L"%Ls <Phase>", data_title.c_str()), phase_unit_label, xlegend.label);
 					}
 					break;
 
@@ -401,7 +401,7 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 						{
 							phase_derivative /= xlegend.step;
 						}
-						DisplayMathFunction(phase_derivative, xlegend.min_value, xlegend.step, ssprintf(L"%s <Phase derivative>", data_title.c_str()), phase_unit_label + derivative_divisor_label, xlegend.label);
+						DisplayMathFunction(phase_derivative, xlegend.min_value, xlegend.step, ssprintf(L"%Ls <Phase derivative>", data_title.c_str()), phase_unit_label + derivative_divisor_label, xlegend.label);
 					}
 					break;
 
@@ -410,7 +410,7 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 						ComplexFunctionF64	rolled_data(data);
 						rolled_data.roll_half(true);
 
-						DisplayMathFunction(rolled_data, xlegend.min_value-xlegend.step*data.size()/2., xlegend.step, ssprintf(L"%s <Rolled>", data_title.c_str()), vlegend.label, xlegend.label);
+						DisplayMathFunction(rolled_data, xlegend.min_value-xlegend.step*data.size()/2., xlegend.step, ssprintf(L"%Ls <Rolled>", data_title.c_str()), vlegend.label, xlegend.label);
 					}
 					break;
 
@@ -442,10 +442,10 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 
 							if(xlegend.label.size())
 							{
-								frequency_label = ssprintf(L"2*pi/(%s)", xlegend.label.c_str());
+								frequency_label = ssprintf(L"2*pi/(%Ls)", xlegend.label.c_str());
 							}
 
-							DisplayMathFunction(spectrum, x0, 2.*pi()/(xlegend.step*data.size()), ssprintf(L"%s <Spectrum>", data_title.c_str()), vlegend.label, frequency_label); // 2*PI
+							DisplayMathFunction(spectrum, x0, 2.*pi()/(xlegend.step*data.size()), ssprintf(L"%Ls <Spectrum>", data_title.c_str()), vlegend.label, frequency_label); // 2*PI
 						}
 					}
 					break;
@@ -453,7 +453,7 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 					case polar_option:
 					{
 						GraphSet	gs(data_title, vlegend.label + L"<imag>", vlegend.label + L" <real>");
-						gs.AddGraphParametric(imag(data), real(data), ssprintf(L"%s <Polar>", data_title.c_str()));
+						gs.AddGraphParametric(imag(data), real(data), ssprintf(L"%Ls <Polar>", data_title.c_str()));
 						gs.Display();
 					}
 					break;
@@ -474,14 +474,14 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 						{
 							flipped_phase[i] = i%2 ? -data[i] : data[i];
 						}
-						DisplayMathFunction(flipped_phase, xlegend.min_value, xlegend.step, ssprintf(L"%s <Flip phase>", data_title.c_str()), vlegend.label, xlegend.label);
+						DisplayMathFunction(flipped_phase, xlegend.min_value, xlegend.step, ssprintf(L"%Ls <Flip phase>", data_title.c_str()), vlegend.label, xlegend.label);
 					}
 					break;
 
 					case cancel_phase_option:
 					{
 						ComplexFunctionF64 magnitude_c(magnitude);
-						DisplayMathFunction(magnitude_c, xlegend.min_value, xlegend.step, ssprintf(L"%s <Magnitude>", data_title.c_str()), vlegend.label, xlegend.label);
+						DisplayMathFunction(magnitude_c, xlegend.min_value, xlegend.step, ssprintf(L"%Ls <Magnitude>", data_title.c_str()), vlegend.label, xlegend.label);
 					}
 					break;
 
@@ -492,7 +492,7 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 						{
 							phase_c[i] = polar(1., phase[i]);
 						}
-						DisplayMathFunction(phase_c, xlegend.min_value, xlegend.step, ssprintf(L"%s <Phase only>", data_title.c_str()), L"", xlegend.label);
+						DisplayMathFunction(phase_c, xlegend.min_value, xlegend.step, ssprintf(L"%Ls <Phase only>", data_title.c_str()), L"", xlegend.label);
 					}
 					break;
 
@@ -504,7 +504,7 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 							derivative /= xlegend.step;
 						}
 						wstring	y_label_derivative = vlegend.label.size() ? vlegend.label + derivative_divisor_label : L"y unit" + derivative_divisor_label;
-						DisplayMathFunction(derivative, xlegend.min_value, xlegend.step, ssprintf(L"%s <Derivative>", data_title.c_str()), y_label_derivative, xlegend.label);
+						DisplayMathFunction(derivative, xlegend.min_value, xlegend.step, ssprintf(L"%Ls <Derivative>", data_title.c_str()), y_label_derivative, xlegend.label);
 					}
 					break;
 
@@ -543,7 +543,7 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 							std::copy(data.begin() + fragment_start, data.begin() + fragment_start+fragment_size, fragment.begin());
 						}
 
-						DisplayMathFunction(fragment, x_min, xlegend.step/upsample_ratio, ssprintf(L"%s <Fragment %g--%g>", data_title.c_str(), x_min, x_max), vlegend.label, xlegend.label);
+						DisplayMathFunction(fragment, x_min, xlegend.step/upsample_ratio, ssprintf(L"%Ls <Fragment %g--%g>", data_title.c_str(), x_min, x_max), vlegend.label, xlegend.label);
 					}
 					break;
 
@@ -560,7 +560,7 @@ void	grafrgb(const ColorFunctionF64 &data, const wstring &data_title,
 				const axis_legend &xlegend,
 				bool stop)
 {
-	wstring option_title = ssprintf(L"Display '%s'",
+	wstring option_title = ssprintf(L"Display '%Ls'",
 			EnsureType<const wchar_t*>(data_title.c_str()));
 	for (;;)
 	{

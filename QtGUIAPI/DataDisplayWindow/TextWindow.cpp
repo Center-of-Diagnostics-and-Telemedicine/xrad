@@ -159,7 +159,7 @@ void TextWindow::SaveTextFile()
 		//Сохранение в utf-8 работает плохо. Нужно радикально переделывать соответствующую часть text_file_writer::printf_
 // 		text_file_writer	file_container(file_name, text_encoding::utf8);
 		text_file_writer	file_container(file_name, text_encoding::utf16_le);
-		file_container.printf_(L"%s", qstring_to_wstring(text->toPlainText()).c_str());
+		file_container.printf_(L"%Ls", qstring_to_wstring(text->toPlainText()).c_str());
 	}
 	catch(...)
 	{

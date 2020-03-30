@@ -527,7 +527,7 @@ void DisplayImage<ColorSampleF32>(wstring name, const ColorSampleF32 * data,
 	const axis_legend &xlegend,
 	const value_legend &vlegend)
 {
-	if (!vs || !hs) Error(ssprintf(L"DisplayImage(%s,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
+	if (!vs || !hs) Error(ssprintf(L"DisplayImage(%Ls,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
 	api_ShowImage(name, data, rgb_sample_f32,
 		vs, hs,
 		ylegend.min_value, ylegend.step, ylegend.label,
@@ -625,7 +625,7 @@ void DisplayImage<complexF32>(wstring name, const complexF32 * data,
 	const axis_legend &xlegend,
 	const value_legend &vlegend)
 {
-	if (!vs || !hs) Error(ssprintf(L"DisplayImage(%s,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
+	if (!vs || !hs) Error(ssprintf(L"DisplayImage(%Ls,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
 	api_ShowImage(name, data, complex_sample_f32,
 		vs, hs,
 		ylegend.min_value, ylegend.step, ylegend.label,
