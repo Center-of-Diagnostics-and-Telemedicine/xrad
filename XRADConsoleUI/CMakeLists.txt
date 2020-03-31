@@ -33,7 +33,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 	)
 
 	set(XRADConsoleUI_Sources_PlatformSpecific_h)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fopenmp")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fopenmp -fPIC")
 else()
 	message(FATAL_ERROR "Unsupported CMAKE_CXX_COMPILER_ID: \"${CMAKE_CXX_COMPILER_ID}\".")
 endif()
