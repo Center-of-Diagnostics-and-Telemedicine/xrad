@@ -1,26 +1,36 @@
 /*!
- \brief Функции умножения матриц и векторов
- \author    Prokudaylo
+	\file
+	\brief Функции умножения матриц и векторов
+	\author    Prokudaylo
 */
-
-#ifndef __matrix_global_functions_h
-#define __matrix_global_functions_h
-
-
 XRAD_BEGIN
 
 using namespace std;
 
 
 
+template<class result_type>
+result_type  unit_matrix(size_t size)
+{
+	result_type	 result(size, size, 0);
 
-/*! 
-  \fn result_type   matrix_multiply( const MathMatrix<XRAD__MathMatrix_template_args1> &m1, 	const MathMatrix<XRAD__MathMatrix_template_args2> &m2)
-  \brief multiplication of two rectangular matrixes \a m1 and \a m2 
-  \tparam m1 first member of matrix product
-  \tparam m2 second member of matrix product
-  \return  the result of matrix product. the type of result should be explicetely specified when the function is called like r = matrix_multiply<return type> (m1,m2)
-  \detailed horizontal size of m1 should be the same as vertical size of m2, otherwise exeption is thrown
+	for (size_t i = 0; i < size; i++)
+	{
+		result.at(i, i) = 1;
+	}
+
+	return result;
+}
+
+/*!
+	\brief Multiplication of two rectangular matrixes \a m1 and \a m2
+
+	\tparam m1 First member of matrix product.
+	\tparam m2 Second member of matrix product.
+	\return  The result of matrix product. The type of result should be explicetely specified when
+	the function is called like r = matrix_multiply<return type> (m1,m2).
+
+	Horizontal size of m1 should be the same as vertical size of m2, otherwise exeption is thrown.
 */
 
 template<class result_type, XRAD__MathMatrix_template1, XRAD__MathMatrix_template2>
@@ -34,12 +44,11 @@ result_type   matrix_multiply(
 }
 
 /*!
-\fn MathMatrix<XRAD__MathMatrix_template_args>  matrix_multiply( const MathMatrix<XRAD__MathMatrix_template_args1> &m1, 	const MathMatrix<XRAD__MathMatrix_template_args2> &m2)
-\brief multiplication of two rectangular matrixes \a m1 and \a m2
-\tparam m1 first member of matrix product
-\tparam m2 second member of matrix product
-\return  the result of matrix product. the type of result is taken from type m1 which is the same as m2. function is called like r = matrix_multiply(m1,m2)
-\detailed horizontal size of m1 should be the same as vertical size of m2, otherwise exeption is thrown
+	\brief multiplication of two rectangular matrixes \a m1 and \a m2
+	\tparam m1 first member of matrix product
+	\tparam m2 second member of matrix product
+	\return  the result of matrix product. the type of result is taken from type m1 which is the same as m2. function is called like r = matrix_multiply(m1,m2)
+	\detailed horizontal size of m1 should be the same as vertical size of m2, otherwise exeption is thrown
 */
 
 template< XRAD__MathMatrix_template>
@@ -58,7 +67,7 @@ MathMatrix<XRAD__MathMatrix_template_args>    matrix_multiply(
 \tparam v second member of product
 \return  the result of matrix to vector product. the type of result should be explicetely specified when the function is called like r = vector_multiply_R<return type> (m1,v)
 \detailed horizontal size of m1 should be the same as size of v, otherwise exeption is thrown
-*/ 
+*/
 
 template<class result_type, XRAD__MathMatrix_template1, XRAD__LinearVector_template>
 result_type vector_multiply_R(
@@ -71,9 +80,9 @@ result_type vector_multiply_R(
 	if (v.size() != m1.hsize())
 	{
 		string problem_description = __func__ +// typeid(self).name() +
-			ssprintf("::matrix_multiply(m1,v) -- invalid arrays sizes: m1.hsize() = %d, v.size() = %d",
-				m1.hsize(),
-				v.size());
+			ssprintf("::matrix_multiply(m1,v) -- invalid arrays sizes: m1.hsize() = %zu, v.size() = %zu",
+				EnsureType<size_t>(m1.hsize()),
+				EnsureType<size_t>(v.size()));
 		ForceDebugBreak();
 		throw invalid_argument(problem_description);
 	}
@@ -164,5 +173,3 @@ LinearVector<XRAD__LinearVector_template_args>	vector_multiply_L(
 
 
 XRAD_END
-
-#endif
