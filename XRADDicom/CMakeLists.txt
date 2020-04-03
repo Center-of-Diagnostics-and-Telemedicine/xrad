@@ -1,15 +1,23 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
-project ("XRADDicom")
+set(Project "XRADDicom")
+project(${Project} LANGUAGES CXX)
 
-configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/CMake/pre.h.in
-		${CMAKE_CURRENT_BINARY_DIR}/pre.h @ONLY)
+include(../XRADBasic/CMake/CommonOptions.cmake)
+include(../XRADBasic/CMake/StdLib.cmake)
+include(../XRADBasic/CMake/DetectThirdParty.cmake)
+include(CMake/DetectDCMTKConfiguration.cmake)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CMake/pre.h.in
+	${CMAKE_CURRENT_BINARY_DIR}/pre.h
+	@ONLY)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
+set(Project_IncludeDirs ${Project_IncludeDirs}
+	${CMAKE_CURRENT_BINARY_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/..
+	)
 
-set(XRADDicom_Sources_cpp
+set(Project_Sources_cpp
 	Sources/DCMTKAccess/dcmtkCodec.cpp
 	Sources/DCMTKAccess/dcmtkElementsTools.cpp
 	Sources/DCMTKAccess/dcmtkUtils.cpp
@@ -53,9 +61,9 @@ set(XRADDicom_Sources_cpp
 	Sources/Utils/logger.cpp
 	Sources/Utils/Utils.cpp
 	Sources/Utils/XRADDicomTools.cpp
-)
+	)
 
-set(XRADDicom_Sources_h
+set(Project_Sources_h
 	Sources/DCMTKAccess/dcmtkCodec.h
 	Sources/DCMTKAccess/dcmtkElementsTools.h
 	Sources/DCMTKAccess/dcmtkUtils.h
@@ -106,58 +114,40 @@ set(XRADDicom_Sources_h
 	Sources/Utils/Utils.h
 	Sources/Utils/XRADDicomTools.h
 	XRADDicom.h
-)
+	)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 	# MSVC/XRADDicom_pre.cpp
-	set(XRADDicom_Sources_PlatformSpecific_cpp
-	)
-	set(XRADDicom_Sources_PlatformSpecific_h
+	set(Project_Sources_PlatformSpecific_cpp
+		)
+	set(Project_Sources_PlatformSpecific_h
 		Sources/PlatformSpecific/MSVC/MSVC_DCMTKLink.h
 		Sources/PlatformSpecific/MSVC/MSVC_XRADDicomLink.h
-	)
+		)
 
-	set(XRADThirdParty $ENV{XRADThirdParty} CACHE PATH "XRAD third party root directory.")
-	if("${XRADThirdParty}" STREQUAL "")
-		message(FATAL_ERROR "The XRAD third party root directory must be set.")
-	endif()
-
-	set(PlatformTarget x64 CACHE STRING "DCMTK platform (x86|x64)")
-	set(XRAD_DCMTKConfiguration Debug CACHE STRING "DCMTK configuration (Debug|Release)")
-
-    set(XRAD_DCMTKInstallPath ${XRADThirdParty}/dcmtk/install/${PlatformTarget}/${XRAD_DCMTKConfiguration})
-    set(XRAD_DCMTKExternalsPath ${XRADThirdParty}/dcmtk/externals/${PlatformTarget})
-    set(XRAD_OpenJPEGInstallPath ${XRADThirdParty}/openjpeg/install/${PlatformTarget}/${XRAD_DCMTKConfiguration})
-
-	include_directories(${XRAD_DCMTKInstallPath}/include)
-	include_directories(${XRAD_DCMTKExternalsPath}/zlib-1.2.11/include)
-	include_directories(${XRAD_OpenJPEGInstallPath}/include/openjpeg-2.2)
-
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
-	# Имя "XRADDicomD.lib": используется текущее соглашение об именах конфигурации Debug в MSVC
-	set(CMAKE_DEBUG_POSTFIX "D")
+	set(Project_IncludeDirs ${Project_IncludeDirs}
+		${XRAD_DCMTK_InstallPath}/include
+		${XRAD_DCMTK_ExternalsPath}/zlib-1.2.11/include
+		${XRAD_OpenJPEG_InstallPath}/include/openjpeg-2.2
+		)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-	set(XRADDicom_Sources_PlatformSpecific_cpp)
-	set(XRADDicom_Sources_PlatformSpecific_h)
+	set(Project_Sources_PlatformSpecific_cpp)
+	set(Project_Sources_PlatformSpecific_h)
 
-	set(XRADThirdPartyInstall $ENV{XRADThirdPartyInstall} CACHE PATH "XRAD third party install directory.")
-	if("${XRADThirdPartyInstall}" STREQUAL "")
-		message(FATAL_ERROR "The XRAD third party install directory must be set.")
-	endif()
-
-	include_directories(${XRADThirdPartyInstall}/include)
-	include_directories(${XRADThirdPartyInstall}/include/openjpeg-2.2)
-
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fopenmp -fPIC")
+	set(Project_IncludeDirs ${Project_IncludeDirs}
+		${XRAD_ThirdParty}/include
+		${XRAD_ThirdParty}/include/openjpeg-2.2
+		)
 else()
 	message(FATAL_ERROR "Unsupported CMAKE_CXX_COMPILER_ID: \"${CMAKE_CXX_COMPILER_ID}\".")
 endif()
 
-set(XRADDicom_Sources_All
-	${XRADDicom_Sources_cpp}
-	${XRADDicom_Sources_h}
-	${XRADDicom_Sources_PlatformSpecific_cpp}
-	${XRADDicom_Sources_PlatformSpecific_h}
-)
+set(Project_Sources_All
+	${Project_Sources_cpp}
+	${Project_Sources_h}
+	${Project_Sources_PlatformSpecific_cpp}
+	${Project_Sources_PlatformSpecific_h}
+	)
 
-add_library(XRADDicom STATIC ${XRADDicom_Sources_All})
+add_library(${Project} STATIC ${Project_Sources_All})
+target_include_directories(${Project} PRIVATE ${Project_IncludeDirs})

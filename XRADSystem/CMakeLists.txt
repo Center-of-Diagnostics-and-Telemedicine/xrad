@@ -1,15 +1,21 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
-project ("XRADSystem")
+set(Project "XRADSystem")
+project(${Project} LANGUAGES CXX)
 
-configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/CMake/pre.h.in
-		${CMAKE_CURRENT_BINARY_DIR}/pre.h @ONLY)
+include(../XRADBasic/CMake/CommonOptions.cmake)
+include(../XRADBasic/CMake/StdLib.cmake)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CMake/pre.h.in
+	${CMAKE_CURRENT_BINARY_DIR}/pre.h
+	@ONLY)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
+set(Project_IncludeDirs ${Project_IncludeDirs}
+	${CMAKE_CURRENT_BINARY_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/..
+	)
 
-set(XRADSystem_Sources_cpp
+set(Project_Sources_cpp
 	Sources/CFile/shared_cfile.cpp
 	Sources/IniFile/XRADIniFile.cpp
 	Sources/System/FileNameOperations.cpp
@@ -18,9 +24,9 @@ set(XRADSystem_Sources_cpp
 	Sources/TextFile/text_encoding.cpp
 	Sources/TextFile/text_file.cpp
 	Sources/Utils/BitmapFile.cpp
-)
+	)
 
-set(XRADSystem_Sources_h
+set(Project_Sources_h
 	CFile.h
 	Sources/CFile/shared_cfile.h
 	Sources/IniFile/IniParser.hh
@@ -35,36 +41,32 @@ set(XRADSystem_Sources_h
 	Sources/Utils/BitmapFile.h
 	System.h
 	TextFile.h
-)
+	)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 	# MSVC/XRADSystem_pre.cpp
-	set(XRADSystem_Sources_PlatformSpecific_cpp
+	set(Project_Sources_PlatformSpecific_cpp
 		Sources/PlatformSpecific/MSVC/Internal/FileNameOperations_Win32.cpp
 		Sources/PlatformSpecific/MSVC/Internal/FileSystem_Win32.cpp
-	)
-	set(XRADSystem_Sources_PlatformSpecific_h
+		)
+	set(Project_Sources_PlatformSpecific_h
 		Sources/PlatformSpecific/MSVC/Internal/FileNameOperations_Win32.h
 		Sources/PlatformSpecific/MSVC/Internal/FileSystem_Win32.h
 		Sources/PlatformSpecific/MSVC/MSVC_XRADSystemLink.h
-	)
-
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
-	# Имя "XRADSystemD.lib": используется текущее соглашение об именах конфигурации Debug в MSVC
-	set(CMAKE_DEBUG_POSTFIX "D")
+		)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-	set(XRADSystem_Sources_PlatformSpecific_cpp)
-	set(XRADSystem_Sources_PlatformSpecific_h)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fopenmp -fPIC")
+	set(Project_Sources_PlatformSpecific_cpp)
+	set(Project_Sources_PlatformSpecific_h)
 else()
 	message(FATAL_ERROR "Unsupported CMAKE_CXX_COMPILER_ID: \"${CMAKE_CXX_COMPILER_ID}\".")
 endif()
 
-set(XRADSystem_Sources_All
-	${XRADSystem_Sources_cpp}
-	${XRADSystem_Sources_h}
-	${XRADSystem_Sources_PlatformSpecific_cpp}
-	${XRADSystem_Sources_PlatformSpecific_h}
-)
+set(Project_Sources_All
+	${Project_Sources_cpp}
+	${Project_Sources_h}
+	${Project_Sources_PlatformSpecific_cpp}
+	${Project_Sources_PlatformSpecific_h}
+	)
 
-add_library(XRADSystem STATIC ${XRADSystem_Sources_All})
+add_library(${Project} STATIC ${Project_Sources_All})
+target_include_directories(${Project} PRIVATE ${Project_IncludeDirs})
