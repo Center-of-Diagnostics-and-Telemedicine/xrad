@@ -13,7 +13,6 @@
 
 namespace XRAD_GUI
 {
-XRAD_USING;
 
 
 

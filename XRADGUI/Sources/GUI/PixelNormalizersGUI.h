@@ -7,9 +7,11 @@
 	author:		kns
 *********************************************************************/
 
-#include <PixelNormalizers.h>
+#include "PixelNormalizers.h"
 #include <XRADBasic/Sources/Containers/DataArrayMD.h>
 #include <XRADBasic/Sources/Utils/ImageUtils.h>
+
+XRAD_BEGIN
 
 namespace XRAD_PixelNormalizers
 {
@@ -547,5 +549,7 @@ void	ComputeDisplayRanges(const DataArrayMD<A2T> &image_md, range1_F64 &recommen
 
 }
 //namespace XRAD_PixelNormalizers
+
+XRAD_END
 
 #endif // PixelNormalizersGUI_h__

@@ -10,7 +10,7 @@ namespace XRAD_GUI
 {
 
 void	ScheduleApplicationQuit();
-void	ScheduleWorkthreadPause(bool);
+void	ScheduleWorkthreadPause(bool flag);
 bool	WorkthreadPauseScheduled();
 
 void	ScheduleCurrentOperationCancel();

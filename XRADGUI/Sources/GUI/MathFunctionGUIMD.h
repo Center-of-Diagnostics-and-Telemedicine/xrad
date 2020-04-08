@@ -11,7 +11,6 @@
 
 #include <XRADBasic/MathFunctionTypesMD.h>
 #include <XRADBasic/Sources/ScanConverter/ScanConverterOptions.h>
-#include "MathFunctionGUI2D.h"
 
 XRAD_BEGIN
 
@@ -25,6 +24,6 @@ void	DisplayMathFunction3D(const DataArrayMD<A3DT> &array_md, const string &titl
 
 XRAD_END
 
-#include <MathFunctionGUIMD.hh>
+#include "MathFunctionGUIMD.hh"
 
 #endif //__MathFunctionGUIMD_h

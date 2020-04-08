@@ -3,8 +3,9 @@
 	\date 2017-10-24 17:55
 	\author kulberg
 */
-#include "pre_GUI.h"
+#include "pre.h"
 #include "StringConverters_Qt.h"
+
 #include <QtCore/QChar>
 
 XRAD_BEGIN

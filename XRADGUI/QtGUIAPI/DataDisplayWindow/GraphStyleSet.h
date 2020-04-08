@@ -12,16 +12,15 @@
 //
 //--------------------------------------------------------------
 
-#include <vector>
-// #include <QtGui/QDialog>
 #include <QtGui/QPainter>
 #include <QtGui/QPen>
-#include <XRAD/GUICore.h>
+#include <XRADGUI/Sources/Core/GUICore.h>
+#include <vector>
 
 namespace XRAD_GUI
 {
 
-XRAD_USING;
+XRAD_USING
 using namespace Qt;
 using namespace std;
 

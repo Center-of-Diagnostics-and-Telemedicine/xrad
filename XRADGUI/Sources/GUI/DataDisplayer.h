@@ -9,7 +9,7 @@
 	\brief  
 */
 
-#include <XRAD/GUICore.h>
+#include <XRADGUI/Sources/Core/GUICore.h>
 
 
 XRAD_BEGIN

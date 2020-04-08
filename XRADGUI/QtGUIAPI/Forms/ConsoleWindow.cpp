@@ -1,11 +1,12 @@
-﻿#include "pre_GUI.h"
-
+﻿#include "pre.h"
 #include "ConsoleWindow.h"
+
 #include "ThreadGUI.h"
 #include "GUIController.h"
 #include "GUIQtUtils.h"
 #include "SavedSettings.h"
-#include <XRAD/GUI/I18nSupport.h>
+#include "WorkflowControl.h"
+#include <XRADGUI/Sources/GUI/I18nSupport.h>
 
 //--------------------------------------------------------------
 

@@ -1,28 +1,19 @@
-﻿#include "pre_GUI.h"
+﻿/*!
+	\file
+	\date 2019/11/25
+	\author kulberg
+*/
+#include "pre.h"
 #include "SaveRasterImage.h"
+
 #include "FileSaveUtils.h"
 
 #include <XRADSystem/CFile.h>
-#include <XRAD/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
-
-/*!
-\file
-\date 2019/11/25
-\author kulberg
-
-\brief
-*/
-
-
+#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 
 XRAD_BEGIN
 
 using namespace XRAD_GUI;
-
-BitmapContainerRGB	rgb_bmp;
-BitmapContainerIndexed	indexed_bmp;
-
-
 
 template<class BITMAP>
 void	SaveImageTemplate(wstring filename, const BITMAP &bitmap)
@@ -57,15 +48,14 @@ void	SaveImageUtil(wstring filename, const BitmapContainerIndexed &bitmap)
 }
 
 
-void	ssss()
+
+void	SaveRasterImage__dummy()
 {
- 	RealFunction2D_F32	img(100, 100, 1);
-//	ColorImageUI8	img(100, 100);
-	QString	qfn;
+	BitmapContainerRGB	rgb_bmp;
+ 	//RealFunction2D_F32	img(100, 100, 1);
+	//ColorImageUI8	img(100, 100);
 	wstring	wfn;
-//	save_bitmap(qfn, rgb_bmp);
 	SaveRasterImage(wfn, rgb_bmp);
 }
-
 
 XRAD_END

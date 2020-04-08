@@ -1,13 +1,8 @@
-﻿#include "pre_GUI.h"
+﻿#include "pre.h"
 #include "TextWindow.h"
 
-#include "ThreadGUI.h"
 #include "FileSaveUtils.h"
-#include <XRADBasic/Core.h>
-#include <XRAD/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
-
-#include <time.h>
-
+#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 #include <XRADSystem/TextFile.h>
 
 namespace XRAD_GUI

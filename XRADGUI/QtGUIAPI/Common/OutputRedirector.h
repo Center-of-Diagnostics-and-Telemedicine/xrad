@@ -4,6 +4,8 @@
 #define __OutputRedirector_h
 //--------------------------------------------------------------
 
+#include <XRADBasic/Core.h>
+
 #include "AsyncTextBuffer.h"
 #include <cstdio>
 

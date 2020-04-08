@@ -1,10 +1,9 @@
 ﻿#ifndef __text_displayer_h
 #define __text_displayer_h
 
-#include <DataDisplayer.h>
+#include "DataDisplayer.h"
 
 XRAD_BEGIN
-
 
 class	TextDisplayer : public DataDisplayer
 {
@@ -26,12 +25,7 @@ public:
 	bool	SetEditable(bool ed);
 	bool	SetFixedWidth(bool fw);
 	bool	SetFontSize(double size);
-
-
 };
-
-
-
 
 XRAD_END
 

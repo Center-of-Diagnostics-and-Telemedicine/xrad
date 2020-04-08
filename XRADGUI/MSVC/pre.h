@@ -1,19 +1,25 @@
 ﻿#ifndef __pre_h
 #define __pre_h
+//--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
 
-#include <vector>
+//#include <XRADBasic/MathFunctionTypesMD.h>
+
+/*#include <vector>
 #include <list>
 #include <string>
 #include <stdexcept>
 #include <stdio.h>
 #include <math.h>
 #include <iostream>
-#include <time.h>
+#include <time.h>*/
 
 using namespace std;
 
+//--------------------------------------------------------------
+
+#ifdef XRAD_COMPILER_MSC
 // Type name first seen using 'class' now seen using 'struct'
 #pragma warning (disable: 4099)
 
@@ -23,15 +29,19 @@ using namespace std;
 // уровень 4 плохо сказывается на исходниках Qt,
 #pragma warning(disable : 4481)
 
+#endif // XRAD_COMPILER_MSC
+
+//--------------------------------------------------------------
+
 #include <QtCore/QObject>
-#include <QTCore/QEvent>
-#include <QTCore/QPointer>
+#include <QtCore/QEvent>
+#include <QtCore/QPointer>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QString>
 #include <QtCore/QTextCodec>
 #include <QtCore/QMutex>
 #include <QtCore/QDebug>
-#include <QTCore/QTranslator>
+#include <QtCore/QTranslator>
 #include <QtCore/QLocale>
 #include <QtCore/QSettings>
 #include <QtCore/QFileInfo>
@@ -41,65 +51,41 @@ using namespace std;
 #include <QtCore/QProcess>
 #include <QtCore/QWaitCondition>
 #include <QtCore/QList>
-#include <QTCore/QTimer>
+#include <QtCore/QTimer>
 
 #include <QtGui/QtGui>
-
-
-#include <QTGui/QMouseEvent>
+#include <QtGui/QMouseEvent>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QPainter>
 
-
 #if QT_VERSION < 0x050000
-	//QT4
-	#include <QtGui/QApplication>
-	#include <QtGui/QMainWindow>
-	#include <QtGui/QWidget>
-	#include <QtGui/QDialog>
-	#include <QtGui/QFileDialog>
-	#include <QtGui/QErrorMessage>
-	#include <QtGui/QMessageBox>
-	#include <QtGui/QGridLayout>
-	#include <QtGui/QLayoutItem>
-	#include <QtGui/QLabel>
-	#include <QtGui/QPushbutton>
-	#include <QtGui/QSizePolicy>
-	#include <QtGui/QCheckBox>
-	#include <QtGui/QGroupBox>
-	#include <QtGui/QRadioButton>
-	#include <QtGui/QDialogButtonBox>
-	#include <QtGui/QMenu>
-
-#else
-	//Qt5
-	#include <QtWidgets/QApplication>
-	#include <QtWidgets/QMainWindow>
-	#include <QtWidgets/QWidget>
-	#include <QtWidgets/QDialog>
-	#include <QtWidgets/QFileDialog>
-	#include <QtWidgets/QErrorMessage>
-	#include <QtWidgets/QMessageBox>
-	#include <QtWidgets/QGridLayout>
-	#include <QtWidgets/QLayoutItem>
-	#include <QtWidgets/QLabel>
-	#include <QtWidgets/QPushbutton>
-	#include <QtWidgets/QSizePolicy>
-	#include <QtWidgets/QCheckBox>
-	#include <QtWidgets/QGroupBox>
-	#include <QtWidgets/QRadioButton>
-	#include <QtWidgets/QDialogButtonBox>
-	#include <QtWidgets/QMenu>
-	#include <QtWidgets/QPlainTextEdit>
-	#include <QtWidgets/QScrollBar>
-	#include <QtWidgets/QDesktopWidget>
-
+	#error QT_VERSION is too low (Qt5 required)
 #endif
+
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QErrorMessage>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QLayoutItem>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushbutton>
+#include <QtWidgets/QSizePolicy>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QPlainTextEdit>
+#include <QtWidgets/QScrollBar>
+#include <QtWidgets/QDesktopWidget>
 
 #include <QtSvg/QSvgGenerator>
 
 //--------------------------------------------------------------
-
 
 #include <qwt_plot.h>
 #include <qwt_plot_canvas.h>
@@ -112,8 +98,6 @@ using namespace std;
 #include <qwt_plot_spectrogram.h>
 #include <qwt_plot_shapeitem.h>
 
-
-
 #include <qwt_matrix_raster_data.h>
 #include <qwt_symbol.h>
 #include <qwt_picker.h>
@@ -125,10 +109,12 @@ using namespace std;
 // проблемный файл
 //#include <qwt_plot_curve.h>
 
+//--------------------------------------------------------------
 
+#ifdef XRAD_COMPILER_MSC
 #pragma warning(pop)
 // Qt закончено, восстанавливаем высокую чувствительность
+#endif // XRAD_COMPILER_MSC
 
-#include <XRADBasic/MathFunctionTypesMD.h>
-
+//--------------------------------------------------------------
 #endif //__pre_h

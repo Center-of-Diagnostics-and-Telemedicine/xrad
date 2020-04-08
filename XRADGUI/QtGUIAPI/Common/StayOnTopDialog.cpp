@@ -1,8 +1,8 @@
 ﻿// file StayOnTopDialog.cpp
 //--------------------------------------------------------------
-#include "pre_GUI.h"
-
+#include "pre.h"
 #include "StayOnTopDialog.h"
+
 #include "GUIController.h"
 
 //--------------------------------------------------------------

@@ -7,11 +7,7 @@
 //--------------------------------------------------------------
 
 #include "ui_TextWindow.h"
-#include <VisualizationPlot.h>
 #include "DataDisplayWindow.h"
-#include "MultimodalFrameContainer.h"
-#include <PixelNormalizers.h>
-#include <QTimer>
 
 //--------------------------------------------------------------
 

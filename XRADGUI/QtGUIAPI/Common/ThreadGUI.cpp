@@ -1,19 +1,14 @@
 ﻿//	Created by IRD on 05.2013
 //  Version 3.0.2
 //--------------------------------------------------------------
-
-#include "pre_GUI.h"
-
+#include "pre.h"
 #include "ThreadGUI.h"
 
 #include "GetValueDialog.h"
 #include "DecisionDialogs.h"
-#include "ProgressBar.h"
-#include "GraphWindow.h"
-#include "ImageWindow.h"
 #include "GUIController.h"
 #include "ShowValueDialog.h"
-#include "TextWindow.h"
+#include "PauseDialog.h"
 #include "FileSaveUtils.h"
 #include <XRADSystem/System.h>
 
@@ -227,7 +222,7 @@ void	ThreadGUI::do_ShowString(QString title, QString text, display_text_dialog_s
 {
 	if(status == single_use_window)
 	{
-		ExecuteActiveDialog(new ShowStringDialog(title, text, gui_controller));
+		ExecuteActiveDialog(new ShowStringDialog(title, text));
 	}
 	else
 	{

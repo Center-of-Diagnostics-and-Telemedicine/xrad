@@ -1,10 +1,8 @@
-﻿// file PC_XRADGUILink.h
-//--------------------------------------------------------------
-#ifndef __PC_XRADGUILink_h
-#define __PC_XRADGUILink_h
+﻿#ifndef XRAD__File_XRADGUILink_h
+#define XRAD__File_XRADGUILink_h
 //--------------------------------------------------------------
 
-#include "PC_QtLink.h"
+#include <XRADQt/MSVC/MSVC_QtLink.h>
 #include <XRADBasic/Sources/PlatformSpecific/MSVC/MSVC_XRADLink-Suffix.h>
 
 //--------------------------------------------------------------
@@ -20,4 +18,4 @@
 #endif
 
 //--------------------------------------------------------------
-#endif // __PC_XRADGUILink_h
+#endif // XRAD__File_XRADGUILink_h

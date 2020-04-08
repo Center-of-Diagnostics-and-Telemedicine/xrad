@@ -2,18 +2,21 @@
 #define XRADGUI_
 
 #include <XRADBasic/Core.h>
-#include <XRAD/GUICore.h>
-#include <XRAD/GUI/Keyboard.h>
+#include <XRADGUI/Sources/Core/GUICore.h>
+#include "Keyboard.h"
+#include "GUIValue.h"
+#include "DisplaySampleType.h"
 #include <XRADBasic/Sources/SampleTypes/ColorSample.h>
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 #include <XRADBasic/Sources/Utils/PhysicalUnits.h>
 #include <XRADBasic/Sources/Containers/FixedSizeArray.h>
-// #include <PixelNormalizers.h>
-#include <DisplaySampleType.h>
 #include <vector>
 #include <string>
 #include <memory>
-#include <GUIValue.h>
+
+#ifdef XRAD_COMPILER_MSC
+#include <XRADGUI/Sources/PlatformSpecific/MSVC/MSVC_XRADGUILink.h>
+#endif
 
 XRAD_BEGIN
 
@@ -23,9 +26,11 @@ XRAD_BEGIN
 //
 //--------------------------------------------------------------
 
-
-
-#define FatalError(message_string) throw runtime_error(convert_to_string(message_string, e_encode_literals));
+template <class T>
+[[noreturn]] void FatalError(T message_string)
+{
+	throw runtime_error(convert_to_string(message_string, e_encode_literals));
+}
 
 void ForceQuit(int exit_code); // порождает исключение quit_application
 //TODO сделать еще бы обработчик для вызова в блоке catch; написать макро, содержащее этот обработчик.
@@ -111,7 +116,8 @@ size_t GetButtonDecision(string prompt, const std::vector<string> &buttons, GUIV
 size_t GetButtonDecision(wstring prompt, const std::vector<wstring> &buttons, GUIValue<size_t> default_button = saved_default_value);
 
 template<class T>
-__declspec(deprecated("Use GetButtonDecision() with the Button class")) T GetButtonDecision(wstring prompt, const std::vector<wstring> &buttons, const std::vector<T> &answers)
+[[deprecated("Use GetButtonDecision() with the Button class")]]
+T GetButtonDecision(wstring prompt, const std::vector<wstring> &buttons, const std::vector<T> &answers)
 {
 	XRAD_ASSERT_THROW(buttons.size()==answers.size());
 	size_t	no = GetButtonDecision(prompt, buttons);
@@ -119,7 +125,8 @@ __declspec(deprecated("Use GetButtonDecision() with the Button class")) T GetBut
 }
 
 template<class T>
-__declspec(deprecated("Use GetButtonDecision() with the Button class")) T GetButtonDecision(string prompt, const std::vector<string> &buttons, const std::vector<T> &answers)
+[[deprecated("Use GetButtonDecision() with the Button class")]]
+T GetButtonDecision(string prompt, const std::vector<string> &buttons, const std::vector<T> &answers)
 {
 	XRAD_ASSERT_THROW(buttons.size()==answers.size());
 	size_t	no = GetButtonDecision(prompt, buttons);
@@ -474,15 +481,13 @@ void DisplayImage(string name, const SAMPLE_T* data,
 
 
 
-#define __XRAD_INTERFACE_FUNCTIONS
+#define XRAD_INTERFACE_FUNCTIONS
 // по этой константе можно узнать, доступны ли интерфейсные функции
 // в конкретном проекте
 //	TODO константа устарела?
 
+//--------------------------------------------------------------
+
 XRAD_END
-
-
-#include <XRAD/PlatformSpecific/MSVC/PC_XRADGUILink.h>
-
 
 #endif //XRADGUI_

@@ -1,6 +1,6 @@
-﻿#include "pre_GUI.h"
-
+﻿#include "pre.h"
 #include "MouseDrag.h"
+
 #include "ChartZoom.h"
 
 namespace XRAD_GUI

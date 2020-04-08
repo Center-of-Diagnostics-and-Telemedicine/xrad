@@ -4,10 +4,9 @@
 #ifndef XRAD__data_display_window
 #define XRAD__data_display_window
 
-#include <list>
-#include <algorithm>
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 #include "IGUISettingsChanged.h"
+#include <list>
 
 //--------------------------------------------------------------
 
@@ -15,6 +14,8 @@ namespace XRAD_GUI
 {
 
 class GUIController;
+
+XRAD_USING
 
 // базовый класс для всех окон показа данных.
 // пока его смысл только в том, чтобы назначать
@@ -63,7 +64,7 @@ class	DataDisplayWindow :
 		GUIController	&gui_controller;
 
 
-		xrad::point2_PDT	GetCornerPosition();
+		point2_PDT	GetCornerPosition();
 public:
 	void SetPersistent(bool persistent);
 	void SetStayOnTop(bool stay_on_top);

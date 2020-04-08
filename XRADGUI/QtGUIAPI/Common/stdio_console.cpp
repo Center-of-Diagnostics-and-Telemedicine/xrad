@@ -1,6 +1,5 @@
-﻿#include "pre_GUI.h"
+﻿#include "pre.h"
 #include "stdio_console.h"
-#include <XRADBasic/Core.h>
 
 namespace XRAD_GUI
 {

@@ -1,11 +1,9 @@
 ﻿// file i18n.cpp
 //--------------------------------------------------------------
-#include "pre_GUI.h"
-
+#include "pre.h"
 #include "I18nSupport.h"
 
-#include <XRAD/GUICore.h>
-#include <XRADGUI.h>
+#include "XRADGUI.h"
 
 //--------------------------------------------------------------
 

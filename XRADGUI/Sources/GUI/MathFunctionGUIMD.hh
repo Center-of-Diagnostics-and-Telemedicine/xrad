@@ -1,14 +1,14 @@
-﻿#include <PixelNormalizers.h>
-#include <PixelNormalizersGUI.h>
+﻿#include "PixelNormalizersGUI.h"
+#include "RasterImageSet.h"
+#include "MathFunctionGUI2D.h"
 #include <XRADBasic/Sources/ScanConverter/ScanConverter.h>
 #include <XRADBasic/Sources/Containers/DataArrayAnalyzeMD.h>
-#include <XRADBasic/MathFunctionTypesMD.h>
-#include <RasterImageSet.h>
 #include <XRADBasic/Sources/Utils/ExponentialBlurAlgorithms.h>
-#include "MathFunctionGUI2D.h"
 #include <XRADBasic/Sources/Utils/ParallelProcessor.h>
 
 XRAD_BEGIN
+
+//--------------------------------------------------------------
 
 namespace MFMDInterfaceAuxiliaries
 {
@@ -207,7 +207,7 @@ void	MathFunction3DDisplayer<A3DT>::DisplayAnimationBase(const index_vector &iv,
 
 	if(scan_conversion)
 	{
-		
+
 
 		physical_length	vmin, vmax, hmin, hmax;
 		scan_converter_type	SC(size_coord_1, size_coord_2);
@@ -1230,7 +1230,7 @@ void	DisplayMathFunction3DHelper(const A3DT &array_md, const wstring &title, Sca
 
 }//namespace MFMDInterfaceAuxiliaries
 
-
+//--------------------------------------------------------------
 
 //TODO показ многомерных функций. 1. имеющееся подсократить; 2. добавить разбор произвольного числа размерностей
 
@@ -1245,5 +1245,7 @@ void	DisplayMathFunction3D(const DataArrayMD<A3DT> &array_md, const string &titl
 {
 	MFMDInterfaceAuxiliaries::DisplayMathFunction3DHelper(array_md, convert_to_wstring(title, e_decode_literals), sco);
 }
+
+//--------------------------------------------------------------
 
 XRAD_END

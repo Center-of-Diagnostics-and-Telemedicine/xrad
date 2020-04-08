@@ -1,6 +1,6 @@
-﻿#include "pre_GUI.h"
+﻿#include "pre.h"
 #include "ShowValueDialog.h"
-#include <GUIController.h>//нехватало этого включения для правильной линковки
+
 /********************************************************************
 	created:	2015/01/13
 	created:	13:1:2015   14:49
@@ -131,39 +131,10 @@ ShowIntegralDialog::ShowIntegralDialog(QString prompt, int64_t value) : ShowValu
 
 
 
-ShowStringDialog::ShowStringDialog(QString prompt, QString display_string, GUIController &gc/*, display_text_dialog_status status*/) : ShowValueDialog(prompt)/*, DataDisplayWindow(gc)*/
+ShowStringDialog::ShowStringDialog(QString prompt, QString display_string) : ShowValueDialog(prompt)
 {
-// 	if(status != single_use_window)
-// 	{
-// 		horizontalLayout->removeItem(horizontalSpacer);
-// 		horizontalLayout->removeWidget(ok_button);
-// 		verticalLayout_2->removeWidget(comment);
-// 		DestroyObject(horizontalSpacer);
-// 		DestroyObject(ok_button);
-// 		DestroyObject(comment);
-//
-// 		QSizePolicy policy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-// 		display_value->setSizePolicy(policy);
-// 		display_value->setMinimumSize(QSize(0, 0));
-// 		setSizePolicy(policy);
-//
-// 		setMinimumSize(0, 0);
-// 		SetTableSizes(display_value, display_string);
-// 		display_value->setText(display_string);
-//
-// 		auto corner = GetCornerPosition();
-//
-// 		QRect	geo = geometry();
-// 		geo.setTopLeft(QPoint(corner.x(), corner.y()));
-// 		geo.setWidth(display_value->width());
-//
-// 		setGeometry(geo);
-// 	}
-// 	else
-// 	{
 		display_value->setText(display_string);
 		comment->setText(QString("string length = ") + QString("%1").arg(display_string.length()));
-// 	}
 }
 
 }//namespace XRAD_GUI

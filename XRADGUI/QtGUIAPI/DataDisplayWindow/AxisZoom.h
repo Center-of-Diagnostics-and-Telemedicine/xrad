@@ -1,10 +1,7 @@
 ﻿#ifndef __axis_zoom_h
 #define __axis_zoom_h
 
-#include <QTCore/QEvent>
-#include <QTGui/QMouseEvent>
-#include <QTGui/QKeyEvent>
-#include <QTCore/QTimer>
+#include <QtCore/QEvent>
 
 #include <qwt_plot.h>
 #include <qwt_plot_grid.h>

@@ -1,6 +1,6 @@
 ﻿// file AsyncTextBuffer.cpp
 //--------------------------------------------------------------
-#include "pre_GUI.h"
+#include "pre.h"
 
 #include "AsyncTextBuffer.h"
 

@@ -11,9 +11,9 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>.;$(QTDIR_P)\include;$(QTDIR_P)\include\QtCore;$(QTDIR_P)\include\QtGui;$(QTDIR_P)\include\QtWidgets;$(QWTDIR_P)\include;$(XRADRoot)\QtGUIAPI\Common;$(XRADRoot)\QtGUIAPI\DataDisplayWindow;$(XRADRoot)\QtGUIAPI\DialogDefinitions;$(XRADRoot)\QtGUIAPI\Forms;__IntDirPlaceholder__\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;$(QTDIR_P)\include;$(QTDIR_P)\include\QtCore;$(QTDIR_P)\include\QtGui;$(QTDIR_P)\include\QtWidgets;$(QWTDIR_P)\include;..\QtGUIAPI\Common;..\QtGUIAPI\DataDisplayWindow;..\QtGUIAPI\DialogDefinitions;..\QtGUIAPI\Forms;__IntDirPlaceholder__\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>QT_LARGEFILE_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QWT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>pre_GUI.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>pre.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemDefinitionGroup>
 </Project>

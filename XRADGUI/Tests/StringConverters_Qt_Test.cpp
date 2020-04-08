@@ -1,9 +1,9 @@
 ﻿// file StringConverters_Qt_Test.cpp
 //--------------------------------------------------------------
-#include "pre_GUI.h"
+#include "pre.h"
 
 #include "StringConverters_Qt_Test.h"
-#include <XRAD/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 
 XRAD_BEGIN
 

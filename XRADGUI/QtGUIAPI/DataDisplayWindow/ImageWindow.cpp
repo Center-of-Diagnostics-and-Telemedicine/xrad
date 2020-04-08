@@ -1,16 +1,10 @@
-﻿#include "pre_GUI.h"
+﻿#include "pre.h"
 #include "ImageWindow.h"
 
-#include "ThreadGUI.h"
 #include "GUIController.h"
 #include "FileSaveUtils.h"
 
-#include <XRADBasic/Core.h>
-#include <XRAD/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
-
-#include <time.h>
-
-#include <XRADGUI.h>
+#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 #include <XRADSystem/CFile.h>
 #include <XRADSystem/System.h>
 

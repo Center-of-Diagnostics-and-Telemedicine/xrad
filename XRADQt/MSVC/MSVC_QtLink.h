@@ -1,16 +1,13 @@
-﻿// file PC_XRADQtLink.h
-//--------------------------------------------------------------
-#ifndef __PC_XRADQtLink_h
-#define __PC_XRADQtLink_h
+﻿//--------------------------------------------------------------
+#ifndef XRAD__File_MSVC_QtLink_h
+#define XRAD__File_MSVC_QtLink_h
 //--------------------------------------------------------------
 
-#include "PC_QtCoreLink.h"
+#include "MSVC_QtCoreLink.h"
 
 #ifndef _MSC_VER
 	#error Этот файл может использоваться только с MS VisualStudio
 #endif //_MSC_VER
-
-
 
 #if _MSC_VER >= 1900 // MSVC2015+, Qt5
 	#ifdef _DEBUG
@@ -31,4 +28,4 @@
 #endif
 
 //--------------------------------------------------------------
-#endif // __PC_XRADQtLink_h
+#endif // XRAD__File_MSVC_QtLink_h

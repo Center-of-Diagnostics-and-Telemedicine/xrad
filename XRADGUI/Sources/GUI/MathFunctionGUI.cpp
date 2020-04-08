@@ -1,10 +1,8 @@
-﻿#include "pre_GUI.h"
+﻿#include "pre.h"
+#include "MathFunctionGUI.h"
 
-#include <XRADBasic/MathFunctionTypes.h>
-#include <MathFunctionGUI.h>
-#include <XRADGUI.h>
-
-#include <GraphSet.h>
+#include "XRADGUI.h"
+#include "GraphSet.h"
 #include <XRADBasic/Sources/SampleTypes/HLSColorSample.h>
 #include <XRADBasic/FFT1D.h>
 
@@ -12,7 +10,6 @@ XRAD_BEGIN
 
 namespace NS_DisplayMathFunctionHelpers
 {
-XRAD_USING
 
 // вспомогательные процедуры получения режимов отображения
 

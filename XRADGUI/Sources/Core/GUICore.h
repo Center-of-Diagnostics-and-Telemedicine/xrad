@@ -9,9 +9,7 @@
 */
 
 #include <XRADBasic/Core.h>
-
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
-#include <XRAD/GUI/SaveRasterImage.h>
 
 XRAD_BEGIN
 

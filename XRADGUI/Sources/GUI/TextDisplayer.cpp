@@ -1,18 +1,16 @@
-﻿#include "pre_GUI.h"
-#include "TextDisplayer.h"
-#include <XRADGUIAPI.h>
-
-
-/*!
+﻿/*!
 	\file
 	\date 2019/01/16 17:52
 	\author kulberg
-
-	\brief 
 */
+#include "pre.h"
+#include "TextDisplayer.h"
+
+#include <XRADGUIAPI.h>
 
 XRAD_BEGIN
 
+using namespace XRAD_GUI;
 
 
 
@@ -65,4 +63,3 @@ string TextDisplayer::GetText() const
 }
 
 XRAD_END
-

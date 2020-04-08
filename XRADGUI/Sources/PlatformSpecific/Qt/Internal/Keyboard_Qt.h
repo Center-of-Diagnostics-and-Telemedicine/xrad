@@ -4,7 +4,7 @@
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
-#include <XRAD/GUI/GUIConfig.h>
+#include <XRADGUI/Sources/Core/GUIConfig.h>
 
 #ifdef XRAD_USE_KEYBOARD_QT_VERSION
 

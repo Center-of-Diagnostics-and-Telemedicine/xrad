@@ -1,18 +1,13 @@
-﻿#include "pre_GUI.h"
-#include <XRAD/Utils/AutoProgressIndicatorScheduler.h>
-#include <XRADGUI.h>
-
-/*!
-\file
-\date 2019/02/07
-\author kulberg
-
-\brief
+﻿/*!
+	\file
+	\date 2019/02/07
+	\author kulberg
 */
-
+#include "pre.h"
+#include "AutoProgressIndicatorScheduler.h"
+#include <XRADGUI/Sources/GUI/XRADGUI.h>
 
 XRAD_BEGIN
-
 
 
 

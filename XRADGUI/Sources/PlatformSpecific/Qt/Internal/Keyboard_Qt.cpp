@@ -1,10 +1,10 @@
 ﻿//--------------------------------------------------------------
-#include "pre_GUI.h"
+#include "pre.h"
 #include "Keyboard_Qt.h"
 
 #ifdef XRAD_USE_KEYBOARD_QT_VERSION
 
-#include <XRAD/GUI/ModifierKeys.h>
+#include <XRADGUI/Sources/GUI/ModifierKeys.h>
 #include <QApplication.h>
 
 //--------------------------------------------------------------

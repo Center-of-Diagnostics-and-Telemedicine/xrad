@@ -2,19 +2,13 @@
 //	Created by IRD on 05.2013
 //  Version 3.0.2
 //--------------------------------------------------------------
-
 #ifndef XRADGUIFunctionH
 #define XRADGUIFunctionH
 
-//--------------------------------------------------------------
+#include "ThreadGUI.h"
+#include "ThreadUser.h"
+#include "ConsoleWindow.h"
 #include <set>
-
-#include <XRADBasic/Sources/SampleTypes/ColorSample.h>
-#include <ThreadGUI.h>
-#include <ThreadUser.h>
-#include <ConsoleWindow.h>
-#include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
-#include <GUIValue.h>
 
 namespace XRAD_GUI
 {

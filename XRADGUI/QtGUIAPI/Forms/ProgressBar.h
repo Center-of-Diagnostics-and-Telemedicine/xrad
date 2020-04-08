@@ -8,9 +8,8 @@
 
 #include "ui_ProgressBar.h"
 #include "StayOnTopDialog.h"
-#include <string>
-#include <time.h>
 #include <XRADBasic/Sources/Utils/PhysicalUnits.h>
+#include <string>
 
 //--------------------------------------------------------------
 

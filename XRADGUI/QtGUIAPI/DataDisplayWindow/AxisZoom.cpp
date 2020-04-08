@@ -1,8 +1,6 @@
-﻿#include "pre_GUI.h"
-#include <XRADBasic/SampleTypes.h>
-#include <qwt_scale_widget.h>
-
+﻿#include "pre.h"
 #include "AxisZoom.h"
+#include <qwt_scale_widget.h>
 
 
 

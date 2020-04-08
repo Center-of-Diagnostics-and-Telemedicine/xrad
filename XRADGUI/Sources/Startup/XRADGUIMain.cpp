@@ -4,7 +4,7 @@
 	данная процедура нужна для запуска Qt, из нее вызывается xrad_main(), которая содержит основные пользовательские действия
 */
 
-#include "pre_GUI.h"
+#include "pre.h"
 #include <GUIController.h>
 
 int main(int argc, char *argv[])

@@ -3,22 +3,21 @@
 //  Modify by IRD on 05.2013 - create by QT
 //  version 1.0.3
 //--------------------------------------------------------------
-
-#include "pre_GUI.h"
-
+#include "pre.h"
 #include "XRADGUIAPI.h"
+
 #include "SavedSettings.h"
-#include <GUIController.h>
-#include <XRAD/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include "GUIController.h"
+#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 #include <XRADSystem/System.h>
 
+namespace XRAD_GUI
+{
 
-XRAD_BEGIN
+//--------------------------------------------------------------
 
-
-using namespace XRAD_GUI;
-
-
+namespace
+{
 
 template<class T>
 T	DetermineDefaultValue(QString fn, QString prompt, GUIValue<T> default_value)
@@ -30,7 +29,6 @@ T	DetermineDefaultValue(QString fn, QString prompt, GUIValue<T> default_value)
 	return T();
 }
 
-
 vector<pair<QString, bool*> > ConvertCheckboxList(const vector<pair<wstring, bool*> > &boxes)
 {
 	vector<pair<QString, bool*> > result(boxes.size());
@@ -41,7 +39,6 @@ vector<pair<QString, bool*> > ConvertCheckboxList(const vector<pair<wstring, boo
 	}
 	return result;
 }
-
 
 auto	&work_thread()
 {
@@ -67,6 +64,10 @@ auto is_progress_active()
 {
 	return global_gui_controller->IsProgressActive();
 }
+
+} // namespace
+
+//--------------------------------------------------------------
 
 void api_ShowMessage(const wstring &message, api_message_type wtype, const wstring &type_message)
 {
@@ -1053,6 +1054,4 @@ instantiate(float)
 
 #undef instantiate
 
-
-
-XRAD_END
+} // namespace XRAD_GUI

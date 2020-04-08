@@ -7,12 +7,11 @@
 *********************************************************************/
 
 #include "FrameBitmapContainer.h"
-#include <PixelNormalizers.h>
 
 namespace XRAD_GUI
 {
 
-using namespace xrad;
+XRAD_USING
 
 
 

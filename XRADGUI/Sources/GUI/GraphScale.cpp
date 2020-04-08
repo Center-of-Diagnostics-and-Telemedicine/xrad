@@ -1,5 +1,5 @@
-﻿#include "pre_GUI.h"
-#include <GraphScale.h>
+﻿#include "pre.h"
+#include "GraphScale.h"
 
 XRAD_BEGIN
 

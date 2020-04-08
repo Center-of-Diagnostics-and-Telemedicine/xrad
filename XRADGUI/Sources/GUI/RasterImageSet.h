@@ -7,12 +7,13 @@
 	author:		kns
 *********************************************************************/
 
+#include "DataDisplayer.h"
+#include "DisplaySampleType.h"
 #include <XRADBasic/MathFunctionTypes2D.h>
-#include <DataDisplayer.h>
-#include <DisplaySampleType.h>
-
 
 XRAD_BEGIN
+
+//--------------------------------------------------------------
 
 class	RasterImageSet : public DataDisplayer
 {
@@ -45,8 +46,9 @@ public:
 	template<class ROW_T>
 	bool InsertFrame(int after_frame_no, const DataArray2D<ROW_T> &frame);
 	bool DeleteFrame(int in_frame_no);
-
 };
+
+
 
 template<class ROW_T>
 bool RasterImageSet::InsertFrame(int after_frame_no, const DataArray2D<ROW_T> &frame)
@@ -66,7 +68,6 @@ bool RasterImageSet::InsertFrame(int after_frame_no, const DataArray2D<ROW_T> &f
 
 
 
-
 template<class ROW_T>
 bool RasterImageSet::SetupFrame(int in_frame_no, const DataArray2D<ROW_T> &frame)
 {
@@ -82,9 +83,10 @@ bool RasterImageSet::SetupFrame(int in_frame_no, const DataArray2D<ROW_T> &frame
 		buffer.CopyData(frame);
 		return SetupFrame(in_frame_no, buffer.data(), pt);
 	}
-
-
 }
+
+//--------------------------------------------------------------
+
 XRAD_END
 
 #endif // RasterImageSet_h__

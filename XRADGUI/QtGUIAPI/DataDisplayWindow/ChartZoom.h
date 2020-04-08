@@ -3,10 +3,10 @@
 
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 
-XRAD_USING
-
 namespace XRAD_GUI
 {
+
+XRAD_USING
 
 
 

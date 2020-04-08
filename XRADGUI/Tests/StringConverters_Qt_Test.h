@@ -5,7 +5,7 @@
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
-#include "TestHelpers.h"
+#include <XRADBasic/Tests/TestHelpers.h>
 
 XRAD_BEGIN
 

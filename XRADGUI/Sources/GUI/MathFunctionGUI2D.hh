@@ -1,12 +1,14 @@
-﻿#include <PixelNormalizersGUI.h>
+﻿#include "MathFunctionGUI.h"
+#include "GraphSet.h"
+#include "PixelNormalizersGUI.h"
 #include <XRADBasic/SampleTypes.h>
-#include <MathFunctionGUI.h>
 #include <XRADBasic/Sources/Containers/DataArrayAnalyze2D.h>
 #include <XRADBasic/Sources/Containers/DataArrayHistogram2D.h>
-
-
+#include <XRADBasic/Sources/ScanConverter/ScanConverter.h>
 
 XRAD_BEGIN
+
+//--------------------------------------------------------------
 
 namespace MF2DInterfaceAuxiliaries
 {
@@ -1154,5 +1156,23 @@ void DisplayMathFunction2DTypeForkHelper(const A2DT &image, const wstring &title
 }
 
 } //namespace MF2DInterfaceAuxiliaries
+
+//--------------------------------------------------------------
+
+template <class AT>
+void DisplayMathFunction2D(const DataArray2D<AT> &image, const string &title,
+		const ScanConverterOptions &sco)
+{
+	MF2DInterfaceAuxiliaries::DisplayMathFunction2DTypeForkHelper(image, convert_to_wstring(title), sco);
+}
+
+template <class AT>
+void DisplayMathFunction2D(const DataArray2D<AT> &image, const wstring &title,
+		const ScanConverterOptions &sco)
+{
+	MF2DInterfaceAuxiliaries::DisplayMathFunction2DTypeForkHelper(image, title, sco);
+}
+
+//--------------------------------------------------------------
 
 XRAD_END

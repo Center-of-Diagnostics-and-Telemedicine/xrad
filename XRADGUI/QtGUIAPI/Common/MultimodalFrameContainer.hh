@@ -2,7 +2,6 @@
 
 namespace XRAD_GUI
 {
-using namespace xrad;
 
 
 

@@ -1,8 +1,7 @@
-﻿#include "pre_GUI.h"
-
+﻿#include "pre.h"
 #include "PauseDialog.h"
+
 #include "WorkflowControl.h"
-#include "GUIController.h"
 
 namespace XRAD_GUI
 {

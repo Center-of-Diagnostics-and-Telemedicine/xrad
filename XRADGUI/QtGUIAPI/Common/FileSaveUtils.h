@@ -6,25 +6,20 @@
 	author:		kns
 *********************************************************************/
 
+#include "XRADGUIAPIDefs.h"
 #include <QString.h>
-#include <XRADGUIApi.h>//TODO не на месте
 
 namespace XRAD_GUI
 {
 
-
-
 void	SaveDefaultPath(file_dialog_mode flag, QString path);
 QString GetDefaultPath(file_dialog_mode flag);
-
 
 QString	GetSaveFileName(const QString &prompt, const QString &types);
 
 bool IsRasterImageFormat(const QString &format);
 bool IsVectorImageFormat(const QString &format);
 QString FormatByFileExtension(const QString &file_name);
-
-
 
 }//namespace XRAD_GUI
 

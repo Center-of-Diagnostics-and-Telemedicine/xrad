@@ -3,17 +3,17 @@
 //  Version 3.0.2
 #ifndef DecisionDialogs
 #define DecisionDialogs
-
 //--------------------------------------------------------------
 
 #include "StayOnTopDialog.h"
-
-using namespace std;
 
 //--------------------------------------------------------------
 
 namespace XRAD_GUI
 {
+
+using namespace std;
+
 XRAD_USING
 
 

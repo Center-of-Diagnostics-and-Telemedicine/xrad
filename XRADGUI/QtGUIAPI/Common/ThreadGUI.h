@@ -7,16 +7,13 @@
 
 #include "ProgressBar.h"
 #include "StayOnTopDialog.h"
+#include "GraphWindow.h"
+#include "ImageWindow.h"
+#include "TextWindow.h"
+#include "ConsoleWindow.h"
+#include "XRADGUIAPIDefs.h"
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
-#include <XRADBasic/Sources/Containers/DataArray2D.h>
-#include "WorkflowControl.h"
-#include <XRADBasic/Sources/SampleTypes/ColorSample.h>
-#include <GraphWindow.h>
-#include <ImageWindow.h>
-#include <TextWindow.h>
-#include <ConsoleWindow.h>
-
-#include <XRADGUIApi.h>//TODO не на месте включение
+#include <XRADBasic/Sources/Containers/DataArray.h>
 
 namespace XRAD_GUI
 {
@@ -25,12 +22,11 @@ XRAD_USING
 
 //--------------------------------------------------------------
 
-// 	class GraphWindow;
-// 	class ImageWindow;
+class GUIController; // TODO
+
+//--------------------------------------------------------------
 
 // класс предназначен для создания диалогов в GUI-потоке
-
-class GUIController;
 
 class ThreadGUI:
 	public QObject

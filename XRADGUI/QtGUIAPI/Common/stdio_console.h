@@ -1,6 +1,7 @@
 ﻿#ifndef XRAD__CONSOLE_H
 #define XRAD__CONSOLE_H
 
+#include <XRADBasic/Core.h>
 #include <QtGui/QtGui>
 
 namespace XRAD_GUI

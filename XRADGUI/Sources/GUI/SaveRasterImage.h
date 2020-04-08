@@ -1,12 +1,9 @@
 ﻿#ifndef SaveRasterImage_h__
 #define SaveRasterImage_h__
-
 /*!
-\file
-\date 2019/11/25
-\author kulberg
-
-\brief
+	\file
+	\date 2019/11/25
+	\author kulberg
 */
 
 #include <XRADBasic/MathFunctionTypes2D.h>
@@ -17,11 +14,8 @@ XRAD_BEGIN
 //!	\param filename Имя сохраняемого файла с расширением. Расширением определяется формат документа
 //!	\param image Двумерный массив сохраняемых данных
 //! \param black, white. Значения исходного массива, соответствующие черному и белому цвету выходного изображения
-
 template<class ROW_T>
 void	SaveRasterImage(const wstring &filename, DataArray2D<ROW_T> &image, double black = 0, double white = 255);
-
-
 
 XRAD_END
 

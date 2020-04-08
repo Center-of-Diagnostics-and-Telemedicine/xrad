@@ -7,6 +7,11 @@
 
 //--------------------------------------------------------------
 
+#include <XRADBasic/Core.h>
+
+#include "ui_GraphWindow.h"
+
+#ifdef XRAD_COMPILER_MSC
 #pragma warning (push)
 #pragma warning(disable:4083)
 #pragma warning(disable:4251)
@@ -14,25 +19,23 @@
 #pragma warning(disable:4800)
 #pragma warning(disable:4250)
 #pragma warning(disable:4505)
+#endif // XRAD_COMPILER_MSC
 
 // вот эту штуку не получилось как следует включить в pre.h
 // в ней куча предупреждений не по делу
 #include <qwt_plot_curve.h>
 
-#pragma warning pop
-// почему-то не сработало при тестировании
+#ifdef XRAD_COMPILER_MSC
+#pragma warning (pop)
+#endif // XRAD_COMPILER_MSC
 
-#include <VisualizationPlot.h>
-#include <XRADBasic/MathFunctionTypes.h>
-#include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
-
-//--------------------------------------------------------------
-
+#include "VisualizationPlot.h"
 #include "ChartZoom.h"
 #include "DataDisplayWindow.h"
 #include "GraphStyleSet.h"
 
-#include "ui_GraphWindow.h"
+#include <XRADBasic/MathFunctionTypes.h>
+#include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 
 namespace XRAD_GUI
 {

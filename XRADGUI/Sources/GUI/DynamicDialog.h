@@ -5,8 +5,8 @@
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
-#include <XRAD/GUICore.h>
-#include <XRADGUI.h>
+#include <XRADGUI/Sources/Core/GUICore.h>
+#include "XRADGUI.h"
 
 XRAD_BEGIN
 
@@ -1928,7 +1928,7 @@ class Dialog
 		/*!
 			\brief Функция для перегрузки в наследниках. Позволяет менять массив контролов,
 			из которых создается диалог
-			
+
 			\param append_controls [in, out] Указатель на копию controls.
 		*/
 		virtual void AppendInternalControls(vector<shared_ptr<Control>> *append_controls);

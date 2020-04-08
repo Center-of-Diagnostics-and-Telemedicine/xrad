@@ -2,6 +2,7 @@
 #define __PixelNormalizers_h
 
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
+#include <XRADBasic/Sources/SampleTypes/ComplexSample.h>
 #include <XRADBasic/Sources/SampleTypes/ColorSample.h>
 
 //--------------------------------------------------------------
@@ -11,6 +12,8 @@
 //	author:		kns
 //
 //--------------------------------------------------------------
+
+XRAD_BEGIN
 
 namespace XRAD_PixelNormalizers
 {
@@ -24,8 +27,6 @@ namespace XRAD_PixelNormalizers
 //	PT тип выходного пикселя. для черно-белых данных uint8, для цветных ColorPixel
 //	выходной пиксельный тип, но с плавающей запятой. т.о., для черно-белых это
 //	float или double, a для цветных ColorSample<double>
-
-XRAD_USING
 
 //
 template<class T, class PT>
@@ -205,5 +206,6 @@ class assign_color_lightness_normalized: public pixel_normalizer<T,PT>
 
 }//namespace XRAD_PixelNormalizers
 
+XRAD_END
 
 #endif //__PixelNormalizers_h

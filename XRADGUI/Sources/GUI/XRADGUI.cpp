@@ -1,17 +1,18 @@
 ﻿//	file XRAD_api.cpp
 //	Created by ACS on 16.02.07
 //--------------------------------------------------------------
-#include "pre_GUI.h"
-
+#include "pre.h"
 #include "XRADGUI.h"
 
+#include "RasterImageSet.h"
 #include <XRADGUIAPI.h>
+#include <XRADBasic/Sources/Utils/ProgressProxyApi.h>
 #include <ctime>
 #include <cstdarg>
-#include <XRADBasic/Sources/Utils/ProgressProxyApi.h>
-#include <RasterImageSet.h>
 
 XRAD_BEGIN
+
+using namespace XRAD_GUI;
 
 axis_legend::axis_legend(double in_min, double in_step, wstring in_label) : min_value(in_min), step(in_step), label(in_label) {}
 axis_legend::axis_legend(double in_min, double in_step, string in_label) : min_value(in_min), step(in_step), label(string_to_wstring(in_label, e_decode_literals)) {}
@@ -632,9 +633,5 @@ void DisplayImage<complexF32>(wstring name, const complexF32 * data,
 		xlegend.min_value, xlegend.step, xlegend.label,
 		vlegend.display_range.p1(), vlegend.display_range.p2(), vlegend.gamma, vlegend.label);
 }
-
-
-
-
 
 XRAD_END

@@ -1,7 +1,5 @@
-﻿// file PC_XRADGUITestsLibLink.h
-//--------------------------------------------------------------
-#ifndef __PC_XRADGUITestsLibLink_h
-#define __PC_XRADGUITestsLibLink_h
+﻿#ifndef XRAD__File_MSVC_XRADGUITestsLibLink_h
+#define XRAD__File_MSVC_XRADGUITestsLibLink_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Sources/PlatformSpecific/MSVC/MSVC_XRADLink-Suffix.h>
@@ -17,4 +15,4 @@
 #endif
 
 //--------------------------------------------------------------
-#endif // __PC_XRADGUITestsLibLink_h
+#endif // XRAD__File_MSVC_XRADGUITestsLibLink_h

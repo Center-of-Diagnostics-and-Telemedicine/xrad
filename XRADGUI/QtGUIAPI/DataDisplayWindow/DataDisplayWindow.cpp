@@ -1,10 +1,9 @@
 ﻿//	Created by KNS on 11.2013
 //  Version 3.0.5
 //--------------------------------------------------------------
-
-#include "pre_GUI.h"
-
+#include "pre.h"
 #include "DataDisplayWindow.h"
+
 #include "ConsoleWindow.h"
 #include "GUIController.h"
 

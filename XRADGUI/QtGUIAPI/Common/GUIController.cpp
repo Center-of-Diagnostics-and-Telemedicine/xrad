@@ -2,19 +2,14 @@
 //	Created by IRD on 05.2013
 //  Version 3.0.2
 //--------------------------------------------------------------
-
-#include "pre_GUI.h"
-
-//--------------------------------------------------------------
-
+#include "pre.h"
 #include "GUIController.h"
-//#include <XRADGUI.h>
+
 #include "XRADGUIUtils.h"
-#include <XRAD/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 #include "SavedSettings.h"
-#include <XRADGUIAPI.h>
-#include <XRADBasic/Core.h>
-#include <XRAD/GUI/I18nSupport.h>
+#include "XRADGUIAPI.h"
+#include <XRADGUI/Sources/GUI/I18nSupport.h>
+#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 
 
 void	ForceResourceLoad()

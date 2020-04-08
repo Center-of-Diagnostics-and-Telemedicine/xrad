@@ -1,8 +1,9 @@
 ﻿//--------------------------------------------------------------
-#include "pre_GUI.h"
+#include "pre.h"
 #include "ProgressBar.h"
+
 #include "GUIController.h"
-#include "ConsoleWindow.h"
+#include "WorkflowControl.h"
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>
 
 //--------------------------------------------------------------

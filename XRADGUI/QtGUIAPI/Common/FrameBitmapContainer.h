@@ -13,8 +13,7 @@
 *********************************************************************/
 
 #include <XRADBasic/Sources/Utils/BitmapContainer.h>
-#include <PixelNormalizers.h>
-#include <DisplaySampleType.h>
+#include <XRADGUI/Sources/GUI/DisplaySampleType.h>
 
 namespace XRAD_GUI
 {

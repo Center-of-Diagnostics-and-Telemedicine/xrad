@@ -1,5 +1,4 @@
-﻿#include "pre_GUI.h"
-
+﻿#include "pre.h"
 #include "VisualizationPlot.h"
 
 namespace XRAD_GUI

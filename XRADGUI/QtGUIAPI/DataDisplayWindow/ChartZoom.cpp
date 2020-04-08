@@ -1,4 +1,4 @@
-﻿#include "pre_GUI.h"
+﻿#include "pre.h"
 #include "ChartZoom.h"
 
 //TODO: переименовать класс и файл, как сделано с прочими

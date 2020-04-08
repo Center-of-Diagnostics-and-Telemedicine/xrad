@@ -1,4 +1,4 @@
-﻿#include "pre_GUI.h"
+﻿#include "pre.h"
 #include "Keyboard_Win32.h"
 
 #ifdef XRAD_USE_KEYBOARD_WIN32_VERSION
@@ -7,7 +7,7 @@
 	#error "This file is for MS Visual Studio only"
 #endif
 
-#include <XRAD/GUI/ModifierKeys.h>
+#include <XRADGUI/Sources/GUI/ModifierKeys.h>
 #include <windows.h>
 
 XRAD_BEGIN

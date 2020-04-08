@@ -1,11 +1,10 @@
 ﻿#ifndef __graph_set_h
 #define __graph_set_h
 
-#include <XRAD/GUICore.h>
-#include <GraphScale.h>
+#include <XRADGUI/Sources/Core/GUICore.h>
+#include "GraphScale.h"
+#include "DataDisplayer.h"
 #include <XRADBasic/MathFunctionTypes.h>
-#include <DataDisplayer.h>
-// #include <XRADGUI.h>
 
 XRAD_BEGIN
 

@@ -10,30 +10,19 @@
 //--------------------------------------------------------------
 
 #include <XRADBasic/MathFunctionTypes2D.h>
-#include <MathFunctionGUI.h>
-#include <XRADBasic/Sources/ScanConverter/ScanConverter.h>
-#include <GraphSet.h>
-
-#include <MathFunctionGUI2D.hh>
-
-
 
 XRAD_BEGIN
 
 template <class AT>
-void DisplayMathFunction2D(const DataArray2D<AT> &image, const string &title, const ScanConverterOptions &sco = ScanConverterOptions())
-	{
-	MF2DInterfaceAuxiliaries::DisplayMathFunction2DTypeForkHelper(image, convert_to_wstring(title), sco);
-	}
+void DisplayMathFunction2D(const DataArray2D<AT> &image, const string &title,
+		const ScanConverterOptions &sco = ScanConverterOptions());
 
 template <class AT>
-void DisplayMathFunction2D(const DataArray2D<AT> &image, const wstring &title, const ScanConverterOptions &sco = ScanConverterOptions())
-	{
-	MF2DInterfaceAuxiliaries::DisplayMathFunction2DTypeForkHelper(image, title, sco);
-	}
-
+void DisplayMathFunction2D(const DataArray2D<AT> &image, const wstring &title,
+		const ScanConverterOptions &sco = ScanConverterOptions());
 
 XRAD_END
 
+#include "MathFunctionGUI2D.hh"
 
 #endif //__MathFunctionGUI2D_h

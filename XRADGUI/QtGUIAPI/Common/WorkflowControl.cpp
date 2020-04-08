@@ -1,6 +1,7 @@
 ﻿// file WorkflowControl.cpp
 //--------------------------------------------------------------
-#include "pre_GUI.h"
+#include "pre.h"
+#include "WorkflowControl.h"
 
 #include "GUIController.h"
 

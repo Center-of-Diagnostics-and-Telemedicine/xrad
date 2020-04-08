@@ -8,41 +8,23 @@
 #define __XRADGUIAPI_h
 //--------------------------------------------------------------
 
-#include <XRAD/GUICore.h>
+#include "XRADGUIAPIDefs.h"
+#include <XRADGUI/Sources/Core/GUICore.h>
+#include <XRADGUI/Sources/GUI/GUIValue.h>
+#include <XRADGUI/Sources/GUI/DisplaySampleType.h>
+#include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
+#include <XRADBasic/Sources/Utils/PhysicalUnits.h>
+#include <XRADBasic/Sources/Containers/DataArray.h>
 
 #include <string>
 #include <vector>
-using namespace std;
 
-#include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
-#include <XRADBasic/Sources/Utils/PhysicalUnits.h>
-#include <XRADGUI.h>
-#include <PixelNormalizers.h>
-
-#include <XRADBasic/Sources/Containers/DataArray2D.h>
+//--------------------------------------------------------------
 
 namespace XRAD_GUI
 {
 
-enum file_dialog_mode
-{
-	file_open_dialog, file_save_dialog
-};
-
-enum display_text_dialog_status
-{
-	single_use_window, //окно с кнопкой ОК, закрывается при нажатии
-	multiple_use_window_paused,
-	multiple_use_window_silent
-};
-
-}// namespace XRAD_GUI
-
-
-namespace xrad
-{
-
-
+XRAD_USING
 
 //--------------------------------------------------------------
 
@@ -220,7 +202,7 @@ void api_ShowImage(const wstring &title,
 
 //--------------------------------------------------------------
 
-} // namespace xrad
+} // namespace XRAD_GUI
 
 //--------------------------------------------------------------
 #endif // __XRADGUIAPI_h

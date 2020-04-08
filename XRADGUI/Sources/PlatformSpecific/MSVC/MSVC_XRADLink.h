@@ -1,11 +1,10 @@
-﻿// file PC_XRADLink.h
-//--------------------------------------------------------------
-#ifndef __PC_XRADLink_h
-#define __PC_XRADLink_h
+﻿#ifndef XRAD__File_MSVC_XRADLink_h
+#define XRAD__File_MSVC_XRADLink_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Sources/PlatformSpecific/MSVC/MSVC_XRADBasicLink.h>
-#include "PC_XRADGUILink.h"
+#include <XRADSystem/Sources/PlatformSpecific/MSVC/MSVC_XRADSystemLink.h>
+#include "MSVC_XRADGUILink.h"
 
 //--------------------------------------------------------------
-#endif // __PC_XRADLibLink_h
+#endif // XRAD__File_MSVC_XRADLink_h

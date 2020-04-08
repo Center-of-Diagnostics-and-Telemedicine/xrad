@@ -1,8 +1,6 @@
 ﻿#ifndef __mouse_drag_h
 #define __mouse_drag_h
 
-#include "MouseDrag.h"
-
 //--------------------------------------------------------------
 //
 //	created:	2014/03/17
@@ -11,18 +9,12 @@
 //
 //--------------------------------------------------------------
 
-#include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
-
-//TODO: поместить все интерфейсные объекты в свой namespace (вчерне сделано). соответственно этому упростить имена классов
+#include "MouseDrag.h"
 
 namespace XRAD_GUI
 {
 
-
-
 class	ChartZoom;
-
-XRAD_USING
 
 class DragMove : public MouseDrag
 {

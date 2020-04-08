@@ -1,11 +1,9 @@
 ﻿#ifndef __math_functions_interface_h
 #define __math_functions_interface_h
 
-// #include <DataArray.h>
+#include "XRADGUI.h"
+#include "ShowComplex.h"
 #include <XRADBasic/MathFunctionTypes.h>
-#include <XRADGUI.h>
-#include <GraphSet.h>
-#include <ShowComplex.h>
 #include <XRADBasic/Sources/SampleTypes/ColorSample.h>
 
 XRAD_BEGIN
@@ -28,9 +26,6 @@ auto GetDisplayTag(const T *) -> decltype(GetDisplayTag(declval<T*>()));
 
 namespace NS_DisplayMathFunctionHelpers
 {
-XRAD_USING;
-
-
 
 struct	get_display_value
 	{
@@ -177,14 +172,14 @@ struct DisplayMathFunctionHelper<DisplayTagComplex>
 template <class ARR_T>
 void DisplayMathFunction(const ARR_T &mf, double x0, double dx, const wstring &title, const wstring &y_label, const wstring &x_label, bool b_is_stopped = true)
 {
-	NS_DisplayMathFunctionHelpers::DisplayMathFunctionHelper<decltype(NS_DisplayMathFunctionHelpers::GetDisplayTag(declval<typename ARR_T::value_type*>()))>::Display(
+	NS_DisplayMathFunctionHelpers::DisplayMathFunctionHelper<decltype(GetDisplayTag(declval<typename ARR_T::value_type*>()))>::Display(
 			mf, x0, dx, title, y_label, x_label, b_is_stopped);
 }
 
 template <class ARR_T>
 void DisplayMathFunction(const ARR_T &mf, double x0, double dx, const string &title, const string &y_label, const string &x_label, bool b_is_stopped = true)
 {
-	NS_DisplayMathFunctionHelpers::DisplayMathFunctionHelper<decltype(NS_DisplayMathFunctionHelpers::GetDisplayTag(declval<typename ARR_T::value_type*>()))>::Display(
+	NS_DisplayMathFunctionHelpers::DisplayMathFunctionHelper<decltype(GetDisplayTag(declval<typename ARR_T::value_type*>()))>::Display(
 			mf, x0, dx, convert_to_wstring(title), convert_to_wstring(y_label), convert_to_wstring(x_label), b_is_stopped);
 }
 

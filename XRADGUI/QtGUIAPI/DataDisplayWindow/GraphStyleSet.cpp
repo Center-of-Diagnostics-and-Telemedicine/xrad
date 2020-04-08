@@ -1,6 +1,5 @@
-﻿#include "pre_GUI.h"
-
-#include <GraphStyleSet.h>
+﻿#include "pre.h"
+#include "GraphStyleSet.h"
 
 
 

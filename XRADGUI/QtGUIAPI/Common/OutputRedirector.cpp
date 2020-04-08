@@ -1,9 +1,7 @@
 ﻿// file OutputRedirector.cpp
 //--------------------------------------------------------------
-#include "pre_GUI.h"
-
+#include "pre.h"
 #include "OutputRedirector.h"
-#include <XRADBasic/Core.h>
 
 #if defined(XRAD_COMPILER_MSC) && _MSC_VER >= 1900
 #include <io.h>

@@ -1,10 +1,8 @@
 ﻿//	Created by IRD on 05.2013
 //  Version 3.0.2
-#include "pre_GUI.h"
-
-//--------------------------------------------------------------
-
+#include "pre.h"
 #include "GetValueDialog.h"
+
 #include "ShowValueDialog.h"
 #include "WorkflowControl.h"
 

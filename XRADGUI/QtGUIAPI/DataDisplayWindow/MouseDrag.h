@@ -1,9 +1,5 @@
 ﻿#ifndef XRAD__MouseDrag_h
 #define XRAD__MouseDrag_h
-
-#include <XRADBasic/Core.h>
-// #include <GraphScale.h>
-
 //--------------------------------------------------------------
 //
 //	created:	2014/03/17

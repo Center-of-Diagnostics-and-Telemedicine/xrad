@@ -8,15 +8,11 @@
 
 #include "ui_ShowValueDialog.h"
 #include "StayOnTopDialog.h"
-#include <DataDisplayWindow.h>
-#include <XRADGUIApi.h>//TODO не на месте
 
 namespace XRAD_GUI
 {
-XRAD_USING
 
 void	SetTableSizes(QLabel *label, QString &text);
-
 
 class ShowValueDialog : public StayOnTopDialog, public Ui::showValue
 {
@@ -24,17 +20,16 @@ class ShowValueDialog : public StayOnTopDialog, public Ui::showValue
 
 	protected:
 		ShowValueDialog(QString prompt);
-		protected slots:
+	protected slots:
 		virtual void OKClicked();
 };
 
-class ShowStringDialog : public ShowValueDialog/*, public DataDisplayWindow*/
+class ShowStringDialog : public ShowValueDialog
 {
 		Q_OBJECT
 
 	public:
-
-		ShowStringDialog(QString prompt, QString display_string, GUIController &gc/*, display_text_dialog_status status*/);
+		ShowStringDialog(QString prompt, QString display_string);
 
 };
 

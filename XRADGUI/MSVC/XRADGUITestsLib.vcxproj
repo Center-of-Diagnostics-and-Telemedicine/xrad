@@ -151,8 +151,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'">
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Sources\XRAD\Tests\StringConverters_Qt_Test.cpp" />
-    <ClCompile Include="pre_GUI_tests.cpp">
+    <ClCompile Include="..\Tests\StringConverters_Qt_Test.cpp" />
+    <ClCompile Include="XRADGUITestsLib_pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -164,8 +164,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Sources\XRAD\Tests\StringConverters_Qt_Test.h" />
-    <ClInclude Include="pre_GUI.h" />
+    <ClInclude Include="..\Tests\StringConverters_Qt_Test.h" />
+    <ClInclude Include="pre.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

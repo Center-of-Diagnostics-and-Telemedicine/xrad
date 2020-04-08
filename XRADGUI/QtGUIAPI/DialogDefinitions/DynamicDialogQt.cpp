@@ -1,12 +1,13 @@
 ﻿// file DynamicDialogQt.cpp
 //--------------------------------------------------------------
-#include "pre_GUI.h"
-
+#include "pre.h"
 #include "DynamicDialogQt.h"
-#include "ThreadSync.h"
+
 #include "GUIController.h"
 #include "SavedSettings.h"
-#include <XRAD/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include "XRADGUIAPI.h"
+#include <XRADGUI/Sources/GUI/XRADGUI.h>
+#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QLineEdit>
 #include <XRADSystem/System.h>

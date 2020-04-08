@@ -1,12 +1,9 @@
 ﻿//	file ButtonDecisionDialog.cpp
 //	Created by IRD on 06.2013
 //	Version 3.0.2
-#include "pre_GUI.h"
-
-//--------------------------------------------------------------
-
+#include "pre.h"
 #include "DecisionDialogs.h"
-#include "GuiController.h"
+#include "WorkflowControl.h"
 
 //--------------------------------------------------------------
 //

@@ -1,13 +1,8 @@
-﻿
-/*!
-\file
-\date 2019/11/25
-\author kulberg
-
-\brief
+﻿/*!
+	\file
+	\date 2019/11/25
+	\author kulberg
 */
-
-
 #include <XRADBasic/Sources/Utils/BitmapContainer.h>
 
 XRAD_BEGIN

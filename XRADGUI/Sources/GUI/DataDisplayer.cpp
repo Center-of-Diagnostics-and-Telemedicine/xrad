@@ -1,4 +1,4 @@
-﻿#include "pre_GUI.h"
+﻿#include "pre.h"
 #include "DataDisplayer.h"
 #include <XRADGUIAPI.h>
 
@@ -7,11 +7,12 @@
 	\date 2019/02/19 14:57
 	\author kulberg
 
-	\brief 
+	\brief
 */
 
 XRAD_BEGIN
 
+using namespace XRAD_GUI;
 
 
 
@@ -55,4 +56,3 @@ bool DataDisplayer::Hide()
 
 
 XRAD_END
-

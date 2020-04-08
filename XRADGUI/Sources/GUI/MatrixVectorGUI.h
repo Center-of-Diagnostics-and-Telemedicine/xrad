@@ -7,16 +7,15 @@
 	author:		kns
 *********************************************************************/
 
-#include <MathFunctionGUI2D.h>
+#include "MathFunctionGUI2D.h"
+#include "TextDisplayer.h"
 #include <XRADBasic/MathMatrixTypes.h>
 #include <XRADBasic/LinearVectorTypes.h>
-#include <TextDisplayer.h>
+
+XRAD_BEGIN
 
 namespace MatrixVectorGUIAuxiliaries
 {
-
-XRAD_USING;
-
 
 template<class T, class ST>
 string	VectorShowText(const DataArray<ComplexSample<T, ST> > &v, double factor)
@@ -50,8 +49,6 @@ inline string	OrderFactorString(int exponent)
 	return ssprintf(" * 10^%d", exponent);
 	}
 }//namespace MatrixVectorGUIAuxiliaries
-
-XRAD_BEGIN
 
 
 

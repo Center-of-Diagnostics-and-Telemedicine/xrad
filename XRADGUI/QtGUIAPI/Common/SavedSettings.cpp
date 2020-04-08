@@ -1,4 +1,4 @@
-﻿#include "pre_GUI.h"
+﻿#include "pre.h"
 #include "SavedSettings.h"
 /*!
 	\file
@@ -8,7 +8,7 @@
 	\brief
 */
 
-#include <XRAD/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 
 namespace XRAD_GUI
 {

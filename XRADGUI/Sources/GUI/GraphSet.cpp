@@ -1,9 +1,10 @@
-﻿#include "pre_GUI.h"
-#include <GraphSet.h>
+﻿#include "pre.h"
+#include "GraphSet.h"
 #include <XRADGUIApi.h>
 
 XRAD_BEGIN
 
+using namespace XRAD_GUI;
 
 bool	GraphSet::DeleteGraph(size_t graph_no)
 {

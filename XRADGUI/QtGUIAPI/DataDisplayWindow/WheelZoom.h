@@ -1,17 +1,10 @@
 ﻿#ifndef __wheel_zoom_h
 #define __wheel_zoom_h
 
-#include <XRADBasic/Core.h>
-#include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
-
 namespace XRAD_GUI
 {
 
-
-
 class ChartZoom;
-
-XRAD_USING
 
 class WheelZoom : public QObject
 {
@@ -33,10 +26,6 @@ class WheelZoom : public QObject
 								// при вращении колеса мыши (по умолчанию равен 1.2)
 };
 
-
-
 }//namespace XRAD_GUI
-
-#include "ChartZoom.h"
 
 #endif // __wheel_zoom_h

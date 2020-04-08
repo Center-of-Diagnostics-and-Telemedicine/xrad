@@ -1,19 +1,15 @@
 ﻿#ifndef AutoProgressIndicatorScheduler_h__
 #define AutoProgressIndicatorScheduler_h__
-
 /*!
-\file
-\date 2019/02/07
-\author kulberg
-
-\brief
+	\file
+	\date 2019/02/07
+	\author kulberg
 */
 
 #include <XRADBasic/Sources/Utils/ProgressIndicatorScheduler.h>
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>
 
 XRAD_BEGIN
-
 
 /*!
 \brief Класс, позволяющий менять отображаемую вычислительную сложность операций в зависимости от

@@ -1,5 +1,6 @@
-﻿#include "pre_GUI.h"
+﻿#include "pre.h"
 #include "WheelZoom.h"
+#include "ChartZoom.h"
 
 namespace XRAD_GUI
 {

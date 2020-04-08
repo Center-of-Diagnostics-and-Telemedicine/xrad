@@ -1,8 +1,8 @@
 ﻿// file DynamicDialog.cpp
 //--------------------------------------------------------------
-#include "pre_GUI.h"
-
+#include "pre.h"
 #include "DynamicDialog.h"
+
 #include <DynamicDialogQt.h>
 #include <XRADSystem/System.h>
 #include <map>

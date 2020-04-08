@@ -1,24 +1,16 @@
-﻿#include "pre_GUI.h"
-
-//--------------------------------------------------------------
-
+﻿#include "pre.h"
 #include "GraphWindow.h"
+
 #include "ThreadGUI.h"
 #include "GUIController.h"
-#include <XRAD/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
-
-//--------------------------------------------------------------
-// include XRAD primitives
-//--------------------------------------------------------------
-
-#include <XRADBasic/Core.h>
-#include <FileSaveUtils.h>
+#include "FileSaveUtils.h"
+#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 #include <XRADSystem/TextFile.h>
-
-XRAD_USING
 
 namespace XRAD_GUI
 {
+
+XRAD_USING
 
 
 

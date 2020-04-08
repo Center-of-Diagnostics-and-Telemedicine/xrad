@@ -13,12 +13,9 @@
 
 #include "ChartZoom.h"
 
-#include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
-
 namespace XRAD_GUI
 {
 
-XRAD_USING
 using namespace std;
 
 

@@ -1,14 +1,14 @@
-﻿#include "pre_GUI.h"
+﻿#include "pre.h"
 #include "Keyboard.h"
-#include "GUIConfig.h"
+#include <XRADGUI/Sources/Core/GUIConfig.h>
 
 #if defined(XRAD_USE_KEYBOARD_WIN32_VERSION)
 
-#include <XRAD/PlatformSpecific/MSVC/Internal/Keyboard_Win32.h>
+#include <XRADGUI/Sources/PlatformSpecific/MSVC/Internal/Keyboard_Win32.h>
 
 #elif defined(XRAD_USE_KEYBOARD_QT_VERSION)
 
-#include <XRAD/PlatformSpecific/Qt/Internal/SystemUtils_Qt.h>
+#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/SystemUtils_Qt.h>
 
 #elif defined(XRAD_USE_DUMMY_STD_FALLBACK_VERSION)
 #else

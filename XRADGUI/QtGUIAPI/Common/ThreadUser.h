@@ -14,15 +14,13 @@
 #define XRAD__WorkThreadH
 //--------------------------------------------------------------
 
-#include <XRAD/GUICore.h>
-#include <XRADBasic/Sources/SampleTypes/ColorSample.h>
-#include <XRADBasic/Sources/Containers/DataArray2D.h>
-#include <XRADBasic/Sources/Utils/PhysicalUnits.h>
-#include "PauseDialog.h"
 #include "TextWindow.h"
-#include "XRADGUIAPI.h"
-#include "ThreadUser.h"
-// #include <PixelNormalizers.h>
+#include "GraphWindow.h"
+#include "ImageWindow.h"
+#include "XRADGUIAPIDefs.h"
+#include <XRADGUI/Sources/Core/GUICore.h>
+#include <XRADBasic/Sources/Containers/DataArray.h>
+#include <XRADBasic/Sources/Utils/PhysicalUnits.h>
 #include <atomic>
 
 namespace XRAD_GUI
@@ -30,24 +28,21 @@ namespace XRAD_GUI
 
 XRAD_USING
 
+//--------------------------------------------------------------
+
+class	GUIController; // TODO
+
+//--------------------------------------------------------------
+
 /*!
 	\class ThreadUser
 	\brief Класс реализует основной поток для пользовательских вычислений.
 */
-
-
-class	GraphWindow;
-class	ImageWindow;
-class	GUIController;
-
-
-
 class ThreadUser: public QThread
 {
 		Q_OBJECT
 
 	private:
-//		void (*workthread_main_procedure)(void); //!< функция рабочего потока
 		virtual void run();
 
 	public:
@@ -58,7 +53,6 @@ class ThreadUser: public QThread
 		//! \{
 		GUIController &gui_controller;
 		ThreadUser(GUIController &in_gui_controller);
-//		ThreadUser( void (*f)(void));
 		~ThreadUser();
 		//! \}
 		bool	IsRunning() const{return workthread_is_running;};

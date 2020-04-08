@@ -9,8 +9,8 @@
 */
 //--------------------------------------------------------------
 
-#include <XRADGUIApi.h>//TODO не на месте
-#include <XRAD/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include "XRADGUIAPIDefs.h"
+#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 
 namespace XRAD_GUI
 {

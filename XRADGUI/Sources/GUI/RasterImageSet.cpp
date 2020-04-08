@@ -1,5 +1,6 @@
-﻿#include "pre_GUI.h"
+﻿#include "pre.h"
 #include "RasterImageSet.h"
+
 #include <XRADGUIAPI.h>
 
 /********************************************************************
@@ -8,9 +9,9 @@
 	author:		kns
 *********************************************************************/
 
-#include <XRADGUIAPI.h>
-
 XRAD_BEGIN
+
+using namespace XRAD_GUI;
 
 
 

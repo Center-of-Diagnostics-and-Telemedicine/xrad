@@ -7,13 +7,9 @@
 //--------------------------------------------------------------
 
 #include "ui_ImageWindow.h"
-#include <VisualizationPlot.h>
 #include "DataDisplayWindow.h"
-#include <XRADBasic/Sources/SampleTypes/ColorSample.h>
-
 #include "FrameBitmapContainer.h"
 #include "MultimodalFrameContainer.h"
-#include <PixelNormalizers.h>
 #include <QTimer>
 
 //--------------------------------------------------------------

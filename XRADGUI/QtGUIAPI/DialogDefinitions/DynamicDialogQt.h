@@ -6,9 +6,9 @@
 
 #include "StayOnTopDialog.h"
 #include "ThreadSync.h"
+#include <XRADGUI/Sources/Core/GUICore.h>
+#include <XRADGUI/Sources/GUI/GUIValue.h>
 #include <atomic>
-#include <XRAD/GUICore.h>
-#include <GUIValue.h>
 
 // Устранение конфликта имен с WinAPI
 #ifdef CreateDialog
