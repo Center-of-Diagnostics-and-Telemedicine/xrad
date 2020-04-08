@@ -1,13 +1,12 @@
 ﻿#ifndef GUIValue_h__
 #define GUIValue_h__
-
 /*!
 	\file
 	\date 2018/03/16 13:25
 	\author kulberg
-
-	\brief
 */
+
+#include <XRADBasic/Core.h>
 
 XRAD_BEGIN
 

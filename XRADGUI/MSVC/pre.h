@@ -4,18 +4,9 @@
 
 #include <XRADBasic/Core.h>
 
-//#include <XRADBasic/MathFunctionTypesMD.h>
-
-/*#include <vector>
+#include <vector>
 #include <list>
 #include <string>
-#include <stdexcept>
-#include <stdio.h>
-#include <math.h>
-#include <iostream>
-#include <time.h>*/
-
-using namespace std;
 
 //--------------------------------------------------------------
 

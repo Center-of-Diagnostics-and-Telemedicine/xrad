@@ -4,8 +4,12 @@
 #define __XRADGUIUtils_h
 //--------------------------------------------------------------
 
+#include <string>
+
 namespace XRAD_GUI
 {
+
+using namespace std;
 
 //! \brief Получить строку сообщения исключения в блоке catch
 //!
