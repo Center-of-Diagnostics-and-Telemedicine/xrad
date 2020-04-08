@@ -7,6 +7,8 @@
 #include <XRADGUI/Sources/GUI/ModifierKeys.h>
 #include <QApplication.h>
 
+XRAD_BEGIN
+
 //--------------------------------------------------------------
 
 //	modifier key state
@@ -27,6 +29,8 @@ int	ModifierKeysState_Qt()
 }
 
 //--------------------------------------------------------------
+
+XRAD_END
 
 #else // XRAD_USE_KEYBOARD_QT_VERSION
 

@@ -8,7 +8,7 @@
 
 #elif defined(XRAD_USE_KEYBOARD_QT_VERSION)
 
-#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/SystemUtils_Qt.h>
+#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/Keyboard_Qt.h>
 
 #elif defined(XRAD_USE_DUMMY_STD_FALLBACK_VERSION)
 #else
