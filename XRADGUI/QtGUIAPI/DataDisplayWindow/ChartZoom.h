@@ -1,6 +1,7 @@
 ﻿#ifndef __chart_zoom_h
 #define __chart_zoom_h
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 
 namespace XRAD_GUI

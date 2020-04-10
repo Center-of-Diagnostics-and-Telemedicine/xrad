@@ -14,6 +14,7 @@
 #define XRAD__WorkThreadH
 //--------------------------------------------------------------
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include "TextWindow.h"
 #include "GraphWindow.h"
 #include "ImageWindow.h"

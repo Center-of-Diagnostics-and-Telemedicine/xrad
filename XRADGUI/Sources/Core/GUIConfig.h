@@ -23,6 +23,8 @@
 
 // Конфигурация для GCC
 
+#define XRAD_USE_KEYBOARD_QT_VERSION
+
 
 
 #else

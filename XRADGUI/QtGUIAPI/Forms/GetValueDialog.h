@@ -4,9 +4,10 @@
 #ifndef XRAD__GetValueDialogH
 #define XRAD__GetValueDialogH
 
-//--------------------------------------------------------------
+#include <XRADGUI/Sources/Internal/std.h>
 #include "ui_GetValueDialog.h"
 #include "StayOnTopDialog.h"
+
 //--------------------------------------------------------------
 
 // Классы построения окна для ввода текстового значения, вещественного числа и целого числа соответственно

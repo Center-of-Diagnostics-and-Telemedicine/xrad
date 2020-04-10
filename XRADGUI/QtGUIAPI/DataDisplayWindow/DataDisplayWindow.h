@@ -4,6 +4,7 @@
 #ifndef XRAD__data_display_window
 #define XRAD__data_display_window
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 #include "IGUISettingsChanged.h"
 #include <list>

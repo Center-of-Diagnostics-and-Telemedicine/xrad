@@ -6,6 +6,7 @@
 
 //--------------------------------------------------------------
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include "ui_ProgressBar.h"
 #include "StayOnTopDialog.h"
 #include <XRADBasic/Sources/Utils/PhysicalUnits.h>

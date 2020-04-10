@@ -21,8 +21,10 @@ XRAD_USING
 
 ConsoleWindow::ConsoleWindow(GUIController &in_gui_globals, QWidget *parent, Qt::WindowFlags flags):
 	QMainWindow(parent, flags),
-	gui_controller(in_gui_globals),
-	default_priority(GetPriorityClass(GetCurrentProcess()))
+	gui_controller(in_gui_globals)
+#ifdef XRAD_COMPILER_MSC
+	, default_priority(GetPriorityClass(GetCurrentProcess()))
+#endif // XRAD_COMPILER_MSC
 {
 	ui.setupUi(this);
 
@@ -238,6 +240,7 @@ void ConsoleWindow::command_DebugChecked()
 
 void ConsoleWindow::menuProgramPriorityShow()
 {
+#ifdef XRAD_COMPILER_MSC
 	if (priority_setting == ProcessPriority::Default)
 		return;
 	DWORD actual_priority = GetPriorityClass(GetCurrentProcess());
@@ -246,8 +249,11 @@ void ConsoleWindow::menuProgramPriorityShow()
 	priority_ui_updating = true;
 	ui.actionPriorityDefault->setChecked(true);
 	priority_ui_updating = false;
+	// TODO: #else
+#endif // XRAD_COMPILER_MSC
 }
 
+#ifdef XRAD_COMPILER_MSC
 DWORD ConsoleWindow::ProcessPriorityToSystemValue(ProcessPriority priority)
 {
 	switch (priority)
@@ -275,6 +281,7 @@ DWORD ConsoleWindow::ProcessPriorityToUIThreadSystemValue(ProcessPriority priori
 		case ProcessPriority::Idle: return THREAD_PRIORITY_HIGHEST;
 	}
 }
+#endif // XRAD_COMPILER_MSC
 
 void ConsoleWindow::LoadProcessPrioritySettings()
 {
@@ -286,7 +293,7 @@ void ConsoleWindow::LoadProcessPrioritySettings()
 		return;
 	auto priority = priority_setting;
 	priority_ui_updating = true;
-	switch (priority_uint)
+	switch ((ProcessPriority)priority_uint)
 	{
 		case ProcessPriority::Default:
 			priority = ProcessPriority::Default;
@@ -309,6 +316,7 @@ void ConsoleWindow::LoadProcessPrioritySettings()
 
 void ConsoleWindow::SetProcessPriority(ProcessPriority priority)
 {
+#ifdef XRAD_COMPILER_MSC
 	if (priority_ui_updating)
 		return;
 	switch (priority)
@@ -330,6 +338,8 @@ void ConsoleWindow::SetProcessPriority(ProcessPriority priority)
 	SetThreadPriority(GetCurrentThread(), ProcessPriorityToUIThreadSystemValue(priority));
 	priority_setting = priority;
 	GUISaveParameter("GUI", "ProcessPriority", (std::underlying_type_t<ProcessPriority>)(priority));
+	// TODO: #else
+#endif // XRAD_COMPILER_MSC
 }
 
 void ConsoleWindow::command_LogsShowSpecialCharactersChecked()

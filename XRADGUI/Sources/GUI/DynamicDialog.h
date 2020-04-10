@@ -477,7 +477,7 @@ class ValueCheckBox: public CheckBox
 		//! \name Инициализация
 		//! @{
 	public:
-		using parent::on_value_changed_t;
+		using typename parent::on_value_changed_t;
 
 		ValueCheckBox(const wstring &caption, const GUIValue<bool*> &p_checked,
 				const on_value_changed_t &on_checked_changed = on_value_changed_t());
@@ -751,7 +751,7 @@ class EnumRadioButtonChoiceImpl: public ControlProxy
 {
 	public:
 		using value_type = T;
-		using choice_t = Choice<T>;
+		using choice_t = DynamicDialog::Choice<T>;
 		using on_value_changed_t = function<void (const value_type &choice)>;
 		using on_value_apply_t = function<void (const value_type &value, DialogResultCode code)>;
 
@@ -840,8 +840,10 @@ class ValueEnumRadioButtonChoiceImpl: public EnumRadioButtonChoiceImpl<T>
 		//! \name Инициализация
 		//! @{
 	public:
-		using parent::value_type;
-		using parent::on_value_changed_t;
+		using typename parent::value_type;
+		using typename parent::choice_t;
+		using typename parent::on_value_changed_t;
+		using parent::Choice;
 
 		ValueEnumRadioButtonChoiceImpl(
 				const vector<choice_t> &choices,
@@ -1072,7 +1074,7 @@ class EnumComboBoxImpl: public ControlProxy
 {
 	public:
 		using value_type = T;
-		using choice_t = Choice<value_type>;
+		using choice_t = DynamicDialog::Choice<value_type>;
 		using on_value_changed_t = function<void (const value_type &choice)>;
 		using on_value_apply_t = function<void (const value_type &value, DialogResultCode code)>;
 
@@ -1146,8 +1148,10 @@ class ValueEnumComboBoxImpl: public EnumComboBoxImpl<T>
 		//! \name Инициализация
 		//! @{
 	public:
-		using parent::value_type;
-		using parent::on_value_changed_t;
+		using typename parent::value_type;
+		using typename parent::choice_t;
+		using typename parent::on_value_changed_t;
+		using parent::Choice;
 
 		ValueEnumComboBoxImpl(const vector<choice_t> &choices,
 				const GUIValue<value_type*> &p_value,
@@ -1330,7 +1334,9 @@ class ValueStringEditBase: public StringEditBase<EditTag>
 		//! \name Инициализация
 		//! @{
 	public:
-		using parent::on_value_changed_t;
+		using typename parent::on_value_changed_t;
+		using parent::Value;
+		using parent::SetValue;
 
 		ValueStringEditBase(const wstring &caption, const GUIValue<wstring*> &p_value,
 				Layout control_layout = Layout::Vertical,
@@ -1480,7 +1486,9 @@ class ValueNumberEdit: public NumberEdit<T>
 		//! \name Инициализация
 		//! @{
 	public:
-		using parent::on_value_changed_t;
+		using typename parent::value_t;
+		using typename parent::on_value_changed_t;
+		using parent::Value;
 
 		ValueNumberEdit(const wstring &caption, const GUIValue<value_t*> &p_value,
 				value_t min_value,
@@ -1706,7 +1714,7 @@ class ValueFileLoadEdit: public FileLoadEdit
 		//! \name Инициализация
 		//! @{
 	public:
-		using parent::on_value_changed_t;
+		using typename parent::on_value_changed_t;
 
 		ValueFileLoadEdit(const wstring &caption,
 				const GUIValue<value_t*> &p_value,
@@ -1740,7 +1748,7 @@ class ValueFileSaveEdit: public FileSaveEdit
 		//! \name Инициализация
 		//! @{
 	public:
-		using parent::on_value_changed_t;
+		using typename parent::on_value_changed_t;
 
 		ValueFileSaveEdit(const wstring &caption,
 				const GUIValue<value_t*> &p_value,
@@ -1774,7 +1782,7 @@ class ValueDirectoryReadEdit: public DirectoryReadEdit
 		//! \name Инициализация
 		//! @{
 	public:
-		using parent::on_value_changed_t;
+		using typename parent::on_value_changed_t;
 
 		ValueDirectoryReadEdit(const wstring &caption,
 				const GUIValue<value_t*> &p_value,
@@ -1807,7 +1815,7 @@ class ValueDirectoryWriteEdit: public DirectoryWriteEdit
 		//! \name Инициализация
 		//! @{
 	public:
-		using parent::on_value_changed_t;
+		using typename parent::on_value_changed_t;
 
 		ValueDirectoryWriteEdit(const wstring &caption,
 				const GUIValue<value_t*> &p_value,
@@ -1970,7 +1978,7 @@ class EnumDialogImpl: public Dialog
 		//! @{
 	public:
 		using value_t = T;
-		using choice_t = Choice<T>;
+		using choice_t = DynamicDialog::Choice<T>;
 
 		/*!
 			\brief Создать диалог

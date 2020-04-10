@@ -7,7 +7,7 @@
 *********************************************************************/
 
 #include "XRADGUIAPIDefs.h"
-#include <QString.h>
+#include <QtCore/QString>
 
 namespace XRAD_GUI
 {

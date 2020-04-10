@@ -9,6 +9,7 @@
 //
 //--------------------------------------------------------------
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include "MouseDrag.h"
 
 namespace XRAD_GUI

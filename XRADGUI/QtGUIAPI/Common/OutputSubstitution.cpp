@@ -4,8 +4,11 @@
 #include "OutputRedirector.h"
 #include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 #include <XRADSystem/System.h>
+
+#if defined(XRAD_COMPILER_MSC)
 #include <io.h>
 #include <fcntl.h>
+#endif // defined(XRAD_COMPILER_MSC)
 
 namespace XRAD_GUI
 {
@@ -95,6 +98,7 @@ FILE *OpenNewLogFile(const string &app_name, const string &datetime, const strin
 	//   (см. ClearOldLogFiles(), GetDateTimeStringForLogFileName());
 	// - при алфавитной сортировке старые файлы должны быть в начале списка.
 
+#if defined(XRAD_COMPILER_MSC)
 	string path = GetLogPath();
 	string filename = ssprintf("%s/%s-%s-%s.log", path.c_str(), app_name.c_str(),
 			datetime.c_str(), suffix.c_str());
@@ -125,6 +129,7 @@ FILE *OpenNewLogFile(const string &app_name, const string &datetime, const strin
 		filename = ssprintf("%s/%s-%s[%i]-%s.log", path.c_str(), app_name.c_str(),
 				datetime.c_str(), n + 1, suffix.c_str());
 	}
+#endif // defined(XRAD_COMPILER_MSC)
 	return nullptr;
 }
 
@@ -156,7 +161,7 @@ void ClearOldLogFiles(const string &app_name)
 		return;
 	for (size_t i = 0; i < filenames_sorted.size() - FileCountToKeep; ++i)
 	{
-		DeleteFileW(filenames_sorted[i].c_str());
+		DeleteFile(filenames_sorted[i]);
 	}
 }
 

@@ -51,10 +51,16 @@ template <>
 void GUISaveParameter(QString function_name, QString setting_name, const unsigned int &value);
 
 template <>
+void GUISaveParameter(QString function_name, QString setting_name, const unsigned long &value);
+
+template <>
 void GUISaveParameter(QString function_name, QString setting_name, const unsigned long long &value);
 
 template <>
 void GUISaveParameter(QString function_name, QString setting_name, const int &value);
+
+template <>
+void GUISaveParameter(QString function_name, QString setting_name, const long &value);
 
 template <>
 void GUISaveParameter(QString function_name, QString setting_name, const long long &value);
@@ -104,22 +110,32 @@ bool GUILoadParameter(QString function_name, QString setting_name, const bool &d
 		bool *loaded);
 
 template <>
-unsigned long long GUILoadParameter(QString function_name, QString setting_name,
-		const unsigned long long &default_value,
-		bool *loaded);
-
-template <>
 unsigned int GUILoadParameter(QString function_name, QString setting_name,
 		const unsigned int &default_value,
 		bool *loaded);
 
 template <>
-long long GUILoadParameter(QString function_name, QString setting_name,
-		const long long &default_value,
+unsigned long GUILoadParameter(QString function_name, QString setting_name,
+		const unsigned long &default_value,
+		bool *loaded);
+
+template <>
+unsigned long long GUILoadParameter(QString function_name, QString setting_name,
+		const unsigned long long &default_value,
 		bool *loaded);
 
 template <>
 int GUILoadParameter(QString function_name, QString setting_name, const int &default_value,
+		bool *loaded);
+
+template <>
+long GUILoadParameter(QString function_name, QString setting_name,
+		const long &default_value,
+		bool *loaded);
+
+template <>
+long long GUILoadParameter(QString function_name, QString setting_name,
+		const long long &default_value,
 		bool *loaded);
 
 template <>

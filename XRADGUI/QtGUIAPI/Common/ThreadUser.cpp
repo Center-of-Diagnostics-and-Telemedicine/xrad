@@ -78,7 +78,8 @@ void ThreadUser::Suspend(suspend_mode mode)
 	mutex.unlock();
 	if (BreakOnGUIReturn())
 	{
-		__debugbreak();
+		// Выход в отладчик должен срабатывать и в Debug, и в Release.
+		XRAD_FORCE_DEBUG_BREAK_FUNCTION();
 	}
 }
 

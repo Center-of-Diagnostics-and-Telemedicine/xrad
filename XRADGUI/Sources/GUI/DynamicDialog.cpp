@@ -82,7 +82,8 @@ struct GuiControl
 {
 	shared_ptr<XRAD_GUI::ControlApi> control;
 
-	GuiControl(shared_ptr<XRAD_GUI::ControlApi> &&control): control(control) {}
+	template <class T>
+	GuiControl(shared_ptr<T> &&control): control(control) {}
 };
 
 //--------------------------------------------------------------
@@ -1520,7 +1521,7 @@ GuiControl StringEditBase<EditTag>::CreateGuiControlImpl(GuiControlBindings *bin
 {
 	if (private_storage->gui_edit)
 		throw runtime_error("StringEdit::CreateGuiControl: control already created.");
-	auto gui_edit = typename PrivateStorage::EditApi_t::Create(caption,
+	auto gui_edit = PrivateStorage::EditApi_t::Create(caption,
 			value,
 			default_value,
 			history_value,

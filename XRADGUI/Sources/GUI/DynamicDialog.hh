@@ -168,7 +168,7 @@ ValueEnumRadioButtonChoiceImpl<T>::ValueEnumRadioButtonChoiceImpl(const vector<c
 		const GUIValue<value_type*> &p_value,
 		Layout control_layout,
 		const on_value_changed_t &on_value_changed):
-	EnumRadioButtonChoiceImpl(choices,
+	parent(choices,
 			ConvertGUIValue(p_value, *CheckNotNull(p_value.value)),
 			control_layout,
 			on_value_changed),
@@ -182,7 +182,7 @@ ValueEnumRadioButtonChoiceImpl<T>::ValueEnumRadioButtonChoiceImpl(const wstring 
 		const GUIValue<value_type*> &p_value,
 		Layout control_layout,
 		const on_value_changed_t &on_value_changed):
-	EnumRadioButtonChoiceImpl(caption, choices,
+	parent(caption, choices,
 			ConvertGUIValue(p_value, *CheckNotNull(p_value.value)),
 			control_layout,
 			on_value_changed),
@@ -356,7 +356,7 @@ template <class T>
 ValueEnumComboBoxImpl<T>::ValueEnumComboBoxImpl(const vector<choice_t> &choices,
 		const GUIValue<value_type*> &p_value,
 		const on_value_changed_t &on_value_changed):
-	EnumComboBoxImpl(choices,
+	parent(choices,
 			ConvertGUIValue(p_value, *CheckNotNull(p_value.value)),
 			on_value_changed),
 	p_value(p_value.value)
@@ -368,7 +368,7 @@ ValueEnumComboBoxImpl<T>::ValueEnumComboBoxImpl(const wstring &caption,
 		const vector<choice_t> &choices,
 		const GUIValue<value_type*> &p_value,
 		const on_value_changed_t &on_value_changed):
-	EnumComboBoxImpl(caption, choices,
+	parent(caption, choices,
 			ConvertGUIValue(p_value, *CheckNotNull(p_value.value)),
 			on_value_changed),
 	p_value(p_value.value)

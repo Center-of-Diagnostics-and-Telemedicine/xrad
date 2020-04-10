@@ -1,6 +1,8 @@
 ﻿#ifndef __wheel_zoom_h
 #define __wheel_zoom_h
 
+#include <XRADGUI/Sources/Internal/std.h>
+
 namespace XRAD_GUI
 {
 

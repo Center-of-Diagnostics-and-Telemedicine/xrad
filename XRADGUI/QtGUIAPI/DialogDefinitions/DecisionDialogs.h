@@ -5,6 +5,7 @@
 #define DecisionDialogs
 //--------------------------------------------------------------
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include "StayOnTopDialog.h"
 
 //--------------------------------------------------------------
@@ -53,7 +54,7 @@ class DecisionDialog : public StayOnTopDialog
 	protected:
 		DecisionDialog();
 		QVBoxLayout *dialog_layout;
-		bool DecisionDialog::eventFilter(QObject *target, QEvent *event);
+		bool eventFilter(QObject *target, QEvent *event);
 
 	private:
 
@@ -91,7 +92,6 @@ class CheckboxDecisionDialog : public DecisionDialog
 
 // динамическая форма с радио-кнопками
 class RadioButtonDecisionDialog : public DecisionDialog
-//	class RadioButtonDecisionDialog : public QDialog
 {
 		Q_OBJECT
 
@@ -110,9 +110,7 @@ class RadioButtonDecisionDialog : public DecisionDialog
 		bool	default_button_assigned;
 
 		QGroupBox *group_box;
-	//	QPushButton *button_ok;
 		QVBoxLayout *group_box_layout;
-	//	QVBoxLayout *dialog_layout;
 
 		vector<QRadioButton*> radio_buttons;
 		size_t &result;

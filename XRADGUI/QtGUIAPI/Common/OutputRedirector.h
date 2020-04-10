@@ -36,6 +36,7 @@ class OutputRedirector
 		void SetLogFile(FILE *f);
 		FILE *GetLogFile() const { return LogFile; }
 	private:
+#if defined(XRAD_COMPILER_MSC)
 		using HANDLE = ::HANDLE; // Решаем неоднозначность HANDLE из WinAPI и Qt.
 
 		FILE *GetRedirectedStream() const;
@@ -57,14 +58,17 @@ class OutputRedirector
 
 		void RedirectStdStream();
 		void RestoreStdStream();
+#endif
 	private:
 		const OutputStream output_stream;
+#if defined(XRAD_COMPILER_MSC)
 		HANDLE SaveStdHandle = INVALID_HANDLE_VALUE;
 		HANDLE StdPipeWriteHandle = INVALID_HANDLE_VALUE;
 		HANDLE StdPipeReadHandle = INVALID_HANDLE_VALUE;
 		volatile bool PipeLoopTerminate = false;
 		std::thread PipeThread;
 		int SavedCHandle = -1;
+#endif
 		bool Started = false;
 		FILE * volatile LogFile = nullptr;
 		mutex LogFileMutex;

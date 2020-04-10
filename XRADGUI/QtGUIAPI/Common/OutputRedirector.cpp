@@ -30,11 +30,13 @@ bool OutputRedirector::Start(AsyncTextBuffer *text_buffer)
 {
 	if (Started)
 		throw runtime_error("OutputRedirector::Start: already started.");
+#if defined(XRAD_COMPILER_MSC)
 	if (!CreateStdStreamPipe())
 		return false;
 	StartPipeThread(text_buffer);
 	RedirectStdHandle(text_buffer);
 	RedirectStdStream();
+#endif // defined(XRAD_COMPILER_MSC)
 	Started = true;
 	return true;
 }
@@ -45,10 +47,12 @@ void OutputRedirector::Stop()
 {
 	if (!Started)
 		return;
+#if defined(XRAD_COMPILER_MSC)
 	RestoreStdStream();
 	RestoreStdHandle();
 	StopPipeThread();
 	DeleteStdStreamPipe();
+#endif // defined(XRAD_COMPILER_MSC)
 	Started = false;
 }
 
@@ -68,6 +72,10 @@ void OutputRedirector::SetLogFile(FILE *f)
 		fprintf(LogFile, "Log opened.\n");
 	}
 }
+
+//--------------------------------------------------------------
+
+#if defined(XRAD_COMPILER_MSC)
 
 //--------------------------------------------------------------
 
@@ -287,8 +295,12 @@ void OutputRedirector::RestoreStdStream()
 }
 
 #else
-#error Unknown compiler.
+#error This old MSC compiler version is not supported.
 #endif
+
+//--------------------------------------------------------------
+
+#endif // defined(XRAD_COMPILER_MSC)
 
 //--------------------------------------------------------------
 

@@ -1,6 +1,7 @@
 ﻿#ifndef SIMPLETEST_QT_H
 #define SIMPLETEST_QT_H
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include "ui_ConsoleWindow.h"
 #include "OutputSubstitution.h"
 
@@ -56,14 +57,18 @@ class ConsoleWindow : public QMainWindow
 	private:
 		//! \brief Тип uint и числовые значения используются при сериализации, не менять
 		enum class ProcessPriority: uint { Default = 0, Normal = 1, Idle = 2 };
+#ifdef XRAD_COMPILER_MSC
 		DWORD ProcessPriorityToSystemValue(ProcessPriority priority);
 		DWORD ProcessPriorityToUIThreadSystemValue(ProcessPriority priority);
+#endif // XRAD_COMPILER_MSC
 		void LoadProcessPrioritySettings();
 		void SetProcessPriority(ProcessPriority priority);
 
 	private:
 		ProcessPriority priority_setting = ProcessPriority::Default;
+#ifdef XRAD_COMPILER_MSC
 		DWORD default_priority = GetPriorityClass(GetCurrentProcess());
+#endif // XRAD_COMPILER_MSC
 		bool priority_ui_updating = false;
 
 	private:

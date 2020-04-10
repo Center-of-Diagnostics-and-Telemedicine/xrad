@@ -2430,14 +2430,14 @@ void NumberEditApi<T>::VisualizeValueValid(bool valid)
 #if QT_VERSION <= 0x50600
 		palette.setColor(QPalette::Text, Qt::red);
 
-#elif QT_VERSION > 0x50600 && QT_VERSION < 0x50908
+#elif QT_VERSION > 0x50600 && QT_VERSION < 0x50905
 #error Try this code:
-			// Для версий Qt 5.6.1.--5.9.7 код ниже не тестировался
-			// При появлении версий из этого диапазона тестировать
-			// и вносить исправление в диапазоны условий #if
+		// Для версий Qt 5.6.1--5.9.4 код ниже не тестировался
+		// При появлении версий из этого диапазона тестировать
+		// и вносить исправление в диапазоны условий #if
 #else
 		// Этот код дает неправильное отображение при наведении мыши в Qt 5.6.0 и более ранних.
-		// В версии 5.9.8 все работает корректно.
+		// В версии 5.9.5 все работает корректно.
 		// - https://bugreports.qt.io/browse/QTBUG-42575
 		// - https://bugreports.qt.io/browse/QTBUG-40634
 		palette.setColor(QPalette::Base, Qt::red);
@@ -3114,14 +3114,14 @@ void FileNameEditApi::VisualizeValueValidity(ValueValidity validity)
 #if QT_VERSION <= 0x50600
 		palette.setColor(QPalette::Text, Qt::red);
 
-#elif QT_VERSION > 0x50600 && QT_VERSION < 0x50908
+#elif QT_VERSION > 0x50600 && QT_VERSION < 0x50905
 #error Try this code:
-		// Для версий Qt 5.6.1.--5.9.7 код ниже не тестировался
+		// Для версий Qt 5.6.1--5.9.4 код ниже не тестировался
 		// При появлении версий из этого диапазона тестировать
 		// и вносить исправление в диапазоны условий #if
 #else
 		// Этот код дает неправильное отображение при наведении мыши в Qt 5.6.0 и более ранних.
-		// В версии 5.9.8 все работает корректно.
+		// В версии 5.9.5 все работает корректно.
 		// - https://bugreports.qt.io/browse/QTBUG-42575
 		// - https://bugreports.qt.io/browse/QTBUG-40634
 		palette.setColor(QPalette::Base, Qt::red);

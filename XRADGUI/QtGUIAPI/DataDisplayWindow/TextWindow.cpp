@@ -143,8 +143,8 @@ void TextWindow::closeEvent(QCloseEvent *event)
 
 void TextWindow::SaveTextFile()
 {
-	char *prompt = "Save text file";
-	char *type = "Text file (*.txt)";
+	const char *prompt = "Save text file";
+	const char *type = "Text file (*.txt)";
 	QString qfile_name = GetSaveFileName(QFileDialog::tr(prompt), QFileDialog::tr(type));
 	if(qfile_name.isEmpty()) return;
 	wstring	file_name = qstring_to_wstring(qfile_name);//.toStdWString();

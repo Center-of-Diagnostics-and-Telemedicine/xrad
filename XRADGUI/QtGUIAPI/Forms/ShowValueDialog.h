@@ -6,6 +6,7 @@
 	author:		kns
 *********************************************************************/
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include "ui_ShowValueDialog.h"
 #include "StayOnTopDialog.h"
 

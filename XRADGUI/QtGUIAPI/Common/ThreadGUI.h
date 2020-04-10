@@ -5,6 +5,7 @@
 #define XRAD__DialogsH
 //--------------------------------------------------------------
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include "ProgressBar.h"
 #include "StayOnTopDialog.h"
 #include "GraphWindow.h"

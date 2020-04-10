@@ -701,7 +701,7 @@ template<class A2DT>
 void	DisplayMathFunction2DTemplate(const A2DT &img, const wstring &title, const ScanConverterOptions &sco)
 {
 	typedef A2DT	image_type;
-	typedef decltype(GetDisplayTag(&img.at(0,0))) display_tag;
+	typedef DisplayTag_t<decltype(img.at(0,0))> display_tag;
 	// универсальный шаблон и для действительных, и для комплексных данных
 	size_t	row_no = img.vsize()/2;
 	//size_t	first_row_no = img.vsize() / 2;
@@ -1152,7 +1152,7 @@ struct DisplayMathFunction2DTypeFork<DisplayTagRGB>
 template <class A2DT>
 void DisplayMathFunction2DTypeForkHelper(const A2DT &image, const wstring &title, const ScanConverterOptions &sco)
 {
-	DisplayMathFunction2DTypeFork<decltype(GetDisplayTag(&image.at(0, 0)))>::Display(image, title, sco);
+	DisplayMathFunction2DTypeFork<DisplayTag_t<decltype(image.at(0, 0))>>::Display(image, title, sco);
 }
 
 } //namespace MF2DInterfaceAuxiliaries

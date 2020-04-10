@@ -6,6 +6,7 @@
 
 //--------------------------------------------------------------
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include "ui_ImageWindow.h"
 #include "DataDisplayWindow.h"
 #include "FrameBitmapContainer.h"

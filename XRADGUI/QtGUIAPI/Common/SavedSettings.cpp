@@ -54,6 +54,13 @@ void GUISaveParameter(QString function_name, QString setting_name, const unsigne
 }
 
 template <>
+void GUISaveParameter(QString function_name, QString setting_name, const unsigned long &value)
+{
+	string value_str = ssprintf("%lu", value);
+	GUISaveParameter(function_name, setting_name, string_to_qstring(value_str));
+}
+
+template <>
 void GUISaveParameter(QString function_name, QString setting_name, const unsigned long long &value)
 {
 	string value_str = ssprintf("%llu", value);
@@ -64,6 +71,13 @@ template <>
 void GUISaveParameter(QString function_name, QString setting_name, const int &value)
 {
 	string value_str = ssprintf("%i", value);
+	GUISaveParameter(function_name, setting_name, string_to_qstring(value_str));
+}
+
+template <>
+void GUISaveParameter(QString function_name, QString setting_name, const long &value)
+{
+	string value_str = ssprintf("%li", value);
 	GUISaveParameter(function_name, setting_name, string_to_qstring(value_str));
 }
 
@@ -152,6 +166,34 @@ bool GUILoadParameter(QString function_name, QString setting_name,
 }
 
 template <>
+unsigned int GUILoadParameter(QString function_name, QString setting_name,
+		const unsigned int &default_value, bool *loaded)
+{
+	bool local_loaded = false;
+	auto value_ll = GUILoadParameter<unsigned long long>(function_name, setting_name, default_value,
+			&local_loaded);
+	if (value_ll > numeric_limits<unsigned int>::max())
+		return default_value;
+	if (local_loaded && loaded)
+		*loaded = true;
+	return (unsigned int)value_ll;
+}
+
+template <>
+unsigned long GUILoadParameter(QString function_name, QString setting_name,
+		const unsigned long &default_value, bool *loaded)
+{
+	bool local_loaded = false;
+	auto value_ll = GUILoadParameter<unsigned long long>(function_name, setting_name, default_value,
+			&local_loaded);
+	if (value_ll > numeric_limits<unsigned long>::max())
+		return default_value;
+	if (local_loaded && loaded)
+		*loaded = true;
+	return (unsigned long)value_ll;
+}
+
+template <>
 unsigned long long GUILoadParameter(QString function_name, QString setting_name,
 		const unsigned long long &default_value, bool *loaded)
 {
@@ -171,17 +213,31 @@ unsigned long long GUILoadParameter(QString function_name, QString setting_name,
 }
 
 template <>
-unsigned int GUILoadParameter(QString function_name, QString setting_name,
-		const unsigned int &default_value, bool *loaded)
+int GUILoadParameter(QString function_name, QString setting_name, const int &default_value,
+		bool *loaded)
 {
 	bool local_loaded = false;
-	auto value_ll = GUILoadParameter<unsigned long long>(function_name, setting_name, default_value,
+	auto value_ll = GUILoadParameter<long long>(function_name, setting_name, default_value,
 			&local_loaded);
-	if (value_ll > numeric_limits<unsigned int>::max())
+	if (value_ll < numeric_limits<int>::min() || value_ll > numeric_limits<int>::max())
 		return default_value;
 	if (local_loaded && loaded)
 		*loaded = true;
-	return (unsigned int)value_ll;
+	return (int)value_ll;
+}
+
+template <>
+long GUILoadParameter(QString function_name, QString setting_name, const long &default_value,
+		bool *loaded)
+{
+	bool local_loaded = false;
+	auto value_ll = GUILoadParameter<long long>(function_name, setting_name, default_value,
+			&local_loaded);
+	if (value_ll < numeric_limits<long>::min() || value_ll > numeric_limits<long>::max())
+		return default_value;
+	if (local_loaded && loaded)
+		*loaded = true;
+	return (long)value_ll;
 }
 
 template <>
@@ -201,20 +257,6 @@ long long GUILoadParameter(QString function_name, QString setting_name,
 	if (loaded)
 		*loaded = true;
 	return value;
-}
-
-template <>
-int GUILoadParameter(QString function_name, QString setting_name, const int &default_value,
-		bool *loaded)
-{
-	bool local_loaded = false;
-	auto value_ll = GUILoadParameter<long long>(function_name, setting_name, default_value,
-			&local_loaded);
-	if (value_ll < numeric_limits<int>::min() || value_ll > numeric_limits<int>::max())
-		return default_value;
-	if (local_loaded && loaded)
-		*loaded = true;
-	return (int)value_ll;
 }
 
 template <>

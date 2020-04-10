@@ -6,6 +6,7 @@
 
 //--------------------------------------------------------------
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include "ui_TextWindow.h"
 #include "DataDisplayWindow.h"
 

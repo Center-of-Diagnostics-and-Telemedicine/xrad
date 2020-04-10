@@ -4,6 +4,7 @@
 #define __DynamicDialogQt_h
 //--------------------------------------------------------------
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include "StayOnTopDialog.h"
 #include "ThreadSync.h"
 #include <XRADGUI/Sources/Core/GUICore.h>
@@ -1042,6 +1043,7 @@ class NumberEditApi: public ControlApi, public std::enable_shared_from_this<Numb
 	public:
 		using Layout = DynamicDialogLayout;
 		using value_t = T;
+		using std::enable_shared_from_this<NumberEditApi<T>>::shared_from_this;
 
 		//! \brief Закрытый конструктор. Для создания объекта использовать функцию Create()
 		NumberEditApi(PrivateTag, const wstring &caption,
@@ -1197,8 +1199,6 @@ class FileNameEditApi: public ControlApi, public std::enable_shared_from_this<Fi
 		class FileNameValidator
 		{
 			public:
-				using ValueValidity = ValueValidity;
-
 				/*!
 					\param current_filename Имя файла в generic формате.
 					\return Имя файла в произвольном формате.

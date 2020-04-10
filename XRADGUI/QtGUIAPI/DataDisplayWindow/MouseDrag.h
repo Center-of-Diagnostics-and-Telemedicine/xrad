@@ -8,6 +8,7 @@
 //
 //--------------------------------------------------------------
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 
 namespace XRAD_GUI

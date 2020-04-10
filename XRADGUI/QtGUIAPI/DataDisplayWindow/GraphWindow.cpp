@@ -766,8 +766,8 @@ void GraphWindow::slotGraphStyle()
 
 void GraphWindow::slotSaveRawData()
 {
-	char *prompt = "Save raw data";
-	char *type = "Text file (*.txt)";
+	const char *prompt = "Save raw data";
+	const char *type = "Text file (*.txt)";
 	QString qfile_name = GetSaveFileName(QFileDialog::tr(prompt), QFileDialog::tr(type));
 	if(qfile_name.isEmpty()) return;
 	wstring	file_name = qstring_to_wstring(qfile_name);//.toStdWString();
@@ -857,8 +857,8 @@ void GraphWindow::SavePicture(QString filename)
 
 void GraphWindow::slotSavePicture()
 {
-	char *prompt = "Save picture";
-	char *type = "png (*.png);;pdf (*.pdf);;svg (*.svg);;jpeg (*.jpg);;bmp (*.bmp)";
+	const char *prompt = "Save picture";
+	const char *type = "png (*.png);;pdf (*.pdf);;svg (*.svg);;jpeg (*.jpg);;bmp (*.bmp)";
 	QString filename = GetSaveFileName(QFileDialog::tr(prompt), QFileDialog::tr(type));
 
 	SavePicture(filename);

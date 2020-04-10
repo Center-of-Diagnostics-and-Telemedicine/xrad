@@ -43,7 +43,7 @@ class	MathFunction3DDisplayer
 		typedef	A3DT array_3d_type;
 		typedef	typename A3DT::value_type value_type;
 		typedef typename A3DT::field_tag value_field_tag;
-		typedef decltype(GetDisplayTag(declval<value_type*>())) display_tag;
+		typedef DisplayTag_t<value_type> display_tag;
 
 		const array_3d_type &array_md;
 
@@ -1223,7 +1223,7 @@ struct DisplayMathFunctionMDTypeFork<DisplayTagRGB>
 template<class A3DT>
 void	DisplayMathFunction3DHelper(const A3DT &array_md, const wstring &title, ScanConverterOptions sco)
 {
-	DisplayMathFunctionMDTypeFork<decltype(GetDisplayTag(&array_md.at(index_vector())))>::Display(array_md, title, sco);
+	DisplayMathFunctionMDTypeFork<DisplayTag_t<decltype(array_md.at(index_vector()))>>::Display(array_md, title, sco);
 }
 
 

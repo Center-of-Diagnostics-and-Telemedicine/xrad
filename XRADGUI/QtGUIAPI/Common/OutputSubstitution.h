@@ -7,6 +7,7 @@
 */
 //--------------------------------------------------------------
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include "AsyncTextBuffer.h"
 
 namespace XRAD_GUI

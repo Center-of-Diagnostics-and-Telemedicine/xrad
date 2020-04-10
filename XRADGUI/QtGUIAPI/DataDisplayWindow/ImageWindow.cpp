@@ -869,8 +869,8 @@ void ImageWindow::SetImageLabels(const QString &in_title, const QString &in_z_la
 
 void ImageWindow::SaveFrame()
 {
-	char *prompt = "Save picture";
-	char *type = "png (*.png);;jpeg (*.jpg);;bmp (*.bmp);;pdf (*.pdf)";
+	const char *prompt = "Save picture";
+	const char *type = "png (*.png);;jpeg (*.jpg);;bmp (*.bmp);;pdf (*.pdf)";
 	QString file_name = GetSaveFileName(QFileDialog::tr(prompt), QFileDialog::tr(type));
 	if(file_name.isEmpty()) return;
 	if(FormatByFileExtension(file_name) == "bmp")
@@ -887,8 +887,8 @@ void ImageWindow::SaveFrame()
 
 void ImageWindow::SaveVideo()
 {
-	char *prompt = "Enter folder name for export";
-	char *type = "png (*.png);;jpeg (*.jpg);;bmp (*.bmp)";
+	const char *prompt = "Enter folder name for export";
+	const char *type = "png (*.png);;jpeg (*.jpg);;bmp (*.bmp)";
 	QString folder_name = GetSaveFileName(QFileDialog::tr(prompt), QFileDialog::tr(type));
 	if(folder_name.isEmpty()) return;
 	string	format = FormatByFileExtension(folder_name).toStdString();
@@ -899,7 +899,8 @@ void ImageWindow::SaveVideo()
 	for(size_t i = 0; i < n_frames; ++i)
 	{
 		QString	fn;
-		QString file_name = folder_name + path_separator() + fn.sprintf("%05d.%s", i, format.c_str());
+		QString file_name = folder_name + path_separator() +
+				fn.sprintf("%05zu.%s", EnsureType<size_t>(i), EnsureType<const char*>(format.c_str()));
 		frames_slider->setValue(int(i));
 		if(format == "bmp")
 		{

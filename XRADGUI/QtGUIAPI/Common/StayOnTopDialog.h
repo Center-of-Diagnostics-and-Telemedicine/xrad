@@ -4,8 +4,9 @@
 #define __StayOnTopDialog_h
 //--------------------------------------------------------------
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include "IGUISettingsChanged.h"
-#include <QDialog.h>
+#include <QtWidgets/QDialog>
 
 //--------------------------------------------------------------
 

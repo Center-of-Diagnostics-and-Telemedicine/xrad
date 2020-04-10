@@ -7,7 +7,7 @@
 */
 
 #include <string>
-#include <QtCore/QString.h>
+#include <QtCore/QString>
 
 XRAD_BEGIN
 

@@ -7,6 +7,7 @@
 
 //--------------------------------------------------------------
 
+#include <XRADGUI/Sources/Internal/std.h>
 #include <XRADBasic/Core.h>
 
 #include "ui_GraphWindow.h"

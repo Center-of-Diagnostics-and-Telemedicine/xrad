@@ -5,7 +5,7 @@
 #ifdef XRAD_USE_KEYBOARD_QT_VERSION
 
 #include <XRADGUI/Sources/GUI/ModifierKeys.h>
-#include <QApplication.h>
+#include <QtWidgets/QApplication>
 
 XRAD_BEGIN
 
