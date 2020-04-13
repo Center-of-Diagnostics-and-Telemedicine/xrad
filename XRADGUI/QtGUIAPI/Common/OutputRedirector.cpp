@@ -3,9 +3,11 @@
 #include "pre.h"
 #include "OutputRedirector.h"
 
+#ifdef XRAD_USE_GUI_MS_WIN32_VERSION
 #if defined(XRAD_COMPILER_MSC) && _MSC_VER >= 1900
 #include <io.h>
 #endif
+#endif // XRAD_USE_GUI_MS_WIN32_VERSION
 
 namespace XRAD_GUI
 {
@@ -30,13 +32,13 @@ bool OutputRedirector::Start(AsyncTextBuffer *text_buffer)
 {
 	if (Started)
 		throw runtime_error("OutputRedirector::Start: already started.");
-#if defined(XRAD_COMPILER_MSC)
+#if defined(XRAD_USE_GUI_MS_WIN32_VERSION)
 	if (!CreateStdStreamPipe())
 		return false;
 	StartPipeThread(text_buffer);
 	RedirectStdHandle(text_buffer);
 	RedirectStdStream();
-#endif // defined(XRAD_COMPILER_MSC)
+#endif // XRAD_USE_GUI_MS_WIN32_VERSION
 	Started = true;
 	return true;
 }
@@ -47,12 +49,12 @@ void OutputRedirector::Stop()
 {
 	if (!Started)
 		return;
-#if defined(XRAD_COMPILER_MSC)
+#if defined(XRAD_USE_GUI_MS_WIN32_VERSION)
 	RestoreStdStream();
 	RestoreStdHandle();
 	StopPipeThread();
 	DeleteStdStreamPipe();
-#endif // defined(XRAD_COMPILER_MSC)
+#endif // XRAD_USE_GUI_MS_WIN32_VERSION
 	Started = false;
 }
 
@@ -75,7 +77,7 @@ void OutputRedirector::SetLogFile(FILE *f)
 
 //--------------------------------------------------------------
 
-#if defined(XRAD_COMPILER_MSC)
+#if defined(XRAD_USE_GUI_MS_WIN32_VERSION)
 
 //--------------------------------------------------------------
 
@@ -300,7 +302,7 @@ void OutputRedirector::RestoreStdStream()
 
 //--------------------------------------------------------------
 
-#endif // defined(XRAD_COMPILER_MSC)
+#endif // XRAD_USE_GUI_MS_WIN32_VERSION
 
 //--------------------------------------------------------------
 

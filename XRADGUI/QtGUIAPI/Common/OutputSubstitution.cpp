@@ -8,7 +8,7 @@
 #if defined(XRAD_COMPILER_MSC)
 #include <io.h>
 #include <fcntl.h>
-#endif // defined(XRAD_COMPILER_MSC)
+#endif // XRAD_COMPILER_MSC
 
 namespace XRAD_GUI
 {
@@ -129,7 +129,7 @@ FILE *OpenNewLogFile(const string &app_name, const string &datetime, const strin
 		filename = ssprintf("%s/%s-%s[%i]-%s.log", path.c_str(), app_name.c_str(),
 				datetime.c_str(), n + 1, suffix.c_str());
 	}
-#endif // defined(XRAD_COMPILER_MSC)
+#endif // XRAD_COMPILER_MSC
 	return nullptr;
 }
 

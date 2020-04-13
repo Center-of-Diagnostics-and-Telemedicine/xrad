@@ -36,7 +36,7 @@ class OutputRedirector
 		void SetLogFile(FILE *f);
 		FILE *GetLogFile() const { return LogFile; }
 	private:
-#if defined(XRAD_COMPILER_MSC)
+#if defined(XRAD_USE_GUI_MS_WIN32_VERSION)
 		using HANDLE = ::HANDLE; // Решаем неоднозначность HANDLE из WinAPI и Qt.
 
 		FILE *GetRedirectedStream() const;
@@ -58,17 +58,17 @@ class OutputRedirector
 
 		void RedirectStdStream();
 		void RestoreStdStream();
-#endif
+#endif // XRAD_USE_GUI_MS_WIN32_VERSION
 	private:
 		const OutputStream output_stream;
-#if defined(XRAD_COMPILER_MSC)
+#if defined(XRAD_USE_GUI_MS_WIN32_VERSION)
 		HANDLE SaveStdHandle = INVALID_HANDLE_VALUE;
 		HANDLE StdPipeWriteHandle = INVALID_HANDLE_VALUE;
 		HANDLE StdPipeReadHandle = INVALID_HANDLE_VALUE;
 		volatile bool PipeLoopTerminate = false;
 		std::thread PipeThread;
 		int SavedCHandle = -1;
-#endif
+#endif // XRAD_USE_GUI_MS_WIN32_VERSION
 		bool Started = false;
 		FILE * volatile LogFile = nullptr;
 		mutex LogFileMutex;

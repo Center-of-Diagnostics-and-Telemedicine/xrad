@@ -10,7 +10,11 @@
 
 XRAD_BEGIN
 
+//--------------------------------------------------------------
 
+#if defined(XRAD_USE_MS_VERSION)
+
+//--------------------------------------------------------------
 
 QString	wstring_to_qstring(const wstring &in_wstring)
 {
@@ -42,6 +46,40 @@ string	qstring_to_string(const QString &qstr)
 	return	wstring_to_string(wresult, e_encode_literals);
 }
 
+//--------------------------------------------------------------
+
+#elif defined(XRAD_USE_CHAR_UTF8_WCHAR_UTF32_VERSION)
+
+//--------------------------------------------------------------
+
+QString	wstring_to_qstring(const wstring &in_wstring)
+{
+	return string_to_qstring(convert_to_string(in_wstring));
+}
+
+QString	string_to_qstring(const string &in_string)
+{
+	return QString::fromUtf8(in_string.c_str(), in_string.length());
+}
+
+wstring	qstring_to_wstring(const QString &qstr)
+{
+	return convert_to_wstring(qstring_to_string(qstr));
+}
+
+string	qstring_to_string(const QString &qstr)
+{
+	return qstr.toStdString(); // вызывает QString::toUtf8()
+}
+
+//--------------------------------------------------------------
+
+#else
+#error Unsupported string encoding mode.
+#endif
+
+//--------------------------------------------------------------
+
 vector<QString> string_list_to_qstring_list(const vector<string> &in_list)
 {
 	vector<QString> result(in_list.size());
@@ -61,5 +99,7 @@ vector<QString> wstring_list_to_qstring_list(const vector<wstring> &in_wlist)
 	}
 	return result;
 }
+
+//--------------------------------------------------------------
 
 XRAD_END

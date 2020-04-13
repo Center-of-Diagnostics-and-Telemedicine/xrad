@@ -16,6 +16,7 @@
 // Конфигурация для MSVC
 
 #define XRAD_USE_KEYBOARD_WIN32_VERSION
+#define XRAD_USE_GUI_MS_WIN32_VERSION
 
 
 
