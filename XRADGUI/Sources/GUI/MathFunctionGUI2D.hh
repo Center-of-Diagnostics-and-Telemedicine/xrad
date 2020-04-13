@@ -3,6 +3,7 @@
 #include "PixelNormalizersGUI.h"
 #include <XRADBasic/SampleTypes.h>
 #include <XRADBasic/Sources/Containers/DataArrayAnalyze2D.h>
+#include <XRADBasic/Sources/Containers/ComplexArrayAnalyzeFunctors.h>
 #include <XRADBasic/Sources/Containers/DataArrayHistogram2D.h>
 #include <XRADBasic/Sources/ScanConverter/ScanConverter.h>
 

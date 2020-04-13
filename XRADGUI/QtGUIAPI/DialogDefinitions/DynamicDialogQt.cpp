@@ -2055,6 +2055,8 @@ QString TextEditApi::FormatValue(const wstring &v, bool compact)
 // Среди типов должны быть size_t и ptrdiff_t.
 template class NumberEditApi<int>;
 template class NumberEditApi<unsigned int>;
+template class NumberEditApi<long>;
+template class NumberEditApi<unsigned long>;
 template class NumberEditApi<long long>;
 template class NumberEditApi<unsigned long long>;
 template class NumberEditApi<double>;
@@ -2527,6 +2529,18 @@ wstring NumberEditApi<unsigned int>::FormatValueStd(value_t v, bool compact)
 }
 
 template <>
+wstring NumberEditApi<long>::FormatValueStd(value_t v, bool compact)
+{
+	return ssprintf(L"%li", EnsureType<long>(v));
+}
+
+template <>
+wstring NumberEditApi<unsigned long>::FormatValueStd(value_t v, bool compact)
+{
+	return ssprintf(L"%lu", EnsureType<unsigned long>(v));
+}
+
+template <>
 wstring NumberEditApi<long long>::FormatValueStd(value_t v, bool compact)
 {
 	return ssprintf(L"%lli", EnsureType<long long>(v));
@@ -2730,10 +2744,10 @@ bool NumberEditApi<int>::ParseValue(value_t *o_value, QString str)
 	long long value_ll;
 	if (!ParseValue_ll(&value_ll, ss.c_str(), ss.length()))
 		return false;
-	if (value_ll > numeric_limits<int>::max() ||
-			value_ll < numeric_limits<int>::min())
+	if (value_ll > numeric_limits<value_t>::max() ||
+			value_ll < numeric_limits<value_t>::min())
 		return false;
-	*o_value = (int)value_ll;
+	*o_value = (value_t)value_ll;
 	return true;
 }
 
@@ -2744,9 +2758,36 @@ bool NumberEditApi<unsigned int>::ParseValue(value_t *o_value, QString str)
 	unsigned long long value_ull;
 	if (!ParseValue_ull(&value_ull, ss.c_str(), ss.length()))
 		return false;
-	if (value_ull > numeric_limits<unsigned int>::max())
+	if (value_ull > numeric_limits<value_t>::max())
 		return false;
-	*o_value = (unsigned int)value_ull;
+	*o_value = (value_t)value_ull;
+	return true;
+}
+
+template <>
+bool NumberEditApi<long>::ParseValue(value_t *o_value, QString str)
+{
+	string ss = qstring_to_string(str);
+	long long value_ll;
+	if (!ParseValue_ll(&value_ll, ss.c_str(), ss.length()))
+		return false;
+	if (value_ll > numeric_limits<value_t>::max() ||
+			value_ll < numeric_limits<value_t>::min())
+		return false;
+	*o_value = (value_t)value_ll;
+	return true;
+}
+
+template <>
+bool NumberEditApi<unsigned long>::ParseValue(value_t *o_value, QString str)
+{
+	string ss = qstring_to_string(str);
+	unsigned long long value_ull;
+	if (!ParseValue_ull(&value_ull, ss.c_str(), ss.length()))
+		return false;
+	if (value_ull > numeric_limits<value_t>::max())
+		return false;
+	*o_value = (value_t)value_ull;
 	return true;
 }
 

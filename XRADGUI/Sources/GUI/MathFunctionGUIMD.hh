@@ -1,8 +1,9 @@
-﻿#include "PixelNormalizersGUI.h"
+#include "PixelNormalizersGUI.h"
 #include "RasterImageSet.h"
 #include "MathFunctionGUI2D.h"
 #include <XRADBasic/Sources/ScanConverter/ScanConverter.h>
 #include <XRADBasic/Sources/Containers/DataArrayAnalyzeMD.h>
+#include <XRADBasic/Sources/Containers/ComplexArrayAnalyzeFunctors.h>
 #include <XRADBasic/Sources/Utils/ExponentialBlurAlgorithms.h>
 #include <XRADBasic/Sources/Utils/ParallelProcessor.h>
 
@@ -96,36 +97,36 @@ class	MathFunction3DDisplayer
 		//	для комплексных данных способы преобразования не такие, как для действительных.
 		//	поэтому две реализации. для цветных понадобится третья
 		template<class DISPLAY_TAG>
-		typename if_tag<DISPLAY_TAG, DisplayTagScalar, void> GetRectifierAndDisplayAnimations(
+		if_tag<DISPLAY_TAG, DisplayTagScalar, void> GetRectifierAndDisplayAnimations(
 				display_3D_options display_option, size_t slice_orientation);
 		template<class DISPLAY_TAG>
-		typename if_tag<DISPLAY_TAG, DisplayTagComplex, void> GetRectifierAndDisplayAnimations(
+		if_tag<DISPLAY_TAG, DisplayTagComplex, void> GetRectifierAndDisplayAnimations(
 				display_3D_options display_option, size_t slice_orientation);
 		template<class DISPLAY_TAG>
-		typename if_tag<DISPLAY_TAG, DisplayTagRGB, void> GetRectifierAndDisplayAnimations(
+		if_tag<DISPLAY_TAG, DisplayTagRGB, void> GetRectifierAndDisplayAnimations(
 				display_3D_options display_option, size_t slice_orientation);
 
 		void DisplayLocalStatistics();
 
 		template<class DISPLAY_TAG>
-		typename if_tag<DISPLAY_TAG, DisplayTagScalar, void> DisplayHistogram();
+		if_tag<DISPLAY_TAG, DisplayTagScalar, void> DisplayHistogram();
 		template<class DISPLAY_TAG>
-		typename if_tag<DISPLAY_TAG, DisplayTagComplex, void> DisplayHistogram();
+		if_tag<DISPLAY_TAG, DisplayTagComplex, void> DisplayHistogram();
 		template<class DISPLAY_TAG>
-		typename if_tag<DISPLAY_TAG, DisplayTagRGB, void> DisplayHistogram();
+		if_tag<DISPLAY_TAG, DisplayTagRGB, void> DisplayHistogram();
 
 		void DisplayFragment3D();
 
 		template<class DISPLAY_TAG>
-		typename if_tag<DISPLAY_TAG, DisplayTagScalar, void> DisplayExtended();
+		if_tag<DISPLAY_TAG, DisplayTagScalar, void> DisplayExtended();
 		template<class DISPLAY_TAG>
-		typename if_tag<DISPLAY_TAG, DisplayTagComplex, void> DisplayExtended();
+		if_tag<DISPLAY_TAG, DisplayTagComplex, void> DisplayExtended();
 		template<class DISPLAY_TAG>
-		typename if_tag<DISPLAY_TAG, DisplayTagRGB, void> DisplayExtended();
+		if_tag<DISPLAY_TAG, DisplayTagRGB, void> DisplayExtended();
 
 		//	вспомогательная функция, показывает анимацию срезов по заданному индексному вектору iv с заданным преобразованием F
 		template<class PT, class F>
-			void	DisplayAnimationBase(const index_vector &iv, const value_legend &vlegend, const F& functor, const wstring &title);
+		void	DisplayAnimationBase(const index_vector &iv, const value_legend &vlegend, const F& functor, const wstring &title);
 
 	public:
 		//	единственный конструктор от отображаемого массива
@@ -539,7 +540,7 @@ void MathFunction3DDisplayer<A3DT>::DisplayLocalStatistics()
 
 template<class A3DT>
 template<class DISPLAY_TAG>
-typename if_tag<DISPLAY_TAG, DisplayTagScalar, void> MathFunction3DDisplayer<A3DT>::DisplayHistogram()
+if_tag<DISPLAY_TAG, DisplayTagScalar, void> MathFunction3DDisplayer<A3DT>::DisplayHistogram()
 {
 	size_t	histogram_type = Decide("Histogram type", {"Linear", "Log. absolute value"});
 	size_t	n = GetUnsigned("Histogram size", int(sqrt(double(array_md.element_count()))), 3, array_md.element_count());
@@ -575,7 +576,7 @@ typename if_tag<DISPLAY_TAG, DisplayTagScalar, void> MathFunction3DDisplayer<A3D
 
 template<class A3DT>
 template<class DISPLAY_TAG>
-typename if_tag<DISPLAY_TAG, DisplayTagComplex, void> MathFunction3DDisplayer<A3DT>::DisplayHistogram()
+if_tag<DISPLAY_TAG, DisplayTagComplex, void> MathFunction3DDisplayer<A3DT>::DisplayHistogram()
 {
 	size_t	histogram_type = Decide("Histogram type", {"Real and imaginary separately", "Absolute value", "Log. absolute value"});
 	size_t	n = GetUnsigned("Histogram size", int(sqrt(double(array_md.element_count()))), 3, array_md.element_count());
@@ -632,7 +633,7 @@ typename if_tag<DISPLAY_TAG, DisplayTagComplex, void> MathFunction3DDisplayer<A3
 
 template<class A3DT>
 template<class DISPLAY_TAG>
-typename if_tag<DISPLAY_TAG, DisplayTagRGB, void> MathFunction3DDisplayer<A3DT>::DisplayHistogram()
+if_tag<DISPLAY_TAG, DisplayTagRGB, void> MathFunction3DDisplayer<A3DT>::DisplayHistogram()
 {
 	using namespace XRAD_PixelNormalizers;
 	size_t	histogram_type = Decide("Histogram type", {"RGB components separately", "Lightness"});
@@ -682,7 +683,7 @@ typename if_tag<DISPLAY_TAG, DisplayTagRGB, void> MathFunction3DDisplayer<A3DT>:
 
 template<class A3DT>
 template<class DISPLAY_TAG>
-typename if_tag<DISPLAY_TAG, DisplayTagScalar, void> MathFunction3DDisplayer<A3DT>::DisplayExtended()
+if_tag<DISPLAY_TAG, DisplayTagScalar, void> MathFunction3DDisplayer<A3DT>::DisplayExtended()
 {
 	using namespace XRAD_PixelNormalizers;
 	real_data_extended_display_options option = GetExtendedRealDataDisplayOption(title);
@@ -726,7 +727,7 @@ typename if_tag<DISPLAY_TAG, DisplayTagScalar, void> MathFunction3DDisplayer<A3D
 
 template<class A3DT>
 template<class DISPLAY_TAG>
-typename if_tag<DISPLAY_TAG, DisplayTagComplex, void> MathFunction3DDisplayer<A3DT>::DisplayExtended()
+if_tag<DISPLAY_TAG, DisplayTagComplex, void> MathFunction3DDisplayer<A3DT>::DisplayExtended()
 {
 	complex_data_extended_display_options option = GetExtendedComplexDataDisplayOption(title);
 	typedef	MathFunctionMD<MathFunction2D<MathFunction<
@@ -775,7 +776,7 @@ typename if_tag<DISPLAY_TAG, DisplayTagComplex, void> MathFunction3DDisplayer<A3
 
 template<class A3DT>
 template<class DISPLAY_TAG>
-typename if_tag<DISPLAY_TAG, DisplayTagRGB, void> MathFunction3DDisplayer<A3DT>::DisplayExtended()
+if_tag<DISPLAY_TAG, DisplayTagRGB, void> MathFunction3DDisplayer<A3DT>::DisplayExtended()
 {
 	//TODO доделать DisplayExtended для трехмерных данных
 	Error("MathFunction3DDisplayer<RGBColorFunctionMD>::DisplayExtended not written");
@@ -917,7 +918,7 @@ template<class PT, class F>
 void	MathFunction3DDisplayer<A3DT>::DisplayAnimations(const value_legend &vlegend, const F& functor,
 		display_3D_options display_option, size_t slice_orientation)
 {
-	typedef	typename PT pixel_type;
+	typedef PT pixel_type;
 	switch(display_option)
 	{
 		case display_3D_options::coord_0_animation:
@@ -980,7 +981,7 @@ struct CombineSamplesMax<RGBColorSample<RGB>>
 		template <class T>
 		static T Combine(const DataArray<T> &data)
 		{
-			ColorFunction<T, double>::ref cdata;
+			typename ColorFunction<T, double>::ref cdata;
 			cdata.UseData(data);
 			return T(MaxValue(cdata.red()), MaxValue(cdata.green()),
 					MaxValue(cdata.blue()));
@@ -1168,7 +1169,7 @@ void	MathFunction3DDisplayer<A3DT>::Display()
 template<class A3DT>
 void	DisplayMathFunction3DTemplate(const A3DT &array_md, const wstring &title, ScanConverterOptions sco)
 {
-	MathFunction3DDisplayer<typename A3DT>	disp(array_md, title, sco);
+	MathFunction3DDisplayer<A3DT>	disp(array_md, title, sco);
 	disp.Display();
 }
 

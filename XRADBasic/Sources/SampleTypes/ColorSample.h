@@ -137,6 +137,7 @@ struct RGBColorSample : public RGB_TRAITS_T, public LinearVectorFixedDimensions<
 
 	public:
 		using parent::at;
+		using RGB_TRAITS_T::invert;
 
 		//
 		//	constructors

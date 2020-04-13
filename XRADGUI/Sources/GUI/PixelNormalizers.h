@@ -46,8 +46,8 @@ class	pixel_normalizer
 		double	rectify_abs(int x) const				{return labs(x);}
 		double	rectify_abs(float x) const				{return fabs(x);}
 		double	rectify_abs(double x) const				{return fabs(x);}
-		template<class T, class ST>
-			double	rectify_abs(const ComplexSample<T,ST> &x) const	{return cabs(x);}
+		template<class T1, class ST1>
+			double	rectify_abs(const ComplexSample<T1,ST1> &x) const	{return cabs(x);}
 // 		double	rectify_abs(const complexF32 &x) const	{return cabs(x);}
 
 		double	rectify_db(const int &x) const		{return amplitude_to_decibel(x);}
@@ -97,7 +97,10 @@ template<class T, class PT>
 class assign_identical : public pixel_normalizer<T,PT>
 	{
 	public:
-		assign_identical() : pixel_normalizer(range_type(), 1){}
+		PARENT(pixel_normalizer<T, PT>);
+		using typename parent::range_type;
+
+		assign_identical() : parent(range_type(), 1){}
 		PT& operator()(PT &x, const T &y) const
 			{
 			return x = y;
@@ -109,7 +112,13 @@ template<class T, class PT>
 class assign_linear_normalized : public pixel_normalizer<T,PT>
 	{
 	public:
-		assign_linear_normalized(const range_type &in_value_range, double in_gamma) : pixel_normalizer(in_value_range, in_gamma){}
+		PARENT(pixel_normalizer<T, PT>);
+		using typename parent::range_type;
+		using parent::normalize_factor;
+		using parent::value_range;
+
+		assign_linear_normalized(const range_type &in_value_range, double in_gamma) :
+			parent(in_value_range, in_gamma){}
 		PT& operator()(PT &x, const T &y) const
 			{
 			return x = pixel_value(normalize_factor*(rectify_linear(y)-value_range.x1()));
@@ -121,7 +130,13 @@ template<class T, class PT>
 class assign_linear_abs_normalized : public pixel_normalizer<T,PT>
 	{
 	public:
-		assign_linear_abs_normalized(const range_type &in_value_range, double in_gamma) : pixel_normalizer(in_value_range, in_gamma){}
+		PARENT(pixel_normalizer<T, PT>);
+		using typename parent::range_type;
+		using parent::normalize_factor;
+		using parent::value_range;
+
+		assign_linear_abs_normalized(const range_type &in_value_range, double in_gamma) :
+			parent(in_value_range, in_gamma){}
 		PT& operator()(PT &x, const T &y) const
 			{
 			return x = pixel_value(normalize_factor*(rectify_abs(y)-value_range.x1()));
@@ -132,7 +147,12 @@ template<class T, class PT>
 class assign_log_normalized: public pixel_normalizer<T,PT>
 	{
 	public:
-		assign_log_normalized(const range_1<double,double> &in_dynamic_range, double in_gamma) : pixel_normalizer(in_dynamic_range, in_gamma){}
+		PARENT(pixel_normalizer<T, PT>);
+		using parent::normalize_factor;
+		using parent::value_range;
+
+		assign_log_normalized(const range_1<double,double> &in_dynamic_range, double in_gamma) :
+			parent(in_dynamic_range, in_gamma){}
 		PT &operator()(PT &x, const T &y) const
 			{
 			return x = pixel_value(normalize_factor*(rectify_db(y) - value_range.x1()));
@@ -144,7 +164,13 @@ template<class T, class PT>
 class assign_linear_real_normalized : public pixel_normalizer<T,PT>
 	{
 	public:
-		assign_linear_real_normalized(const range_type &in_value_range, double in_gamma) : pixel_normalizer(in_value_range, in_gamma){}
+		PARENT(pixel_normalizer<T, PT>);
+		using typename parent::range_type;
+		using parent::normalize_factor;
+		using parent::value_range;
+
+		assign_linear_real_normalized(const range_type &in_value_range, double in_gamma) :
+			parent(in_value_range, in_gamma){}
 		PT& operator()(PT &x, const T &y) const
 			{
 			return x = pixel_value(normalize_factor*(rectify_linear(real(y))-value_range.x1()));
@@ -155,7 +181,13 @@ template<class T, class PT>
 class assign_linear_imag_normalized : public pixel_normalizer<T,PT>
 	{
 	public:
-		assign_linear_imag_normalized(const range_type &in_value_range, double in_gamma) : pixel_normalizer(in_value_range, in_gamma){}
+		PARENT(pixel_normalizer<T, PT>);
+		using typename parent::range_type;
+		using parent::normalize_factor;
+		using parent::value_range;
+
+		assign_linear_imag_normalized(const range_type &in_value_range, double in_gamma) :
+			parent(in_value_range, in_gamma){}
 		PT& operator()(PT &x, const T &y) const
 			{
 			return x = pixel_value(normalize_factor*(rectify_linear(imag(y))-value_range.x1()));
@@ -172,7 +204,10 @@ template<class T, class PT>
 class assign_color_lightness_as_is: public pixel_normalizer<T,PT>
 	{
 	public:
-		assign_color_lightness_as_is() : pixel_normalizer(range_type(), 1){}
+		PARENT(pixel_normalizer<T, PT>);
+		using typename parent::range_type;
+
+		assign_color_lightness_as_is() : parent(range_type(), 1){}
 		PT& operator()(PT &x, const T &y) const
 			{
 			return x = lightness(y);
@@ -184,7 +219,13 @@ template<class T, class PT>
 class assign_color_normalized : public pixel_normalizer<T,PT>
 	{
 	public:
-		assign_color_normalized (const range_type &in_value_range, double in_gamma) : pixel_normalizer(in_value_range, in_gamma){}
+		PARENT(pixel_normalizer<T, PT>);
+		using typename parent::range_type;
+		using parent::normalize_factor;
+		using parent::value_range;
+
+		assign_color_normalized (const range_type &in_value_range, double in_gamma) :
+			parent(in_value_range, in_gamma){}
 		PT& operator()(PT &x, const T &y) const
 			{
 			return x = pixel_value(y*normalize_factor-value_range.x1());
@@ -195,7 +236,13 @@ template<class T, class PT>
 class assign_color_lightness_normalized: public pixel_normalizer<T,PT>
 	{
 	public:
-		assign_color_lightness_normalized (const range_type &in_value_range, double in_gamma) : pixel_normalizer(in_value_range, in_gamma){}
+		PARENT(pixel_normalizer<T, PT>);
+		using typename parent::range_type;
+		using parent::normalize_factor;
+		using parent::value_range;
+
+		assign_color_lightness_normalized (const range_type &in_value_range, double in_gamma) :
+			parent(in_value_range, in_gamma){}
 		PT& operator()(PT &x, const T &y) const
 			{
 			return x = pixel_value(lightness(y)*normalize_factor-value_range.x1());

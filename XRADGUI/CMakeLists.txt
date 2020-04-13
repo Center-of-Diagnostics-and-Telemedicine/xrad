@@ -1,6 +1,7 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
 set(Project "XRADGUI")
+set(ProjectTests "${Project}TestsLib")
 project(${Project} LANGUAGES CXX)
 
 include(../XRADBasic/CMake/CommonOptions.cmake)
@@ -167,9 +168,20 @@ set(Project_Sources_CXX
 	XRAD.h
 	)
 
+set(ProjectTests_Sources_CXX
+	Tests/StringConverters_Qt_Test.cpp
+	Tests/StringConverters_Qt_Test.h
+	)
+
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+	set(Project_Sources_pre_h
+		MSVC/pre.h
+		)
 	set(Project_Sources_PlatformSpecific)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+	set(Project_Sources_pre_h
+		MSVC/pre.h
+		)
 	set(Project_Sources_PlatformSpecific)
 
 	set(Project_IncludeDirs ${Project_IncludeDirs}
@@ -182,8 +194,17 @@ endif()
 set(Project_Sources_All
 	${Project_Sources_Qt}
 	${Project_Sources_CXX}
+	${Project_Sources_pre_h}
 	${Project_Sources_PlatformSpecific}
+	)
+
+set(ProjectTests_Sources_All
+	${ProjectTests_Sources_CXX}
+	${Project_Sources_pre_h}
 	)
 
 add_library(${Project} STATIC ${Project_Sources_All})
 target_include_directories(${Project} PRIVATE ${Project_IncludeDirs})
+
+add_library(${ProjectTests} STATIC ${ProjectTests_Sources_All})
+target_include_directories(${ProjectTests} PRIVATE ${Project_IncludeDirs})

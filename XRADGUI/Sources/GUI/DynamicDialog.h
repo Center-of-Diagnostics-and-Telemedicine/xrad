@@ -844,6 +844,7 @@ class ValueEnumRadioButtonChoiceImpl: public EnumRadioButtonChoiceImpl<T>
 		using typename parent::choice_t;
 		using typename parent::on_value_changed_t;
 		using parent::Choice;
+		using parent::SetChoice;
 
 		ValueEnumRadioButtonChoiceImpl(
 				const vector<choice_t> &choices,
@@ -1152,6 +1153,7 @@ class ValueEnumComboBoxImpl: public EnumComboBoxImpl<T>
 		using typename parent::choice_t;
 		using typename parent::on_value_changed_t;
 		using parent::Choice;
+		using parent::SetChoice;
 
 		ValueEnumComboBoxImpl(const vector<choice_t> &choices,
 				const GUIValue<value_type*> &p_value,
@@ -1379,6 +1381,8 @@ using ValueTextEdit = ValueStringEditBase<TextEditTag>;
 	Допустимые значения типа T:
 	- int
 	- unsigned int
+	- long
+	- unsigned long
 	- long long
 	- unsigned long long
 	- double
@@ -1390,6 +1394,8 @@ class NumberEdit: public Control
 		static_assert(
 				std::is_same<T, int>::value ||
 				std::is_same<T, unsigned int>::value ||
+				std::is_same<T, long>::value ||
+				std::is_same<T, unsigned long>::value ||
 				std::is_same<T, long long>::value ||
 				std::is_same<T, unsigned long long>::value ||
 				std::is_same<T, double>::value ||
@@ -1489,6 +1495,7 @@ class ValueNumberEdit: public NumberEdit<T>
 		using typename parent::value_t;
 		using typename parent::on_value_changed_t;
 		using parent::Value;
+		using parent::SetValue;
 
 		ValueNumberEdit(const wstring &caption, const GUIValue<value_t*> &p_value,
 				value_t min_value,

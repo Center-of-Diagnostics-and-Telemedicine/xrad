@@ -1703,6 +1703,8 @@ template class ValueStringEditBase<TextEditTag>;
 // Типы специализаций должны содержать size_t и ptrdiff_t для всех платформ.
 template class NumberEdit<int>;
 template class NumberEdit<unsigned int>;
+template class NumberEdit<long>;
+template class NumberEdit<unsigned long>;
 template class NumberEdit<long long>;
 template class NumberEdit<unsigned long long>;
 template class NumberEdit<double>;
