@@ -7,6 +7,7 @@
 #include <XRADBasic/Core.h>
 
 #include "AsyncTextBuffer.h"
+#include <XRADGUI/Sources/Core/GUIConfig.h>
 #include <cstdio>
 
 namespace XRAD_GUI

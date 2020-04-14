@@ -5,6 +5,7 @@
 */
 #include "pre.h"
 #include "StringConverters_Qt.h"
+#include <XRADGUI/Sources/Core/GUIConfig.h>
 
 #include <QtCore/QChar>
 

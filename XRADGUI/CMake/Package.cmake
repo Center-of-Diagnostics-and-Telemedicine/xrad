@@ -15,3 +15,7 @@ xrad_compose_library_name(XRADGUITestsLib_Library "XRADGUI" "XRADGUITestsLib")
 set(XRADGUITestsLib_Libraries
 	${XRADGUITestsLib_Library}
 	)
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+	set(XRADGUI_ExecutableOptions WIN32)
+endif()
