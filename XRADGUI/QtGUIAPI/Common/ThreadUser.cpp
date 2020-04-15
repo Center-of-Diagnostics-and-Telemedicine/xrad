@@ -9,6 +9,7 @@
 #include "ImageWindow.h"
 #include "PauseDialog.h"
 #include "GUIController.h"
+#include <XRADBasic/Sources/Utils/TimeProfiler.h>
 
 namespace XRAD_GUI
 {
@@ -136,8 +137,8 @@ void ThreadUser::WaitForNonModalDialog()
 void ThreadUser::ForceUpdateGUI_noexcept(const physical_time &update_interval)
 {
 	//TODO UpdateGUI прокомментировать тщательно.
-	static	physical_time previous = clocks(clock());
-	physical_time	current = clocks(clock());
+	static	physical_time previous = GetPerformanceCounter();
+	physical_time	current = GetPerformanceCounter();
 	physical_time	delay = current-previous;
 
 	if (delay >= update_interval)

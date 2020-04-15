@@ -7,6 +7,7 @@
 #include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 #include <XRADSystem/CFile.h>
 #include <XRADSystem/System.h>
+#include <XRADBasic/Sources/Utils/TimeProfiler.h>
 
 namespace XRAD_GUI
 {
@@ -489,14 +490,13 @@ void ImageWindow::KeyPressAnalyzer(QObject * /*target*/, QEvent *event)
 
 		case Qt::Key_Space:
 			frames_slider->setFocus();
-			static	clock_t t0 = 0;
 			// корявая заплата, вообще говоря. управление передается сюда не один раз, приходится отсекать лишнее
-			if(clock()-t0 > 0.05*CLOCKS_PER_SEC)
+			if((GetPerformanceCounter()-t0).sec() > 0.05)
 			{
 				paused = !paused;
 				if(!paused) animation_timer->start(dt_zoom_box->value());
 				else animation_timer->stop();
-				t0 = clock();
+				t0 = GetPerformanceCounter();
 			}
 			break;
 	}

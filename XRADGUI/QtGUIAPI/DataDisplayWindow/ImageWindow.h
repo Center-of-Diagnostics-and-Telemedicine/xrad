@@ -11,6 +11,7 @@
 #include "DataDisplayWindow.h"
 #include "FrameBitmapContainer.h"
 #include "MultimodalFrameContainer.h"
+#include <XRADBasic/Sources/Utils/PhysicalUnits.h>
 #include <QTimer>
 
 //--------------------------------------------------------------
@@ -69,6 +70,8 @@ class ImageWindow :  public DataDisplayWindow, public Ui::ImageWindow
 		size_t	n_frames;
 		int	current_frame;
 		const size_t n_rows, n_columns, n_samples_total;
+
+		physical_time t0; // Заплата для обработчика клавиши Space
 
 
 		//	вставка пустого кадра в конец набора (наполнение данными функция SetupFrame)

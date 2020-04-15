@@ -10,6 +10,7 @@
 #include "GUIController.h"
 #include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
 #include <XRADSystem/System.h>
+#include <XRADBasic/Sources/Utils/TimeProfiler.h>
 
 namespace XRAD_GUI
 {
@@ -329,14 +330,14 @@ void api_StartProgress(const wstring &wprompt, double count)
 void api_SetProgressPosition(double position)
 {
 	//printf("api_SetProgressPosition: %lf\n", EnsureType<double>(position));
-	static	physical_time previous = clocks(clock());
-	physical_time	current = clocks(clock());
+	static	physical_time previous = GetPerformanceCounter();
+	physical_time	current = GetPerformanceCounter();
 	physical_time	delay = current-previous;
 
 	if(delay >= progress_update_interval())
 	{
 		emit work_thread().request_SetProgressPosition(position);
-		previous = clocks(clock());
+		previous = GetPerformanceCounter();
 	}
 	api_ForceUpdateGUI(update_interval());
 
