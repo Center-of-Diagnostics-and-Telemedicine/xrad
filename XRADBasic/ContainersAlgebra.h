@@ -17,7 +17,7 @@
 #include "MathFunctionTypes2D.h"
 #include "MathFunctionTypesMD.h"
 
-//#include "LinearVectorTypes.h"
+#include "LinearVectorTypes.h"
 #include "MathMatrixTypes.h"
 
 #endif // Containers_Algebra_h__

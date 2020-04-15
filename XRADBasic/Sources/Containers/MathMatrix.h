@@ -94,6 +94,7 @@ class	MathMatrix: public XRAD__Field2D(MathMatrix, LinearVector, T, ST, FIELD_TA
 		using parent::hsize;
 		using parent::row;
 		using parent::col;
+		using parent::transpose;
 	};
 
 
@@ -111,5 +112,6 @@ class matrix_algorithm_error : public logic_error
 XRAD_END
 
 #include "MathMatrix.hh"
+#include "MathMatrix_Ext.hh"
 
 #endif //__math_matrix_h
