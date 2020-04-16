@@ -10,4 +10,4 @@ XRAD_END
 
 #include "ImageUtils.hh"
 
-#endif __image_utils_h
+#endif // __image_utils_h

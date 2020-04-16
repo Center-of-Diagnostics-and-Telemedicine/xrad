@@ -2,11 +2,15 @@
 // Created by ACS on 26.08.16
 //--------------------------------------------------------------
 #include "pre.h"
-
 #include "XRADNatvisTest.h"
+
 #include <XRADBasic/MathFunctionTypes.h>
 #include <XRADBasic/MathFunctionTypes2D.h>
 #include <XRADBasic/MathFunctionTypesMD.h>
+
+#ifndef XRAD_COMPILER_MSC
+	#error This file is for MS Visual Studio only
+#endif
 
 #pragma warning (disable:4305)
 #pragma warning (disable:4189)

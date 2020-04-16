@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="MSVC">
+      <UniqueIdentifier>{58176736-9fbb-4b40-af0d-0abd1ba0fc96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{3b6b9bf3-e21c-4c33-b41e-315c311b6404}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Core">
+      <UniqueIdentifier>{ceba340f-b789-4c89-963b-2136f61a51b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GUI">
+      <UniqueIdentifier>{5d4daef0-e8ff-447e-9568-99853fca76ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Utils">
+      <UniqueIdentifier>{68ffb54e-88b0-4bcd-b410-9d1b43546e07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\PlatformSpecific">
+      <UniqueIdentifier>{71e84094-3d9e-441f-99f3-157b413b6780}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Startup">
+      <UniqueIdentifier>{79b76860-0e35-4b89-bb7c-24e3d083ff8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\PlatformSpecific\MSVC">
+      <UniqueIdentifier>{a6920f0e-3b2c-4684-aa12-a8ec524d3edf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\PlatformSpecific\Qt">
+      <UniqueIdentifier>{597b3272-3a2b-49b1-8545-b47f8de91734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QtGUIAPI">
+      <UniqueIdentifier>{65fafd74-6d9d-4e3f-a0cb-438e124c60aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QtGUIAPI\Forms">
+      <UniqueIdentifier>{b368fa00-797b-4f84-af01-1d590d994d7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QtGUIAPI\DialogDefinitions">
+      <UniqueIdentifier>{e852e8d0-94a4-48e0-8a0e-830539f8725e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QtGUIAPI\DataDisplayWindow">
+      <UniqueIdentifier>{816d82d8-c281-469d-a7e9-ed5fdb25ab4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QtGUIAPI\Common">
+      <UniqueIdentifier>{30a16ed2-b07c-4bc5-8e3e-32c07ba46e51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QtGUIAPI\Resources">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Sources\GUI\GraphScale.cpp">
+      <Filter>Sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GUI\GraphSet.cpp">
+      <Filter>Sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GUI\RasterImageSet.cpp">
+      <Filter>Sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GUI\MathFunctionGUI.cpp">
+      <Filter>Sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="XRADGUI_pre.cpp">
+      <Filter>MSVC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GUI\XRADGUI.cpp">
+      <Filter>Sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GUI\DynamicDialog.cpp">
+      <Filter>Sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GUI\TextDisplayer.cpp">
+      <Filter>Sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GUI\DataDisplayer.cpp">
+      <Filter>Sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GUI\I18nSupport.cpp">
+      <Filter>Sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\PlatformSpecific\Qt\Internal\StringConverters_Qt.cpp">
+      <Filter>Sources\PlatformSpecific\Qt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GUI\SaveRasterImage.cpp">
+      <Filter>Sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\GUI\Keyboard.cpp">
+      <Filter>Sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\PlatformSpecific\Qt\Internal\Keyboard_Qt.cpp">
+      <Filter>Sources\PlatformSpecific\Qt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\Keyboard_Win32.cpp">
+      <Filter>Sources\PlatformSpecific\MSVC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\AutoProgressIndicatorScheduler.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Startup\XRADGUIMain.cpp">
+      <Filter>Sources\Startup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\AsyncTextBuffer.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\FileSaveUtils.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\GUIController.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\OutputRedirector.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\OutputSubstitution.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\SavedSettings.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\StayOnTopDialog.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\stdio_console.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\ThreadGUI.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\ThreadSync.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\ThreadUser.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\WorkflowControl.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\XRADGUIAPI.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Common\XRADGUIUtils.cpp">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\AxisZoom.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ChartZoom.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\DataDisplayWindow.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\DragMove.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\DragZoom.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\GraphStyleSet.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\MouseDrag.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\WheelZoom.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DialogDefinitions\DecisionDialogs.cpp">
+      <Filter>QtGUIAPI\DialogDefinitions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DialogDefinitions\DynamicDialogQt.cpp">
+      <Filter>QtGUIAPI\DialogDefinitions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Forms\ConsoleWindow.cpp">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Forms\GetValueDialog.cpp">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Forms\PauseDialog.cpp">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Forms\ProgressBar.cpp">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\Forms\ShowValueDialog.cpp">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pre.h">
+      <Filter>MSVC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\DisplaySampleType.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\GraphScale.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\GraphSet.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\GUIValue.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\MathFunctionGUI.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\MathFunctionGUI2D.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\MathFunctionGUI2D.hh">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\MathFunctionGUIMD.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\MathFunctionGUIMD.hh">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\MatrixVectorGUI.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\PixelNormalizers.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\PixelNormalizersGUI.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\XRADGUI.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\RasterImageSet.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\ShowComplex.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\TextDisplayer.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\DynamicDialog.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\DynamicDialog.hh">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\I18nSupport.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\SaveRasterImage.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\SaveRasterImage.hh">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\Qt\Internal\StringConverters_Qt.h">
+      <Filter>Sources\PlatformSpecific\Qt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\Keyboard.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\ModifierKeys.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\Qt\Internal\Keyboard_Qt.h">
+      <Filter>Sources\PlatformSpecific\Qt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\Keyboard_Win32.h">
+      <Filter>Sources\PlatformSpecific\MSVC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\GUIConfig.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\GUICore.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\DataDisplayer.h">
+      <Filter>Sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\AutoProgressIndicatorScheduler.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\GUI\XRAD.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADGUILink.h">
+      <Filter>Sources\PlatformSpecific\MSVC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADGUITestsLibLink.h">
+      <Filter>Sources\PlatformSpecific\MSVC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADLink.h">
+      <Filter>Sources\PlatformSpecific\MSVC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\AsyncTextBuffer.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\FileSaveUtils.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\FrameBitmapContainer.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\FrameBitmapContainer.hh">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\GUIController.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\GUIQtUtils.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\IGUISettingsChanged.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\MultimodalFrameContainer.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\MultimodalFrameContainer.hh">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\OutputRedirector.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\SavedSettings.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\ThreadSync.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\ThreadSync.hh">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\WorkflowControl.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\XRADGUIAPI.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\XRADGUIAPIDefs.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\Common\XRADGUIUtils.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\AxisZoom.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\GraphStyleSet.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\QtGUIAPI\Resources\brightness_contrast.png">
+      <Filter>QtGUIAPI\Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="..\QtGUIAPI\Common\OutputSubstitution.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\Common\StayOnTopDialog.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\Common\stdio_console.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\Common\ThreadGUI.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\Common\ThreadUser.h">
+      <Filter>QtGUIAPI\Common</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\ChartZoom.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\DataDisplayWindow.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\DragMove.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\DragZoom.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\MouseDrag.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\WheelZoom.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DialogDefinitions\DecisionDialogs.h">
+      <Filter>QtGUIAPI\DialogDefinitions</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DialogDefinitions\DynamicDialogQt.h">
+      <Filter>QtGUIAPI\DialogDefinitions</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\Forms\ConsoleWindow.h">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\Forms\GetValueDialog.h">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\Forms\PauseDialog.h">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\Forms\ProgressBar.h">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\Forms\ShowValueDialog.h">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.ui">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtUic>
+    <QtUic Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.ui">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtUic>
+    <QtUic Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.ui">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtUic>
+    <QtUic Include="..\QtGUIAPI\Forms\ConsoleWindow.ui">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </QtUic>
+    <QtUic Include="..\QtGUIAPI\Forms\GetValueDialog.ui">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </QtUic>
+    <QtUic Include="..\QtGUIAPI\Forms\PauseDialog.ui">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </QtUic>
+    <QtUic Include="..\QtGUIAPI\Forms\ProgressBar.ui">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </QtUic>
+    <QtUic Include="..\QtGUIAPI\Forms\ShowValueDialog.ui">
+      <Filter>QtGUIAPI\Forms</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="..\QtGUIAPI\Resources\XRADResources.qrc">
+      <Filter>QtGUIAPI\Resources</Filter>
+    </QtRcc>
+  </ItemGroup>
+</Project>

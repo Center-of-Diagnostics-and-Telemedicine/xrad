@@ -295,7 +295,17 @@ define_unit_conversion(physical_time, nsec, 1e-9)
 define_unit_conversion(physical_time, minute, 60)
 define_unit_conversion(physical_time, hour, 3600)
 
-inline physical_time	current_clock(){ return clocks(clock()); }// time after program start
+/*!
+	\brief Processor time after program start. Differs in different operating systems (see notes)
+
+	Внимание! Тип счетчика различается в разных операционных системах.
+	- В Windows это время соответствует времени UTC.
+	- В Linux это время процессора, фактически использованное текущим процессом.
+		Т.е. если процесс ожидает ввода-вывода, это время заморожено, значение не меняется.
+		Если у процесса 4 потока, производящих вычисления, это время идет в 4 раза
+		быстрее UTC.
+*/
+inline physical_time	current_clock(){ return clocks(clock()); }
 inline physical_time	current_time(){ return sec(time(NULL)); }// time after 01.01.1970
 
 
