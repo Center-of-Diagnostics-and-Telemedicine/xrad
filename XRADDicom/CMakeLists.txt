@@ -9,11 +9,11 @@ include(../XRADBasic/CMake/DetectThirdParty.cmake)
 include(CMake/DetectDCMTKConfiguration.cmake)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CMake/pre.h.in
-	${CMAKE_CURRENT_BINARY_DIR}/pre.h
+	${XRAD_Project_Generated_pre_h}
 	@ONLY)
 
 set(Project_IncludeDirs ${Project_IncludeDirs}
-	${CMAKE_CURRENT_BINARY_DIR}
+	${XRAD_Project_GeneratedDir}
 	${CMAKE_CURRENT_SOURCE_DIR}/..
 	)
 
@@ -117,13 +117,8 @@ set(Project_Sources_h
 	)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-	# MSVC/XRADDicom_pre.cpp
-	set(Project_Sources_PlatformSpecific_cpp
-		)
-	set(Project_Sources_PlatformSpecific_h
-		Sources/PlatformSpecific/MSVC/MSVC_DCMTKLink.h
-		Sources/PlatformSpecific/MSVC/MSVC_XRADDicomLink.h
-		)
+	set(Project_Sources_PlatformSpecific_cpp)
+	set(Project_Sources_PlatformSpecific_h)
 
 	set(Project_IncludeDirs ${Project_IncludeDirs}
 		${XRAD_DCMTK_InstallPath}/include
@@ -143,6 +138,7 @@ else()
 endif()
 
 set(Project_Sources_All
+	${XRAD_Project_Generated_pre_h}
 	${Project_Sources_cpp}
 	${Project_Sources_h}
 	${Project_Sources_PlatformSpecific_cpp}

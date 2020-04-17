@@ -6,20 +6,19 @@ project(${Project} LANGUAGES CXX)
 
 include(../XRADBasic/CMake/CommonOptions.cmake)
 include(../XRADBasic/CMake/StdLib.cmake)
+include(CMake/DetectQtConfiguration.cmake)
 include(CMake/DetectQwtConfiguration.cmake)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS Core Widgets Gui Svg REQUIRED)
-
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CMake/pre.h.in
-	${CMAKE_CURRENT_BINARY_DIR}/pre.h
+	${XRAD_Project_Generated_pre_h}
 	@ONLY)
 
 set(Project_IncludeDirs ${Project_IncludeDirs}
-	${CMAKE_CURRENT_BINARY_DIR}
+	${XRAD_Project_GeneratedDir}
 	${CMAKE_CURRENT_SOURCE_DIR}/..
 	${CMAKE_CURRENT_SOURCE_DIR}/QtGUIAPI/Common
 	${CMAKE_CURRENT_SOURCE_DIR}/QtGUIAPI/DataDisplayWindow
@@ -169,10 +168,6 @@ set(Project_Sources_CXX
 	XRAD.h
 	)
 
-set(Project_Sources_pre_h
-	${CMAKE_CURRENT_BINARY_DIR}/pre.h
-	)
-
 set(ProjectTests_Sources_CXX
 	Tests/StringConverters_Qt_Test.cpp
 	Tests/StringConverters_Qt_Test.h
@@ -187,15 +182,15 @@ else()
 endif()
 
 set(Project_Sources_All
+	${XRAD_Project_Generated_pre_h}
 	${Project_Sources_Qt}
 	${Project_Sources_CXX}
-	${Project_Sources_pre_h}
 	${Project_Sources_PlatformSpecific}
 	)
 
 set(ProjectTests_Sources_All
+	${XRAD_Project_Generated_pre_h}
 	${ProjectTests_Sources_CXX}
-	${Project_Sources_pre_h}
 	)
 
 add_library(${Project} STATIC ${Project_Sources_All})

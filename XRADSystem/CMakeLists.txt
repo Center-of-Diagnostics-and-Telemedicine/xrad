@@ -7,11 +7,11 @@ include(../XRADBasic/CMake/CommonOptions.cmake)
 include(../XRADBasic/CMake/StdLib.cmake)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CMake/pre.h.in
-	${CMAKE_CURRENT_BINARY_DIR}/pre.h
+	${XRAD_Project_Generated_pre_h}
 	@ONLY)
 
 set(Project_IncludeDirs ${Project_IncludeDirs}
-	${CMAKE_CURRENT_BINARY_DIR}
+	${XRAD_Project_GeneratedDir}
 	${CMAKE_CURRENT_SOURCE_DIR}/..
 	)
 
@@ -52,7 +52,6 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 	set(Project_Sources_PlatformSpecific_h
 		Sources/PlatformSpecific/MSVC/Internal/FileNameOperations_Win32.h
 		Sources/PlatformSpecific/MSVC/Internal/FileSystem_Win32.h
-		Sources/PlatformSpecific/MSVC/MSVC_XRADSystemLink.h
 		)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 	set(Project_Sources_PlatformSpecific_cpp)
@@ -62,6 +61,7 @@ else()
 endif()
 
 set(Project_Sources_All
+	${XRAD_Project_Generated_pre_h}
 	${Project_Sources_cpp}
 	${Project_Sources_h}
 	${Project_Sources_PlatformSpecific_cpp}
