@@ -8,10 +8,10 @@ XRAD_BEGIN
 using namespace std;
 
 /*!
-	\brief Generation of unit matrix of size \a size. 
+	\brief Generation of unit matrix of size \a size.
 
 	\tparam size The size of unit matrix.
-	\return  The unit matrix of given size. 
+	\return  The unit matrix of given size.
 	The type of result should be explicetely specified when the function is called like r = unit_matrix<return type> (size).
 
 */
@@ -55,7 +55,7 @@ result_type   matrix_multiply(
 	\tparam m1 First member of matrix product.
 	\tparam m2 Second member of matrix product.
 	\return  The result of matrix product. the type of result is taken from type m1 which is the same as m2. Function is called like r = matrix_multiply(m1,m2).
-	
+
 	Horizontal size of m1 should be the same as vertical size of m2, otherwise exeption is thrown.
 */
 
@@ -73,7 +73,7 @@ MathMatrix<XRAD__MathMatrix_template_args>    matrix_multiply(
 	\tparam m1 First member of product.
 	\tparam v Second member of product.
 	\return  The result of matrix to vector product. The type of result should be explicetely specified when the function is called like r = vector_multiply_R<return type> (m1,v).
-	
+
 	Horizontal size of m1 should be the same as size of v, otherwise exeption is thrown.
 */
 
@@ -90,13 +90,13 @@ result_type vector_multiply_R(
 		string problem_description = __func__ +// typeid(self).name() +
 			ssprintf("::matrix_multiply(m1,v) -- invalid arrays sizes: m1.hsize() = %zu, v.size() = %zu",
 				EnsureType<size_t>(m1.hsize()),
-				EnsureType<size_t>(v.size()) 
+				EnsureType<size_t>(v.size())
 			);
 		ForceDebugBreak();
 		throw invalid_argument(problem_description);
 	}
 
-	result_type::iterator it = result.begin();
+	typename result_type::iterator it = result.begin();
 	for (size_t i = 0; i<m1.vsize(); ++i, ++it)
 	{
 		*it = sp(m1.row(i), v);
@@ -129,7 +129,7 @@ LinearVector<XRAD__LinearVector_template_args>	vector_multiply_R(
 	\tparam v First member of product.
 	\tparam m1 Second member of product.
 	\return  The result of vector to matrix product. The type of result should be explicetely specified when the function is called like r = vector_multiply_L<return type> (v,m1).
-	
+
 	Size of v should be the same as vertical size of m, otherwise exeption is thrown.
 */
 
@@ -146,13 +146,13 @@ result_type vector_multiply_L(
 		string problem_description = __func__ +// typeid(self).name() +
 			ssprintf(" -- invalid arrays sizes: v.size()  = %zu, m1.vsize() = %zu",
 				EnsureType<size_t>(v.size()),
-				EnsureType<size_t>(m1.vsize()) 
+				EnsureType<size_t>(m1.vsize())
 			);
 		ForceDebugBreak();
 		throw invalid_argument(problem_description);
 	}
 
-	result_type::iterator it = result.begin();
+	typename result_type::iterator it = result.begin();
 	for (size_t i = 0; i<m1.hsize(); ++i, ++it)
 	{
 		*it = sp(m1.col(i), v);
