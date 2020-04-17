@@ -34,6 +34,8 @@ namespace Dicom
 		e_patient_mothers_birthname = 0x00101060,
 		e_medical_record_locator =	0x00101090,
 		e_referenced_patient_photo = 0x00101100,
+		e_patient_telephone_numbers = 0x00102154,
+		e_patient_address =			0x00101040,
 
 		//personal data history
 		e_assigning_faculty_sequence = 0x00401036,
