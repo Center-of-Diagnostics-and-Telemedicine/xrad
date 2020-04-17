@@ -104,6 +104,9 @@ namespace Dicom
 		e_instance_number =			0x00200013,
 		e_sop_instance_uid =		0x00080018,//(0008,0018)
 		e_media_storage_sop_instance_uid =		0x00020003,
+
+		e_referenced_sop_instance_uid = 0x00081155,
+
 		e_instance_creation_date = 0x00080012,
 		e_instance_creation_time = 0x00080013,
 		e_stack_id =				0x00209056, //номер стека
