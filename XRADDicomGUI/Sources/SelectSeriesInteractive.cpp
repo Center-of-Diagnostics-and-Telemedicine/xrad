@@ -6,7 +6,6 @@
 #include "pre.h"
 #include "SelectSeriesInteractive.h"
 
-#include <XRADGUI.h>
 #include <set>
 
 XRAD_BEGIN

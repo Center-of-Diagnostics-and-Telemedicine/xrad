@@ -11,7 +11,9 @@
 #endif //_MSC_VER
 
 #if _MSC_VER >= 1900 // MSVC2015+
+	#ifndef XRAD_COMPILER_CMAKE
 	#pragma comment(lib, "XRADConsoleUI" XRAD_Library_Suffix ".lib")
+	#endif // XRAD_COMPILER_CMAKE
 	// Задаем использование wmain для линкера:
 	#pragma comment(linker, "/SUBSYSTEM:CONSOLE /ENTRY:wmainCRTStartup")
 #else

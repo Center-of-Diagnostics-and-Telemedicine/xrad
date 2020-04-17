@@ -6,6 +6,10 @@
 
 #include <XRADBasic/Core.h>
 
+#ifndef XRAD_COMPILER_MSC
+	#error This file is for MS Visual Studio only
+#endif
+
 XRAD_BEGIN
 
 void XRADNatvisTest();

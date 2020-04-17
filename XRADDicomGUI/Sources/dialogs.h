@@ -7,7 +7,7 @@
 #define dialogs_h__
 
 #include <XRADDicom/XRADDicom.h>
-#include <XRAD/GUI/DynamicDialog.h>
+#include <XRADGUI/XRAD.h>
 
 XRAD_BEGIN
 

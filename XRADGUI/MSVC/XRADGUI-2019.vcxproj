@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugEHA|Win32">
+      <Configuration>DebugEHA</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugEHA|x64">
+      <Configuration>DebugEHA</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseEHA|Win32">
+      <Configuration>ReleaseEHA</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseEHA|x64">
+      <Configuration>ReleaseEHA</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{65EE44A0-3B9D-404D-8B5E-DD1867B7CD95}</ProjectGuid>
+    <RootNamespace>XRADGUI</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>XRADGUI</ProjectName>
+    <Keyword>QtVS_v302</Keyword>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADGUI-2019-internal.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADGUI-2019-internal.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADGUI-2019-internal.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADGUI-2019-internal.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADGUI-2019-internal.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADGUI-2019-internal.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADGUI-2019-internal.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="XRADGUI-2019-internal.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'">
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <QtInstall>msvc2015</QtInstall>
+    <QtModules>core</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'">
+    <QtInstall>msvc2015</QtInstall>
+    <QtModules>core</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <QtInstall>msvc2015</QtInstall>
+    <QtModules>core</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'">
+    <QtInstall>msvc2015</QtInstall>
+    <QtModules>core</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtInstall>msvc2015</QtInstall>
+    <QtModules>core</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'">
+    <QtInstall>msvc2015</QtInstall>
+    <QtModules>core</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <QtInstall>msvc2015</QtInstall>
+    <QtModules>core</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'">
+    <QtInstall>msvc2015</QtInstall>
+    <QtModules>core</QtModules>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\QtGUIAPI\Common\AsyncTextBuffer.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\FileSaveUtils.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\GUIController.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\OutputRedirector.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\OutputSubstitution.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\SavedSettings.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\StayOnTopDialog.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\stdio_console.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\ThreadGUI.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\ThreadSync.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\ThreadUser.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\WorkflowControl.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\XRADGUIAPI.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\XRADGUIUtils.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\AxisZoom.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ChartZoom.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\DataDisplayWindow.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\DragMove.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\DragZoom.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\GraphStyleSet.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\MouseDrag.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\WheelZoom.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DialogDefinitions\DecisionDialogs.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DialogDefinitions\DynamicDialogQt.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Forms\ConsoleWindow.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Forms\GetValueDialog.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Forms\PauseDialog.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Forms\ProgressBar.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Forms\ShowValueDialog.cpp" />
+    <ClCompile Include="..\Sources\GUI\DataDisplayer.cpp" />
+    <ClCompile Include="..\Sources\GUI\GraphScale.cpp" />
+    <ClCompile Include="..\Sources\GUI\GraphSet.cpp" />
+    <ClCompile Include="..\Sources\GUI\MathFunctionGUI.cpp" />
+    <ClCompile Include="..\Sources\GUI\XRADGUI.cpp" />
+    <ClCompile Include="..\Sources\GUI\RasterImageSet.cpp" />
+    <ClCompile Include="..\Sources\GUI\TextDisplayer.cpp" />
+    <ClCompile Include="..\Sources\GUI\DynamicDialog.cpp" />
+    <ClCompile Include="..\Sources\GUI\Keyboard.cpp" />
+    <ClCompile Include="..\Sources\GUI\SaveRasterImage.cpp" />
+    <ClCompile Include="..\Sources\GUI\I18nSupport.cpp" />
+    <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\Keyboard_Win32.cpp" />
+    <ClCompile Include="..\Sources\PlatformSpecific\Qt\Internal\Keyboard_Qt.cpp" />
+    <ClCompile Include="..\Sources\PlatformSpecific\Qt\Internal\StringConverters_Qt.cpp" />
+    <ClCompile Include="..\Sources\Utils\AutoProgressIndicatorScheduler.cpp" />
+    <ClCompile Include="XRADGUI_pre.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Startup\XRADGUIMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\QtGUIAPI\Common\AsyncTextBuffer.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\FileSaveUtils.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\FrameBitmapContainer.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\FrameBitmapContainer.hh" />
+    <ClInclude Include="..\QtGUIAPI\Common\GUIController.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\GUIQtUtils.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\IGUISettingsChanged.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\MultimodalFrameContainer.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\MultimodalFrameContainer.hh" />
+    <ClInclude Include="..\QtGUIAPI\Common\OutputRedirector.h" />
+    <QtMoc Include="..\QtGUIAPI\Common\OutputSubstitution.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\SavedSettings.h" />
+    <QtMoc Include="..\QtGUIAPI\Common\StayOnTopDialog.h" />
+    <QtMoc Include="..\QtGUIAPI\Common\stdio_console.h" />
+    <QtMoc Include="..\QtGUIAPI\Common\ThreadGUI.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\ThreadSync.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\ThreadSync.hh" />
+    <QtMoc Include="..\QtGUIAPI\Common\ThreadUser.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\WorkflowControl.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\XRADGUIAPI.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\XRADGUIAPIDefs.h" />
+    <ClInclude Include="..\QtGUIAPI\Common\XRADGUIUtils.h" />
+    <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\AxisZoom.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\ChartZoom.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\DataDisplayWindow.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\DragMove.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\DragZoom.h" />
+    <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\GraphStyleSet.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\MouseDrag.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.h" />
+    <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\WheelZoom.h" />
+    <QtMoc Include="..\QtGUIAPI\DialogDefinitions\DecisionDialogs.h" />
+    <QtMoc Include="..\QtGUIAPI\DialogDefinitions\DynamicDialogQt.h" />
+    <QtMoc Include="..\QtGUIAPI\Forms\ConsoleWindow.h" />
+    <QtMoc Include="..\QtGUIAPI\Forms\GetValueDialog.h" />
+    <QtMoc Include="..\QtGUIAPI\Forms\PauseDialog.h" />
+    <QtMoc Include="..\QtGUIAPI\Forms\ProgressBar.h" />
+    <QtMoc Include="..\QtGUIAPI\Forms\ShowValueDialog.h" />
+    <ClInclude Include="..\Sources\Core\GUICore.h" />
+    <ClInclude Include="..\Sources\GUI\DataDisplayer.h" />
+    <ClInclude Include="..\Sources\GUI\DisplaySampleType.h" />
+    <ClInclude Include="..\Sources\GUI\GraphScale.h" />
+    <ClInclude Include="..\Sources\GUI\GraphSet.h" />
+    <ClInclude Include="..\Sources\GUI\GUIValue.h" />
+    <ClInclude Include="..\Sources\GUI\MathFunctionGUI.h" />
+    <ClInclude Include="..\Sources\GUI\MathFunctionGUI2D.h" />
+    <ClInclude Include="..\Sources\GUI\MathFunctionGUI2D.hh" />
+    <ClInclude Include="..\Sources\GUI\MathFunctionGUIMD.h" />
+    <ClInclude Include="..\Sources\GUI\MathFunctionGUIMD.hh" />
+    <ClInclude Include="..\Sources\GUI\MatrixVectorGUI.h" />
+    <ClInclude Include="..\Sources\GUI\PixelNormalizers.h" />
+    <ClInclude Include="..\Sources\GUI\PixelNormalizersGUI.h" />
+    <ClInclude Include="..\Sources\GUI\XRADGUI.h" />
+    <ClInclude Include="..\Sources\GUI\XRAD.h" />
+    <ClInclude Include="..\Sources\GUI\RasterImageSet.h" />
+    <ClInclude Include="..\Sources\GUI\ShowComplex.h" />
+    <ClInclude Include="..\Sources\GUI\TextDisplayer.h" />
+    <ClInclude Include="..\Sources\GUI\DynamicDialog.h" />
+    <ClInclude Include="..\Sources\GUI\DynamicDialog.hh" />
+    <ClInclude Include="..\Sources\GUI\GUIConfig.h" />
+    <ClInclude Include="..\Sources\GUI\Keyboard.h" />
+    <ClInclude Include="..\Sources\GUI\ModifierKeys.h" />
+    <ClInclude Include="..\Sources\GUI\SaveRasterImage.h" />
+    <ClInclude Include="..\Sources\GUI\SaveRasterImage.hh" />
+    <ClInclude Include="..\Sources\GUI\I18nSupport.h" />
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\Keyboard_Win32.h" />
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADGUILink.h" />
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADGUITestsLibLink.h" />
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADLink.h" />
+    <ClInclude Include="..\Sources\PlatformSpecific\Qt\Internal\Keyboard_Qt.h" />
+    <ClInclude Include="..\Sources\PlatformSpecific\Qt\Internal\StringConverters_Qt.h" />
+    <ClInclude Include="..\Sources\Utils\AutoProgressIndicatorScheduler.h" />
+    <ClInclude Include="pre.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\QtGUIAPI\Resources\brightness_contrast.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'">true</ExcludedFromBuild>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.ui" />
+    <QtUic Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.ui" />
+    <QtUic Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.ui" />
+    <QtUic Include="..\QtGUIAPI\Forms\ConsoleWindow.ui" />
+    <QtUic Include="..\QtGUIAPI\Forms\GetValueDialog.ui" />
+    <QtUic Include="..\QtGUIAPI\Forms\PauseDialog.ui" />
+    <QtUic Include="..\QtGUIAPI\Forms\ProgressBar.ui" />
+    <QtUic Include="..\QtGUIAPI\Forms\ShowValueDialog.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="..\QtGUIAPI\Resources\XRADResources.qrc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

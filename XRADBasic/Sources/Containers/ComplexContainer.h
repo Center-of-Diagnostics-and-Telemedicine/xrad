@@ -19,6 +19,7 @@ class ComplexContainer: public Container
 		using typename parent::value_type;
 		using typename parent::value_type_invariable;
 		using typename parent::value_type_variable;
+		using parent::GetDataComponent;
 
 		using self = ComplexContainer;
 		using invariable = ComplexContainer<typename Container::invariable,

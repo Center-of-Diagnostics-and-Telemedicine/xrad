@@ -8,6 +8,7 @@
 #endif //_MSC_VER
 
 #if _MSC_VER >= 1900 // MSVC2015+
+	#ifndef XRAD_COMPILER_CMAKE
 	#pragma comment(lib, "dcmdata.lib")
 	#pragma comment(lib, "ofstd.lib")
 	#pragma comment(lib, "oflog.lib")
@@ -16,6 +17,7 @@
 	#pragma comment(lib, "dcmjpeg.lib")
 	#pragma comment(lib, "dcmnet.lib")
 	#pragma comment(lib, "openjp2.lib")
+	#endif // XRAD_COMPILER_CMAKE
 #else
 	#error Unsupported Visual Studio version
 #endif

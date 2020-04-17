@@ -12,8 +12,6 @@
 #include "DisplayTomogram_MRAcquisitionSiemens.h"
 #include "DisplayAcquisitionXRay.h"
 
-#include <XRADGUI.h>
-
 XRAD_BEGIN
 
 void DisplayProcessAcquisitionGeneric(const ProcessAcquisition_ptr &acquisition, const wstring &title)
