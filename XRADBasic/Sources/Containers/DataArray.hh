@@ -243,7 +243,7 @@ void DataArray<T>::GetDataComponent(DataArray<T2> &component,
 	// Это ограничение текущей реализации DataOwner.
 	static_assert(sizeof(value_type) % sizeof(component_type) == 0,
 			"DataArray<T>::GetDataComponent: Data step must be a multiple of data size for DataOwner.");
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	{
 		// Проверка на то, что компонента находится внутри исходных данных.
 		auto *data_origin = &at(0);
@@ -273,7 +273,7 @@ void DataArray<T>::GetDataComponent(DataArray<T2> &component,
 	// Это ограничение текущей реализации DataOwner.
 	static_assert(sizeof(value_type) % sizeof(component_type) == 0,
 			"DataArray<T>::GetDataComponent: Data step must be a multiple of data size for DataOwner.");
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	{
 		// Проверка на то, что компонента находится внутри исходных данных.
 		auto *data_origin = &at(0);

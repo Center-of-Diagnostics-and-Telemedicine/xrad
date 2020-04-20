@@ -240,13 +240,13 @@ void OutputRedirector::RedirectStdHandle(AsyncTextBuffer *text_buffer)
 		// GetStdHandle/SetStdHandle, потом это окно прятать (ShowWindow(GetConsoleWindow(), SW_HIDE)).
 		// Побочный эффект: появляется консольное окно, потом исчезает.
 		// Это решение пока не применяем.
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 		for (char c: string("RedirectStdHandle() failed.\n"))
 			text_buffer->AppendBufferMT(c);
 #endif
 		return;
 	}
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	for (char c: string("RedirectStdHandle() OK.\n"))
 		text_buffer->AppendBufferMT(c);
 #endif

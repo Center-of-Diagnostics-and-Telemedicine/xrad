@@ -127,7 +127,7 @@ private:
 	error_process_mode_t	m_error_process_mode = skip_rest;
 
 	//! \brief Вспомогательная величина, позволяет избежать обращений к макро в теле функции
-	#if defined(_DEBUG)
+	#if defined(XRAD_DEBUG)
 		const	bool	debug = true;
 	#else
 		const	bool	debug = false;

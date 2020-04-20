@@ -44,7 +44,7 @@ XRAD_BEGIN
 	можно ставить этот макрос за строчку перед throw().
 
 	Ситуация по умаолчанию -- когда все макро ставятся в зависимость от
-	определения _DEBUG. Можно задать их по-своему. Для этого определения
+	определения XRAD_DEBUG. Можно задать их по-своему. Для этого определения
 	должны стоять в "pre.h" до включения XRAD.h.
 
 	1-3 принимают значения 0 или 1.
@@ -54,7 +54,7 @@ XRAD_BEGIN
 
 //--------------------------------------------------------------
 
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 
 #ifndef XRAD_CHECK_NAN_FLOAT
 #define	XRAD_CHECK_NAN_FLOAT 0
@@ -72,7 +72,7 @@ XRAD_BEGIN
 #endif
 
 
-#else //_DEBUG
+#else //XRAD_DEBUG
 
 #ifndef XRAD_CHECK_NAN_FLOAT
 #define	XRAD_CHECK_NAN_FLOAT 0
@@ -87,7 +87,7 @@ XRAD_BEGIN
 #endif
 
 
-#endif //_DEBUG
+#endif //XRAD_DEBUG
 
 //--------------------------------------------------------------
 /*!
