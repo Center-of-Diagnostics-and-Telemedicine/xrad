@@ -11,7 +11,7 @@
 
 #if _MSC_VER >= 1900 // MSVC2015+, Qt5
 	#ifndef XRAD_COMPILER_CMAKE
-	#ifdef _DEBUG
+	#ifdef XRAD_DEBUG
 		#pragma comment(lib, "QTMaind.lib")
 		#pragma comment(lib, "QT5Widgetsd.lib")
 		#pragma comment(lib, "QT5Guid.lib")
@@ -23,7 +23,7 @@
 		#pragma comment(lib, "QT5Gui.lib")
 		#pragma comment(lib, "QT5Svg.lib")
 		#pragma comment(lib, "qwt.lib")
-	#endif //_DEBUG
+	#endif //XRAD_DEBUG
 	#endif // XRAD_COMPILER_CMAKE
 #else
 	#error Unsupported Visual Studio version

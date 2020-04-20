@@ -3992,7 +3992,7 @@ void DialogApi::UnhideDialogAsync()
 
 //--------------------------------------------------------------
 
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 void ParseValue_ull_test()
 {
 	struct TestData

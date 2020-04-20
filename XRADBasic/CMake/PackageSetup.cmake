@@ -1,4 +1,5 @@
 ﻿include_guard()
+include(${CMAKE_CURRENT_LIST_DIR}/CommonOptions.cmake)
 
 if("${XRAD_Root}" STREQUAL "")
 	message(FATAL_ERROR "The XRAD_Root variable is not provided.")

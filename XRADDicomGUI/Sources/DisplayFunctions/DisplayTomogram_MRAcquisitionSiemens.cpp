@@ -13,7 +13,7 @@ enum	display_mr_siemens_options
 	display_mr_slices,
 	display_mr_metadata,
 	display_mr_DICOM_file_content,
-	display_mr_thiсkness,
+	display_mr_thickness,
 	display_mr_siemens_diffusion_b_value_siemens,
 	display_mr_positions,
 	exit_mr_display
@@ -27,7 +27,7 @@ const vector<wstring> &options_mr_siemens_names()
 		options[display_mr_slices] = L"Display MR Slices";
 		options[display_mr_metadata] = L"Display MR Metadata";
 		options[display_mr_DICOM_file_content] = L"Display DICOM-file content";
-		options[display_mr_thiсkness] = L"Display MR slice thickness";
+		options[display_mr_thickness] = L"Display MR slice thickness";
 		options[display_mr_siemens_diffusion_b_value_siemens] = L"Display MR diffusion_b_value_siemens";
 		options[display_mr_positions] = L"Display MR slice position";
 		options[exit_mr_display] = L"Exit display";
@@ -61,7 +61,7 @@ void	DisplayTomogram_MRAcquisitionSiemens(const MRAcquisitionSiemens &mr, const 
 				break;
 
 
-			case display_mr_thiсkness:
+			case display_mr_thickness:
 				DisplayMathFunction(mr.thickness(), 0, 1, title_full + L" Slice Thickness", L"mm", L"Slice No");
 				break;
 

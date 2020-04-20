@@ -61,7 +61,7 @@ class	FIRFilterKernel : public FIRFilterKernelBasic, public Algebra1D<FIRFilterK
 		typedef	ST scalar_type;
 		typedef	FIRFilterKernel<XRAD__FilterKernel_template_args>	self;
 
-#if !_DEBUG
+#ifndef XRAD_DEBUG
 		// попробуем так оптимизироваться.
 		typedef typename parent::value_type *iterator;
 		typedef const typename parent::value_type *const_iterator;
@@ -72,8 +72,12 @@ class	FIRFilterKernel : public FIRFilterKernelBasic, public Algebra1D<FIRFilterK
 		const_iterator	cbegin() const { return data(); }
 		const_iterator	cend() const { return cbegin() + size(); }
 #else
-		typedef typename parent::iterator iterator;
-		typedef typename parent::const_iterator const_iterator;
+		using typename parent::iterator;
+		using typename parent::const_iterator;
+		using parent::begin;
+		using parent::end;
+		using parent::cbegin;
+		using parent::cend;
 #endif
 
 		//typedef typename parent::reverse_iterator reverse_iterator;

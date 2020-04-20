@@ -10,7 +10,7 @@
 	#else
 		#define XRAD_Library_Suffix_EH ""
 	#endif
-	#ifdef _DEBUG
+	#ifdef XRAD_DEBUG
 		#define XRAD_Library_Suffix_Debug "D"
 	#else
 		#define XRAD_Library_Suffix_Debug ""
