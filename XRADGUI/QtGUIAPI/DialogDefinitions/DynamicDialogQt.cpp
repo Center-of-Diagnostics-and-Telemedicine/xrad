@@ -4056,7 +4056,7 @@ void ParseValue_ll_test()
 		long long value;
 	};
 	static_assert(numeric_limits<long long>::max() == 9223372036854775807ll, "Modify test bounds.");
-	static_assert(numeric_limits<long long>::min() == -9223372036854775808ll, "Modify test bounds.");
+	static_assert(numeric_limits<long long>::min() == -9223372036854775807ll-1, "Modify test bounds.");
 	const TestData test_data[] =
 	{
 		{"0", 0, true, 0},
@@ -4070,7 +4070,7 @@ void ParseValue_ll_test()
 		{"1 a", 0, false, 0},
 		{"1 1", 0, false, 0},
 		{"9223372036854775807", 0, true, 9223372036854775807ll},
-		{"-9223372036854775808", 0, true, -9223372036854775808ll},
+		{"-9223372036854775808", 0, true, -9223372036854775807ll-1},
 		{"9223372036854775808", 0, false, 0},
 		{"-9223372036854775809", 0, false, 0},
 		{"10000000000000000000", 0, false, 0},
@@ -4085,7 +4085,7 @@ void ParseValue_ll_test()
 		{"0xFFFFFFFFFFFFFFFF", 0, false, 0},
 		{"0x10000000000000000", 0, false, 0},
 		{"0x100000000000000000", 0, false, 0},
-		{"-0x8000000000000000", 0, true, -0x8000000000000000ll},
+		{"-0x8000000000000000", 0, true, -0x7FFFFFFFFFFFFFFFll-1},
 		{"-0x8000000000000001", 0, false, 0},
 		{"--1", 0, false, 0},
 		{"0x-1", 0, false, 0},
