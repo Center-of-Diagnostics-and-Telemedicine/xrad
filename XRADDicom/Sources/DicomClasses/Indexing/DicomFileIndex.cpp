@@ -12,10 +12,10 @@
 
 #include <XRADDicom/XRADDicom.h>
 
-#include <XRADDicom/Sources/DicomClasses/instances/ct_slice.h>
-#include <XRADDicom/Sources/DicomClasses/instances/xray_image.h>
-#include <XRADDicom/Sources/DicomClasses/instances/mr_slice.h>
-#include <XRADDicom/Sources/DicomClasses/instances/mr_slice_siemens.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/ct_slice.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/xray_image.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/mr_slice.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/mr_slice_siemens.h>
 
 #include <typeinfo>
 

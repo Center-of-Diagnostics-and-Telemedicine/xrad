@@ -3,6 +3,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/../../XRADSystem/CMake/Package.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/DetectQtConfiguration.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/DetectQwtConfiguration.cmake)
 
+xrad_setup_package("XRADGUI")
 xrad_compose_library_name(XRADGUI_Library "XRADGUI")
 set(XRADGUI_Libraries
 	${XRADGUI_Library}
@@ -10,7 +11,9 @@ set(XRADGUI_Libraries
 	Qt5::Widgets Qt5::Core Qt5::Gui Qt5::Svg
 	${XRADSystem_Libraries}
 	)
+xrad_set_dependencies("XRADGUI" "XRADSystem")
 
+xrad_setup_package("XRADGUITestsLib")
 xrad_compose_library_name(XRADGUITestsLib_Library "XRADGUI" "XRADGUITestsLib")
 set(XRADGUITestsLib_Libraries
 	${XRADGUITestsLib_Library}
