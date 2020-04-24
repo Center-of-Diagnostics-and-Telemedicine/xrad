@@ -217,7 +217,7 @@ template<class ROW_T>
 floating64_type<typename ROW_T::value_type> AverageValue(const DataArray2D<ROW_T> &array)
 {
 	double	s = array.vsize()*array.hsize();
-	if(!s) return ROW_T::value_type(0);
+	if(!s) return typename ROW_T::value_type(0);
 
 	// Здесь при делении нужно быть аккуратным с типами значений.
 	// Сейчас оба аргумента имеют тип числа с плавающей точкой, поэтому неприятностей нет.
@@ -245,7 +245,7 @@ template<class ROW_T>
 floating64_type<typename ROW_T::value_type> AverageSquare(const DataArray2D<ROW_T> &array)
 {
 	size_t	s = array.vsize()*array.hsize();
-	if(!s) return ROW_T::value_type(0);;
+	if(!s) return typename ROW_T::value_type(0);;
 
 	return SquareElementSum(array)/s;
 }

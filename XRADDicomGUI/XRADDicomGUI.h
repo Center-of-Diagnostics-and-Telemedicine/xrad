@@ -1,37 +1,26 @@
 ﻿/*!
-	* \file XRADDicomGUI.h
-	* \date 4/27/2018 10:28:54 AM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 4/27/2018 10:28:54 AM
+	\author kovbas
 */
 #ifndef XRADDicomGUI_h__
 #define XRADDicomGUI_h__
+//--------------------------------------------------------------
 
-#ifdef XRAD_COMPILER_MSC
-	#include <XRAD/PlatformSpecific/MSVC/PC_XRADDicomGUILink.h>
-#endif // XRAD_COMPILER_MSC
-
-//
-#include <XRADDicomGUI/SelectSeriesInteractive.h>
+#include "Sources/SelectSeriesInteractive.h"
 
 //display functions
-#include <XRADDicomGUI/DisplayFunctions/DisplayProcessAcquisition.h>
+#include "Sources/DisplayFunctions/DisplayProcessAcquisition.h"
 
-//
-#include <XRADDicomGUI/dialogs.h>
+#include "Sources/dialogs.h"
 
+//--------------------------------------------------------------
 
+#ifndef XRAD_NO_LIBRARIES_LINKS
+#ifdef XRAD_COMPILER_MSC
+#include "Sources/PlatformSpecific/MSVC/MSVC_XRADDicomGUILink.h"
+#endif // XRAD_COMPILER_MSC
+#endif // XRAD_NO_LIBRARIES_LINKS
 
-XRAD_BEGIN
-
-
-
-XRAD_END
-
+//--------------------------------------------------------------
 #endif // XRADDicomGUI_h__

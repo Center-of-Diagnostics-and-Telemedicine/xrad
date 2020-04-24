@@ -1,14 +1,7 @@
 ﻿/*!
-	* \file cloning_ptr.h
-	* \date 12/26/2018 1:21:44 PM
-	*
-	* \author Kovbas (kovbas)
-	*
-	* \brief
-	*
-	* TODO: long description
-	*
-	* \note
+	\file
+	\date 12/26/2018 1:21:44 PM
+	\author Kovbas (kovbas)
 */
 #ifndef cloning_ptr_h__
 #define cloning_ptr_h__

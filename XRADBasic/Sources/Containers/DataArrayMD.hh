@@ -724,7 +724,7 @@ void DataArrayMD<A2DT>::GetDataComponent(DataArrayMD<A2DT2> &component,
 	static_assert(sizeof(value_type) % sizeof(component_type) == 0,
 			"DataArrayMD<A2DT>::GetDataComponent: Data step must be a multiple of data size for "
 			"DataOwner.");
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	{
 		// Проверка на то, что компонента находится внутри исходных данных.
 		auto *data_origin = &parent::at(0);
@@ -756,7 +756,7 @@ void DataArrayMD<A2DT>::GetDataComponent(DataArrayMD<A2DT2> &component,
 	static_assert(sizeof(value_type) % sizeof(component_type) == 0,
 			"DataArrayMD<A2DT>::GetDataComponent: Data step must be a multiple of data size for "
 			"DataOwner.");
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	{
 		// Проверка на то, что компонента находится внутри исходных данных.
 		auto *data_origin = &parent::at(0);

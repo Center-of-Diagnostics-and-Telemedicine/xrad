@@ -1,15 +1,21 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
-project ("XRADBasic")
+set(Project "XRADBasic")
+project(${Project} LANGUAGES CXX)
 
-configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/CMake/pre.h.in
-		${CMAKE_CURRENT_BINARY_DIR}/pre.h @ONLY)
+include(CMake/CommonOptions.cmake)
+include(CMake/StdLib.cmake)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CMake/pre.h.in
+	${XRAD_Project_Generated_pre_h}
+	@ONLY)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
+set(Project_IncludeDirs ${Project_IncludeDirs}
+	${XRAD_Project_GeneratedDir}
+	${CMAKE_CURRENT_SOURCE_DIR}/..
+	)
 
-set(XRADBasic_Sources_cpp
+set(Project_Sources_cpp
 	Sources/Containers/ContainersBasic.cpp
 	Sources/Containers/InterpolationAuxiliaries.cpp
 	Sources/Containers/UniversalInterpolation.cpp
@@ -50,9 +56,9 @@ set(XRADBasic_Sources_cpp
 	Sources/Utils/ThreadUtils.cpp
 	Sources/Utils/TimeProfiler.cpp
 	ThirdParty/md5/md5_core.cpp
-)
+	)
 
-set(XRADBasic_Sources_h
+set(Project_Sources_h
 	BooleanFunctionTypes.h
 	Containers.h
 	ContainersAlgebra.h
@@ -238,44 +244,36 @@ set(XRADBasic_Sources_h
 	Sources/Utils/ValuePredicates.h
 	ThirdParty/md5/md5_core.h
 	ThirdParty/nlohmann/json.hpp
-)
+	)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-	# MSVC/XRADBasic_pre.cpp
-	set(XRADBasic_Sources_PlatformSpecific_cpp
+	set(Project_Sources_PlatformSpecific_cpp
 		Sources/PlatformSpecific/MSVC/Internal/CoreUtils_MS.cpp
 		Sources/PlatformSpecific/MSVC/Internal/StringConverters_MS.cpp
 		Sources/PlatformSpecific/MSVC/Internal/ThreadSetup_MS.cpp
-	)
-	#	Sources/PlatformSpecific/MSVC/XRADNatvisTest.cpp
-	set(XRADBasic_Sources_PlatformSpecific_h
+		)
+	set(Project_Sources_PlatformSpecific_h
 		Sources/PlatformSpecific/MSVC/Internal/CoreUtils_MS.h
 		Sources/PlatformSpecific/MSVC/Internal/MSVCCompilerSpecific.h
 		Sources/PlatformSpecific/MSVC/Internal/StringConverters_MS.h
 		Sources/PlatformSpecific/MSVC/Internal/ThreadSetup_MS.h
-		Sources/PlatformSpecific/MSVC/MSVC_XRADBasicLink.h
-		Sources/PlatformSpecific/MSVC/MSVC_XRADLink-Suffix.h
-	)
-	#	Sources/PlatformSpecific/MSVC/XRADNatvisTest.h
-
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
-	# Имя "XRADBasicD.lib": используется текущее соглашение об именах конфигурации Debug в MSVC
-	set(CMAKE_DEBUG_POSTFIX "D")
+		)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-	set(XRADBasic_Sources_PlatformSpecific_cpp)
-	set(XRADBasic_Sources_PlatformSpecific_h
+	set(Project_Sources_PlatformSpecific_cpp)
+	set(Project_Sources_PlatformSpecific_h
 		Sources/PlatformSpecific/gcc/GCCCompilerSpecific.h
-	)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fopenmp")
+		)
 else()
 	message(FATAL_ERROR "Unsupported CMAKE_CXX_COMPILER_ID: \"${CMAKE_CXX_COMPILER_ID}\".")
 endif()
 
-set(XRADBasic_Sources_All
-	${XRADBasic_Sources_cpp}
-	${XRADBasic_Sources_h}
-	${XRADBasic_Sources_PlatformSpecific_cpp}
-	${XRADBasic_Sources_PlatformSpecific_h}
-)
+set(Project_Sources_All
+	${XRAD_Project_Generated_pre_h}
+	${Project_Sources_cpp}
+	${Project_Sources_h}
+	${Project_Sources_PlatformSpecific_cpp}
+	${Project_Sources_PlatformSpecific_h}
+	)
 
-add_library(XRADBasic STATIC ${XRADBasic_Sources_All})
+add_library(${Project} STATIC ${Project_Sources_All})
+target_include_directories(${Project} PRIVATE ${Project_IncludeDirs})

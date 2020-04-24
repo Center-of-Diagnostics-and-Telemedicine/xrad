@@ -48,7 +48,7 @@ namespace xrad
 	Это определение требуется для реализации ForceDebugBreak().
 	Конструкция XRAD_FORCE_DEBUG_BREAK_FUNCTION() должна приводить к вызову функции выхода в отладчик
 	или чему-то аналогичному. При отсутствии нужного функционала можно определить как пустой макрос.
-	Анализ _DEBUG и т.п. производить не требуется, это происходит в <ForceDebugBreak.h>.
+	Анализ XRAD_DEBUG и т.п. производить не требуется, это происходит в <ForceDebugBreak.h>.
 	Можно добавить еще анализ if (IsDebuggerPresent()) ... else вызов OutputDebugString().
 */
 #ifndef XRAD_FORCE_DEBUG_BREAK_FUNCTION

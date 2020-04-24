@@ -226,7 +226,7 @@ size_t wchar_to_char_MS(char result_buffer[wchar_to_char_MS_out_buffer_size],
 
 string wstring_to_string_MS(const wstring &str, CodePage code_page, bool encode_literals, int default_char, bool *error)
 {
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	if (default_char < 0 || default_char > 0x7F)
 	{
 		throw invalid_argument(ssprintf("wstring_to_string_MS(): invalid default_char (code = %i).", default_char));

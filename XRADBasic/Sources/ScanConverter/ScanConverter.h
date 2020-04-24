@@ -52,31 +52,34 @@ template <class IM_T, class = void>
 class	ScanConverter : public IM_T, public ScanConverterOptions
 	{
 	PARENT(IM_T);
+public:
+	using parent::hsize;
+private:
 
 	// для целочисленных типов предпочительно целое умножение со сдвигом.
 	// для плавающих умножение на double.
-	template<class T>
+	template<class T, class V = void>
 		struct	FactorTypeSelector{typedef double factor_type;};
-	template<>
-		struct	FactorTypeSelector<int32_t>{typedef int factor_type;};
-	template<>
-		struct	FactorTypeSelector<uint32_t>{typedef int factor_type;};
-	template<>
-		struct	FactorTypeSelector<uint8_t>{typedef int factor_type;};
-	template<>
-		struct	FactorTypeSelector<uint16_t>{typedef int factor_type;};
-	template<>
-		struct	FactorTypeSelector<int16_t>{typedef int factor_type;};
-	template<>
-		struct	FactorTypeSelector<ColorPixel>{typedef int factor_type;};
-	template<>
-		struct	FactorTypeSelector<complexI32>{typedef int factor_type;};
-	template<>
-		struct	FactorTypeSelector<complexI16>{typedef int factor_type;};
-	template<>
-		struct	FactorTypeSelector<complexI32F>{typedef int factor_type;};
-	template<>
-		struct	FactorTypeSelector<complexI16F>{typedef int factor_type;};
+	template<class V>
+		struct	FactorTypeSelector<int32_t, V>{typedef int factor_type;};
+	template<class V>
+		struct	FactorTypeSelector<uint32_t, V>{typedef int factor_type;};
+	template<class V>
+		struct	FactorTypeSelector<uint8_t, V>{typedef int factor_type;};
+	template<class V>
+		struct	FactorTypeSelector<uint16_t, V>{typedef int factor_type;};
+	template<class V>
+		struct	FactorTypeSelector<int16_t, V>{typedef int factor_type;};
+	template<class V>
+		struct	FactorTypeSelector<ColorPixel, V>{typedef int factor_type;};
+	template<class V>
+		struct	FactorTypeSelector<complexI32, V>{typedef int factor_type;};
+	template<class V>
+		struct	FactorTypeSelector<complexI16, V>{typedef int factor_type;};
+	template<class V>
+		struct	FactorTypeSelector<complexI32F, V>{typedef int factor_type;};
+	template<class V>
+		struct	FactorTypeSelector<complexI16F, V>{typedef int factor_type;};
 
 
 	public:

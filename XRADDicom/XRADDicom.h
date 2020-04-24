@@ -1,58 +1,56 @@
 ﻿/*!
-	* \file XRADDicom.h
-	* \date 12/6/2017 11:43:53 AM
-	*
-	* \author kovbas
-	*
-	* \brief
-	*
-	* TODO: Было принято решение о том, что пользователям XRADDicom проще использовать все XRADDicom не подключая каждый компонент отдельно, а подключая только этот заголовочный файл.
-	В связи с этим этот файл будет содержать в себе включения всех заголовочных файлов, необходимым для работы с инструментами библиотеки.
-	*
-	* \note
+	\file
+	\date 12/6/2017 11:43:53 AM
+	\author kovbas
+
+	\brief Общий заголовочный файл библиотеки
+
+	Было принято решение о том, что пользователям XRADDicom проще использовать весь XRADDicom,
+	не подключая каждый компонент отдельно, а подключая только этот заголовочный файл.
+	В связи с этим этот файл будет содержать в себе включения всех заголовочных файлов,
+	необходимых для работы с инструментами библиотеки.
 */
-#ifndef XRADDicom_h__
-#define XRADDicom_h__
+#ifndef XRAD__File_XRADDicom_h
+#define XRAD__File_XRADDicom_h
+//--------------------------------------------------------------
 
-#include <XRAD/PlatformSpecific/MSVC/PC_XRADDicomLink.h>
-
-#include <XRADDicom/DicomClasses/XRADDicomGeneral.h>
+#include "Sources/DicomClasses/XRADDicomGeneral.h"
 
 //tools
-#include <XRADDicom/XRADDicomTools.h>
+#include "Sources/Utils/XRADDicomTools.h"
+#include "Sources/Utils/logger.h"
 
 //containers
-#include <XRADDicom/DicomClasses/DataContainers/Container.h>
+#include "Sources/DicomClasses/DataContainers/Container.h"
 
 //instances
-#include <XRADDicom/DicomClasses/Instances/CreateInstance.h>
-#include <XRADDicom/DicomClasses/DicomFilters.h>
+#include "Sources/DicomClasses/Instances/CreateInstance.h"
+#include "Sources/DicomClasses/DicomFilters.h"
 
 //instance cache
-#include <XRADDicom/DicomClasses/Instances/instance_cache.h>
+#include "Sources/DicomClasses/Instances/instance_cache.h"
 
 //load classes and utils
-#include <XRADDicom/DicomClasses/DicomStorageAnalyze.h>
-#include <XRADDicom/DicomClasses/Instances/LoadGenericClasses.h>
+#include "Sources/DicomClasses/DicomStorageAnalyze.h"
+#include "Sources//DicomClasses/Instances/LoadGenericClasses.h"
 
 //process classes
-//#include <XRADDicom/DicomClasses/ProcessContainers/LoadProcessAcquisition.h>
-#include <XRADDicom/DicomClasses/ProcessContainers/CreateProcessAcquisition.h>
-//#include <DicomClasses/ProcessContainers/ProcessAcquisition.h>
-//#include <DicomClasses/ProcessContainers/TomogramAcquisition.h>
-#include <XRADDicom/DicomClasses/ProcessContainers/CTAcquisition.h>
+#include "Sources/DicomClasses/ProcessContainers/CreateProcessAcquisition.h"
+#include "Sources/DicomClasses/ProcessContainers/CTAcquisition.h"
 
 //processors
-#include <XRADDicom/DicomClasses/DicomProcessors.h>
+#include "Sources/DicomClasses/DicomProcessors.h"
 
 //network tools
-#include <XRADDicom/DCMTKAccess/pacsTools.h>
+#include "Sources/DCMTKAccess/pacsTools.h"
 
+//--------------------------------------------------------------
 
-XRAD_BEGIN
+#ifndef XRAD_NO_LIBRARIES_LINKS
+#ifdef XRAD_COMPILER_MSC
+#include "Sources/PlatformSpecific/MSVC/MSVC_XRADDicomLink.h"
+#endif // XRAD_COMPILER_MSC
+#endif // XRAD_NO_LIBRARIES_LINKS
 
-
-
-XRAD_END
-
-#endif // XRADDicom_h__
+//--------------------------------------------------------------
+#endif // XRAD__File_XRADDicom_h

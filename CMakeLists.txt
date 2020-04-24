@@ -1,0 +1,25 @@
+﻿cmake_minimum_required (VERSION 3.8)
+
+set(Project "XRAD")
+project(${Project} LANGUAGES CXX)
+
+include(CMakeDependentOption)
+
+function(xrad_add_package package_name)
+	CMAKE_DEPENDENT_OPTION(XRAD_Build_${package_name} "Build ${package_name}" ON "NOT DEFINED XRAD_Require_${package_name} OR XRAD_Require_${package_name}" OFF)
+	if(XRAD_Build_${package_name})
+		if(DEFINED XRAD_private_BuildDir)
+			set(PackageBuildDir "${XRAD_private_BuildDir}/${package_name}")
+		else()
+			set(PackageBuildDir "${package_name}")
+		endif()
+		add_subdirectory("${package_name}" "${PackageBuildDir}")
+	endif()
+endfunction()
+
+xrad_add_package("XRADBasic")
+xrad_add_package("XRADSystem")
+xrad_add_package("XRADConsoleUI")
+xrad_add_package("XRADGUI")
+xrad_add_package("XRADDicom")
+xrad_add_package("XRADDicomGUI")
