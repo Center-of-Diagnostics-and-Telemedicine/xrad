@@ -177,14 +177,14 @@ namespace
 
 		// индексировать все файлы в каталоге src_folder.path()
 		bool b_show_stdout = false;
-		Dicom::DicomCatalogIndex dcmCatalogIndex;
-		dcmCatalogIndex.CatalogIndexing(src_folder.path(), b_show_stdout, progress.subprogress(scheduler.operation_boundaries(0)));
+		Dicom::DicomCatalogIndex dicom_catalog_index(b_show_stdout);
+		dicom_catalog_index.CatalogIndexing(src_folder.path(), progress.subprogress(scheduler.operation_boundaries(0)));
 
 		ProgressBar progress_b(progress.subprogress(scheduler.operation_boundaries(1)));
 		progress_b.start(L"Fill instances.", 10000);
 		//  сформировать instancestorages вектор для Dicom файлов
 		std::vector<Dicom::instancestorage_ptr> instancestorages;
-		for (auto& el_dir : dcmCatalogIndex.data()) // для каждой директории
+		for (auto& el_dir : dicom_catalog_index.data()) // для каждой директории
 		{
 			auto path_to_dir = el_dir.get_path();
 			for (const auto& el : el_dir.m_FilesIndex) // для каждого файла
@@ -251,13 +251,13 @@ namespace
 			return studies_heap;
 
 		// собираем информацию обо всех необходимых нам исследованиях, которые мы хотим забрать с сервера
-		list<Dicom::elemsmap_t> wrkLst;
+		list<Dicom::elemsmap_t> work_list;
 		//Dicom::fillListOfInstances(scu, filter, wrkLst);
 
 		std::mutex collector_mutex;
 		//TODO Kovbas добавляем в source данные о инстансах (источник данных и минимальные данные по каждому (то, что даёт запрос))
 		// а из сорса через Dicom::Container уже открываем это дело и всё с этим делаем.
-		for (auto el : wrkLst)
+		for (auto el : work_list)
 		{
 			//Dicom::instance_ptr instTmp = Dicom::CreateInstance(new Dicom::instancestorage_pacs(src_pacs, el));
 			//todo (Kovbas) решить вопрос с тем, что не все инстансы были получены с сервера

@@ -23,12 +23,11 @@ class DicomCatalogIndex
 {
 	private:
 		/// требуется ли вывод вспомогательной информации в stdout
-		bool		m_b_show_info;
+		const bool		m_b_show_info;
 	public:
 
-		DicomCatalogIndex()
+		DicomCatalogIndex(bool show_info) : m_b_show_info(show_info)
 		{
-			m_b_show_info = false;
 		}
 
 	private:
@@ -71,7 +70,7 @@ class DicomCatalogIndex
 		/// 4) сгенерировать json файлы для оставшихся файлов
 		/// \param root_path [in] путь к анализируемому каталогу
 		/// \param show_info [in] выводить вспомогательную информацию
-		void CatalogIndexing(const wstring& root_path, bool show_info, ProgressProxy pp = VoidProgressProxy());
+		void CatalogIndexing(const wstring& root_path, ProgressProxy pp = VoidProgressProxy());
 
 		vector<DicomDirectoryIndex> &data() { return m_data; }
 };

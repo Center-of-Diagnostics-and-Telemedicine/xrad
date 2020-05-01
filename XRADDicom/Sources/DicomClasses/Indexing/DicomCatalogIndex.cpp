@@ -103,34 +103,43 @@ bool DicomCatalogIndex::operator==(const DicomCatalogIndex & a) const
 
 }
 
-void DicomCatalogIndex::CatalogIndexing(const wstring& root_path, bool show_info, ProgressProxy pp)
+void DicomCatalogIndex::CatalogIndexing(const wstring& root_path, ProgressProxy pp)
 {
 	//this->clear();
-	m_b_show_info = show_info;
 	if (m_b_show_info)
 	{
 		printf("%s : root_path \n", convert_to_string(root_path).c_str());
 		fflush(stdout);
 	}
-	auto begin = std::chrono::high_resolution_clock::now();
+	auto start_time = std::chrono::high_resolution_clock::now();
 
 	RandomProgressBar	progress(pp);
 	ProgressIndicatorScheduler	scheduler({ 15, 5, 80 });
-	progress.start("Scanning catalog.", scheduler.n_steps());
-	auto file_info_vector = GetDirectoryFilesDetailed(root_path, L"", true,
-			progress.subprogress(scheduler.operation_boundaries(0)));
+	progress.start("Scanning catalog", scheduler.n_steps());
+	auto file_info_vector = GetDirectoryFilesDetailed(
+		root_path,
+		L"", true,
+		progress.subprogress(scheduler.operation_boundaries(0)));
 
-	auto end1 = std::chrono::high_resolution_clock::now();
+	auto end_time_1 = std::chrono::high_resolution_clock::now();
 	// заполнить для каждого файла информацию о размере файла и дате создания из структур fileinfo
-	fill_from_fileinfo(root_path, file_info_vector,
-			progress.subprogress(scheduler.operation_boundaries(1)));
+	fill_from_fileinfo(
+		root_path, 
+		file_info_vector,
+		progress.subprogress(scheduler.operation_boundaries(1)));
 
-	auto end2 = std::chrono::high_resolution_clock::now();
+	auto end_time_2 = std::chrono::high_resolution_clock::now();
+
+	// Это костыль. Нужно сделать корректный механизм перевода из chrono в physical_time
+	auto	chrono_sec = [](const auto &t)->double{return 1.e-9*t.count();};
+
 	if (m_b_show_info)
 	{
 		printf("%s : root_path \n", convert_to_string(root_path).c_str());
 		printf("1) %g s: file list \n2) %g s: fill_from_fileinfo  %zu: number of files  %zu: number of directories \n",
-			1.e-9*(end1 - begin).count(), 1.e-9*(end2 - end1).count(), file_info_vector.files.size(),
+			chrono_sec(end_time_1 - start_time), 
+			chrono_sec(end_time_2 - end_time_1),
+			file_info_vector.files.size(),
 			file_info_vector.directories.size());
 		fflush(stdout);
 	}
@@ -141,9 +150,9 @@ void DicomCatalogIndex::CatalogIndexing(const wstring& root_path, bool show_info
 
 	if (m_b_show_info)
 	{
-		auto end3 = std::chrono::high_resolution_clock::now();
+		auto end_time_3 = std::chrono::high_resolution_clock::now();
 		printf("3) %g s: check_actuality_and_update \n%zu: number of files \n ",
-			1.e-9*(end3 - end2).count(), file_info_vector.files.size());
+			chrono_sec(end_time_3 - end_time_2), file_info_vector.files.size());
 		fflush(stdout);
 	}
 }
