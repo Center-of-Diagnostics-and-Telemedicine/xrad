@@ -224,7 +224,8 @@ namespace
 		return studies_heap;
 	}
 
-	Dicom::patients_loader RawAnalyzeFolderSelector(const Dicom::datasource_folder &src_folder,
+	Dicom::patients_loader RawAnalyzeFolderSelector(
+		const Dicom::datasource_folder &src_folder,
 		const DicomInstanceFilters_t &filter_p,
 		ProgressProxy pproxy)
 	{
@@ -265,10 +266,10 @@ namespace
 		return studies_heap;
 	}
 
-	/*!
-		Возвращает кучу инстансев, разложенных в иерархию. Инстансы содержат только информацию для раскладывания их по иерархии.
-		Источники данных инстансев на выходе из функции закрыты для экономии памяти. Далее пользователь сам решает что с этим делать.
-	*/
+	//! \brief 	Возвращает кучу инстансов, разложенных по иерархическому дереву "patient-study-series-stack-acquisition".
+	//			Инстансы содержат только информацию, позволяющую определить принадлежность к определенной ветви этого дерева.
+	// 			Источники данных инстансов (dicom files) на выходе из функции закрыты для экономии памяти.
+	//			Пользователь может открывать и закрывать их по мере необходимости.
 	Dicom::patients_loader RawAnalyzeDicomSource(const Dicom::datasource_t &dicom_datasource,
 		//const Dicom::filter_t &filter,
 		const DicomInstanceFilters_t &filter_p,
@@ -277,11 +278,15 @@ namespace
 		switch (dicom_datasource.type())
 		{
 		case Dicom::datasource_t::folder:
-			return RawAnalyzeFolderSelector(dynamic_cast<const Dicom::datasource_folder&>(dicom_datasource), filter_p,
+			return RawAnalyzeFolderSelector(
+				dynamic_cast<const Dicom::datasource_folder&>(dicom_datasource), 
+				filter_p,
 				pproxy);
 
 		case Dicom::datasource_t::pacs:
-			return RawAnalyzePACS(dynamic_cast<const Dicom::datasource_pacs&>(dicom_datasource), filter_p,
+			return RawAnalyzePACS(
+				dynamic_cast<const Dicom::datasource_pacs&>(dicom_datasource),
+				filter_p,
 				pproxy);
 		}
 
@@ -304,8 +309,8 @@ namespace
 } // namespace
 
 
-Dicom::patients_loader GetDicomStudiesHeap(const Dicom::datasource_t &dicom_src,
-	//const Dicom::filter_t &filters,
+Dicom::patients_loader GetDicomStudiesHeap(
+	const Dicom::datasource_t &dicom_src,
 	const DicomInstanceFilters_t  &filters_p,
 	ProgressProxy progress_proxy)
 {
