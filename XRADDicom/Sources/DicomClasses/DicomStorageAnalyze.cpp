@@ -129,7 +129,6 @@ namespace
 		ProgressIndicatorScheduler	scheduler({ 5, 95 });
 		progress.start("Analyzing Dicom folder.", scheduler.n_steps());
 
-//		std::vector<wstring> filenames = GetDirectoryFilesComplete(src_folder.path(), /*src_folder.analyze_subfolders(), */progress.subprogress(scheduler.operation_boundaries(0)));
 		std::vector<wstring> filenames = GetDirectoryFiles(src_folder.path(), L" ", src_folder.analyze_subfolders(), progress.subprogress(scheduler.operation_boundaries(0)));
 
 
@@ -166,7 +165,8 @@ namespace
 		return studies_heap;
 	}
 
-	Dicom::patients_loader RawAnalyzeFolderIndexing(const Dicom::datasource_folder &src_folder,
+	Dicom::patients_loader RawAnalyzeFolderIndexing(
+		const Dicom::datasource_folder &src_folder,
 		const DicomInstanceFilters_t &filter_p,//TODO этот фильтр уже давно здесь дает предупреждение, пора и разобраться с ним
 		ProgressProxy pproxy)
 	{
@@ -231,9 +231,9 @@ namespace
 		switch (src_folder.mode())
 		{
 			default:
-			case decltype(src_folder.mode())::Index:
+			case decltype(src_folder.mode())::read_and_update_index:
 				return RawAnalyzeFolderIndexing(src_folder, filter_p, pproxy);
-			case decltype(src_folder.mode())::NoIndex:
+			case decltype(src_folder.mode())::no_index:
 				return RawAnalyzeFolder(src_folder, filter_p, pproxy);
 		}
 	}

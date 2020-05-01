@@ -77,21 +77,23 @@ namespace Dicom
 	class datasource_folder : public datasource_t
 	{
 	public:
-		enum class Mode
+		enum class mode_t
 		{
-			//! \brief Использовать индексирование каталогов (чтение и запись)
-			Index,
+			//! \brief Использовать ранее построенные индексы каталогов. Данные сверяются с индексом по датам изменения файлов и по их размеру.
+			read_and_update_index,
+			//! \brief Использовать ранее построенные индексы каталогов. Данные сверяются с индексом по датам изменения файлов и по их размеру.
+			read_index_as_is,
 			//! \brief Не использовать индексирование каталогов
-			NoIndex,
+			no_index,
 
-			Default = Index
+			default_mode = read_and_update_index
 		};
 	public:
 		datasource_folder() = delete;
 		datasource_folder(const wstring &folder_path, bool analyze_subfolders_in)
 			:m_path(folder_path), m_analyze_subfolders(analyze_subfolders_in)
 		{}
-		datasource_folder(const wstring &folder_path, bool analyze_subfolders_in, Mode mode)
+		datasource_folder(const wstring &folder_path, bool analyze_subfolders_in, mode_t mode)
 			:m_path(folder_path), m_analyze_subfolders(analyze_subfolders_in), m_mode(mode)
 		{}
 		virtual ~datasource_folder() override {}
@@ -109,12 +111,12 @@ namespace Dicom
 
 		wstring path() const { return m_path; }
 		bool analyze_subfolders() const { return m_analyze_subfolders; }
-		Mode mode() const { return m_mode; }
+		mode_t mode() const { return m_mode; }
 
 	private:
 		wstring m_path;
 		bool m_analyze_subfolders;
-		Mode m_mode = Mode::Default;
+		mode_t m_mode = mode_t::default_mode;
 	};
 
 	class datasource_pacs : public datasource_t, public pacs_params_t
