@@ -103,15 +103,18 @@ bool DicomCatalogIndex::operator==(const DicomCatalogIndex & a) const
 
 }
 
-void DicomCatalogIndex::CatalogIndexing(const wstring& root_path, ProgressProxy pp)
+//	CatalogIndexing->PerformCatalogIndexing
+//	Предлагаю в имена функций всегда включать глагол, выражающий суть выполняемых действий. КНС
+
+void DicomCatalogIndex::PerformCatalogIndexing(const wstring& root_path, ProgressProxy pp)
 {
-	//this->clear();
+	TimeProfiler	tp1, tp2, tp3;
 	if (m_b_show_info)
 	{
 		printf("%s : root_path \n", convert_to_string(root_path).c_str());
 		fflush(stdout);
 	}
-	auto start_time = std::chrono::high_resolution_clock::now();
+	tp1.Start();
 
 	RandomProgressBar	progress(pp);
 	ProgressIndicatorScheduler	scheduler({ 15, 5, 80 });
@@ -121,38 +124,34 @@ void DicomCatalogIndex::CatalogIndexing(const wstring& root_path, ProgressProxy 
 		L"", true,
 		progress.subprogress(scheduler.operation_boundaries(0)));
 
-	auto end_time_1 = std::chrono::high_resolution_clock::now();
+
+	tp2.Start();
 	// заполнить для каждого файла информацию о размере файла и дате создания из структур fileinfo
 	fill_from_fileinfo(
 		root_path, 
 		file_info_vector,
 		progress.subprogress(scheduler.operation_boundaries(1)));
+	tp2.Stop();
 
-	auto end_time_2 = std::chrono::high_resolution_clock::now();
+	// проверить актуальность информации из json файлов и сохранить json файлы только обновлённых директорий
+	
+	tp3.Start();
+	check_actuality_and_update(progress.subprogress(scheduler.operation_boundaries(2)));
+	tp3.Stop();
 
 	// Это костыль. Нужно сделать корректный механизм перевода из chrono в physical_time
 	auto	chrono_sec = [](const auto &t)->double{return 1.e-9*t.count();};
-
 	if (m_b_show_info)
 	{
 		printf("%s : root_path \n", convert_to_string(root_path).c_str());
-		printf("1) %g s: file list \n2) %g s: fill_from_fileinfo  %zu: number of files  %zu: number of directories \n",
-			chrono_sec(end_time_1 - start_time), 
-			chrono_sec(end_time_2 - end_time_1),
+		printf("1) %g sec: file list \n2) %g s: fill_from_fileinfo  %zu: number of files  %zu: number of directories \n",
+			tp1.LastElapsed().sec(),
+			tp2.LastElapsed().sec(),
 			file_info_vector.files.size(),
 			file_info_vector.directories.size());
-		fflush(stdout);
-	}
-
-	// проверить актуальность информации из json файлов и сохранить json файлы только обновлённых
-	// директорий
-	check_actuality_and_update(progress.subprogress(scheduler.operation_boundaries(2)));
-
-	if (m_b_show_info)
-	{
-		auto end_time_3 = std::chrono::high_resolution_clock::now();
-		printf("3) %g s: check_actuality_and_update \n%zu: number of files \n ",
-			chrono_sec(end_time_3 - end_time_2), file_info_vector.files.size());
+		printf("3) %g sec: check_actuality_and_update \n%zu: number of files \n ",
+			tp3.LastElapsed().sec(),
+			file_info_vector.files.size());
 		fflush(stdout);
 	}
 }
@@ -167,13 +166,16 @@ void DicomCatalogIndex::check_actuality_and_update(ProgressProxy pp)
 	// для каждой директории с файлами
 	for (auto& current_dir_index : m_data)
 	{
-		check_actuality_json(current_dir_index);
-		if (current_dir_index.get_isneed_indexing()) // если индексация нужна
+		if(m_check_consistency)
 		{
-			current_dir_index.update();
-			// заполнять полную информацию о файлах с диска и сохранить её в json файл
-			save_to_jsons(current_dir_index, JsonType::type_1);
-			save_to_jsons(current_dir_index, JsonType::type_2);
+			check_actuality_json(current_dir_index);
+			if(current_dir_index.get_isneed_indexing()) // если индексация нужна
+			{
+				current_dir_index.update();
+				// заполнять полную информацию о файлах с диска и сохранить её в json файл
+				save_to_jsons(current_dir_index, JsonType::type_1);
+				save_to_jsons(current_dir_index, JsonType::type_2);
+			}
 		}
 		++progress;
 	}

@@ -9,7 +9,7 @@
 
 	Класс DicomCatalogIndex  предназначен для обработки всех поддиректорий некоторого каталога.
 */
-
+#include <XRADBasic/Sources/Utils/TimeProfiler.h>
 #include "DicomDirectoryIndex.h"
 #include "DicomDirectoryIndexJson.h"
 
@@ -23,10 +23,12 @@ class DicomCatalogIndex
 {
 	private:
 		/// требуется ли вывод вспомогательной информации в stdout
-		const bool		m_b_show_info;
+		const bool	m_b_show_info;
+		const bool	m_check_consistency;
+		const bool	m_update;
 	public:
 
-		DicomCatalogIndex(bool show_info) : m_b_show_info(show_info)
+		DicomCatalogIndex(bool show_info, bool check_consistency, bool update) : m_b_show_info(show_info), m_check_consistency(check_consistency), m_update(update)
 		{
 		}
 
@@ -70,7 +72,7 @@ class DicomCatalogIndex
 		/// 4) сгенерировать json файлы для оставшихся файлов
 		/// \param root_path [in] путь к анализируемому каталогу
 		/// \param show_info [in] выводить вспомогательную информацию
-		void CatalogIndexing(const wstring& root_path, ProgressProxy pp = VoidProgressProxy());
+		void PerformCatalogIndexing(const wstring& root_path, ProgressProxy pp = VoidProgressProxy());
 
 		vector<DicomDirectoryIndex> &data() { return m_data; }
 };

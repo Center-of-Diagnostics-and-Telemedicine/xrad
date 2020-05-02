@@ -176,9 +176,13 @@ namespace
 		progress.start(L"Analyzing Dicom folder.", scheduler.n_steps());
 
 		// индексировать все файлы в каталоге src_folder.path()
-		bool b_show_stdout = false;
-		Dicom::DicomCatalogIndex dicom_catalog_index(b_show_stdout);
-		dicom_catalog_index.CatalogIndexing(src_folder.path(), progress.subprogress(scheduler.operation_boundaries(0)));
+		
+		bool b_show_stdout = true;//temporary
+//		bool b_show_stdout = false;
+		bool b_check_consistency = true;
+		bool b_update = true;
+		Dicom::DicomCatalogIndex dicom_catalog_index(b_show_stdout, b_check_consistency, b_update);
+		dicom_catalog_index.PerformCatalogIndexing(src_folder.path(), progress.subprogress(scheduler.operation_boundaries(0)));
 
 		ProgressBar progress_b(progress.subprogress(scheduler.operation_boundaries(1)));
 		progress_b.start(L"Fill instances.", 10000);
