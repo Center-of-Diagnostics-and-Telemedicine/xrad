@@ -111,13 +111,13 @@ bool DicomCatalogIndex::operator==(const DicomCatalogIndex & a) const
 
 void DicomCatalogIndex::PerformCatalogIndexing(const wstring& root_path, ProgressProxy pp)
 {
-	TimeProfiler	tp1, tp2, tp3;
+	TimeProfiler	scan_catalog_tp, fill_from_fileinfo_tp, check_actuality_tp;
 	if (m_b_show_info)
 	{
 		printf("%s : root_path \n", convert_to_string(root_path).c_str());
 		fflush(stdout);
 	}
-	tp1.Start();
+	scan_catalog_tp.Start();
 
 	RandomProgressBar	progress(pp);
 	ProgressIndicatorScheduler	scheduler({ 15, 5, 80 });
@@ -126,34 +126,37 @@ void DicomCatalogIndex::PerformCatalogIndexing(const wstring& root_path, Progres
 		root_path,
 		L"", true,
 		progress.subprogress(scheduler.operation_boundaries(0)));
+	scan_catalog_tp.Stop();
 
 
-	tp2.Start();
+	fill_from_fileinfo_tp.Start();
 	// заполнить для каждого файла информацию о размере файла и дате создания из структур fileinfo
 	fill_from_fileinfo(
 		root_path, 
 		file_info_vector,
 		progress.subprogress(scheduler.operation_boundaries(1)));
-	tp2.Stop();
+	fill_from_fileinfo_tp.Stop();
 
 	// проверить актуальность информации из json файлов и сохранить json файлы только обновлённых директорий
 	
-	tp3.Start();
+	check_actuality_tp.Start();
 	check_actuality_and_update(progress.subprogress(scheduler.operation_boundaries(2)));
-	tp3.Stop();
+	check_actuality_tp.Stop();
 
 	// Это костыль. Нужно сделать корректный механизм перевода из chrono в physical_time
 	auto	chrono_sec = [](const auto &t)->double{return 1.e-9*t.count();};
 	if (m_b_show_info)
 	{
 		printf("%s : root_path \n", convert_to_string(root_path).c_str());
-		printf("1) %g sec: file list \n2) %g s: fill_from_fileinfo  %zu: number of files  %zu: number of directories \n",
-			tp1.LastElapsed().sec(),
-			tp2.LastElapsed().sec(),
+		printf("1) %g sec: file list\n", scan_catalog_tp.LastElapsed().sec());
+
+		printf("2) %g s: fill_from_fileinfo  %zu: number of files  %zu: number of directories \n",
+			fill_from_fileinfo_tp.LastElapsed().sec(),
 			file_info_vector.files.size(),
 			file_info_vector.directories.size());
+
 		printf("3) %g sec: check_actuality_and_update \n%zu: number of files \n ",
-			tp3.LastElapsed().sec(),
+			check_actuality_tp.LastElapsed().sec(),
 			file_info_vector.files.size());
 		fflush(stdout);
 	}
