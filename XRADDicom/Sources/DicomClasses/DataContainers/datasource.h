@@ -81,7 +81,7 @@ namespace Dicom
 		{
 			//! \brief Использовать ранее построенные индексы каталогов. Данные сверяются с индексом по датам изменения файлов и по их размеру.
 			read_and_update_index,
-			//! \brief Использовать ранее построенные индексы каталогов. Данные сверяются с индексом по датам изменения файлов и по их размеру.
+			//! \brief Использовать ранее построенные индексы каталогов. Данные используются "как есть", без перепроверки.
 			read_index_as_is,
 			//! \brief Не использовать индексирование каталогов
 			no_index,
@@ -90,24 +90,14 @@ namespace Dicom
 		};
 	public:
 		datasource_folder() = delete;
-		datasource_folder(const wstring &folder_path, bool analyze_subfolders_in)
-			:m_path(folder_path), m_analyze_subfolders(analyze_subfolders_in)
-		{}
-		datasource_folder(const wstring &folder_path, bool analyze_subfolders_in, mode_t mode)
-			:m_path(folder_path), m_analyze_subfolders(analyze_subfolders_in), m_mode(mode)
-		{}
+		datasource_folder(const wstring &folder_path, bool analyze_subfolders_in);
+		datasource_folder(const wstring &folder_path, bool analyze_subfolders_in, mode_t mode);
 		virtual ~datasource_folder() override {}
 
 		virtual e_datasource type() const override { return folder; }
 
-		virtual datasource_t* clone() const override
-		{
-			return new datasource_folder(*this);
-		}
-		virtual wstring print() const override
-		{
-			return m_path;
-		}
+		virtual datasource_t* clone() const override;
+		virtual wstring print() const override {return m_path;}
 
 		wstring path() const { return m_path; }
 		bool analyze_subfolders() const { return m_analyze_subfolders; }
@@ -123,20 +113,18 @@ namespace Dicom
 	{
 	public:
 		datasource_pacs() = delete;
-		datasource_pacs(const wstring &address_pacs_p, size_t port_pacs_p, const wstring &AETitle_pacs_p, const wstring &AETitle_local_p/*note Kovbas: use XRAD_SCU by default*/, size_t port_local_p/*note Kovbas: use 104 by default*/, e_request_t request_type_p)
-			:pacs_params_t(address_pacs_p, port_pacs_p, AETitle_pacs_p, AETitle_local_p, port_local_p, request_type_p)
-		{}
-		virtual ~datasource_pacs() override {}
+		datasource_pacs(const wstring &address_pacs_p, 
+						size_t port_pacs_p, 
+						const wstring &AETitle_pacs_p, 
+						const wstring &AETitle_local_p, //note Kovbas: use XRAD_SCU by default
+						size_t port_local_p,			// note Kovbas: use 104 by default
+						e_request_t request_type_p);
+
+		virtual ~datasource_pacs() {}
 
 		virtual e_datasource type() const override { return pacs; }
-		virtual datasource_pacs* clone() const override
-		{
-			return new datasource_pacs(*this);
-		}
-		virtual wstring print() const override
-		{
-			return pacs_params_t::print();
-		}
+		virtual datasource_pacs* clone() const override { return new datasource_pacs(*this); }
+		virtual wstring print() const override { return pacs_params_t::print(); }
 	};
 
 	class datasource_file : public datasource_t, public xrad::filesystem::file_info

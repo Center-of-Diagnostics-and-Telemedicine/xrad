@@ -326,7 +326,8 @@ Dicom::patients_loader GetDicomStudiesHeap(
 
 	if (studies_heap.empty()) return studies_heap; // дайкомов не обнаружено, уходим
 
-	// Здесь делается предварительная обработка acquisition: сортировка, удаление дубликатов и пустых элементов studies_heap
+	// Здесь делается предварительная обработка acquisition:
+	// сортировка instances внутри acquisition, удаление дубликатов и пустых элементов studies_heap на всех уровнях
 	Dicom::PatientsProcessorRecursive<Dicom::patients_loader>	processor(make_shared<AcquisitionPrepare>());
 	processor.Apply(studies_heap, progress.subprogress(0.5, 1));
 
