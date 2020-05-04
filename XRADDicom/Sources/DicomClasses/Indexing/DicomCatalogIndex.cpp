@@ -29,7 +29,7 @@ namespace Dicom
 namespace
 {
 //! \brief Максимальное число индексируемых файлов
-const size_t IndexFileCountMax = 1000000;
+//const size_t IndexFileCountMax = 1000000;
 } // namespace
 
 namespace
@@ -66,8 +66,11 @@ void DicomCatalogIndex::fill_from_fileinfo(const wstring &path,
 		DicomDirectoryIndex current_dir_info;
 		if (current_dir_info.fill_from_fileinfo(dir_data.first, *dir_data.second))
 		{
-			if (file_count + current_dir_info.m_FilesIndex.size() > IndexFileCountMax)
-				break;
+			// Ограничение "не более миллиона файлов в каталоге" выглядит надуманным. Попробую пока отменить, позже обсудить с АБЕ и ВПН
+			// Вкратце соображения: если превышение _действительно_ опасно, нужно бросать исключение с внятным текстом.
+			// Иначе -- миллион или два, в чем принципиальная разница, если память вмещает? А если нет, получим out_of_memory из соответствующего места.
+			// if (file_count + current_dir_info.m_FilesIndex.size() > IndexFileCountMax)
+			//		break;
 			m_data.push_back(std::move(current_dir_info));  // после функции move объект current_dir_info уже не хранит информации
 			file_count += current_dir_info.m_FilesIndex.size();
 		}
