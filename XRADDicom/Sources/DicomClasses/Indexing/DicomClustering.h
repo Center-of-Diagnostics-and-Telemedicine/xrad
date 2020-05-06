@@ -20,9 +20,9 @@ using json = nlohmann::json;
 	// вернуть список уникальных директорий
 	vector<wstring>	get_unique_paths(const vector<wstring>& vector_paths);
 
-	bool save_json(const json& json_to_save, wstring report_dst);
+	bool save_json(const json& json_to_save, const wstring &filename);
 
-	bool load_json(json& json_loaded, const wstring& json_fname);
+	bool load_json(json& json_loaded, const wstring &filename);
 
 	// flatten json to result string
 	void json_flatten_string(const vector<string>& reference_string,
