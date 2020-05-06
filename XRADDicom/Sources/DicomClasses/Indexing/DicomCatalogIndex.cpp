@@ -132,19 +132,17 @@ void DicomCatalogIndex::PerformCatalogIndexing(const wstring& root_path, Progres
 	fill_from_fileinfo_tp.Start();
 	// заполнить для каждого файла информацию о размере файла и дате создания из структур fileinfo
 	fill_from_fileinfo(
-		root_path, 
+		root_path,
 		file_info_vector,
 		progress.subprogress(scheduler.operation_boundaries(1)));
 	fill_from_fileinfo_tp.Stop();
 
 	// проверить актуальность информации из json файлов и сохранить json файлы только обновлённых директорий
-	
+
 	check_actuality_tp.Start();
 	check_actuality_and_update(progress.subprogress(scheduler.operation_boundaries(2)));
 	check_actuality_tp.Stop();
 
-	// Это костыль. Нужно сделать корректный механизм перевода из chrono в physical_time
-	auto	chrono_sec = [](const auto &t)->double{return 1.e-9*t.count();};
 	if (m_b_show_info)
 	{
 		printf("%s : root_path \n", convert_to_string(root_path).c_str());
