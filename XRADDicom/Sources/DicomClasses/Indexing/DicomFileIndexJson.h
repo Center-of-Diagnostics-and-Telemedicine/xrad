@@ -20,9 +20,6 @@ namespace Dicom
 	/// универсальная функция для двух типов json объектов
 	bool from_json_get_file_index(DicomFileIndex& dcmFileIndex, const json& json_file_tag, const int json_type);
 
-	/// из json объекта type1 сформировать DicomFileIndex объект
-	bool from_json_type1_inner_block(DicomFileIndex& dcmFileIndex, const json& json_file_tag);
-
 	/// из json объекта сгенерировать DicomFileIndex объект
 	bool from_json_type2(DicomFileIndex& dcmFileIndex, const json& json_file_tag);
 

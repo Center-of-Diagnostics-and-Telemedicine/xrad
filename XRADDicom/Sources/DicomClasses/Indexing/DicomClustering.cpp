@@ -173,7 +173,21 @@ namespace Dicom
 			return false;							// если тэг не найден
 		if (!find_tag->is_string())
 			return false;							// если тип тэга не string
-		str_tag_value = (*find_tag);
+		str_tag_value = *find_tag;
+		return true;
+	}
+
+	bool json_get_tag_value(const json & json_obj, const string & str_tag_discr, uint64_t & tag_value)
+	{
+		auto find_tag = json_obj.find(str_tag_discr);
+		if (find_tag == json_obj.end())
+			return false;							// если тэг не найден
+		if (!find_tag->is_number_unsigned())
+			return false;							// если тип тэга не unsigned
+		static_assert(numeric_limits<json::number_unsigned_t>::max() == numeric_limits<uint64_t>::max(),
+				"JSON unsigned number type is too wide."); // На самом деле в этом случае нужно просто
+				// контролировать диапазон.
+		tag_value = *find_tag;
 		return true;
 	}
 

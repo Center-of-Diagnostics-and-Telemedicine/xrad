@@ -39,6 +39,8 @@ using json = nlohmann::json;
 	// проверяется, что это значение имеет тип string
 	bool json_get_tag_value(const json& json_obj, const string & str_tag_discr, string & str_tag_value);
 
+	bool json_get_tag_value(const json & json_obj, const string & str_tag_discr, uint64_t & tag_value);
+
 }  // end namespace Dicom
 
 XRAD_END

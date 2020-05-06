@@ -72,18 +72,18 @@ bool DicomDirectoryIndex::fill_from_fileinfo(const wstring &path,
 	m_path = path;
 	for (auto el : file_infos)
 	{
-		if (!may_be_dicom_filename(el.filename))
-			continue;
-		if (el.filename == wstring(j_name()) + L"1." + j_extension())
+		if (el.filename == index_filename_type1())
 		{
 			m_filename_json_1 = el.filename;
 			continue;
 		}
-		if (el.filename == wstring(j_name()) + L"2." + j_extension())
+		if (el.filename == index_filename_type2())
 		{
 			m_filename_json_2 = el.filename;
 			continue;
 		}
+		if (!may_be_dicom_filename(el.filename))
+			continue;
 
 		DicomFileIndex current_file_tags;
 		if (current_file_tags.fill_from_fileinfo(el))
