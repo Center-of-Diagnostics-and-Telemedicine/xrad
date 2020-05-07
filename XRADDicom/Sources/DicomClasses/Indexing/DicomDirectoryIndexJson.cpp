@@ -5,10 +5,10 @@
 #include "DicomCatalogIndex.h"
 #include "DicomFileIndexJson.h"
 
-#include <XRADDicom/Sources/DicomClasses/instances/ct_slice.h>
-#include <XRADDicom/Sources/DicomClasses/instances/xray_image.h>
-#include <XRADDicom/Sources/DicomClasses/instances/mr_slice.h>
-#include <XRADDicom/Sources/DicomClasses/instances/mr_slice_siemens.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/ct_slice.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/xray_image.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/mr_slice.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/mr_slice_siemens.h>
 
 #include <XRADDicom/XRADDicom.h>
 
@@ -249,12 +249,12 @@ wstring save_to_jsons(const DicomDirectoryIndex& dcmDirectoryIndex, JsonType jso
 		case JsonType::type_1:
 			dir_info_to_json_type1(dcmDirectoryIndex, json_to_save);
 			wstr_json_fname = dcmDirectoryIndex.get_path() + wpath_separator() +
-					j_name() + L"1." + j_extension();
+					index_filename_type1();
 			break;
 		case JsonType::type_2:
 			dir_info_to_json_type2(dcmDirectoryIndex, json_to_save);
 			wstr_json_fname = dcmDirectoryIndex.get_path() + wpath_separator() +
-					j_name() + L"2." + j_extension();
+					index_filename_type2();
 			break;
 		default:
 			return wstr_json_fname;

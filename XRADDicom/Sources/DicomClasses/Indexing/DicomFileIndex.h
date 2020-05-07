@@ -77,12 +77,9 @@ enum class DicomSource
 		/// map ImageType -> bool
 		map<ImageType, bool>				m_dicom_image_type;
 
-		/// вектор строк, хранящий 3 строки:  filename, size in file, modify time
-		vector<string>						m_FileNameSizeTime;
-
-		/// описание полей в m_FileNameSizeTime =  "filename", L"size in file",  L"creation time"
-		/// переменная является статической, так как одинакова для всех экземпляров класса
-		static vector<wstring>				m_FileNameSizeTimeDiscr;
+		string m_filename;
+		uint64_t m_file_size;
+		string m_file_mtime;
 
 		/// требуется ли индексация, если true - то индексация требуется
 		bool								m_bNeedIndexing;
@@ -99,8 +96,14 @@ enum class DicomSource
 		/// имеет какой-либо тип Dicom Image Type
 		bool has_image_type() const;
 
-		/// получить строку "имя файла" из вектора m_FileNameSizeTimeDiscr
-		string get_file_name() const;
+		/// получить строку имя файла
+		string get_file_name() const { return m_filename; }
+
+		/// получить размер файла (m_file_size)
+		uint64_t get_file_size() const { return m_file_size; }
+
+		/// получить время модификации файла (m_file_mtime)
+		string get_file_mtime() const { return m_file_mtime; }
 
 		/// заполнить поля DicomFileTagsValue и DicomFileTags для заданного файла
 		/// todo: собирать диагностическую информацию о процессе заполнения для обработки её в классе DicomDirectoryIndex
@@ -127,20 +130,9 @@ enum class DicomSource
 		/// из списка тэгов файла сгенерировать строку с краткой информацией
 		wstring get_summary_info_string() const;
 
-		/// получить значение i-ое m_FileNameSizeTime
-		string get_dicom_namesizetime_value(size_t i) const;
-
-		/// получить значение i-ое m_FileNameSizeTimeDiscr
-		wstring get_dicom_namesizetime_discr(size_t i) const;
-
-		/// установить значение i-ое m_FileNameSizeTime
-		void set_dicom_namesizetime_value(size_t i, const string& str_value);
-
-		/// длина вектора m_FileNameSizeTimeDiscr
-		size_t  get_dicom_namesizetime_length() const
-		{
-			return m_FileNameSizeTimeDiscr.size();
-		}
+		void set_dicom_filename(const string &filename) { m_filename = filename; }
+		void set_dicom_file_size(uint64_t file_size) { m_file_size = file_size; }
+		void set_dicom_file_mtime(const string &file_mtime) { m_file_mtime = file_mtime; }
 
 		/// получить значение m_bNeedIndexing, необходимость в индексации
 		/// \return требуется ли индексация
@@ -185,12 +177,6 @@ enum class DicomSource
 
 	};
 
-
-	/// получить размер файла в байтах и времени создания файла в байтах
-	/// \param filename [in] полное имя файла
-	/// \param  str_size [out] размер файла в байтах
-	/// \param  str_date [out] дата последней записи в файл
-	bool GetFileSizeAndModifyTime(const string& filename, string& str_size, string& str_date);
 
 } //namespace Dicom
 

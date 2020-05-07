@@ -260,6 +260,9 @@ TransformerSet<complexF64, phasor_value_type>	FTCT_F64(&fft_phasors);
 
 //--------------------------------------------------------------
 
+template class Transformer<complexF32, phasor_value_type>;
+template class Transformer<complexF64, phasor_value_type>;
+
 template class TransformerSet<complexF32, phasor_value_type>;
 template class TransformerSet<complexF64, phasor_value_type>;
 

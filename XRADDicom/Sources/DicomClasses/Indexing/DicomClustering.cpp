@@ -173,7 +173,21 @@ namespace Dicom
 			return false;							// если тэг не найден
 		if (!find_tag->is_string())
 			return false;							// если тип тэга не string
-		str_tag_value = (*find_tag);
+		str_tag_value = *find_tag;
+		return true;
+	}
+
+	bool json_get_tag_value(const json & json_obj, const string & str_tag_discr, uint64_t & tag_value)
+	{
+		auto find_tag = json_obj.find(str_tag_discr);
+		if (find_tag == json_obj.end())
+			return false;							// если тэг не найден
+		if (!find_tag->is_number_unsigned())
+			return false;							// если тип тэга не unsigned
+		static_assert(numeric_limits<json::number_unsigned_t>::max() == numeric_limits<uint64_t>::max(),
+				"JSON unsigned number type is too wide."); // На самом деле в этом случае нужно просто
+				// контролировать диапазон.
+		tag_value = *find_tag;
 		return true;
 	}
 
@@ -213,16 +227,15 @@ namespace Dicom
 
 	\return false в случае неуспешного завершения
 	*/
-	bool save_json(const json &json_to_save, wstring report_dst)
+	bool save_json(const json &json_to_save, const wstring &filename)
 	{
-#if 1
-		// TODO: Unicode, GetPathNativeFromGeneric
-		// сохранить json файл
 		ofstream	out_file;
+		constexpr ios_base::openmode mode = ios_base::out | ios_base::binary;
+		wstring native_filename = GetPathNativeFromGeneric(filename);
 #ifdef XRAD_COMPILER_MSC
-		out_file.open(report_dst);
+		out_file.open(native_filename, mode);
 #else
-		out_file.open(convert_to_string(report_dst));
+		out_file.open(convert_to_string(native_filename), mode);
 #endif
 
 		if (!out_file.is_open())
@@ -232,10 +245,6 @@ namespace Dicom
 		out_file.width(1);			// параметр потока должен быть установлен, чтобы вывод форматировался с отступами
 		out_file.fill('\t');		// отступы табуляцией
 		out_file << json_to_save << endl;
-#else // 0
-		//utf8_ofstream out_file(report_dst);
-		//out_file << convert_to_wstring(json_to_save.dump(4));
-#endif
 		out_file.close();
 
 		return true;
@@ -249,14 +258,15 @@ namespace Dicom
 
 	\return false в случае неуспешного завершения
 	*/
-	bool	 load_json(json& json_loaded, const wstring& json_fname)
+	bool load_json(json& json_loaded, const wstring &filename)
 	{
-		// TODO: Unicode, GetPathNativeFromGeneric
 		ifstream in_file;
+		constexpr ios_base::openmode mode = ios_base::in | ios_base::binary;
+		wstring native_filename = GetPathNativeFromGeneric(filename);
 #ifdef XRAD_COMPILER_MSC
-		in_file.open(json_fname);
+		in_file.open(native_filename, mode);
 #else
-		in_file.open(convert_to_string(json_fname));
+		in_file.open(convert_to_string(native_filename), mode);
 #endif
 		if (!in_file.is_open())
 			return false;  // empty json

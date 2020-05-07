@@ -89,7 +89,7 @@ set(Project_Sources_h
 	Sources/DicomClasses/Indexing/DicomFileIndexJson.h
 	Sources/DicomClasses/Instances/CreateInstance.h
 	Sources/DicomClasses/Instances/ct_slice.h
-	Sources/DicomClasses/Instances/Image.h
+	Sources/DicomClasses/Instances/image.h
 	Sources/DicomClasses/Instances/instance.h
 	Sources/DicomClasses/Instances/instance_cache.h
 	Sources/DicomClasses/Instances/LoadGenericClasses.h

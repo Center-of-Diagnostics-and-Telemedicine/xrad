@@ -16,11 +16,11 @@ XRAD_BEGIN
 namespace Dicom
 {
 
-//! \brief Расширение для json файла
-inline const wchar_t *j_extension() { return L"jcatalog"; }
+//! \brief Имя json файла (тип 1)
+inline const wchar_t *index_filename_type1() { return L".v1-xrad-dicom-cat"; }
 
-//! \brief Имя для json файла
-inline const wchar_t *j_name() { return L"type"; }
+//! \brief Имя json файла (тип 2)
+inline const wchar_t *index_filename_type2() { return L".v2-xrad-dicom-cat"; }
 
 /*!
 \brief класс для обработки и хранения инф-ции о dicom файлах в одной директории

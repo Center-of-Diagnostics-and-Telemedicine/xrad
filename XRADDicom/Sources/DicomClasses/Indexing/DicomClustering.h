@@ -20,9 +20,9 @@ using json = nlohmann::json;
 	// вернуть список уникальных директорий
 	vector<wstring>	get_unique_paths(const vector<wstring>& vector_paths);
 
-	bool save_json(const json& json_to_save, wstring report_dst);
+	bool save_json(const json& json_to_save, const wstring &filename);
 
-	bool load_json(json& json_loaded, const wstring& json_fname);
+	bool load_json(json& json_loaded, const wstring &filename);
 
 	// flatten json to result string
 	void json_flatten_string(const vector<string>& reference_string,
@@ -38,6 +38,8 @@ using json = nlohmann::json;
 	// получить из json объекта значение тэга str_tag_discr, скопировать его в str_tag_value
 	// проверяется, что это значение имеет тип string
 	bool json_get_tag_value(const json& json_obj, const string & str_tag_discr, string & str_tag_value);
+
+	bool json_get_tag_value(const json & json_obj, const string & str_tag_discr, uint64_t & tag_value);
 
 }  // end namespace Dicom
 

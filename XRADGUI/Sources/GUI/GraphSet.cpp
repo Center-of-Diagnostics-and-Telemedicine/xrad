@@ -1,6 +1,6 @@
 ﻿#include "pre.h"
 #include "GraphSet.h"
-#include <XRADGUIApi.h>
+#include <XRADGUIAPI.h>
 
 XRAD_BEGIN
 

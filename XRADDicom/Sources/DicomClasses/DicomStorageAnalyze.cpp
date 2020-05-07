@@ -203,6 +203,7 @@ namespace
 			}
 			el_dir.clear(); // очистить занимаемую память для обработанной директории с индексами
 		}
+		progress_b.end();
 
 		Dicom::patients_loader studies_heap_cpy;
 #ifdef XRAD_DEBUG

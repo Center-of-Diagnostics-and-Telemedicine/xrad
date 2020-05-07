@@ -197,8 +197,21 @@ void ProgressBar::QuitClicked(void)
 	emit request_ResumeWorkThread();
 }
 
+namespace
+{
+void ReportBackwardProgress()
+{
+	// Функция для точки останова в отладчике.
+	// Движение прогресса назад в общем случае не запрещено.
+}
+} // namespace
+
 void ProgressBar::SetPosition(double position)
 {
+	if (position < current_value)
+	{
+		ReportBackwardProgress();
+	}
 	current_value = position;
 }
 
