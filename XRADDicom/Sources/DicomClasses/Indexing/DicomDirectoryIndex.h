@@ -38,7 +38,7 @@ class DicomDirectoryIndex
 		wstring		m_filename_json_2;
 
 		/// требуется ли индексация, если true - то индексация требуется
-		bool		m_bNeedIndexing = true;
+		bool		m_b_indexing_needed = true;
 
 	public:
 		/// вектор инф-ции об отдельных файлах
@@ -49,7 +49,7 @@ class DicomDirectoryIndex
 		bool	fill_from_fileinfo(const wstring &path, const vector<FileInfo>& file_infos);
 
 		/// проверка равенства двух DicomDirectoryIndex объектов
-		bool	is_equal(const DicomDirectoryIndex& a) const;
+		bool	operator == (const DicomDirectoryIndex& a) const;
 
 		/// получить путь к директории m_path
 		/// \return путь к директории
@@ -79,21 +79,21 @@ class DicomDirectoryIndex
 			}
 		}
 
-		/// получить значение m_bNeedIndexing, необходимость в индексации
+		/// получить значение m_b_indexing_needed, необходимость в индексации
 		/// \return требуется ли индексация
 		bool	get_isneed_indexing() const
 		{
-			return m_bNeedIndexing;
+			return m_b_indexing_needed;
 		}
 
-		/// установить значение m_bNeedIndexing
+		/// установить значение m_b_indexing_needed
 		/// \param b_value [in] установить флаг необходимости индексации
 		void	set_need_indexing(bool b_value)
 		{
-			m_bNeedIndexing = b_value;
+			m_b_indexing_needed = b_value;
 		}
 
-		/// обновить информацию для элементов с m_bNeedIndexing == true
+		/// обновить информацию для элементов с m_b_indexing_needed == true
 		void	update();
 
 		/// добавить структуру dcmFileIndex в контейнер директории

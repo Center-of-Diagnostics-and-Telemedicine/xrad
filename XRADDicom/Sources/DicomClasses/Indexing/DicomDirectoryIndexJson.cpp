@@ -285,9 +285,9 @@ bool test_write_load_json(DicomDirectoryIndex& dcmDirectoryIndex)
 	if (!load_parse_json(dir_index_from_json2, wstr_json_fname2)) // если проблемы чтения json файла
 		return false;
 
-	bool is_equal01 = dcmDirectoryIndex.is_equal(dir_index_from_json1);
-	bool is_equal02 = dcmDirectoryIndex.is_equal(dir_index_from_json2);
-	bool is_equal12 = dir_index_from_json1.is_equal(dir_index_from_json2);
+	bool is_equal01 = dcmDirectoryIndex == dir_index_from_json1;
+	bool is_equal02 = dcmDirectoryIndex == dir_index_from_json2;
+	bool is_equal12 = dir_index_from_json1 == dir_index_from_json2;
 	bool res = is_equal01 && is_equal02 && is_equal12;
 	//if (!res)
 	//	ShowText(L"1", ssprintf("writeload res = %d\n file %s", res, convert_to_string(wstr_json_fname1).c_str()));

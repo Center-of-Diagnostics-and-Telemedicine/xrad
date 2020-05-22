@@ -60,19 +60,12 @@ void DicomCatalogIndex::fill_from_fileinfo(const wstring &path,
 	ProgressBar	progress1(progress.subprogress(0.5, 1));
 	progress1.start("", all_dirs.size());
 
-//	size_t file_count = 0;
 	for (auto &dir_data: all_dirs)
 	{
-		DicomDirectoryIndex current_dir_info;
-		if (current_dir_info.fill_from_fileinfo(dir_data.first, *dir_data.second))
+		DicomDirectoryIndex current_directory_info;
+		if (current_directory_info.fill_from_fileinfo(dir_data.first, *dir_data.second))
 		{
-			// Ограничение "не более миллиона файлов в каталоге" выглядит надуманным. Попробую пока отменить, позже обсудить с АБЕ и ВПН
-			// Вкратце соображения: если превышение _действительно_ опасно, нужно бросать исключение с внятным текстом.
-			// Иначе -- миллион или два, в чем принципиальная разница, если память вмещает? А если нет, получим out_of_memory из соответствующего места.
-			// if (file_count + current_dir_info.m_FilesIndex.size() > IndexFileCountMax)
-			//		break;
-			m_data.push_back(std::move(current_dir_info));  // после функции move объект current_dir_info уже не хранит информации
-//			file_count += current_dir_info.m_FilesIndex.size();
+			m_data.push_back(std::move(current_directory_info));  // после функции move объект current_directory_info уже не хранит информации
 		}
 		++progress1;
 	}
@@ -93,7 +86,7 @@ bool DicomCatalogIndex::operator==(const DicomCatalogIndex & a) const
 		bool is_equal_find = false;
 		for (const auto& el2 : a.m_data)
 		{
-			if (el1.is_equal(el2))
+			if (el1 == el2)
 			{
 				is_equal_find = true;
 				break;

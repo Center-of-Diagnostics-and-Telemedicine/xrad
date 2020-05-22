@@ -23,7 +23,7 @@ XRAD_BEGIN
 namespace Dicom
 {
 
-bool DicomDirectoryIndex::is_equal(const DicomDirectoryIndex& a) const
+bool DicomDirectoryIndex::operator==(const DicomDirectoryIndex& a) const
 {
 	for (const auto& el1 : m_FilesIndex)
 	{
