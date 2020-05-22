@@ -75,21 +75,19 @@ bool DicomDirectoryIndex::fill_from_fileinfo(const wstring &path,
 		if (el.filename == index_filename_type1())
 		{
 			m_filename_json_1 = el.filename;
-			continue;
 		}
-		if (el.filename == index_filename_type2())
+		else if (el.filename == index_filename_type2())
 		{
 			m_filename_json_2 = el.filename;
-			continue;
 		}
-		if (!may_be_dicom_filename(el.filename))
-			continue;
-
-		DicomFileIndex current_file_tags;
-		if (current_file_tags.fill_from_fileinfo(el))
+		else if (may_be_dicom_filename(el.filename))
 		{
-			m_FilesIndex.push_back(std::move(current_file_tags));
-			// после функции move объект current_file_tags уже не хранит информации
+			DicomFileIndex current_file_tags;
+			if(current_file_tags.fill_from_fileinfo(el))
+			{
+				m_FilesIndex.push_back(std::move(current_file_tags));
+				// после функции move объект current_file_tags уже не хранит информации
+			}
 		}
 	}
 	return m_FilesIndex.size() || !m_filename_json_1.empty() || !m_filename_json_2.empty();
