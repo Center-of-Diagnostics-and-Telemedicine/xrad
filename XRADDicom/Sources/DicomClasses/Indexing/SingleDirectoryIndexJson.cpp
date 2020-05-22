@@ -1,5 +1,5 @@
 ﻿#include "pre.h"
-#include "DicomDirectoryIndexJson.h"
+#include "SingleDirectoryIndexJson.h"
 
 #include "DicomClustering.h"
 #include "DicomCatalogIndex.h"
@@ -46,7 +46,7 @@ static const map<string, string> map_header_json_type2 =
 };
 
 // из списка тэгов для каждого файла сгенерировать json файл type1 (sample1.json)
-void dir_info_to_json_type1(const DicomDirectoryIndex& dcmDirectoryIndex, json& json_type1)
+void dir_info_to_json_type1(const SingleDirectoryIndex& dcmDirectoryIndex, json& json_type1)
 {
 	// выделить уникальные исследования по 5-ти первым тэгам
 	vector<wstring> list_tags;
@@ -104,7 +104,7 @@ void dir_info_to_json_type1(const DicomDirectoryIndex& dcmDirectoryIndex, json& 
 
 
 // из списка тэгов для каждого файла сгенерировать json файл type2 (sample2.json)
-void dir_info_to_json_type2(const DicomDirectoryIndex& dcmDirectoryIndex, json& json_type2)
+void dir_info_to_json_type2(const SingleDirectoryIndex& dcmDirectoryIndex, json& json_type2)
 {
 	if (!dcmDirectoryIndex.m_FilesIndex.size())
 		return;
@@ -136,7 +136,7 @@ void dir_info_to_json_type2(const DicomDirectoryIndex& dcmDirectoryIndex, json& 
 
 
 // загрузить json файл с деревом исследований Dicom файлов type 1
-bool load_json_type1_tree(DicomDirectoryIndex& dcmDirectoryIndex, json& json_dicom_files)
+bool load_json_type1_tree(SingleDirectoryIndex& dcmDirectoryIndex, json& json_dicom_files)
 {
 	if (json_dicom_files.is_null())   // проверить, есть ли информация в json объекте
 		return false;
@@ -180,8 +180,8 @@ bool load_json_type1_tree(DicomDirectoryIndex& dcmDirectoryIndex, json& json_dic
 	return true;
 }
 
-// загрузить json файл, содержащий информацию об файлах, в структуру DicomDirectoryIndex& dcmDirectoryIndex
-bool	 load_parse_json(DicomDirectoryIndex& dcmDirectoryIndex, const wstring& json_fname)
+// загрузить json файл, содержащий информацию об файлах, в структуру SingleDirectoryIndex& dcmDirectoryIndex
+bool	 load_parse_json(SingleDirectoryIndex& dcmDirectoryIndex, const wstring& json_fname)
 {
 	json json_from_file;
 	if (!load_json(json_from_file, json_fname))
@@ -234,7 +234,7 @@ bool	 load_parse_json(DicomDirectoryIndex& dcmDirectoryIndex, const wstring& jso
 
 
 // записать json файл,
-wstring save_to_jsons(const DicomDirectoryIndex& dcmDirectoryIndex, JsonType json_type)
+wstring save_to_jsons(const SingleDirectoryIndex& dcmDirectoryIndex, JsonType json_type)
 {
 
 	// для каждого уникального кластера (директории с dicom файлами) сформировать json объект
@@ -270,17 +270,17 @@ wstring save_to_jsons(const DicomDirectoryIndex& dcmDirectoryIndex, JsonType jso
 
 
 // проверить адекватность записи/чтения инф-ции в/из json файлов в двух форматах
-bool test_write_load_json(DicomDirectoryIndex& dcmDirectoryIndex)
+bool test_write_load_json(SingleDirectoryIndex& dcmDirectoryIndex)
 {
 	// если некуда писать и откуда читать
 	if (dcmDirectoryIndex.get_path().size() == 0)
 		return true;
 
-	DicomDirectoryIndex dir_index_from_json1;
+	SingleDirectoryIndex dir_index_from_json1;
 	wstring wstr_json_fname1 = save_to_jsons(dcmDirectoryIndex, JsonType::type_1);
 	if (!load_parse_json(dir_index_from_json1, wstr_json_fname1)) // если проблемы чтения json файла
 		return false;
-	DicomDirectoryIndex dir_index_from_json2;
+	SingleDirectoryIndex dir_index_from_json2;
 	wstring wstr_json_fname2 = save_to_jsons(dcmDirectoryIndex, JsonType::type_2);
 	if (!load_parse_json(dir_index_from_json2, wstr_json_fname2)) // если проблемы чтения json файла
 		return false;
@@ -296,9 +296,9 @@ bool test_write_load_json(DicomDirectoryIndex& dcmDirectoryIndex)
 }
 
 
-// проверить актуальность инф-ции быстрого сканирования в DicomDirectoryIndex и информации из json файла m_filename_json
+// проверить актуальность инф-ции быстрого сканирования в SingleDirectoryIndex и информации из json файла m_filename_json
 // на совпадание имена, размер, время создания
-void check_index_actuality(DicomDirectoryIndex& dcmDirectoryIndex)
+void check_index_actuality(SingleDirectoryIndex& dcmDirectoryIndex)
 {
 	const wstring& json_name = dcmDirectoryIndex.get_path_json_2();
 	// если json файл пуст (отсутствует)
@@ -308,7 +308,7 @@ void check_index_actuality(DicomDirectoryIndex& dcmDirectoryIndex)
 		return;
 	}
 
-	DicomDirectoryIndex loaded_index;
+	SingleDirectoryIndex loaded_index;
 	if (!load_parse_json(loaded_index, json_name)) // если проблемы чтения json файла
 	{
 		dcmDirectoryIndex.set_need_indexing(true);

@@ -3,12 +3,12 @@
 	\date 2019/09/26 14:00
 	\author novik
 
-	\brief 	Имплементация функционала DicomDirectoryIndex - структуры для работы с файлами в одной директории
+	\brief 	Имплементация функционала SingleDirectoryIndex - структуры для работы с файлами в одной директории
 
 	Функции работы с json файлом вынесены в файл DicomDirectoryIndexJson.cpp
 */
 #include "pre.h"
-#include "DicomDirectoryIndex.h"
+#include "SingleDirectoryIndex.h"
 
 #include <XRADDicom/XRADDicom.h>
 #include <XRADDicom/Sources/DicomClasses/Instances/ct_slice.h>
@@ -23,7 +23,7 @@ XRAD_BEGIN
 namespace Dicom
 {
 
-bool DicomDirectoryIndex::operator==(const DicomDirectoryIndex& a) const
+bool SingleDirectoryIndex::operator==(const SingleDirectoryIndex& a) const
 {
 	for (const auto& el1 : m_FilesIndex)
 	{
@@ -42,12 +42,12 @@ bool DicomDirectoryIndex::operator==(const DicomDirectoryIndex& a) const
 	return true;
 }
 
-void	DicomDirectoryIndex::add_file_index(const DicomFileIndex& dcmFileIndex)
+void	SingleDirectoryIndex::add_file_index(const DicomFileIndex& dcmFileIndex)
 {
 	m_FilesIndex.push_back(dcmFileIndex);
 }
 
-void DicomDirectoryIndex::update()
+void SingleDirectoryIndex::update()
 {
 	for (auto& el : m_FilesIndex)
 	{
@@ -66,7 +66,7 @@ void DicomDirectoryIndex::update()
 	m_FilesIndex.erase(remove_if(m_FilesIndex.begin(), m_FilesIndex.end(), predicate), m_FilesIndex.end());
 }
 
-bool DicomDirectoryIndex::fill_from_fileinfo(const wstring &path,
+bool SingleDirectoryIndex::fill_from_fileinfo(const wstring &path,
 		const vector<FileInfo>& file_infos)
 {
 	m_path = path;

@@ -4,9 +4,9 @@
 	\file
 	\date 2019/10/21 10:00
 	\author novik
-	\brief  объявление функций и полей класса DicomDirectoryIndex
+	\brief  объявление функций и полей класса SingleDirectoryIndex
 
-	Класс DicomDirectoryIndex  предназначен для обработки файлов в одной директории.
+	Класс SingleDirectoryIndex  предназначен для обработки файлов в одной директории.
 */
 
 #include "DicomFileIndex.h"
@@ -25,7 +25,10 @@ inline const wchar_t *index_filename_type2() { return L".v2-xrad-dicom-cat"; }
 /*!
 \brief класс для обработки и хранения инф-ции о dicom файлах в одной директории
 */
-class DicomDirectoryIndex
+
+//NB	Прежнее название DicomDirectoryIndex создавало путаницу: рядом находится класс DicomCatalogIndex,
+//		содержащий принципиально другую информацию, но по названию синонимичный этому (catalog=directory)
+class SingleDirectoryIndex
 {
 	private:
 		/// путь к директории с файлами
@@ -48,8 +51,8 @@ class DicomDirectoryIndex
 		//! \param path [in] Абсолютный путь к директории с файлами file_infos
 		bool	fill_from_fileinfo(const wstring &path, const vector<FileInfo>& file_infos);
 
-		/// проверка равенства двух DicomDirectoryIndex объектов
-		bool	operator == (const DicomDirectoryIndex& a) const;
+		/// проверка равенства двух SingleDirectoryIndex объектов
+		bool	operator == (const SingleDirectoryIndex& a) const;
 
 		/// получить путь к директории m_path
 		/// \return путь к директории

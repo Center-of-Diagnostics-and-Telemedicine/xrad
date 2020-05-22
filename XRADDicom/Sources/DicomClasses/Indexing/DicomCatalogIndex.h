@@ -10,8 +10,8 @@
 	Класс DicomCatalogIndex  предназначен для обработки всех поддиректорий некоторого каталога.
 */
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>
-#include "DicomDirectoryIndex.h"
-#include "DicomDirectoryIndexJson.h"
+#include "SingleDirectoryIndex.h"
+#include "SingleDirectoryIndexJson.h"
 
 XRAD_BEGIN
 
@@ -34,7 +34,7 @@ class DicomCatalogIndex
 
 	private:
 		/// вектор информации о директориях
-		vector<DicomDirectoryIndex>		m_data;
+		vector<SingleDirectoryIndex>		m_data;
 
 	private:
 		/*!
@@ -74,7 +74,7 @@ class DicomCatalogIndex
 		/// \param show_info [in] выводить вспомогательную информацию
 		void PerformCatalogIndexing(const wstring& root_path, ProgressProxy pp = VoidProgressProxy());
 
-		vector<DicomDirectoryIndex> &data() { return m_data; }
+		vector<SingleDirectoryIndex> &data() { return m_data; }
 };
 
 

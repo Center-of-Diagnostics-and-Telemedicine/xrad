@@ -3,8 +3,8 @@
 
 #include "DicomClustering.h"
 #include "DicomCatalogIndex.h"
-#include "DicomDirectoryIndex.h"
-#include "DicomDirectoryIndexJson.h"
+#include "SingleDirectoryIndex.h"
+#include "SingleDirectoryIndexJson.h"
 
 
 /// define TEST_JSON для тестирования работы индексатора
@@ -62,7 +62,7 @@ void DicomCatalogIndex::fill_from_fileinfo(const wstring &path,
 
 	for (auto &dir_data: all_dirs)
 	{
-		DicomDirectoryIndex current_directory_info;
+		SingleDirectoryIndex current_directory_info;
 		if (current_directory_info.fill_from_fileinfo(dir_data.first, *dir_data.second))
 		{
 			m_data.push_back(std::move(current_directory_info));  // после функции move объект current_directory_info уже не хранит информации
