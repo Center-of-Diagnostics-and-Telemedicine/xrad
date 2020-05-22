@@ -38,7 +38,8 @@ const size_t NFIELDS_TYPE_1 = 5;
 
 //! An enum: признак принадлежности информации к Dicom файлу и определяет источник информации.
 /*! More detailed enum description. */
-enum class DicomSource
+//	класс назывался DicomSource. Переименован, т.к. путается с Dicom::source
+enum class file_info_source
 {
 	/*!<файл не найден, проверяется функцией, возвращающей размер файла (-1)  */
 	file_not_exist = 0,
@@ -98,10 +99,10 @@ enum class DicomSource
 		wstring m_file_mtime;
 
 		/// требуется ли индексация, если true - то индексация требуется
-		bool								m_bNeedIndexing;
+		bool								m_b_indexing_needed;
 
-		/// признак DicomSource
-		DicomSource							m_DicomSource;
+		/// признак file_info_source
+		file_info_source							m_DicomSource;
 
 	public:
 		DicomFileIndex();
@@ -155,22 +156,16 @@ enum class DicomSource
 		/// из списка тэгов файла сгенерировать строку с краткой информацией
 		wstring get_summary_info_string() const;
 
-		void set_dicom_filename(const wstring &filename) { m_filename = filename; }
-		void set_dicom_file_size(uint64_t file_size) { m_file_size = file_size; }
-		void set_dicom_file_mtime(const wstring &file_mtime) { m_file_mtime = file_mtime; }
+		void set_filename(const wstring &filename) { m_filename = filename; }
+		void set_file_size(uint64_t file_size) { m_file_size = file_size; }
+		void set_file_mtime(const wstring &file_mtime) { m_file_mtime = file_mtime; }
 
-		/// получить значение m_bNeedIndexing, необходимость в индексации
+		/// получить значение m_b_indexing_needed, необходимость в индексации
 		/// \return требуется ли индексация
-		bool	get_isneed_indexing() const
-		{
-			return m_bNeedIndexing;
-		}
+		bool	indexing_needed() const {return m_b_indexing_needed;}
 
 		/// установить значение m_bNeedIndexing
-		void	set_indexing_needed(bool b_value)
-		{
-			m_bNeedIndexing = b_value;
-		}
+		void	set_indexing_needed(bool b_value) {m_b_indexing_needed = b_value;}
 
 
 
@@ -185,7 +180,7 @@ enum class DicomSource
 		};
 		void set_dicom_tags_value(size_t i, const wstring& wstr_value);	///< установить значение m_dicom_tags_value.at(m_dicom_tags[i])
 		void set_dicom_tags_description(size_t i, const string& str_value);		///< установить значение m_dicom_tags_disciption(m_dicom_tags[i])
-		void set_dicomsource_type(DicomSource dicome_type);					///< установить значение DicomSource
+		void set_dicomsource_type(file_info_source dicome_type);					///< установить значение DicomSource
 		void set_dicom_image_type(ImageType image_type, bool b_value);	///< установить значение m_dicom_image_type[image_type] = b_value
 		vector<string> get_image_type_vector() const;					///< получить вектор ненулевых map_imagetype_disc
 		//! @}

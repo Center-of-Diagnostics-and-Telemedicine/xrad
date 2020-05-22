@@ -53,18 +53,18 @@ namespace Dicom
 		XRAD_ASSERT_THROW(json_type == index_file_type::hierarchical || json_type == index_file_type::raw)		// проверить допустимые значения json_type
 
 		DicomFileIndex result;
-		result.set_dicomsource_type(DicomSource::no_information);
+		result.set_dicomsource_type(file_info_source::no_information);
 		size_t n_fields = 3;  // 2 дополнительных поля "tags" и "image_type"
 
 		XRAD_ASSERT_THROW(json_file_tag.size() >= n_fields)   //  число полей меньше минимального (3) - выйти
 
 		// считать обязятельные поля FileNameSizeTimeDiscr
-		result.set_dicom_filename(json_get_tag_string(json_file_tag, u8"filename"));
+		result.set_filename(json_get_tag_string(json_file_tag, u8"filename"));
 		uint64_t fi_file_size = json_get_tag_uint(json_file_tag, u8"size");
-		result.set_dicom_file_size(fi_file_size);
-		result.set_dicom_file_mtime(json_get_tag_string(json_file_tag, u8"time_write"));
+		result.set_file_size(fi_file_size);
+		result.set_file_mtime(json_get_tag_string(json_file_tag, u8"time_write"));
 
-		result.set_dicomsource_type(DicomSource::non_dicom_from_json);	// на данном этапе заполнена информация об общих тэгах
+		result.set_dicomsource_type(file_info_source::non_dicom_from_json);	// на данном этапе заполнена информация об общих тэгах
 
 		auto find_tags = json_file_tag.find("tags");
 		if (find_tags == json_file_tag.end())   // если поле "tags" не найдено
@@ -109,7 +109,7 @@ namespace Dicom
 				}
 			}
 		}
-		result.set_dicomsource_type(DicomSource::dicom_from_json);
+		result.set_dicomsource_type(file_info_source::dicom_from_json);
 
 		return result;
 	}
@@ -223,7 +223,7 @@ namespace Dicom
 	DicomFileIndex from_json_type2(const json& json_file_tag)
 	{
 		DicomFileIndex result;
-		result.set_dicomsource_type(DicomSource::no_information);
+		result.set_dicomsource_type(file_info_source::no_information);
 		size_t n_fields_non_dicom = 3;
 		size_t n_fields_generic_dicom = 4;
 		size_t n_fields_image = 3;
@@ -232,13 +232,13 @@ namespace Dicom
 
 		// считать поля FileNameSizeTimeDiscr
 		
-		result.set_dicom_filename(json_get_tag_string(json_file_tag, u8"filename"));
-		result.set_dicom_file_size(json_get_tag_uint(json_file_tag, u8"size"));
-		result.set_dicom_file_mtime(json_get_tag_string(json_file_tag, u8"time_write"));
+		result.set_filename(json_get_tag_string(json_file_tag, u8"filename"));
+		result.set_file_size(json_get_tag_uint(json_file_tag, u8"size"));
+		result.set_file_mtime(json_get_tag_string(json_file_tag, u8"time_write"));
 
 		if (json_file_tag.size() == n_fields_non_dicom)
 		{
-			result.set_dicomsource_type(DicomSource::non_dicom_from_json);
+			result.set_dicomsource_type(file_info_source::non_dicom_from_json);
 			return result;
 		}
 
@@ -281,7 +281,7 @@ namespace Dicom
 			}
 		}
 
-		result.set_dicomsource_type(DicomSource::dicom_from_json);
+		result.set_dicomsource_type(file_info_source::dicom_from_json);
 		return result;
 	}
 

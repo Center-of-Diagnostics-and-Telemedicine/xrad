@@ -131,8 +131,8 @@ static const map<ImageType, string> imagetype_description_fixed =
 /// так как они статические - это делается единственный раз при создании первого экзкмпляра класса
 DicomFileIndex::DicomFileIndex()
 {
-	m_DicomSource = DicomSource::no_information;
-	m_bNeedIndexing = true;
+	m_DicomSource = file_info_source::no_information;
+	m_b_indexing_needed = true;
 
 	if (m_dicom_tags_description.size() != get_dicom_tags_length()) // если описание тэгов ещё не заполнено
 	{
@@ -158,7 +158,7 @@ DicomFileIndex::DicomFileIndex()
 //  содержит ли Dicom тэги
 bool DicomFileIndex::is_dicom() const
 {
-	return (m_DicomSource == DicomSource::dicom_from_json || m_DicomSource == DicomSource::dicom_from_file);
+	return (m_DicomSource == file_info_source::dicom_from_json || m_DicomSource == file_info_source::dicom_from_file);
 }
 
 
@@ -215,10 +215,10 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 	wstring full_filename = path + wpath_separator() + name;
 	if (!fill_name_size_time(full_filename, name))
 	{
-		m_DicomSource = DicomSource::file_not_exist;
+		m_DicomSource = file_info_source::file_not_exist;
 		return false;
 	}
-	m_DicomSource = DicomSource::non_dicom_from_file;
+	m_DicomSource = file_info_source::non_dicom_from_file;
 
 	try
 	{
@@ -246,7 +246,7 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 	}
 	catch (std::runtime_error &) // при неустойчивой работе сети не можем считать файлы
 	{
-		m_DicomSource = DicomSource::exeption_loading;
+		m_DicomSource = file_info_source::exeption_loading;
 		return false;
 	}
 	//catch (std::bad_alloc) {
@@ -265,7 +265,7 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 			m_dicom_image_type[ImageType::image] = true;
 	}
 
-	m_DicomSource = DicomSource::dicom_from_file;
+	m_DicomSource = file_info_source::dicom_from_file;
 
 	return true;
 }
@@ -372,8 +372,8 @@ void DicomFileIndex::set_dicom_tags_description(size_t i, const string& str_valu
 }
 
 
-// установить значение DicomSource
-void DicomFileIndex::set_dicomsource_type(DicomSource dicome_type)
+// установить значение file_info_source
+void DicomFileIndex::set_dicomsource_type(file_info_source dicome_type)
 {
 	m_DicomSource = dicome_type;
 }

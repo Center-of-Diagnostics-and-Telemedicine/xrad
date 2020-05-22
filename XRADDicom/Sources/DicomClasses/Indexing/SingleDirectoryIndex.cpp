@@ -51,7 +51,7 @@ void SingleDirectoryIndex::update()
 {
 	for (auto& el : m_FilesIndex)
 	{
-		if (!el.get_isneed_indexing())
+		if (!el.indexing_needed())
 			continue;
 		DicomFileIndex current_file_tags;
 		if (current_file_tags.fill_filetags_from_file(get_path(),
@@ -62,7 +62,7 @@ void SingleDirectoryIndex::update()
 		}
 	}
 	// удалить индексаторы о файлах, по которым не удалось обновить информацию
-	auto predicate = [](const DicomFileIndex &v) { return v.get_isneed_indexing(); };
+	auto predicate = [](const DicomFileIndex &v) { return v.indexing_needed(); };
 	m_FilesIndex.erase(remove_if(m_FilesIndex.begin(), m_FilesIndex.end(), predicate), m_FilesIndex.end());
 }
 
