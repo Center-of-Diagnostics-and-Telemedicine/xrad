@@ -19,19 +19,18 @@ namespace Dicom
 using json = nlohmann::json;
 
 /// загрузить json файл, предполагаем наш формат
-bool	load_parse_json(SingleDirectoryIndex& dcmDirectoryIndex, const wstring &json_fname);
+//bool	load_parse_json(SingleDirectoryIndex& dcmDirectoryIndex, const wstring &json_fname);
+SingleDirectoryIndex load_parse_json(const wstring& json_fname);
+
 
 /// загрузить json файл с деревом исследованием Dicom файлов
-bool	load_json_type1_tree(SingleDirectoryIndex& dcmDirectoryIndex, json& json_dicom_files);
+//bool	load_json_type1_tree(SingleDirectoryIndex& dcmDirectoryIndex, json& json_dicom_files);
+SingleDirectoryIndex	load_json_type1_tree(json& json_dicom_files);
 
-enum class JsonType
-{
-	type_1 = 1,
-	type_2 = 2
-};
+
 
 /// записать json файл, вернуть имя json файла
-wstring	save_to_jsons(const SingleDirectoryIndex& dcmDirectoryIndex, JsonType json_type);
+wstring	save_to_jsons(const SingleDirectoryIndex& dcmDirectoryIndex, index_file_type json_type);
 
 /// проверить адекватность записи/чтения инф-ции в/из json файлов в двух форматах
 bool	test_write_load_json(SingleDirectoryIndex& dcmDirectoryIndex);

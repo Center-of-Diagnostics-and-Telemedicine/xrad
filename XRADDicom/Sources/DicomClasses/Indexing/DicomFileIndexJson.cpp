@@ -24,7 +24,7 @@ XRAD_BEGIN
 namespace Dicom
 {
 
-	static const map<ImageType, string> map_imagetype_disc =
+	static const map<ImageType, string> imagetype_description_class =
 	{
 		{ ImageType::image, typeid(Dicom::image).name() },
 		{ ImageType::tomogram_slice, typeid(Dicom::tomogram_slice).name() },
@@ -35,7 +35,7 @@ namespace Dicom
 	};
 
 
-	static const map<ImageType, string> map_imagetype_fix_disc =
+	static const map<ImageType, string> imagetype_description_fixed =
 	{
 		{ ImageType::image, "image" },
 		{ ImageType::tomogram_slice, "tomogram_slice" },
@@ -48,51 +48,40 @@ namespace Dicom
 
 
 	// из json файла заданного типа сформировать DicomFileIndex объект
-	bool from_json_get_file_index(DicomFileIndex& dcmFileIndex, const json& json_file_tag, const int json_type)
+	DicomFileIndex  from_json_get_file_index(const json& json_file_tag, index_file_type json_type)
 	{
-		if (json_type != 1 && json_type != 2)		// проверить допустимые значения json_type
-			return false;
+		XRAD_ASSERT_THROW(json_type == index_file_type::hierarchical || json_type == index_file_type::raw)		// проверить допустимые значения json_type
 
-		dcmFileIndex.set_dicomsource_type(DicomSource::no_information);
+		DicomFileIndex result;
+		result.set_dicomsource_type(DicomSource::no_information);
 		size_t n_fields = 3;  // 2 дополнительных поля "tags" и "image_type"
 
-		if (json_file_tag.size() < n_fields )   //  число полей меньше минимального (3) - выйти
-			return false;
+		XRAD_ASSERT_THROW(json_file_tag.size() >= n_fields)   //  число полей меньше минимального (3) - выйти
 
 		// считать обязятельные поля FileNameSizeTimeDiscr
-		string fi_filename;
-		if (!json_get_tag_value(json_file_tag, u8"filename", fi_filename))
-			return false;
-		dcmFileIndex.set_dicom_filename(string8_to_string(fi_filename));
-		uint64_t fi_file_size = 0;
-		if (!json_get_tag_value(json_file_tag, u8"size", fi_file_size))
-			return false;
-		dcmFileIndex.set_dicom_file_size(fi_file_size);
-		string fi_file_mtime;
-		if (!json_get_tag_value(json_file_tag, u8"time_write", fi_file_mtime))
-			return false;
-		dcmFileIndex.set_dicom_file_mtime(string8_to_string(fi_file_mtime));
+		result.set_dicom_filename(json_get_tag_string(json_file_tag, u8"filename"));
+		uint64_t fi_file_size = json_get_tag_uint(json_file_tag, u8"size");
+		result.set_dicom_file_size(fi_file_size);
+		result.set_dicom_file_mtime(json_get_tag_string(json_file_tag, u8"time_write"));
 
-		dcmFileIndex.set_dicomsource_type(DicomSource::not_dicom_from_json);	// на данном этапе заполнена информация об общих тэгах
+		result.set_dicomsource_type(DicomSource::non_dicom_from_json);	// на данном этапе заполнена информация об общих тэгах
 
 		auto find_tags = json_file_tag.find("tags");
 		if (find_tags == json_file_tag.end())   // если поле "tags" не найдено
 		{
-			return true;		//  если dicom эгов нет - больше ничего не заполняем
+			return result;		//  если dicom тэгов нет - больше ничего не заполняем. Видимо, это для индексов типа 1
 		}
 
 
 		const json& json_tag_info = json_file_tag.at("tags");
 
 		// считаваем Dicom тэги
-		size_t start_pos = NFIELDS_TYPE_1 * (json_type == 1);								// для type1 начинаем заполнять с позиции NFIELDS_TYPE_1
-		for (size_t i = start_pos; i < dcmFileIndex.get_dicom_tags_length(); i++)			// получаем все dicom тэги (кроме полученных ранее из древовидной структуры для type1 )
+		size_t start_pos = NFIELDS_TYPE_1 * (json_type == index_file_type::hierarchical);		// для type1 начинаем заполнять с позиции NFIELDS_TYPE_1
+		for (size_t i = start_pos; i < result.get_dicom_tags_length(); i++)			// получаем все dicom тэги (кроме полученных ранее из древовидной структуры для type1 )
 		{
-			string str_tag_discr = dcmFileIndex.get_dicom_tags_discr(i);
-			string str_tag_value;
-			if (!json_get_tag_value(json_tag_info, str_tag_discr, str_tag_value))
-				return false;																// если обязательный dicom тэг отсутствует, выйти
-			dcmFileIndex.set_dicom_tags_value(i, convert_to_wstring(string8_to_string(str_tag_value)));
+			auto	label = result.get_dicom_tags_description(i);
+			auto	tag = json_get_tag_string(json_tag_info, label);
+			result.set_dicom_tags_value(i, tag);
 		}
 
 		// считываем с тэга "image_type" поля, описывающий типы изображений
@@ -105,23 +94,24 @@ namespace Dicom
 			{
 				for (size_t i = 0; i < json_image_type.size(); i++)					// для все тэгов
 				{
-					if (!json_image_type[i].is_string())
-						continue;															// если тип элемента array не "string", ничего не делать
-					const auto &str_image_type = json_image_type[i];
-					for (const auto &el : map_imagetype_fix_disc)
+					if (json_image_type[i].is_string()) 	// если тип элемента array не "string", ничего не делать
 					{
-						if (el.second == str_image_type)
+						const auto &str_image_type = json_image_type[i];
+						for(const auto &el : imagetype_description_fixed)
 						{
-							dcmFileIndex.set_dicom_image_type(el.first, true);
-							break;
+							if(el.second == str_image_type)
+							{
+								result.set_dicom_image_type(el.first, true);
+								break;
+							}
 						}
 					}
 				}
 			}
 		}
-		dcmFileIndex.set_dicomsource_type(DicomSource::yes_dicom_from_json);
+		result.set_dicomsource_type(DicomSource::dicom_from_json);
 
-		return true;
+		return result;
 	}
 
 
@@ -137,7 +127,7 @@ namespace Dicom
 			// записать индексы с [NFIELDS_TYPE_1 и до конца]
 			for (size_t i = NFIELDS_TYPE_1; i < dcmFileIndex.get_dicom_tags_length(); i++)
 			{
-				string str_tag_discr = dcmFileIndex.get_dicom_tags_discr(i);
+				string str_tag_discr = dcmFileIndex.get_dicom_tags_description(i);
 				json_tag_info[str_tag_discr] = convert_to_string8(dcmFileIndex.get_dicom_tags_value(i));
 			}
 			// записать dicom image типы
@@ -213,7 +203,7 @@ namespace Dicom
 			// записать dicom тэги
 			for (size_t i = 0; i < dcmFileIndex.get_dicom_tags_length(); i++)
 			{
-				string str_tag_discr = dcmFileIndex.get_dicom_tags_discr(i);
+				string str_tag_discr = dcmFileIndex.get_dicom_tags_description(i);
 				json_tag_info[str_tag_discr] = convert_to_string8(dcmFileIndex.get_dicom_tags_value(i));
 			}
 			// записать dicom image типы
@@ -230,49 +220,43 @@ namespace Dicom
 
 
 	// из json файла сформировать DicomFileIndex объект
-	bool from_json_type2(DicomFileIndex& dcmFileIndex, const json& json_file_tag)
+	DicomFileIndex from_json_type2(const json& json_file_tag)
 	{
-		dcmFileIndex.set_dicomsource_type(DicomSource::no_information);
-		size_t n_fields = 3;
+		DicomFileIndex result;
+		result.set_dicomsource_type(DicomSource::no_information);
+		size_t n_fields_non_dicom = 3;
+		size_t n_fields_generic_dicom = 4;
+		size_t n_fields_image = 3;
 		// const size_t TYPE2_N = 11;
-		if (json_file_tag.size() != n_fields && json_file_tag.size() != n_fields + 1 && json_file_tag.size() != n_fields + 2)   //  число полей не равно ожидаемому: 2 дополнительных поля
-			return false;
+		XRAD_ASSERT_THROW(json_file_tag.size() == n_fields_non_dicom || json_file_tag.size() == n_fields_generic_dicom || json_file_tag.size() == n_fields_image);   //  число полей не равно ожидаемому: 2 дополнительных поля
 
 		// считать поля FileNameSizeTimeDiscr
-		string fi_filename;
-		if (!json_get_tag_value(json_file_tag, u8"filename", fi_filename))
-			return false;
-		dcmFileIndex.set_dicom_filename(string8_to_string(fi_filename));
-		uint64_t fi_file_size = 0;
-		if (!json_get_tag_value(json_file_tag, u8"size", fi_file_size))
-			return false;
-		dcmFileIndex.set_dicom_file_size(fi_file_size);
-		string fi_file_mtime;
-		if (!json_get_tag_value(json_file_tag, u8"time_write", fi_file_mtime))
-			return false;
-		dcmFileIndex.set_dicom_file_mtime(string8_to_string(fi_file_mtime));
+		
+		result.set_dicom_filename(json_get_tag_string(json_file_tag, u8"filename"));
+		result.set_dicom_file_size(json_get_tag_uint(json_file_tag, u8"size"));
+		result.set_dicom_file_mtime(json_get_tag_string(json_file_tag, u8"time_write"));
 
-		if (json_file_tag.size() == n_fields)
+		if (json_file_tag.size() == n_fields_non_dicom)
 		{
-			dcmFileIndex.set_dicomsource_type(DicomSource::not_dicom_from_json);
-			return true;
+			result.set_dicomsource_type(DicomSource::non_dicom_from_json);
+			return result;
 		}
 
 		// считываем с поля "tags" поля, описывающий dicom файл
-		if (json_file_tag.find("tags") == json_file_tag.end())  // если поле "tags" не найдено - выйти
-			return false;
+		XRAD_ASSERT_THROW(json_file_tag.find("tags") != json_file_tag.end());  // если поле "tags" не найдено - выйти
+
 		const json   &json_tag_info = json_file_tag["tags"];
 
 		// пытаемся считать Dicom тэги
-		if (json_tag_info.size() == dcmFileIndex.get_dicom_tags_length())					// проверяем число полей
+		if (json_tag_info.size() == result.get_dicom_tags_length())					// проверяем число полей
 		{
-			for (size_t i = 0; i < dcmFileIndex.get_dicom_tags_length(); i++)				// для все тэгов
+			for (size_t i = 0; i < result.get_dicom_tags_length(); i++)				// для все тэгов
 			{
-				string str_tag_discr = dcmFileIndex.get_dicom_tags_discr(i);
-				if (json_tag_info.find(str_tag_discr) == json_tag_info.end())
-					return false;
+				string str_tag_discr = result.get_dicom_tags_description(i);
+				XRAD_ASSERT_THROW(json_tag_info.find(str_tag_discr) != json_tag_info.end());
+
 				string str_tag_value = json_tag_info[str_tag_discr];
-				dcmFileIndex.set_dicom_tags_value(i, convert_to_wstring(string8_to_string(str_tag_value)));
+				result.set_dicom_tags_value(i, string8_to_wstring(str_tag_value));
 			}
 		}
 
@@ -288,17 +272,17 @@ namespace Dicom
 				for (size_t i = 0; i < json_image_type.size(); i++)				// для всех тэгов
 				{
 					auto &str_image_type = json_image_type[i];
-					for (auto &el : map_imagetype_fix_disc)
+					for (auto &el : imagetype_description_fixed)
 					{
 						if (el.second == str_image_type)
-							dcmFileIndex.set_dicom_image_type(el.first, true);
+							result.set_dicom_image_type(el.first, true);
 					}
 				}
 			}
 		}
 
-		dcmFileIndex.set_dicomsource_type(DicomSource::yes_dicom_from_json);
-		return true;
+		result.set_dicomsource_type(DicomSource::dicom_from_json);
+		return result;
 	}
 
 } // end namespace Dicom

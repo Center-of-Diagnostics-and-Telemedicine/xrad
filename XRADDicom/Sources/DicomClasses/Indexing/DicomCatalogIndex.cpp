@@ -62,8 +62,8 @@ void DicomCatalogIndex::fill_from_fileinfo(const wstring &path,
 
 	for (auto &dir_data: all_dirs)
 	{
-		SingleDirectoryIndex current_directory_info;
-		if (current_directory_info.fill_from_fileinfo(dir_data.first, *dir_data.second))
+		SingleDirectoryIndex current_directory_info(dir_data.first);
+		if (current_directory_info.fill_from_fileinfo(*dir_data.second))
 		{
 			m_data.push_back(std::move(current_directory_info));  // после функции move объект current_directory_info уже не хранит информации
 		}
@@ -166,12 +166,12 @@ void DicomCatalogIndex::check_actuality_and_update(ProgressProxy pp)
 		if(m_check_consistency)
 		{
 			check_index_actuality(current_dir_index);
-			if(current_dir_index.get_isneed_indexing() && m_update) // если индексация нужна
+			if(current_dir_index.indexing_needed() && m_update) // если индексация нужна
 			{
 				current_dir_index.update();
 				// заполнять полную информацию о файлах с диска и сохранить её в json файл
-				save_to_jsons(current_dir_index, JsonType::type_1);
-				save_to_jsons(current_dir_index, JsonType::type_2);
+				save_to_jsons(current_dir_index, index_file_type::hierarchical);
+				save_to_jsons(current_dir_index, index_file_type::raw);
 			}
 		}
 		++progress;

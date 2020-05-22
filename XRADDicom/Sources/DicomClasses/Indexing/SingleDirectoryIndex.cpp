@@ -58,7 +58,7 @@ void SingleDirectoryIndex::update()
 				convert_to_wstring(el.get_file_name())))
 		{
 			el = current_file_tags;			// обновили тэги
-			el.set_need_indexing(false);    // сняли метку необходимости индексации
+			el.set_indexing_needed(false);    // сняли метку необходимости индексации
 		}
 	}
 	// удалить индексаторы о файлах, по которым не удалось обновить информацию
@@ -66,10 +66,10 @@ void SingleDirectoryIndex::update()
 	m_FilesIndex.erase(remove_if(m_FilesIndex.begin(), m_FilesIndex.end(), predicate), m_FilesIndex.end());
 }
 
-bool SingleDirectoryIndex::fill_from_fileinfo(const wstring &path,
+bool SingleDirectoryIndex::fill_from_fileinfo(//const wstring &path,
 		const vector<FileInfo>& file_infos)
 {
-	m_path = path;
+//	m_path = path;
 	for (auto el : file_infos)
 	{
 		if (el.filename == index_filename_type1())
@@ -83,11 +83,9 @@ bool SingleDirectoryIndex::fill_from_fileinfo(const wstring &path,
 		else if (may_be_dicom_filename(el.filename))
 		{
 			DicomFileIndex current_file_tags;
-			if(current_file_tags.fill_from_fileinfo(el))
-			{
-				m_FilesIndex.push_back(std::move(current_file_tags));
+			current_file_tags.fill_from_fileinfo(el);
+			m_FilesIndex.push_back(std::move(current_file_tags));
 				// после функции move объект current_file_tags уже не хранит информации
-			}
 		}
 	}
 	return m_FilesIndex.size() || !m_filename_json_1.empty() || !m_filename_json_2.empty();

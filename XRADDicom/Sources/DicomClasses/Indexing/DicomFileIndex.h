@@ -17,7 +17,23 @@ XRAD_BEGIN
 namespace Dicom
 {
 
-/// число полей, включаемых в древовидную структуру json файла type 1
+//!	типы индексных файлов, связанные с полем "type" в json индексе
+//!	значения определяются словарем в cpp file.
+
+enum class index_file_type
+{
+	unknown = 0,
+	hierarchical = 1,
+	raw = 2
+};
+
+//! связь между словарем типов индекса и значениями index_file_type
+string	index_file_label(index_file_type ift);
+index_file_type interpret_index_file_type(string s);
+
+
+
+/// число полей, включаемых в древовидную структуру json файла index_file_type::hierarchical
 const size_t NFIELDS_TYPE_1 = 5;
 
 //! An enum: признак принадлежности информации к Dicom файлу и определяет источник информации.
@@ -31,13 +47,13 @@ enum class DicomSource
 	/*!<не известно Dicom это файл или нет  */
 	no_information,
 	/*!<не Dicom файл, информация считывалась с json файла  */
-	not_dicom_from_json,
+	non_dicom_from_json,
 	/*!<Dicom файл, информация считывалась с json файла  */
-	yes_dicom_from_json,
+	dicom_from_json,
 	/*!<не Dicom файл, информация считывалась с диска  */
-	not_dicom_from_file,
+	non_dicom_from_file,
 	/*!<Dicom файл, информация считывалась с диска  */
-	yes_dicom_from_file,
+	dicom_from_file,
 };
 
 	/// An enum: тип Dicom файла (CreateInstance), в данном случае тип "Image" несёт расширенный смысл, характеризующий Dicom файлы
@@ -65,11 +81,11 @@ enum class DicomSource
 
 		/// map ID -> discription, краткое описание каждого ID тэга
 		/// переменная является статической, так как одинакова для всех экземпляров класса
-		static map<Dicom::tag_e, std::string>	m_dicom_tags_discription;
+		static map<Dicom::tag_e, std::string>	m_dicom_tags_description;
 
 		/// map discription -> ID, ID для каждого краткого описания
 		/// переменная является статической, так как одинакова для всех экземпляров класса
-		static map<std::string, Dicom::tag_e>	m_dicom_discription_tags;
+		static map<std::string, Dicom::tag_e>	m_dicom_description_tags;
 
 		/// map ID -> value, значение по ID
 		map<size_t, wstring>				m_dicom_tags_value;
@@ -77,9 +93,9 @@ enum class DicomSource
 		/// map ImageType -> bool
 		map<ImageType, bool>				m_dicom_image_type;
 
-		string m_filename;
+		wstring m_filename;
 		uint64_t m_file_size;
-		string m_file_mtime;
+		wstring m_file_mtime;
 
 		/// требуется ли индексация, если true - то индексация требуется
 		bool								m_bNeedIndexing;
@@ -90,6 +106,15 @@ enum class DicomSource
 	public:
 		DicomFileIndex();
 
+		void	append(const DicomFileIndex &other)
+		{
+			for(auto &tag : other.m_dicom_tags_value) m_dicom_tags_value[tag.first] = tag.second;
+			for(auto &image_type : other.m_dicom_image_type) m_dicom_image_type[image_type.first] |= image_type.second;
+			if(m_filename.empty()) m_filename = other.m_filename;
+			if(m_file_mtime.empty()) m_file_mtime = other.m_file_mtime;
+			if(!m_file_size) m_file_size = other.m_file_size;
+		}
+
 		/// содержит ли класс Dicom тэги
 		bool is_dicom() const;
 
@@ -97,20 +122,20 @@ enum class DicomSource
 		bool has_image_type() const;
 
 		/// получить строку имя файла
-		string get_file_name() const { return m_filename; }
+		wstring get_file_name() const { return m_filename; }
 
 		/// получить размер файла (m_file_size)
 		uint64_t get_file_size() const { return m_file_size; }
 
 		/// получить время модификации файла (m_file_mtime)
-		string get_file_mtime() const { return m_file_mtime; }
+		wstring get_file_mtime() const { return m_file_mtime; }
 
 		/// заполнить поля DicomFileTagsValue и DicomFileTags для заданного файла
 		/// todo: собирать диагностическую информацию о процессе заполнения для обработки её в классе DicomDirectoryIndex
 		bool fill_filetags_from_file(const wstring &path, const wstring &name);
 
 		/// заполнить поля DicomFileTags (имя файла, время создания и размер файла ) из структуры fileinfo
-		bool fill_from_fileinfo(const FileInfo& fileinfo_val);
+		void	fill_from_fileinfo(const FileInfo& fileinfo_val);
 
 
 		/// получить размер файла в байтах, получить строку времени создания файла в байтах
@@ -130,9 +155,9 @@ enum class DicomSource
 		/// из списка тэгов файла сгенерировать строку с краткой информацией
 		wstring get_summary_info_string() const;
 
-		void set_dicom_filename(const string &filename) { m_filename = filename; }
+		void set_dicom_filename(const wstring &filename) { m_filename = filename; }
 		void set_dicom_file_size(uint64_t file_size) { m_file_size = file_size; }
-		void set_dicom_file_mtime(const string &file_mtime) { m_file_mtime = file_mtime; }
+		void set_dicom_file_mtime(const wstring &file_mtime) { m_file_mtime = file_mtime; }
 
 		/// получить значение m_bNeedIndexing, необходимость в индексации
 		/// \return требуется ли индексация
@@ -142,7 +167,7 @@ enum class DicomSource
 		}
 
 		/// установить значение m_bNeedIndexing
-		void	set_need_indexing(bool b_value)
+		void	set_indexing_needed(bool b_value)
 		{
 			m_bNeedIndexing = b_value;
 		}
@@ -153,13 +178,13 @@ enum class DicomSource
 		//! @{
 		Dicom::tag_e get_dicom_tags_ID(size_t i) const;					///< получить значение m_dicom_tags[i]
 		wstring get_dicom_tags_value(size_t i) const;						///< получить значение m_dicom_tags_value.at(m_dicom_tags[i])
-		string get_dicom_tags_discr(size_t i) const;						///< получить значение m_dicom_tags_disciption(m_dicom_tags[i])
+		string get_dicom_tags_description(size_t i) const;						///< получить значение m_dicom_tags_disciption(m_dicom_tags[i])
 		size_t get_dicom_tags_length() const							///< длина вектора m_dicom_tags
 		{
 			return m_dicom_tags.size();
 		};
 		void set_dicom_tags_value(size_t i, const wstring& wstr_value);	///< установить значение m_dicom_tags_value.at(m_dicom_tags[i])
-		void set_dicom_tags_discr(size_t i, const string& str_value);		///< установить значение m_dicom_tags_disciption(m_dicom_tags[i])
+		void set_dicom_tags_description(size_t i, const string& str_value);		///< установить значение m_dicom_tags_disciption(m_dicom_tags[i])
 		void set_dicomsource_type(DicomSource dicome_type);					///< установить значение DicomSource
 		void set_dicom_image_type(ImageType image_type, bool b_value);	///< установить значение m_dicom_image_type[image_type] = b_value
 		vector<string> get_image_type_vector() const;					///< получить вектор ненулевых map_imagetype_disc

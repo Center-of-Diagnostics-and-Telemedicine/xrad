@@ -24,6 +24,29 @@ XRAD_BEGIN
 namespace Dicom
 {
 
+
+//!	словарь значений поля "type" в json индексе
+//!	значение "type 1" соответствует иерархической записи полей по исследованиям/сериям/сборкам
+//! значение "type 2" соответствует неструктурированной записи информации обо всех файлах
+
+static const string	hierarchical_v0 = "type 1";
+static const string	raw_v0 = "type 2";
+
+string index_file_label(index_file_type ift)
+{
+	if(ift==index_file_type::hierarchical) return hierarchical_v0;
+	if(ift==index_file_type::raw) return raw_v0;
+	return "unknown";//кидать исключение при нынешней ситуации нельзя, т.к. инициализируются статические члены класса
+}
+
+index_file_type interpret_index_file_type(string s)
+{
+	if(s == raw_v0) return index_file_type::raw;
+	if(s == hierarchical_v0) return index_file_type::hierarchical;
+	return index_file_type::unknown;
+}
+
+
 namespace
 {
 
@@ -78,11 +101,11 @@ vector<Dicom::tag_e>	DicomFileIndex::m_dicom_tags =
 	Dicom::e_accession_number,			// 10
 };  // заполнить вектор тэгов, которые будут получены из dicom файла
 
-map<Dicom::tag_e, std::string>	DicomFileIndex::m_dicom_tags_discription;
-map<std::string, Dicom::tag_e>	DicomFileIndex::m_dicom_discription_tags;		// map<discription -> ID>
+map<Dicom::tag_e, std::string>	DicomFileIndex::m_dicom_tags_description;
+map<std::string, Dicom::tag_e>	DicomFileIndex::m_dicom_description_tags;		// map<discription -> ID>
 
 
-static const map<ImageType, string> map_imagetype_disc =
+static const map<ImageType, string> imagetype_description_class =
 {
 	{ ImageType::image, typeid(Dicom::image).name() },
 	{ ImageType::tomogram_slice, typeid(Dicom::tomogram_slice).name() },
@@ -93,7 +116,7 @@ static const map<ImageType, string> map_imagetype_disc =
 };
 
 
-static const map<ImageType, string> map_imagetype_fix_disc =
+static const map<ImageType, string> imagetype_description_fixed =
 {
 	{ ImageType::image, "image" },
 	{ ImageType::tomogram_slice, "tomogram_slice" },
@@ -111,29 +134,31 @@ DicomFileIndex::DicomFileIndex()
 	m_DicomSource = DicomSource::no_information;
 	m_bNeedIndexing = true;
 
-	if (m_dicom_tags_discription.size() != get_dicom_tags_length()) // если описание тэгов ещё не заполнено
+	if (m_dicom_tags_description.size() != get_dicom_tags_length()) // если описание тэгов ещё не заполнено
 	{
 		for (const auto& el : m_dicom_tags)
 		{
 			//wstring wstring_tag_name = Dicom::MakeContainer()->get_wstring(el); // уже не работает
 			wstring wstring_tag_name = Dicom::get_tagname(el);
 			//wstring tt = Dicom::get_tag_as_string(el) + Dicom::get_tagname(el);
-			m_dicom_tags_discription[el] = convert_to_string(wstring_tag_name);
-			m_dicom_discription_tags[convert_to_string(wstring_tag_name)] = el;
+			m_dicom_tags_description[el] = convert_to_string(wstring_tag_name);
+			m_dicom_description_tags[convert_to_string(wstring_tag_name)] = el;
 		}
 	}
 
 
 	// заполнить map типов изображений false
-	for (const auto& el : map_imagetype_fix_disc)
+	for (const auto& el : imagetype_description_fixed)
+	{
 		m_dicom_image_type[el.first] = false;
+	}
 }
 
 
 //  содержит ли Dicom тэги
 bool DicomFileIndex::is_dicom() const
 {
-	return (m_DicomSource == DicomSource::yes_dicom_from_json || m_DicomSource == DicomSource::yes_dicom_from_file);
+	return (m_DicomSource == DicomSource::dicom_from_json || m_DicomSource == DicomSource::dicom_from_file);
 }
 
 
@@ -141,8 +166,9 @@ bool DicomFileIndex::is_dicom() const
 bool DicomFileIndex::has_image_type() const
 {
 	for (const auto& el : m_dicom_image_type)
-		if (el.second)
-			return true;
+	{
+		if(el.second) return true;
+	}
 	return false;
 }
 
@@ -159,7 +185,7 @@ wstring DicomFileIndex::get_summary_info_string() const
 		// во внутренний блок пишем только индексы с [NFIELDS_TYPE_1 и до конца]
 		for (size_t i = 0; i < NFIELDS_TYPE_1; i++)
 		{
-			string str_tag_discr = get_dicom_tags_discr(i);
+			string str_tag_discr = get_dicom_tags_description(i);
 			str_dicom += get_dicom_tags_value(i);
 		}
 	}
@@ -176,9 +202,9 @@ bool DicomFileIndex::fill_name_size_time(const wstring& fname, const wstring &na
 	string date;
 	if (!GetFileSizeAndModifyTime(convert_to_string(fname), file_size, date))
 		return false;
-	m_filename = convert_to_string(name_part);
+	m_filename = name_part;
 	m_file_size = file_size;
-	m_file_mtime = date;
+	m_file_mtime = convert_to_wstring(date);
 	return true;
 };
 
@@ -192,7 +218,7 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 		m_DicomSource = DicomSource::file_not_exist;
 		return false;
 	}
-	m_DicomSource = DicomSource::not_dicom_from_file;
+	m_DicomSource = DicomSource::non_dicom_from_file;
 
 	try
 	{
@@ -215,7 +241,7 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 
 		// заполнить map типов изображения
 		string str_type_image = typeid(*dicom_instance).name();
-		for (auto& el : map_imagetype_disc)
+		for (auto& el : imagetype_description_class)
 			m_dicom_image_type[el.first] = (el.second == str_type_image);
 	}
 	catch (std::runtime_error &) // при неустойчивой работе сети не можем считать файлы
@@ -239,26 +265,20 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 			m_dicom_image_type[ImageType::image] = true;
 	}
 
-	m_DicomSource = DicomSource::yes_dicom_from_file;
+	m_DicomSource = DicomSource::dicom_from_file;
 
 	return true;
 }
 
-bool DicomFileIndex::fill_from_fileinfo(const FileInfo & fileinfo_val)
+void DicomFileIndex::fill_from_fileinfo(const FileInfo &fileinfo_val)
 {
-	m_filename = convert_to_string(fileinfo_val.filename);
+	m_filename = fileinfo_val.filename;
 	m_file_size = fileinfo_val.size;
 
-	string str_size, str_date;
-	struct tm* clock;
+	struct tm* clock = gmtime(&fileinfo_val.time_write);		// Get the last modified time and put it into the time structure
 
-	clock = gmtime(&fileinfo_val.time_write);		// Get the last modified time and put it into the time structure
-
-	str_date = ssprintf("%d-%02d-%02dT", clock->tm_year + 1900, clock->tm_mon, clock->tm_mday);
-	str_date += ssprintf("%02d:%02d:%02dZ", clock->tm_hour, clock->tm_min, clock->tm_sec);
-
-	m_file_mtime = str_date;
-	return true;
+	m_file_mtime = ssprintf(L"%d-%02d-%02dT", clock->tm_year + 1900, clock->tm_mon, clock->tm_mday);
+	m_file_mtime += ssprintf(L"%02d:%02d:%02dZ", clock->tm_hour, clock->tm_min, clock->tm_sec);
 }
 
 
@@ -267,7 +287,7 @@ bool DicomFileIndex::check_consistency() const
 {
 	if (is_dicom())
 	{
-		if (m_dicom_tags_discription.size() != get_dicom_tags_length())
+		if (m_dicom_tags_description.size() != get_dicom_tags_length())
 			return false;
 		if (m_dicom_tags_value.size() != get_dicom_tags_length())
 			return false;
@@ -332,10 +352,10 @@ wstring DicomFileIndex::get_dicom_tags_value(size_t i) const
 }
 
 
-// получить значение m_dicom_tags_discription.at(m_dicom_tags[i])
-string DicomFileIndex::get_dicom_tags_discr(size_t i) const
+// получить значение m_dicom_tags_description.at(m_dicom_tags[i])
+string DicomFileIndex::get_dicom_tags_description(size_t i) const
 {
-	return m_dicom_tags_discription.at(m_dicom_tags[i]);
+	return m_dicom_tags_description.at(m_dicom_tags[i]);
 }
 
 
@@ -345,10 +365,10 @@ void DicomFileIndex::set_dicom_tags_value(size_t i, const wstring& wstr_value)
 	m_dicom_tags_value[m_dicom_tags[i]] = wstr_value;
 }
 
-// установить значение m_dicom_tags_discription.at(m_dicom_tags[i])
-void DicomFileIndex::set_dicom_tags_discr(size_t i, const string& str_value)
+// установить значение m_dicom_tags_description.at(m_dicom_tags[i])
+void DicomFileIndex::set_dicom_tags_description(size_t i, const string& str_value)
 {
-	m_dicom_tags_discription[m_dicom_tags[i]] = str_value;
+	m_dicom_tags_description[m_dicom_tags[i]] = str_value;
 }
 
 
@@ -366,15 +386,15 @@ void DicomFileIndex::set_dicom_image_type(ImageType image_type, bool b_value)
 }
 
 
-// получить вектор ненулевых map_imagetype_disc
+// получить вектор ненулевых imagetype_description
 vector<string> DicomFileIndex::get_image_type_vector() const
 {
 	vector<string> vec_image_types;
 	for (auto& el : m_dicom_image_type)
 	{
-		if (!el.second || map_imagetype_disc.find(el.first) == map_imagetype_disc.end()) // если не нашли елемент по ключу
+		if (!el.second || imagetype_description_class.find(el.first) == imagetype_description_class.end()) // если не нашли елемент по ключу
 			continue;
-		vec_image_types.push_back(map_imagetype_fix_disc.at(el.first));
+		vec_image_types.push_back(imagetype_description_fixed.at(el.first));
 	}
 	return vec_image_types;
 }

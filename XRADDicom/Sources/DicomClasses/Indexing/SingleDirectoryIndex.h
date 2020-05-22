@@ -31,7 +31,7 @@ inline const wchar_t *index_filename_type2() { return L".v2-xrad-dicom-cat"; }
 class SingleDirectoryIndex
 {
 	private:
-		/// путь к директории с файлами
+		/// путь к индексируемой директории
 		wstring		m_path;
 
 		/// имя json файла типа 1 (внутри директории)
@@ -44,29 +44,26 @@ class SingleDirectoryIndex
 		bool		m_b_indexing_needed = true;
 
 	public:
+
+		SingleDirectoryIndex(const wstring &in_path = L"") : m_path(in_path){};
+		SingleDirectoryIndex(bool) = delete;
 		/// вектор инф-ции об отдельных файлах
 		vector<DicomFileIndex>		m_FilesIndex;
 
 		//! \brief Заполнить значения размера файла и даты создания для каждого файла из file_infos
 		//! \param path [in] Абсолютный путь к директории с файлами file_infos
-		bool	fill_from_fileinfo(const wstring &path, const vector<FileInfo>& file_infos);
+		bool	fill_from_fileinfo(/*const wstring &path, */const vector<FileInfo>& file_infos);
 
 		/// проверка равенства двух SingleDirectoryIndex объектов
 		bool	operator == (const SingleDirectoryIndex& a) const;
 
 		/// получить путь к директории m_path
 		/// \return путь к директории
-		wstring get_path() const
-		{
-			return m_path;
-		}
+		wstring get_path() const {return m_path;}
 
 		/// установить путь к директории m_path
 		/// \param path [in] путь к директории
-		void	set_path(const wstring& path)
-		{
-			m_path = path;
-		}
+		void	set_path(const wstring& in_path) {m_path = in_path;}
 
 		/// получить путь к json файлу
 		/// \return путь к json файлу
@@ -84,17 +81,11 @@ class SingleDirectoryIndex
 
 		/// получить значение m_b_indexing_needed, необходимость в индексации
 		/// \return требуется ли индексация
-		bool	get_isneed_indexing() const
-		{
-			return m_b_indexing_needed;
-		}
+		bool	indexing_needed() const { return m_b_indexing_needed;}
 
 		/// установить значение m_b_indexing_needed
 		/// \param b_value [in] установить флаг необходимости индексации
-		void	set_need_indexing(bool b_value)
-		{
-			m_b_indexing_needed = b_value;
-		}
+		void	set_indexing_needed(bool b_value) {m_b_indexing_needed = b_value;}
 
 		/// обновить информацию для элементов с m_b_indexing_needed == true
 		void	update();
