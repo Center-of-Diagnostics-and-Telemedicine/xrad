@@ -173,7 +173,7 @@ void DicomCatalogIndex::check_actuality_and_update(ProgressProxy pp)
 		if(m_check_consistency)
 		{
 			check_index_actuality(current_dir_index);
-			if(current_dir_index.get_isneed_indexing()) // если индексация нужна
+			if(current_dir_index.get_isneed_indexing() && m_update) // если индексация нужна
 			{
 				current_dir_index.update();
 				// заполнять полную информацию о файлах с диска и сохранить её в json файл
