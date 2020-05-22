@@ -60,7 +60,7 @@ void DicomCatalogIndex::fill_from_fileinfo(const wstring &path,
 	ProgressBar	progress1(progress.subprogress(0.5, 1));
 	progress1.start("", all_dirs.size());
 
-	size_t file_count = 0;
+//	size_t file_count = 0;
 	for (auto &dir_data: all_dirs)
 	{
 		DicomDirectoryIndex current_dir_info;
@@ -72,7 +72,7 @@ void DicomCatalogIndex::fill_from_fileinfo(const wstring &path,
 			// if (file_count + current_dir_info.m_FilesIndex.size() > IndexFileCountMax)
 			//		break;
 			m_data.push_back(std::move(current_dir_info));  // после функции move объект current_dir_info уже не хранит информации
-			file_count += current_dir_info.m_FilesIndex.size();
+//			file_count += current_dir_info.m_FilesIndex.size();
 		}
 		++progress1;
 	}
