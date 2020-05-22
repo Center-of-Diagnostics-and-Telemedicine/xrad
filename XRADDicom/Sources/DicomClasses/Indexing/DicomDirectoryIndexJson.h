@@ -44,7 +44,7 @@ void	dir_info_to_json_type2(const DicomDirectoryIndex& dcmDirectoryIndex, json& 
 
 /// проверить актуальность инф-ции быстрого сканирования в DicomDirectoryIndex и информации из json файла m_filename_json
 /// на совпадание имена, размер, время создания
-void check_actuality_json(DicomDirectoryIndex& dcmDirectoryIndex);
+void check_index_actuality(DicomDirectoryIndex& dcmDirectoryIndex);
 
 } // end namespace Dicom
 XRAD_END

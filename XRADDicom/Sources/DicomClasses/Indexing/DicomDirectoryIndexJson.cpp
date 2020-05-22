@@ -298,17 +298,22 @@ bool test_write_load_json(DicomDirectoryIndex& dcmDirectoryIndex)
 
 // проверить актуальность инф-ции быстрого сканирования в DicomDirectoryIndex и информации из json файла m_filename_json
 // на совпадание имена, размер, время создания
-void check_actuality_json(DicomDirectoryIndex& dcmDirectoryIndex)
+void check_index_actuality(DicomDirectoryIndex& dcmDirectoryIndex)
 {
-	//dcmDirectoryIndex.set_need_indexing(true);	// изначально предполагается необходимость индексации, пока не доказано обратное
 	const wstring& json_name = dcmDirectoryIndex.get_path_json_2();
 	// если json файл пуст (отсутствует)
 	if (json_name.empty())
+	{
+		dcmDirectoryIndex.set_need_indexing(true);
 		return;
+	}
 
 	DicomDirectoryIndex loaded_index;
 	if (!load_parse_json(loaded_index, json_name)) // если проблемы чтения json файла
+	{
+		dcmDirectoryIndex.set_need_indexing(true);
 		return;
+	}
 
 	dcmDirectoryIndex.set_need_indexing(false);	// предполагается отсутствие необходимости индексации, пока не доказано обратное
 

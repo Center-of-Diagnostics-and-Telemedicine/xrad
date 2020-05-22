@@ -70,8 +70,13 @@ class DicomDirectoryIndex
 		wstring get_path_json_2() const
 		{
 			if (m_filename_json_2.empty())
-				return {};
-			return m_path + wpath_separator() + m_filename_json_2;
+			{
+				return L"";
+			}
+			else
+			{
+				return m_path + wpath_separator() + m_filename_json_2;
+			}
 		}
 
 		/// получить значение m_bNeedIndexing, необходимость в индексации

@@ -172,7 +172,7 @@ void DicomCatalogIndex::check_actuality_and_update(ProgressProxy pp)
 	{
 		if(m_check_consistency)
 		{
-			check_actuality_json(current_dir_index);
+			check_index_actuality(current_dir_index);
 			if(current_dir_index.get_isneed_indexing()) // если индексация нужна
 			{
 				current_dir_index.update();
