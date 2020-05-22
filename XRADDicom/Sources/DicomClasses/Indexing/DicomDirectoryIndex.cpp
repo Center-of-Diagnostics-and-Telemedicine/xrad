@@ -92,7 +92,7 @@ bool DicomDirectoryIndex::fill_from_fileinfo(const wstring &path,
 			// после функции move объект current_file_tags уже не хранит информации
 		}
 	}
-	return m_FilesIndex.size() || !m_filename_json_1.empty() || !!m_filename_json_2.empty();
+	return m_FilesIndex.size() || !m_filename_json_1.empty() || !m_filename_json_2.empty();
 }
 
 } //namespace Dicom
