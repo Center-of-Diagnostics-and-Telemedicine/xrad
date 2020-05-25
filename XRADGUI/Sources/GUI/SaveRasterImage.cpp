@@ -9,7 +9,7 @@
 #include "FileSaveUtils.h"
 
 #include <XRADSystem/CFile.h>
-#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include <XRADQt/QtStringConverters.h>
 
 XRAD_BEGIN
 

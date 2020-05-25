@@ -2,7 +2,7 @@
 #include "OutputSubstitution.h"
 
 #include "OutputRedirector.h"
-#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include <XRADQt/QtStringConverters.h>
 #include <XRADSystem/System.h>
 
 #if defined(XRAD_COMPILER_MSC)

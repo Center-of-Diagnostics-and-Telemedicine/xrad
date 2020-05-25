@@ -4,7 +4,7 @@
 	\author kulberg
 */
 #include "pre.h"
-#include "StringConverters_Qt.h"
+#include "QtStringConverters.h"
 #include <XRADGUI/Sources/Core/GUIConfig.h>
 
 #include <QtCore/QChar>
