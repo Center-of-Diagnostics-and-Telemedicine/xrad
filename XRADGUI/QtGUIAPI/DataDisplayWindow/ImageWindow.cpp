@@ -4,7 +4,7 @@
 #include "GUIController.h"
 #include "FileSaveUtils.h"
 
-#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include <XRADQt/QtStringConverters.h>
 #include <XRADSystem/CFile.h>
 #include <XRADSystem/System.h>
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>

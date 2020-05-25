@@ -4,7 +4,7 @@
 #include "ThreadGUI.h"
 #include "GUIController.h"
 #include "FileSaveUtils.h"
-#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include <XRADQt/QtStringConverters.h>
 #include <XRADSystem/TextFile.h>
 
 namespace XRAD_GUI

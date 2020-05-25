@@ -10,7 +10,7 @@
 //--------------------------------------------------------------
 
 #include "XRADGUIAPIDefs.h"
-#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include <XRADQt/QtStringConverters.h>
 
 namespace XRAD_GUI
 {
