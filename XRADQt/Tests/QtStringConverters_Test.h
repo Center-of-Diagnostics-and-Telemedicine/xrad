@@ -1,7 +1,5 @@
-﻿// file StringConverters_Qt_Test.h
-//--------------------------------------------------------------
-#ifndef __StringConverters_Qt_Test_h
-#define __StringConverters_Qt_Test_h
+﻿#ifndef XRAD__File_QtStringConverters_Test_h
+#define XRAD__File_QtStringConverters_Test_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
@@ -9,7 +7,7 @@
 
 XRAD_BEGIN
 
-namespace StringConverters_Qt_Test
+namespace QtStringConverters_Test
 {
 
 //--------------------------------------------------------------
@@ -23,9 +21,9 @@ void Test(ErrorReporter *error_reporter);
 
 //--------------------------------------------------------------
 
-} // namespace StringConverters_MS_Test
+} // namespace QtStringConverters_Test
 
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __StringConverters_Qt_Test_h
+#endif // XRAD__File_QtStringConverters_Test_h

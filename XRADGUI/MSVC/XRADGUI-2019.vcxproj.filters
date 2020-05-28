@@ -49,6 +49,9 @@
       </Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="XRADQt">
+      <UniqueIdentifier>{5cdfd426-de6c-4107-b443-6b2d7a9c8597}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Sources\GUI\GraphScale.cpp">
@@ -80,9 +83,6 @@
     </ClCompile>
     <ClCompile Include="..\Sources\GUI\I18nSupport.cpp">
       <Filter>Sources\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\PlatformSpecific\Qt\Internal\StringConverters_Qt.cpp">
-      <Filter>Sources\PlatformSpecific\Qt</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\GUI\SaveRasterImage.cpp">
       <Filter>Sources\GUI</Filter>
@@ -201,6 +201,9 @@
     <ClCompile Include="..\QtGUIAPI\Forms\ShowValueDialog.cpp">
       <Filter>QtGUIAPI\Forms</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\XRADQt\QtStringConverters.cpp">
+      <Filter>XRADQt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pre.h">
@@ -268,9 +271,6 @@
     </ClInclude>
     <ClInclude Include="..\Sources\GUI\SaveRasterImage.hh">
       <Filter>Sources\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\PlatformSpecific\Qt\Internal\StringConverters_Qt.h">
-      <Filter>Sources\PlatformSpecific\Qt</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\GUI\Keyboard.h">
       <Filter>Sources\GUI</Filter>
@@ -367,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.h">
       <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADQt\QtStringConverters.h">
+      <Filter>XRADQt</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

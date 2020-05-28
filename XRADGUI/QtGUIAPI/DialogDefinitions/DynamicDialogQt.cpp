@@ -7,7 +7,7 @@
 #include "SavedSettings.h"
 #include "XRADGUIAPI.h"
 #include <XRADGUI/Sources/GUI/XRADGUI.h>
-#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include <XRADQt/QtStringConverters.h>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QLineEdit>
 #include <XRADSystem/System.h>

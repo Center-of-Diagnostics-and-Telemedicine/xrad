@@ -8,7 +8,7 @@
 
 #include "SavedSettings.h"
 #include "GUIController.h"
-#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include <XRADQt/QtStringConverters.h>
 #include <XRADSystem/System.h>
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>
 

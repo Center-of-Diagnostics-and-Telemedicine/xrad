@@ -265,7 +265,7 @@
     <ClCompile Include="..\Sources\GUI\I18nSupport.cpp" />
     <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\Keyboard_Win32.cpp" />
     <ClCompile Include="..\Sources\PlatformSpecific\Qt\Internal\Keyboard_Qt.cpp" />
-    <ClCompile Include="..\Sources\PlatformSpecific\Qt\Internal\StringConverters_Qt.cpp" />
+    <ClCompile Include="..\..\XRADQt\QtStringConverters.cpp" />
     <ClCompile Include="..\Sources\Utils\AutoProgressIndicatorScheduler.cpp" />
     <ClCompile Include="XRADGUI_pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -353,7 +353,7 @@
     <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADGUITestsLibLink.h" />
     <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADLink.h" />
     <ClInclude Include="..\Sources\PlatformSpecific\Qt\Internal\Keyboard_Qt.h" />
-    <ClInclude Include="..\Sources\PlatformSpecific\Qt\Internal\StringConverters_Qt.h" />
+    <ClInclude Include="..\..\XRADQt\QtStringConverters.h" />
     <ClInclude Include="..\Sources\Utils\AutoProgressIndicatorScheduler.h" />
     <ClInclude Include="pre.h" />
   </ItemGroup>

@@ -1,11 +1,12 @@
-﻿#ifndef StringConverters_Qt_h__
-#define StringConverters_Qt_h__
+﻿#ifndef XRAD__File_QtStringConverters_h
+#define XRAD__File_QtStringConverters_h
 /*!
 	\file
 	\date 2017/10/24 17:47
 	\author kulberg
 */
 
+#include <XRADBasic/Core.h>
 #include <string>
 #include <QtCore/QString>
 
@@ -22,4 +23,4 @@ vector<QString> wstring_list_to_qstring_list(const vector<wstring> &in_wlist);
 
 XRAD_END
 
-#endif // StringConverters_Qt_h__
+#endif // XRAD__File_QtStringConverters_h
