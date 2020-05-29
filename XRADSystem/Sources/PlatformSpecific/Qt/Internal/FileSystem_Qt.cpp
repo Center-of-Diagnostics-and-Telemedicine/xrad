@@ -3,8 +3,8 @@
 
 #ifdef XRAD_USE_FILESYSTEM_QT_VERSION
 
-#include <XRAD/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
-#include <XRAD/PlatformSpecific/MSVC/PC_XRADQtCoreLink.h>
+#include <XRADQt/QtStringConverters.h>
+#include <XRADQt/MSVC/MSVC_QtCoreLink.h>
 
 #include <QApplication.h>
 

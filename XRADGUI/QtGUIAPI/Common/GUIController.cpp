@@ -9,7 +9,7 @@
 #include "SavedSettings.h"
 #include "XRADGUIAPI.h"
 #include <XRADGUI/Sources/GUI/I18nSupport.h>
-#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include <XRADQt/QtStringConverters.h>
 
 
 void	ForceResourceLoad()

@@ -160,17 +160,17 @@ set(Project_Sources_CXX
 	Sources/PlatformSpecific/MSVC/MSVC_XRADLink.h
 	Sources/PlatformSpecific/Qt/Internal/Keyboard_Qt.cpp
 	Sources/PlatformSpecific/Qt/Internal/Keyboard_Qt.h
-	Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.cpp
-	Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h
 	Sources/Startup/XRADGUIMain.cpp
 	Sources/Utils/AutoProgressIndicatorScheduler.cpp
 	Sources/Utils/AutoProgressIndicatorScheduler.h
 	XRAD.h
+	../XRADQt/QtStringConverters.cpp
+	../XRADQt/QtStringConverters.h
 	)
 
 set(ProjectTests_Sources_CXX
-	Tests/StringConverters_Qt_Test.cpp
-	Tests/StringConverters_Qt_Test.h
+	../XRADQt/Tests/QtStringConverters_Test.cpp
+	../XRADQt/Tests/QtStringConverters_Test.h
 	)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")

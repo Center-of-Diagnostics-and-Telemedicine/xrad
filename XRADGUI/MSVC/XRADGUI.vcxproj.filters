@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="XRAD/GUI">
-      <UniqueIdentifier>{f2cdbf4d-9b49-4093-a99b-7ca28f4dc2c6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MSVC">
       <UniqueIdentifier>{58176736-9fbb-4b40-af0d-0abd1ba0fc96}</UniqueIdentifier>
     </Filter>
@@ -57,6 +54,9 @@
       </Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="XRADQt">
+      <UniqueIdentifier>{f2cdbf4d-9b49-4093-a99b-7ca28f4dc2c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Sources\GUI\GraphScale.cpp">
@@ -88,9 +88,6 @@
     </ClCompile>
     <ClCompile Include="..\Sources\GUI\I18nSupport.cpp">
       <Filter>Sources\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\PlatformSpecific\Qt\Internal\StringConverters_Qt.cpp">
-      <Filter>Sources\PlatformSpecific\Qt</Filter>
     </ClCompile>
     <ClCompile Include="..\QtGUIAPI\Common\AsyncTextBuffer.cpp">
       <Filter>QtGUIAPI\Common</Filter>
@@ -275,6 +272,9 @@
     <ClCompile Include="..\Sources\Utils\AutoProgressIndicatorScheduler.cpp">
       <Filter>Sources\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\XRADQt\QtStringConverters.cpp">
+      <Filter>XRADQt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pre.h">
@@ -421,9 +421,6 @@
     <ClInclude Include="..\Sources\GUI\SaveRasterImage.hh">
       <Filter>Sources\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\PlatformSpecific\Qt\Internal\StringConverters_Qt.h">
-      <Filter>Sources\PlatformSpecific\Qt</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\GUI\Keyboard.h">
       <Filter>Sources\GUI</Filter>
     </ClInclude>
@@ -462,6 +459,9 @@
     </ClInclude>
     <ClInclude Include="..\QtGUIAPI\Common\XRADGUIAPIDefs.h">
       <Filter>QtGUIAPI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADQt\QtStringConverters.h">
+      <Filter>XRADQt</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

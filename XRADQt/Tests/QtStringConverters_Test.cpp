@@ -1,13 +1,11 @@
-﻿// file StringConverters_Qt_Test.cpp
-//--------------------------------------------------------------
-#include "pre.h"
+﻿#include "pre.h"
 
-#include "StringConverters_Qt_Test.h"
-#include <XRADGUI/Sources/PlatformSpecific/Qt/Internal/StringConverters_Qt.h>
+#include "QtStringConverters_Test.h"
+#include <XRADQt/QtStringConverters.h>
 
 XRAD_BEGIN
 
-namespace StringConverters_Qt_Test
+namespace QtStringConverters_Test
 {
 
 //--------------------------------------------------------------
@@ -154,7 +152,7 @@ void Test(ErrorReporter *error_reporter)
 
 //--------------------------------------------------------------
 
-} // namespace StringConverters_Qt_Test
+} // namespace QtStringConverters_Test
 
 XRAD_END
 
