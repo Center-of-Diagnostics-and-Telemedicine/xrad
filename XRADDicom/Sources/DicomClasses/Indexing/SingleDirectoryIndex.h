@@ -28,7 +28,7 @@ inline const wchar_t *index_filename_type2() { return L".v2-xrad-dicom-cat"; }
 
 //NB	Прежнее название DicomDirectoryIndex создавало путаницу: рядом находится класс DicomCatalogIndex,
 //		содержащий принципиально другую информацию, но по названию синонимичный этому (catalog=directory)
-class SingleDirectoryIndex
+class SingleDirectoryIndex : public vector<DicomFileIndex>
 {
 	private:
 		/// путь к индексируемой директории
@@ -45,10 +45,12 @@ class SingleDirectoryIndex
 
 	public:
 
+		PARENT(vector<DicomFileIndex>);
+
 		SingleDirectoryIndex(const wstring &in_path = L"") : m_path(in_path){};
 		SingleDirectoryIndex(bool) = delete;
 		/// вектор инф-ции об отдельных файлах
-		vector<DicomFileIndex>		m_FilesIndex;
+		//vector<DicomFileIndex>		m_FilesIndex;
 
 		//! \brief Заполнить значения размера файла и даты создания для каждого файла из file_infos
 		//! \param path [in] Абсолютный путь к директории с файлами file_infos
@@ -96,8 +98,8 @@ class SingleDirectoryIndex
 		/// очистить контейнер m_FilesIndex
 		void	clear()
 		{
-			m_FilesIndex.clear();
-			m_FilesIndex.shrink_to_fit();
+			parent::clear();
+			parent::shrink_to_fit();
 		}
 };
 
