@@ -25,10 +25,10 @@ namespace Dicom
 
 bool SingleDirectoryIndex::operator==(const SingleDirectoryIndex& a) const
 {
-	for (const auto& el1 : m_FilesIndex)
+	for (const auto& el1 : *this)
 	{
 		bool is_equal_find = false;
-		for (const auto& el2 : a.m_FilesIndex)
+		for (const auto& el2 : a)
 		{
 			if (el1 == el2)
 			{
@@ -44,12 +44,12 @@ bool SingleDirectoryIndex::operator==(const SingleDirectoryIndex& a) const
 
 void	SingleDirectoryIndex::add_file_index(const DicomFileIndex& dcmFileIndex)
 {
-	m_FilesIndex.push_back(dcmFileIndex);
+	push_back(dcmFileIndex);
 }
 
 void SingleDirectoryIndex::update()
 {
-	for (auto& el : m_FilesIndex)
+	for (auto& el : *this)
 	{
 		if (!el.indexing_needed())
 			continue;
@@ -63,7 +63,7 @@ void SingleDirectoryIndex::update()
 	}
 	// удалить индексаторы о файлах, по которым не удалось обновить информацию
 	auto predicate = [](const DicomFileIndex &v) { return v.indexing_needed(); };
-	m_FilesIndex.erase(remove_if(m_FilesIndex.begin(), m_FilesIndex.end(), predicate), m_FilesIndex.end());
+	erase(remove_if(begin(), end(), predicate), end());
 }
 
 bool SingleDirectoryIndex::fill_from_fileinfo(//const wstring &path,
@@ -84,11 +84,11 @@ bool SingleDirectoryIndex::fill_from_fileinfo(//const wstring &path,
 		{
 			DicomFileIndex current_file_tags;
 			current_file_tags.fill_from_fileinfo(el);
-			m_FilesIndex.push_back(std::move(current_file_tags));
+			push_back(std::move(current_file_tags));
 				// после функции move объект current_file_tags уже не хранит информации
 		}
 	}
-	return m_FilesIndex.size() || !m_filename_json_1.empty() || !m_filename_json_2.empty();
+	return size() || !m_filename_json_1.empty() || !m_filename_json_2.empty();
 }
 
 } //namespace Dicom

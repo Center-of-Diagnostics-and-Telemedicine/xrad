@@ -52,7 +52,7 @@ void dir_info_to_json_type1(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 	vector<wstring> list_tags;
 	json json_dicom_files;					// хранение информации о файлах в древовидной структуре первых 5-тэгов
 
-	for (const auto& file_tags : dcmDirectoryIndex.m_FilesIndex)
+	for (const auto& file_tags : dcmDirectoryIndex)
 	{
 		if (!file_tags.is_dicom())
 			continue;
@@ -86,7 +86,7 @@ void dir_info_to_json_type1(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 	{
 		json json_not_dicom;
 		// заполнить информацию о не dicom файлах полях
-		for (auto &dicom_file_Tags: dcmDirectoryIndex.m_FilesIndex)
+		for (auto &dicom_file_Tags: dcmDirectoryIndex)
 		{
 			if (dicom_file_Tags.is_dicom())
 				continue;
@@ -106,7 +106,7 @@ void dir_info_to_json_type1(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 // из списка тэгов для каждого файла сгенерировать json файл type2 (sample2.json)
 void dir_info_to_json_type2(const SingleDirectoryIndex& dcmDirectoryIndex, json& json_type2)
 {
-	if (!dcmDirectoryIndex.m_FilesIndex.size())
+	if (!dcmDirectoryIndex.size())
 		return;
 
 	// заполнить обязательные поля о "ID", "version", "type" из map_header_json_type1
@@ -114,7 +114,7 @@ void dir_info_to_json_type2(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 		json_type2[get<0>(map_v)] = get<1>(map_v);
 
 	// вначале записать dicom файлы
-	for (auto &dicom_file_Tags: dcmDirectoryIndex.m_FilesIndex)
+	for (auto &dicom_file_Tags: dcmDirectoryIndex)
 	{
 		if (!dicom_file_Tags.is_dicom())
 			continue;
@@ -124,7 +124,7 @@ void dir_info_to_json_type2(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 			json_type2["filelist"].push_back(json_file_tag);
 	}
 	// записать не dicom файлы
-	for (auto &dicom_file_Tags: dcmDirectoryIndex.m_FilesIndex)
+	for (auto &dicom_file_Tags: dcmDirectoryIndex)
 	{
 		if (dicom_file_Tags.is_dicom())
 			continue;
@@ -244,7 +244,7 @@ wstring save_to_jsons(const SingleDirectoryIndex& dcmDirectoryIndex, index_file_
 	// для каждого уникального кластера (директории с dicom файлами) сформировать json объект
 	// json объект формируется согласно примерам образцов json файлов: sample1.json и sample2.json
 	wstring wstr_json_fname;
-	if (!dcmDirectoryIndex.m_FilesIndex.size())
+	if (!dcmDirectoryIndex.size())
 		return wstr_json_fname; // TODO: Сделать удаление файла, если нет индексируемого содержимого.
 
 	json json_to_save;
@@ -323,12 +323,12 @@ void check_index_actuality(SingleDirectoryIndex& current_directory_index)
 		current_directory_index.set_indexing_needed(false);	// предполагается отсутствие необходимости индексации, пока не доказано обратное
 
 		// проверить актуальность информации о файлах
-		for(auto& current_file_info : current_directory_index.m_FilesIndex) // для каждого файла  DicomCatalogIndex
+		for(auto& current_file_info : current_directory_index) // для каждого файла  DicomCatalogIndex
 		{
 			bool found = false;
 			// TODO: Переделать цикл на поиск в map по ключу.
 			auto filename = current_file_info.get_file_name();
-			for(const auto& loaded_file_data : loaded_index.m_FilesIndex)  // для каждого файла, проиндексированного в json файле
+			for(const auto& loaded_file_data : loaded_index)  // для каждого файла, проиндексированного в json файле
 			{
 				if(loaded_file_data.get_file_name() == filename)
 				{
