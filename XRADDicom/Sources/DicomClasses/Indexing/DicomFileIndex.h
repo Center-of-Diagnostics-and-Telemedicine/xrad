@@ -71,7 +71,7 @@ enum class file_info_source
 
 
 	/*!
-	\brief класс для обработки и хранения инф-ции об одном файле
+	\brief класс для обработки и хранения информации об одном файле
 
 	*/
 	class DicomFileIndex

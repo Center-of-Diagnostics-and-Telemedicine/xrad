@@ -185,15 +185,14 @@ namespace
 		dicom_catalog_index.PerformCatalogIndexing(src_folder.path(), progress.subprogress(scheduler.operation_boundaries(0)));
 
 		ProgressBar progress_b(progress.subprogress(scheduler.operation_boundaries(1)));
-		progress_b.start(L"Fill instances.", 10000);
+		progress_b.start(L"Fill instances.", dicom_catalog_index.n_items());
 		//  сформировать instancestorages вектор для Dicom файлов
 		std::vector<Dicom::instancestorage_ptr> instancestorages;
 		for (auto& el_dir : dicom_catalog_index.data()) // для каждой директории
 		{
 			auto path_to_dir = el_dir.get_path();
-			for (const auto& el : el_dir.m_FilesIndex) // для каждого файла
+			for (const auto& el : el_dir) // для каждого файла
 			{
-				if (el.is_dicom() && el.has_image_type())
 				if(el.is_dicom())//важное исправление, удалил условие "&& el.has_image_type()": нужно индексировать все дайкомы, а не только изображения. Терялись SR при анонимизации
 				{
 					wstring filename = path_to_dir + wpath_separator() +
@@ -320,7 +319,7 @@ Dicom::patients_loader GetDicomStudiesHeap(
 	const DicomInstanceFilters_t  &filters_p,
 	ProgressProxy progress_proxy)
 {
-	// Загружаем все дайкомы из указанной папки,
+	// Загружаем все дайкомы из указанного источника (папки или PACS),
 	// разбираем по сборкам, с которыми в последствии и будет работа.
 	RandomProgressBar	progress(progress_proxy);
 	progress.start("Retrieving Dicom studies list", 1);
