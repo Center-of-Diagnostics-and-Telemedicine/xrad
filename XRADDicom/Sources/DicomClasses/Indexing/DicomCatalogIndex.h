@@ -26,15 +26,14 @@ class DicomCatalogIndex
 		const bool	m_b_show_info;
 		const bool	m_check_consistency;
 		const bool	m_update;
+		/// вектор информации о директориях
+		vector<SingleDirectoryIndex>		m_data;
 	public:
 
 		DicomCatalogIndex(bool show_info, bool check_consistency, bool update) : m_b_show_info(show_info), m_check_consistency(check_consistency), m_update(update)
 		{
 		}
 
-	private:
-		/// вектор информации о директориях
-		vector<SingleDirectoryIndex>		m_data;
 
 	private:
 		/*!
@@ -64,6 +63,7 @@ class DicomCatalogIndex
 
 		/// проверка равенства двух DicomFileIndex объектов
 		bool operator== (const DicomCatalogIndex& a)  const;
+		size_t	n_items() const;
 
 		/// индексировать все файлы в каталоге root_path: несколько шагов
 		/// 1) составить список всех файлов и разбить их на директории
@@ -78,58 +78,6 @@ class DicomCatalogIndex
 };
 
 
-
-#if 0
-/// \brief Класс для записи сообщений в текстовой файл
-/// базируется на коде из файла XRADImmediateTest TestThreads.cpp
-class Log
-{
-	public:
-		Log()
-		{
-			counter = 0;
-			srand(time(0));
-			log_ID = rand();
-			stream = fopen("log_fileindex.txt", "ab");
-			if (!stream)
-				stream = stdout;
-			Write("start logging");
-		}
-		~Log()
-		{
-			Write("end logging");
-			if (stream != stdout)
-			{
-				fclose(stream);
-			}
-		}
-		/// записать сообщение типа string
-		void Write(const string &str)
-		{
-			unique_lock<mutex> lock(mx);
-
-			if (stream)
-			{
-				if (counter>0)
-					fprintf(stream, "%zd :%04zd :%s\n", log_ID, counter, str.c_str());
-				else
-					fprintf(stream, "%zd :---- :%s\n", log_ID, str.c_str());
-				fflush(stream);
-				counter++;
-			}
-		}
-		/// записать сообщение типа wstring
-		void Write(const wstring &str)
-		{
-			Write(convert_to_string(str));
-		}
-	private:
-		size_t counter;		// счётчик сообщений
-		size_t log_ID;		// уникальный номер данного лога
-		FILE *stream;
-		mutex mx;
-	};
-#endif
 
 } //namespace Dicom
 

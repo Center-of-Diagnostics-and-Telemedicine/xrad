@@ -195,6 +195,13 @@ bool DicomCatalogIndex::test_json_write_load()
 	return true;
 }
 
+size_t DicomCatalogIndex::n_items() const
+{
+	size_t	result = 0;
+	for(auto &directory: m_data) result += directory.size();
+	return result;
+}
+
 } //namespace Dicom
 
 XRAD_END
