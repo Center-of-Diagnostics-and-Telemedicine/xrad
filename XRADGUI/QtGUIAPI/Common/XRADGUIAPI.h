@@ -198,7 +198,9 @@ void api_ShowImage(const wstring &title,
 		double x0, double dx, const wstring &x_label,
 		double v0, double vmax, double gamma, const wstring &value_label);
 
+//--------------------------------------------------------------
 
+void api_SetVersionInfo(const string &text);
 
 //--------------------------------------------------------------
 

@@ -164,6 +164,27 @@ bool GUIController::ActiveProgressBar()
 	return dialogs_creator->ActiveProgressBar();
 }
 
+void GUIController::SetVersionInfo(const string &text)
+{
+	lock_guard<mutex> lock(version_info_mtx);
+	version_info = text;
+}
+
+string GUIController::GetVersionInfo()
+{
+	{
+		lock_guard<mutex> lock(version_info_mtx);
+		if (!version_info.empty())
+			return version_info;
+	}
+	QString app_name;
+	dialogs_creator->WorkerUICallback([&app_name]()
+		{
+			app_name = QCoreApplication::applicationName();
+		});
+	return qstring_to_string(app_name);
+}
+
 bool GUIController::GetStayOnTopAllowed()
 {
 	return StayOnTopAllowed;
@@ -245,6 +266,7 @@ void GUIController::FinishDialogs(void)
 	{
 		if(auto *widget = widgets[i])
 		{
+			// Внимание! Эта операция может изменить widgets: удалить элемент i.
 			widget->close();
 		}
 	}

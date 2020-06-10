@@ -72,7 +72,7 @@
      <x>0</x>
      <y>0</y>
      <width>623</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFunction">
@@ -119,10 +119,17 @@
     <addaction name="actionAllowStayOnTop"/>
     <addaction name="menuLanguage"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionHelpAbout"/>
+   </widget>
    <addaction name="menuFunction"/>
    <addaction name="menuProgram"/>
    <addaction name="menuLogs"/>
    <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -221,6 +228,11 @@
    </property>
    <property name="text">
     <string>English</string>
+   </property>
+  </action>
+  <action name="actionHelpAbout">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>

@@ -47,6 +47,11 @@ struct GUIController
 	inline bool	IsPauseScheduled(){ return workthread_pause_scheduled; }
 	inline bool	IsQuitScheduled(){ return quit_scheduled; }
 
+	//! \brief Установить информацию о версии приложения. Thread-safe
+	void SetVersionInfo(const string &text);
+	//! \brief Получить информацию о версии приложения. Thread-safe
+	string GetVersionInfo();
+
 	static bool GetStayOnTopAllowed();
 	static void SetStayOnTopAllowed(bool allow);
 	static void AddGUISettingsChangedTarget(IGUISettingsChanged *target);
@@ -70,6 +75,8 @@ struct GUIController
 	static void InitLogFile();
 
 	private:
+		string version_info;
+		mutex version_info_mtx;
 		vector<QWidget*> widgets;
 };
 

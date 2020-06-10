@@ -1059,4 +1059,12 @@ instantiate(float)
 
 #undef instantiate
 
+//--------------------------------------------------------------
+
+void api_SetVersionInfo(const string &text)
+{
+	global_gui_controller->SetVersionInfo(text);
+}
+
+//--------------------------------------------------------------
 } // namespace XRAD_GUI
