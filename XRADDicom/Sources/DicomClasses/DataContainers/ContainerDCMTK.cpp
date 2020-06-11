@@ -960,10 +960,21 @@ namespace Dicom
 		try
 		{
 			string charset("");
+			// Отрабатываем ситуацию, когда тэг (0008,0005) прописан не в корне дайком файла, а в одной из его вложенных веток
+			// Некоторые приборы так записывают. Из-за этого вьюверы (Radiant, Osirix, Horos) пытаются отобразить utf-8 строки
+			// в локальной 8-битной кодировке. Для исправления ошибки дублируем тэг в корне дайком-файла.
+			// Сделанные изменения влияют только на дайком-файлы, которые мы записываем из своей программы
+			// (например, при анонимизации)
 
-			if(dcmItem_p->tagExists(charset_tag, false))
+			bool	tag_exists_in_root = dcmItem_p->tagExists(charset_tag, false);
+			bool	tag_exists_in_sub = dcmItem_p->tagExists(charset_tag, true);
+
+			bool	b_exists = tag_exists_in_root || tag_exists_in_sub;
+			bool	b_sub = tag_exists_in_sub && !tag_exists_in_root;
+
+			if(b_exists)
 			{
-				dcmItem_p->findAndGetOFStringArray(charset_tag, charset, false);
+				dcmItem_p->findAndGetOFStringArray(charset_tag, charset, b_sub);
 				charset = fix_string_ending(charset);
 
 				if(charset != charset_utf8)
@@ -982,7 +993,12 @@ namespace Dicom
 					}
 				}
 
-				dcmItem_p->findAndGetOFStringArray(charset_tag, charset, false);
+				dcmItem_p->findAndGetOFStringArray(charset_tag, charset, b_sub);
+				if(b_sub)
+				{
+					// если тэг был записан только во вложенной ветке, дублируем его в корне
+					set_wstring(e_specific_character_set, convert_to_wstring(charset));
+				}
 			}
 		}
 		catch(...)
