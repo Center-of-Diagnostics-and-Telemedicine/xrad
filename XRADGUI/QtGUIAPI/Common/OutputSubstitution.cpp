@@ -300,7 +300,9 @@ void ConsoleRedirector::DoStderrReady()
 
 namespace
 {
-constexpr performance_time_t update_interval = 200ms;
+constexpr performance_time_t update_interval = 0.2s;
+// Замечание: Инициализация значением 200ms вызывает ошибку компиляции C2127 в MSVC2015
+// при сборке некоторых конфигураций проекта (DebugEHA).
 } // namespace
 
 //--------------------------------------------------------------
