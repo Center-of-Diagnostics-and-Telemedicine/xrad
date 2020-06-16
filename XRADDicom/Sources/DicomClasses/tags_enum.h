@@ -181,6 +181,8 @@ namespace Dicom
 		e_distance_source_to_detector = 0x00181110,
 		e_convolution_kernel =		0x00181210,
 
+		e_acquisition_device_processing_description = 0x00181400,
+
 		e_shared_functional_groups_sequence = 0x52009229, //Shared Functional Groups Sequence (5200,9229)
 		e_per_frame_functional_groups_sequence = 0x52009230, // Per-frame Functional Groups Sequence (5200,9230)
 
