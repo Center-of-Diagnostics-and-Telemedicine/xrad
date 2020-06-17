@@ -125,6 +125,25 @@ template<> wstring tab<wstring>(){ return L"\t"; }
 
 //--------------------------------------------------------------
 
+vector<string> split(const string &str, char delimiter)
+{
+	vector<string> result;
+	if (!str.length())
+		return result;
+	for (size_t pos = 0;;)
+	{
+		size_t delim_pos = str.find(delimiter, pos);
+		if (delim_pos == str.npos)
+		{
+			result.push_back(str.substr(pos));
+			break;
+		}
+		result.push_back(str.substr(pos, delim_pos - pos));
+		pos = delim_pos + 1;
+	}
+	return result;
+}
+
 vector<wstring> split(const wstring &str, wchar_t delimiter)
 {
 	vector<wstring> result;
@@ -140,6 +159,18 @@ vector<wstring> split(const wstring &str, wchar_t delimiter)
 		}
 		result.push_back(str.substr(pos, delim_pos - pos));
 		pos = delim_pos + 1;
+	}
+	return result;
+}
+
+string merge(const vector<string> &strings, const string &delimiter)
+{
+	if (!strings.size())
+		return string();
+	string result = strings[0];
+	for (size_t i = 1; i < strings.size(); ++i)
+	{
+		result += delimiter + strings[i];
 	}
 	return result;
 }
