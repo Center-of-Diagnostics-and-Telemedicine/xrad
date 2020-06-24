@@ -124,6 +124,8 @@ ConsoleWindow::ConsoleWindow(GUIController &in_gui_globals, QWidget *parent, Qt:
 			this, setup_commands_WorkthreadResumed);
 	XRAD_GUI_connect_auto(gui_controller.work_thread, finished, this, command_Quit);
 
+	XRAD_GUI_connect_auto(ui.actionHelpAbout, triggered, this, command_HelpAbout);
+
 	QTextCharFormat format;
 	format.setForeground(Qt::green);
 	ui.stdout_console->output("XRAD GUI is running\n", format);
@@ -361,6 +363,27 @@ void ConsoleWindow::command_AllowStayOnTopChecked()
 {
 	bool checked = ui.actionAllowStayOnTop->isChecked();
 	gui_controller.SetStayOnTopAllowed(checked);
+}
+
+void ConsoleWindow::command_HelpAbout()
+{
+	auto text = string_to_qstring(normalize_line_ends(gui_controller.GetVersionInfo(),
+			LineEndKind::N));
+	QMessageBox *msgBox = new QMessageBox(QMessageBox::NoIcon, "About", text, QMessageBox::Ok);
+	msgBox->setWindowModality(Qt::ApplicationModal);
+	if (GUIController::GetStayOnTopAllowed())
+		msgBox->setWindowFlags(msgBox->windowFlags() | WindowStaysOnTopHint);
+	connect(msgBox, &QDialog::finished, msgBox, &QDialog::deleteLater);
+	// Используем show(), а не exec(), чтобы вернуться в цикл обработки сообщений основного потока.
+	// Это связано с тем, что рабочий поток может создавать новые окна или завершать работу
+	// приложения в асинхронном режиме, в том числе при открытом окне About.
+	// Чтобы окно автоматически закрылось при завершении приложения, добавляем его в gui_controller.
+	connect(msgBox, &QDialog::finished, msgBox, [msgBox, c = &gui_controller]()
+		{
+			c->RemoveWidget(msgBox);
+		});
+	gui_controller.AddWidget(msgBox);
+	msgBox->show();
 }
 
 void ConsoleWindow::FinishWorkthread()

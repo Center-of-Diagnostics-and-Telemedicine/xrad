@@ -53,6 +53,8 @@ class ConsoleWindow : public QMainWindow
 		void setup_commands_DialogActive();
 		void setup_commands_QuitScheduled();
 
+		void command_HelpAbout();
+
 		//void userCommand(const QString  &command);
 	private:
 		//! \brief Тип uint и числовые значения используются при сериализации, не менять

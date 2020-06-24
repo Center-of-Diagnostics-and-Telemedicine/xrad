@@ -488,6 +488,24 @@ void DisplayImage(string name, const SAMPLE_T* data,
 
 //--------------------------------------------------------------
 
+/*!
+	\brief Задать информацию о версии приложения
+
+	Текст многострочный свободного содержания.
+
+	Формат информации примерно следующий:
+	\verbatim
+	MyApplication version 0.99.1.1
+	
+	My Corporation Name
+
+	See readme.html for more information.
+	\endverbatim
+*/
+void SetVersionInfo(const string &text);
+
+//--------------------------------------------------------------
+
 XRAD_END
 
 #endif //XRADGUI_

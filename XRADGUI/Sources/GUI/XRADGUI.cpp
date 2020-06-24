@@ -638,4 +638,12 @@ void DisplayImage<complexF32>(wstring name, const complexF32 * data,
 		vlegend.display_range.p1(), vlegend.display_range.p2(), vlegend.gamma, vlegend.label);
 }
 
+//--------------------------------------------------------------
+
+void SetVersionInfo(const string &text)
+{
+	api_SetVersionInfo(text);
+}
+
+//--------------------------------------------------------------
 XRAD_END
