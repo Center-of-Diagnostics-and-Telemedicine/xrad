@@ -62,6 +62,11 @@ bool ThreadGUI::do_ShowDataWindow(QDialog *object_ptr, bool suspend)
 
 void ThreadGUI::WorkerUICallback(function<void ()> &&action)
 {
+	if (QThread::currentThread() == thread())
+	{
+		action();
+		return;
+	}
 	UICallbackParams params;
 	params.action = std::move(action);
 	emit request_UICallback(&params);

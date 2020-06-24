@@ -182,7 +182,13 @@ STRING	detabify(const STRING &text)
 //--------------------------------------------------------------
 
 //! \brief Разделить строку на части по заданному разделителю
+vector<string> split(const string &str, char delimiter);
+
+//! \brief Разделить строку на части по заданному разделителю
 vector<wstring> split(const wstring &str, wchar_t delimiter);
+
+//! \brief Склеить из частей одну строку, части соединить заданным разделителем
+string merge(const vector<string> &strings, const string &delimiter);
 
 //! \brief Склеить из частей одну строку, части соединить заданным разделителем
 wstring merge(const vector<wstring> &strings, const wstring &delimiter);
