@@ -392,9 +392,10 @@ vector<string> DicomFileIndex::get_image_type_vector() const
 	vector<string> vec_image_types;
 	for (auto& el : m_dicom_image_type)
 	{
-		if (!el.second || imagetype_description_class.find(el.first) == imagetype_description_class.end()) // если не нашли елемент по ключу
-			continue;
-		vec_image_types.push_back(imagetype_description_fixed.at(el.first));
+		if(el.second && imagetype_description_class.find(el.first) != imagetype_description_class.end()) // если нашли элемент по ключу
+		{
+			vec_image_types.push_back(imagetype_description_fixed.at(el.first));
+		}
 	}
 	return vec_image_types;
 }

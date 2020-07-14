@@ -51,14 +51,15 @@ void SingleDirectoryIndex::update()
 {
 	for (auto& el : *this)
 	{
-		if (!el.indexing_needed())
-			continue;
-		DicomFileIndex current_file_tags;
-		if (current_file_tags.fill_filetags_from_file(get_path(),
-				convert_to_wstring(el.get_file_name())))
+		if (el.indexing_needed())
 		{
-			el = current_file_tags;			// обновили тэги
-			el.set_indexing_needed(false);    // сняли метку необходимости индексации
+			DicomFileIndex current_file_tags;
+			if(current_file_tags.fill_filetags_from_file(get_path(),
+			   convert_to_wstring(el.get_file_name())))
+			{
+				el = current_file_tags;			// обновили тэги
+				el.set_indexing_needed(false);    // сняли метку необходимости индексации
+			}
 		}
 	}
 	// удалить индексаторы о файлах, по которым не удалось обновить информацию

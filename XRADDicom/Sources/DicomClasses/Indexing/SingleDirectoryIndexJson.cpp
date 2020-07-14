@@ -54,23 +54,24 @@ void dir_info_to_json_type1(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 
 	for (const auto& file_tags : dcmDirectoryIndex)
 	{
-		if (!file_tags.is_dicom())
-			continue;
-		json json_inner_file_tag;
-		if (to_json_type1_inner_block(file_tags, json_inner_file_tag))		// записать все тэги, характеризующие дайком файл во внутренний блок
+		if (file_tags.is_dicom())
 		{
-			vector<size_t> n_Size_Tages(NFIELDS_TYPE_1, 0);
-			vector<string> vec_tag_names(NFIELDS_TYPE_1);
-			json *refInnerJson = &json_dicom_files;
-			for (size_t i = NFIELDS_TYPE_1; i-- > 0;)			// в json файл заполнить поля об первых 5 тэгах, характеризующих исследование
+			json json_inner_file_tag;
+			if(to_json_type1_inner_block(file_tags, json_inner_file_tag))		// записать все тэги, характеризующие дайком файл во внутренний блок
 			{
-				auto wstr_tag_value = file_tags.get_dicom_tags_value(i);
-				string str_tag_value = convert_to_string8(wstr_tag_value);
-				refInnerJson = &(*refInnerJson)[str_tag_value];
-				n_Size_Tages[NFIELDS_TYPE_1 - 1 - i] = refInnerJson->size();
-				vec_tag_names[NFIELDS_TYPE_1 - 1 - i] = str_tag_value;
+				vector<size_t> n_Size_Tages(NFIELDS_TYPE_1, 0);
+				vector<string> vec_tag_names(NFIELDS_TYPE_1);
+				json *refInnerJson = &json_dicom_files;
+				for(size_t i = NFIELDS_TYPE_1; i-- > 0;)			// в json файл заполнить поля об первых 5 тэгах, характеризующих исследование
+				{
+					auto wstr_tag_value = file_tags.get_dicom_tags_value(i);
+					string str_tag_value = convert_to_string8(wstr_tag_value);
+					refInnerJson = &(*refInnerJson)[str_tag_value];
+					n_Size_Tages[NFIELDS_TYPE_1 - 1 - i] = refInnerJson->size();
+					vec_tag_names[NFIELDS_TYPE_1 - 1 - i] = str_tag_value;
+				}
+				refInnerJson->push_back(json_inner_file_tag);
 			}
-			refInnerJson->push_back(json_inner_file_tag);
 		}
 	}
 
@@ -88,12 +89,13 @@ void dir_info_to_json_type1(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 		// заполнить информацию о не dicom файлах полях
 		for (auto &dicom_file_Tags: dcmDirectoryIndex)
 		{
-			if (dicom_file_Tags.is_dicom())
-				continue;
-			json json_file_tag;
-			// записать все тэги, характеризующие дайком файл во внутренний блок
-			if (to_json_type1_inner_block(dicom_file_Tags, json_file_tag))
-				json_not_dicom.push_back(std::move(json_file_tag));
+			if (!dicom_file_Tags.is_dicom())
+			{
+				json json_file_tag;
+				// записать все тэги, характеризующие дайком файл, во внутренний блок
+				if(to_json_type1_inner_block(dicom_file_Tags, json_file_tag))
+					json_not_dicom.push_back(std::move(json_file_tag));
+			}
 		}
 		if (json_not_dicom.size() > 0)
 			json_type1["non Dicom"] = std::move(json_not_dicom);
@@ -111,26 +113,34 @@ void dir_info_to_json_type2(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 
 	// заполнить обязательные поля о "ID", "version", "type" из map_header_json_type1
 	for (auto& map_v : map_header_json_type2)
+	{
 		json_type2[get<0>(map_v)] = get<1>(map_v);
+	}
 
+	//TODO	возможно, надо два следующих цикла объединить в один с условием if/else
 	// вначале записать dicom файлы
 	for (auto &dicom_file_Tags: dcmDirectoryIndex)
 	{
-		if (!dicom_file_Tags.is_dicom())
-			continue;
-		json json_file_tag;
-		if (to_json_type2(dicom_file_Tags, json_file_tag))	 // записать все тэги, характеризующие дайком файл
-			//json_type2["filelist"][json_type2["filelist"].size()] = json_file_tag;
-			json_type2["filelist"].push_back(json_file_tag);
+		if (dicom_file_Tags.is_dicom())
+		{
+			json json_file_tag;
+			if(to_json_type2(dicom_file_Tags, json_file_tag))	 // записать все тэги, характеризующие дайком файл
+			{
+				json_type2["filelist"].push_back(json_file_tag);
+			}
+		}
 	}
 	// записать не dicom файлы
 	for (auto &dicom_file_Tags: dcmDirectoryIndex)
 	{
-		if (dicom_file_Tags.is_dicom())
-			continue;
-		json json_file_tag;
-		if (to_json_type2(dicom_file_Tags, json_file_tag))	 // записать все тэги, характеризующие дайком файл
-			json_type2["filelist"].push_back(json_file_tag);
+		if (!dicom_file_Tags.is_dicom())
+		{
+			json json_file_tag;
+			if(to_json_type2(dicom_file_Tags, json_file_tag))	 // записать все тэги, характеризующие дайком файл
+			{
+				json_type2["filelist"].push_back(json_file_tag);
+			}
+		}
 	}
 }
 
