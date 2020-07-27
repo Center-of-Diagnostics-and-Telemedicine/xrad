@@ -189,7 +189,7 @@ namespace
 			auto path_to_dir = el_dir.get_path();
 			for (const auto& el : el_dir.m_FilesIndex) // для каждого файла
 			{
-				if (el.is_dicom() && el.has_image_type())
+				if ( el.is_dicom() ) // важное исправление, удалено условие && el.has_image_type():нужно индексировать все дайкомы, а не только изображения. Терялись SR при анонимизации
 				{
 					wstring filename = path_to_dir + wpath_separator() +
 							convert_to_wstring(el.get_file_name());
