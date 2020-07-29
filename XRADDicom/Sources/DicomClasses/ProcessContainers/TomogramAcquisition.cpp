@@ -173,14 +173,34 @@ RealFunctionMD_F32	TomogramAcquisition::slices() const
 {
 	RealFunctionMD_F32 slices(sizes());
 	size_t i{ 0 };
-	for (auto el : *m_acquisition_loader)
+
+	Dicom::tomogram_slice &first_slice = dynamic_cast<Dicom::tomogram_slice&>(*(m_acquisition_loader->front()));
+
+	if (!first_slice.get_m_frame_no())
 	{
-		Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*el);
+		slices.resize({ (*m_acquisition_loader).size(),first_slice.vsize(), first_slice.hsize() });
 
-		slice_container.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref());
+		for (auto el : *m_acquisition_loader)
+		{
+			Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*el);
 
-		++i;
+			slice_container.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref());
+
+			++i;
+		}
 	}
+
+		else
+		{
+			slices.resize({ first_slice.get_m_frame_no(),first_slice.vsize(), first_slice.hsize() });
+
+			Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*m_acquisition_loader->front());
+
+			for (size_t i = 0; i < slices.sizes(0); ++i)
+			{
+				slice_container.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref(), i);
+			}
+		}
 	return slices;
 }
 
@@ -193,16 +213,37 @@ RealFunctionMD_F32	TomogramAcquisition::load_ordered_slices(
 		const vector<size_t> &slice_order) const
 {
 	XRAD_ASSERT_THROW(slice_order.size() == sizes(0));
-	RealFunctionMD_F32 slices(sizes());
-	for (size_t i = 0; i < slices.sizes(0); ++i)
-	{
-		auto index = slice_order[i];
-		XRAD_ASSERT_THROW_M(index < slice_order.size(), runtime_error,
-				"Invalid slice order data: index is too big.");
-		auto el = (*m_acquisition_loader)[index];
-		Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*el);
+	RealFunctionMD_F32 slices;
 
-		slice_container.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref());
+	Dicom::tomogram_slice &first_slice = dynamic_cast<Dicom::tomogram_slice&>(*(m_acquisition_loader->front()));
+
+	if (!first_slice.get_m_frame_no())
+	{
+		slices.resize( { (*m_acquisition_loader).size(),first_slice.vsize(), first_slice.hsize() } );
+
+		for (size_t i = 0; i < slices.sizes(0); ++i)
+		{
+			auto index = slice_order[i];
+			XRAD_ASSERT_THROW_M(index < slice_order.size(), runtime_error,
+				"Invalid slice order data: index is too big.");
+			auto el = (*m_acquisition_loader)[index];
+			Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*el);
+
+			slice_container.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref());
+
+
+		}
+	}
+	else
+	{
+		slices.resize({ first_slice.get_m_frame_no(),first_slice.vsize(), first_slice.hsize() });
+
+		Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*m_acquisition_loader->front());
+
+		for (size_t i = 0; i < slices.sizes(0); ++i)
+		{
+			slice_container.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref(), i);
+		}
 	}
 	return slices;
 }

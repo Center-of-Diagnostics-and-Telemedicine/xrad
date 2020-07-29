@@ -53,7 +53,8 @@ void	DisplayTomogram_CTAcquisition(const CTAcquisition &ct, const wstring &title
 			switch (options)
 			{
 			case display_ct_slices:
-				DisplayMathFunction3D(ct.load_ordered_slices(), title_full);
+ 			//	DisplayMathFunction3D(ct.load_ordered_slices(), title_full);
+				DisplayMathFunction3D(ct.slices(), title_full);
 				break;
 
 			case display_ct_metadata:
