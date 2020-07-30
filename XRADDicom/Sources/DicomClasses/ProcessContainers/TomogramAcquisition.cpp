@@ -179,7 +179,7 @@ RealFunctionMD_F32	TomogramAcquisition::slices() const
 
 	if (!first_slice.get_m_frame_no())
 	{
-		slices.resize({ (*m_acquisition_loader).size(),first_slice.vsize(), first_slice.hsize() });
+		slices.realloc({ (*m_acquisition_loader).size(),first_slice.vsize(), first_slice.hsize() });
 
 		for (auto el : *m_acquisition_loader)
 		{
@@ -193,7 +193,7 @@ RealFunctionMD_F32	TomogramAcquisition::slices() const
 
 		else
 		{
-			slices.resize({ first_slice.get_m_frame_no(),first_slice.vsize(), first_slice.hsize() });
+			slices.realloc({ first_slice.get_m_frame_no(),first_slice.vsize(), first_slice.hsize() });
 
 			Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*m_acquisition_loader->front());
 
@@ -220,7 +220,7 @@ RealFunctionMD_F32	TomogramAcquisition::load_ordered_slices(
 
 	if (!first_slice.get_m_frame_no())
 	{
-		slices.resize( { (*m_acquisition_loader).size(),first_slice.vsize(), first_slice.hsize() } );
+		slices.realloc( { (*m_acquisition_loader).size(),first_slice.vsize(), first_slice.hsize() } );
 
 		for (size_t i = 0; i < slices.sizes(0); ++i)
 		{
@@ -237,7 +237,7 @@ RealFunctionMD_F32	TomogramAcquisition::load_ordered_slices(
 	}
 	else
 	{
-		slices.resize({ first_slice.get_m_frame_no(),first_slice.vsize(), first_slice.hsize() });
+		slices.realloc({ first_slice.get_m_frame_no(),first_slice.vsize(), first_slice.hsize() });
 
 		Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*m_acquisition_loader->front());
 
@@ -287,7 +287,7 @@ vector<size_t> TomogramAcquisition::determine_slice_order() const
 
 bool TomogramAcquisition::sort_axis(size_t &sort_axis_p) const
 {
-	RealFunction2D_F32	pp(1,1);
+	RealFunction2D_F32	pp;
 	size_t i{ 0 };
 	sort_axis_p = size_t(-1);
 
@@ -295,7 +295,7 @@ bool TomogramAcquisition::sort_axis(size_t &sort_axis_p) const
 
 	if (!first_slice.get_m_frame_no())
 	{
-		pp.resize(3, m_acquisition_loader->size());
+		pp.realloc(3, m_acquisition_loader->size());
 
 		for (auto &instance : *m_acquisition_loader)
 		{
@@ -309,7 +309,7 @@ bool TomogramAcquisition::sort_axis(size_t &sort_axis_p) const
 	}
 	else
 	{
-		pp.resize(3, first_slice.get_m_frame_no());
+		pp.realloc(3, first_slice.get_m_frame_no());
 
 		for (size_t i = 0; i < first_slice.get_m_frame_no(); i++)
 		{
