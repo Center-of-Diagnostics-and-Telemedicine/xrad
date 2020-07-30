@@ -347,6 +347,45 @@ namespace Dicom
 			return (m_dicom_file->getDataset()->tagExists(dcmTag, OFTrue));
 	}
 
+	vector<double> ContainerDCMTK::get_image_position(size_t frame_no) 
+	{
+		DcmDataset *Dataset = m_dicom_file->getDataset();
+
+
+		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
+
+		string str;
+		vector<double> v;
+		size_t i = 0;
+		//		if (fileformat.getMetaInfo()->findAndGetSequenceItem(DCM_CTImageFrameTypeSequence, item, 0, false).good())//DCM_ImagePositionPatient
+		if (Dataset->findAndGetSequence(DCM_PerFrameFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
+		{
+			DcmItem* item1 = dcmSequenceOfItems->getItem(frame_no);
+		
+				item1->findAndGetSequence(DCM_PlanePositionSequence, dcmSequenceOfItems1, true, true);
+
+				DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
+
+				item2->findAndGetOFStringArray(DCM_ImagePositionPatient, str, true);
+			
+		}
+		else{
+			throw logic_error("No tag of frame sequence in file");
+		}
+
+		char* pEnd; char* pEnd2;
+		double d1, d2, d3;
+		d1 = strtod(str.c_str(), &pEnd);
+		d2 = strtod(pEnd + 1, &pEnd2);
+		d3 = strtod(pEnd2 + 1, NULL);
+
+		v.push_back(d1);
+		v.push_back(d2);
+		v.push_back(d3);
+
+		return v;
+	}
+
 	namespace
 	{
 

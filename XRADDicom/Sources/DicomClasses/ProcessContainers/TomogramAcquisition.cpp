@@ -6,6 +6,7 @@
 */
 #include "pre.h"
 #include "TomogramAcquisition.h"
+#include <XRADDicom/Sources/DicomClasses/Instances/ct_slice.h>
 
 #include <XRADBasic/Sources/Utils/ParallelProcessor.h>
 //#include <XRADDicom/DicomClasses/DicomStorageAnalyze.h>
@@ -212,7 +213,7 @@ RealFunctionMD_F32	TomogramAcquisition::load_ordered_slices() const
 RealFunctionMD_F32	TomogramAcquisition::load_ordered_slices(
 		const vector<size_t> &slice_order) const
 {
-	XRAD_ASSERT_THROW(slice_order.size() == sizes(0));
+//	XRAD_ASSERT_THROW(slice_order.size() == sizes(0));
 	RealFunctionMD_F32 slices;
 
 	Dicom::tomogram_slice &first_slice = dynamic_cast<Dicom::tomogram_slice&>(*(m_acquisition_loader->front()));
@@ -224,14 +225,14 @@ RealFunctionMD_F32	TomogramAcquisition::load_ordered_slices(
 		for (size_t i = 0; i < slices.sizes(0); ++i)
 		{
 			auto index = slice_order[i];
+
 			XRAD_ASSERT_THROW_M(index < slice_order.size(), runtime_error,
 				"Invalid slice order data: index is too big.");
+
 			auto el = (*m_acquisition_loader)[index];
 			Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*el);
 
 			slice_container.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref());
-
-
 		}
 	}
 	else
@@ -242,7 +243,7 @@ RealFunctionMD_F32	TomogramAcquisition::load_ordered_slices(
 
 		for (size_t i = 0; i < slices.sizes(0); ++i)
 		{
-			slice_container.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref(), i);
+			slice_container.get_image(slices.GetSlice({ slice_order[i], slice_mask(0), slice_mask(1) }).ref(), slice_order[i]);
 		}
 	}
 	return slices;
@@ -255,12 +256,27 @@ vector<size_t> TomogramAcquisition::determine_slice_order() const
 		throw runtime_error("Cannot determine tomogram sort axis.");
 	vector<pair<double, size_t>> frame_positions;
 	size_t index = 0;
-	for (auto &el: loader())
+
+	Dicom::tomogram_slice &first_slice = dynamic_cast<Dicom::tomogram_slice&>(*(m_acquisition_loader->front()));
+	if (!first_slice.get_m_frame_no())
 	{
-		auto c = el->dicom_container()->get_double_values(Dicom::e_image_position_patient)[sort_axis];
-		frame_positions.emplace_back(EnsureType<double>(c), EnsureType<size_t>(index));
-		++index;
+		for (auto &el : loader())
+		{
+			auto c = el->dicom_container()->get_double_values(Dicom::e_image_position_patient)[sort_axis];
+			frame_positions.emplace_back(EnsureType<double>(c), EnsureType<size_t>(index));
+			++index;
+		}
 	}
+	else
+	{
+		for (size_t i = 0; i < first_slice.get_m_frame_no(); ++i)
+		{
+			auto c = first_slice.image_position_patient(i)[sort_axis];
+			frame_positions.emplace_back(EnsureType<double>(c), EnsureType<size_t>(index));
+		}
+	}
+
+
 	std::sort(frame_positions.begin(), frame_positions.end(), std::greater<pair<double, size_t>>());
 	vector<size_t> frame_order;
 	frame_order.reserve(frame_positions.size());
@@ -271,19 +287,39 @@ vector<size_t> TomogramAcquisition::determine_slice_order() const
 
 bool TomogramAcquisition::sort_axis(size_t &sort_axis_p) const
 {
-	RealFunction2D_F32	pp(3, m_acquisition_loader->size());
+	RealFunction2D_F32	pp(1,1);
 	size_t i{ 0 };
 	sort_axis_p = size_t(-1);
-	for(auto &instance : *m_acquisition_loader)
-	{
-		auto &inst = dynamic_cast<Dicom::tomogram_slice&>(*instance);
-		vector<double> position = inst.image_position_patient();
-		if(position.size() != 3)
-			return false;
-		std::copy(position.begin(), position.end(), pp.col(i).begin());
-		++i;
-	}
 
+	Dicom::tomogram_slice &first_slice = dynamic_cast<Dicom::tomogram_slice&>(*m_acquisition_loader->front());
+
+	if (!first_slice.get_m_frame_no())
+	{
+		pp.resize(3, m_acquisition_loader->size());
+
+		for (auto &instance : *m_acquisition_loader)
+		{
+			auto &inst = dynamic_cast<Dicom::tomogram_slice&>(*instance);
+			vector<double> position = inst.image_position_patient();
+			if (position.size() != 3)
+				return false;
+			std::copy(position.begin(), position.end(), pp.col(i).begin());
+			++i;
+		}
+	}
+	else
+	{
+		pp.resize(3, first_slice.get_m_frame_no());
+
+		for (size_t i = 0; i < first_slice.get_m_frame_no(); i++)
+		{
+			vector<double> position = first_slice.image_position_patient(i);
+			if (position.size() != 3)
+				return false;
+			std::copy(position.begin(), position.end(), pp.col(i).begin());
+		}
+
+	}
 	RealFunctionF32	mp({MaxValue(pp.row(0)) - MinValue(pp.row(0)),
 			MaxValue(pp.row(1)) - MinValue(pp.row(1)),
 			MaxValue(pp.row(2)) - MinValue(pp.row(2))});

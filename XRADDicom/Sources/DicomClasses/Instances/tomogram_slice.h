@@ -37,7 +37,9 @@ namespace Dicom
 		double slice_thickness() const { return dicom_container()->get_double(e_slice_thickness); }
 		vector<double> image_orientation_patient() const { return dicom_container()->get_double_values(e_image_orientation_patient); }
 		vector<double> image_position_patient() const { return dicom_container()->get_double_values(e_image_position_patient); }
-
+	
+		vector<double> image_position_patient(size_t frame_no) { return dicom_container()->get_image_position(frame_no); }
+		
 		//sets
 		void set_slice_thickness(double val) { dicom_container()->set_double(e_slice_thickness, val); }
 		void set_image_position_patient(const std::vector<double> &val) { dicom_container()->set_double_values(e_image_position_patient, val); };

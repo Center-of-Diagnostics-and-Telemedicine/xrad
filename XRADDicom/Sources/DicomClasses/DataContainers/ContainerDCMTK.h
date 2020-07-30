@@ -73,6 +73,8 @@ namespace Dicom
 
 		virtual void delete_all_private_tags() override;
 
+		virtual vector<double>  get_image_position(size_t frame_no) override;
+
 	private:
 		//read/save
 		//! \details При ошибке возвращает false или вызывает исключение в зависимости от use_exceptions.
