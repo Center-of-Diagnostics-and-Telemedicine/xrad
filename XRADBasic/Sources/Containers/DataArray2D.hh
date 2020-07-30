@@ -144,7 +144,8 @@ void	DataArray2D<RT>::resize(size_t in_vs, size_t in_hs)
 		return; // ничего не делает, если размеры одинаковы,
 	//
 	DataArray2D<RT> new_data(in_vs, in_hs);
-	new_data.CopyData(*this); // (*1529063555)
+	if (!empty())
+		new_data.CopyData(*this); // (*1529063555)
 	MoveData(new_data);
 }
 

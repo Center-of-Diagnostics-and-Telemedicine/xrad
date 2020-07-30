@@ -104,7 +104,8 @@ void	DataArray<T>::resize(size_t in_size)
 		return;	// ничего не делает, если размеры одинаковы
 	//
 	DataArray<T> new_data(in_size);
-	new_data.CopyData(*this);
+	if (!empty())
+		new_data.CopyData(*this);
 	MoveData(new_data);
 
 //TODO Для наследников вызывается только родительский метод. Это может быть чревато ошибками.

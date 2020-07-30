@@ -184,7 +184,8 @@ void DataArrayMD<A2DT>::resize(const index_vector &new_sizes)
 	}
 
 	self buffer(new_sizes);
-	buffer.CopyData(*this);
+	if (!empty())
+		buffer.CopyData(*this);
 	MoveData(buffer);
 }
 
