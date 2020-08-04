@@ -174,34 +174,36 @@ RealFunctionMD_F32	TomogramAcquisition::slices() const
 {
 	RealFunctionMD_F32 slices(sizes());
 	size_t i{ 0 };
+	size_t n_frames_to_be_realloced{ 0 };
 
 	Dicom::tomogram_slice &first_slice = dynamic_cast<Dicom::tomogram_slice&>(*(m_acquisition_loader->front()));
 
-	if (!first_slice.get_m_frame_no())
+	slices.realloc({ (*m_acquisition_loader).size(),first_slice.vsize(), first_slice.hsize() });
+
+	for (auto &el : *m_acquisition_loader)
 	{
-		slices.realloc({ (*m_acquisition_loader).size(),first_slice.vsize(), first_slice.hsize() });
 
-		for (auto el : *m_acquisition_loader)
+		Dicom::tomogram_slice &current_slice = dynamic_cast<Dicom::tomogram_slice&>(*el);
+
+		if (!current_slice.get_m_frame_no())
 		{
-			Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*el);
-
-			slice_container.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref());
+			current_slice.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref());
 
 			++i;
 		}
-	}
 
 		else
 		{
-			slices.realloc({ first_slice.get_m_frame_no(),first_slice.vsize(), first_slice.hsize() });
+			n_frames_to_be_realloced = i + current_slice.get_m_frame_no();
 
-			Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*m_acquisition_loader->front());
+			slices.resize({ n_frames_to_be_realloced,current_slice.vsize(), current_slice.hsize() });
 
-			for (size_t i = 0; i < slices.sizes(0); ++i)
+			for (size_t ii = i; ii < n_frames_to_be_realloced; ++ii)
 			{
-				slice_container.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref(), i);
+				current_slice.get_image(slices.GetSlice({ ii, slice_mask(0), slice_mask(1) }).ref(), ii);
 			}
 		}
+	}
 	return slices;
 }
 
@@ -216,36 +218,43 @@ RealFunctionMD_F32	TomogramAcquisition::load_ordered_slices(
 //	XRAD_ASSERT_THROW(slice_order.size() == sizes(0));
 	RealFunctionMD_F32 slices;
 
+	size_t i{ 0 };
+	size_t n_frames_to_be_resized{ 0 };
+
 	Dicom::tomogram_slice &first_slice = dynamic_cast<Dicom::tomogram_slice&>(*(m_acquisition_loader->front()));
 
-	if (!first_slice.get_m_frame_no())
+	slices.realloc({ (*m_acquisition_loader).size(),first_slice.vsize(), first_slice.hsize() });
+
+	//for (auto &el : *m_acquisition_loader)
+	for (size_t i = 0; i <  (*m_acquisition_loader).size();i++)
 	{
-		slices.realloc( { (*m_acquisition_loader).size(),first_slice.vsize(), first_slice.hsize() } );
+		auto index = slice_order[i];
 
-		for (size_t i = 0; i < slices.sizes(0); ++i)
+		XRAD_ASSERT_THROW_M(index < slice_order.size(), runtime_error,
+			"Invalid slice order data: index is too big.");
+
+		auto el = (*m_acquisition_loader)[index];
+		Dicom::tomogram_slice &current_slice = dynamic_cast<Dicom::tomogram_slice&>(*el);
+
+		if (!current_slice.get_m_frame_no())
 		{
-			auto index = slice_order[i];
+			current_slice.get_image(slices.GetSlice({ index, slice_mask(0), slice_mask(1) }).ref());
 
-			XRAD_ASSERT_THROW_M(index < slice_order.size(), runtime_error,
-				"Invalid slice order data: index is too big.");
+		}
 
-			auto el = (*m_acquisition_loader)[index];
-			Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*el);
+		else
+		{
+			n_frames_to_be_resized = i + current_slice.get_m_frame_no();
 
-			slice_container.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref());
+			slices.resize({ n_frames_to_be_resized,current_slice.vsize(), current_slice.hsize() });
+
+			for (size_t ii = i; ii < n_frames_to_be_resized; ++ii)
+			{
+				current_slice.get_image(slices.GetSlice({ slice_order[ii], slice_mask(0), slice_mask(1) }).ref(), slice_order[ii]);
+			}
 		}
 	}
-	else
-	{
-		slices.realloc({ first_slice.get_m_frame_no(),first_slice.vsize(), first_slice.hsize() });
 
-		Dicom::tomogram_slice &slice_container = dynamic_cast<Dicom::tomogram_slice&>(*m_acquisition_loader->front());
-
-		for (size_t i = 0; i < slices.sizes(0); ++i)
-		{
-			slice_container.get_image(slices.GetSlice({ slice_order[i], slice_mask(0), slice_mask(1) }).ref(), slice_order[i]);
-		}
-	}
 	return slices;
 }
 
@@ -257,31 +266,37 @@ vector<size_t> TomogramAcquisition::determine_slice_order() const
 	vector<pair<double, size_t>> frame_positions;
 	size_t index = 0;
 
-	Dicom::tomogram_slice &first_slice = dynamic_cast<Dicom::tomogram_slice&>(*(m_acquisition_loader->front()));
-	if (!first_slice.get_m_frame_no())
+	for (auto &el : *m_acquisition_loader)
 	{
-		for (auto &el : loader())
+
+		Dicom::tomogram_slice &current_slice = dynamic_cast<Dicom::tomogram_slice&>(*el);
+
+		if (!current_slice.get_m_frame_no())
 		{
 			auto c = el->dicom_container()->get_double_values(Dicom::e_image_position_patient)[sort_axis];
 			frame_positions.emplace_back(EnsureType<double>(c), EnsureType<size_t>(index));
 			++index;
 		}
-	}
-	else
-	{
-		for (size_t i = 0; i < first_slice.get_m_frame_no(); ++i)
+
+		else
 		{
-			auto c = first_slice.image_position_patient(i)[sort_axis];
-			frame_positions.emplace_back(EnsureType<double>(c), EnsureType<size_t>(index));
+			for (size_t i = 0; i < current_slice.get_m_frame_no(); ++i)
+			{
+				auto c = current_slice.image_position_patient(i)[sort_axis];
+				frame_positions.emplace_back(EnsureType<double>(c), EnsureType<size_t>(i+index));
+			}
+			index += current_slice.get_m_frame_no();
 		}
 	}
 
-
 	std::sort(frame_positions.begin(), frame_positions.end(), std::greater<pair<double, size_t>>());
+
 	vector<size_t> frame_order;
 	frame_order.reserve(frame_positions.size());
+
 	for (auto &fp: frame_positions)
 		frame_order.push_back(fp.second);
+
 	return frame_order;
 }
 
@@ -289,37 +304,49 @@ bool TomogramAcquisition::sort_axis(size_t &sort_axis_p) const
 {
 	RealFunction2D_F32	pp;
 	size_t i{ 0 };
+	size_t n_frames_to_be_realloced{ 0 };
+
 	sort_axis_p = size_t(-1);
 
-	Dicom::tomogram_slice &first_slice = dynamic_cast<Dicom::tomogram_slice&>(*m_acquisition_loader->front());
+	Dicom::tomogram_slice &first_slice = dynamic_cast<Dicom::tomogram_slice&>(*(m_acquisition_loader->front()));
 
-	if (!first_slice.get_m_frame_no())
+	pp.realloc( 3, m_acquisition_loader->size() );
+
+	for (auto &el : *m_acquisition_loader)
 	{
-		pp.realloc(3, m_acquisition_loader->size());
 
-		for (auto &instance : *m_acquisition_loader)
+		Dicom::tomogram_slice &current_slice = dynamic_cast<Dicom::tomogram_slice&>(*el);
+
+		if (!current_slice.get_m_frame_no())
 		{
-			auto &inst = dynamic_cast<Dicom::tomogram_slice&>(*instance);
-			vector<double> position = inst.image_position_patient();
+			vector<double> position = current_slice.image_position_patient();
 			if (position.size() != 3)
 				return false;
 			std::copy(position.begin(), position.end(), pp.col(i).begin());
 			++i;
 		}
-	}
-	else
-	{
-		pp.realloc(3, first_slice.get_m_frame_no());
 
-		for (size_t i = 0; i < first_slice.get_m_frame_no(); i++)
+		else
 		{
-			vector<double> position = first_slice.image_position_patient(i);
-			if (position.size() != 3)
-				return false;
-			std::copy(position.begin(), position.end(), pp.col(i).begin());
-		}
+			n_frames_to_be_realloced = i + current_slice.get_m_frame_no();
 
+			pp.resize( 3, n_frames_to_be_realloced );
+
+			size_t local_multiframe_index{ 0 };
+
+			for (size_t ii = i; ii < n_frames_to_be_realloced; ++ii)
+			{
+				vector<double> position = current_slice.image_position_patient(local_multiframe_index);
+				if (position.size() != 3)
+					return false;
+				std::copy(position.begin(), position.end(), pp.col(ii).begin());
+
+				local_multiframe_index++;
+			}
+		}
 	}
+
+
 	RealFunctionF32	mp({MaxValue(pp.row(0)) - MinValue(pp.row(0)),
 			MaxValue(pp.row(1)) - MinValue(pp.row(1)),
 			MaxValue(pp.row(2)) - MinValue(pp.row(2))});
