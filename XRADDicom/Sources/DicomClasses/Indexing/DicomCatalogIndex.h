@@ -12,8 +12,11 @@
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>
 #include "SingleDirectoryIndex.h"
 #include "SingleDirectoryIndexJson.h"
+#include <XRADDicom\Sources\DicomClasses\DataContainers\datasource.h>
 
 XRAD_BEGIN
+
+using namespace Dicom;
 
 namespace Dicom
 {
@@ -47,6 +50,14 @@ class DicomCatalogIndex
 		*/
 		void fill_from_fileinfo(const wstring &path, const DirectoryContentInfo& fileinfo_raw,
 				ProgressProxy pp = VoidProgressProxy());
+		/*!
+		\brief создает m_data на основании содержания файлов json в векторе каталогов от GetDirectoryFilesDetailed
+
+		\param 
+		*/
+		void fill_from_json_info(const wstring &path,
+			const DirectoryContentInfo& directory_tree,
+			ProgressProxy pp);
 
 		/// проверить актуальность инф-ции из json файлов и сохранить json файлы только обновлённых директорий
 		/// по сути выполняет последовательность функций check_actuality() и  update() для каждой директории каталога,
@@ -72,7 +83,8 @@ class DicomCatalogIndex
 		/// 4) сгенерировать json файлы для оставшихся файлов
 		/// \param root_path [in] путь к анализируемому каталогу
 		/// \param show_info [in] выводить вспомогательную информацию
-		void PerformCatalogIndexing(const wstring& root_path, ProgressProxy pp = VoidProgressProxy());
+
+		void PerformCatalogIndexing(const datasource_folder& src_folder, ProgressProxy pp = VoidProgressProxy());
 
 		vector<SingleDirectoryIndex> &data() { return m_data; }
 };

@@ -182,11 +182,12 @@ namespace
 		bool b_check_consistency = true;
 		bool b_update = true;
 		Dicom::DicomCatalogIndex dicom_catalog_index(b_show_stdout, b_check_consistency, b_update);
-		dicom_catalog_index.PerformCatalogIndexing(src_folder.path(), progress.subprogress(scheduler.operation_boundaries(0)));
+		dicom_catalog_index.PerformCatalogIndexing(src_folder, progress.subprogress(scheduler.operation_boundaries(0)));
 
 		ProgressBar progress_b(progress.subprogress(scheduler.operation_boundaries(1)));
 		progress_b.start(L"Fill instances.", dicom_catalog_index.n_items());
 		//  сформировать instancestorages вектор для Dicom файлов
+
 		std::vector<Dicom::instancestorage_ptr> instancestorages;
 		for (auto& el_dir : dicom_catalog_index.data()) // для каждой директории
 		{
@@ -239,6 +240,10 @@ namespace
 			default:
 			case decltype(src_folder.mode())::read_and_update_index:
 				return RawAnalyzeFolderIndexing(src_folder, filter_p, pproxy);
+
+			case decltype(src_folder.mode())::read_index_as_is:
+				return RawAnalyzeFolderIndexing(src_folder, filter_p, pproxy);
+
 			case decltype(src_folder.mode())::no_index:
 				return RawAnalyzeFolder(src_folder, filter_p, pproxy);
 		}

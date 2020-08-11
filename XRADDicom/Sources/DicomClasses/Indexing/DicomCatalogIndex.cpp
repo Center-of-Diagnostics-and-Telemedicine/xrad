@@ -71,6 +71,39 @@ void DicomCatalogIndex::fill_from_fileinfo(const wstring &path,
 	}
 }
 
+void DicomCatalogIndex::fill_from_json_info(const wstring &path,
+	const DirectoryContentInfo& directory_tree,
+	ProgressProxy pp)
+{
+	RandomProgressBar	progress(pp);
+	progress.start("prepare fill_from_json_info");
+
+	vector<pair<wstring, const vector<FileInfo>*>> all_dirs;
+	unroll_directories(path, directory_tree, &all_dirs);
+	progress.set_position(0.5);
+
+	ProgressBar	progress1(progress.subprogress(0.5, 1));
+	progress1.start("", all_dirs.size());
+
+	for (auto &dir_data : all_dirs)
+	{
+		SingleDirectoryIndex current_directory_info(dir_data.first);
+		current_directory_info.fill_from_fileinfo(*dir_data.second);
+		const wstring& json_name = current_directory_info.get_path_json_2();
+
+		if (!json_name.empty())
+		{
+			SingleDirectoryIndex loaded_index = load_parse_json(json_name);
+
+			//	if (current_directory_info.fill_from_fileinfo(*dir_data.second))
+			//	{
+			m_data.push_back(std::move(loaded_index));  // после функции move объект current_directory_info уже не хранит информации
+	//	}
+		}
+		++progress1;
+	}
+}
+
 void DicomCatalogIndex::clear()
 {
 	m_data.clear();
@@ -102,12 +135,12 @@ bool DicomCatalogIndex::operator==(const DicomCatalogIndex & a) const
 //	CatalogIndexing->PerformCatalogIndexing
 //	Предлагаю в имена функций всегда включать глагол, выражающий суть выполняемых действий. КНС
 
-void DicomCatalogIndex::PerformCatalogIndexing(const wstring& root_path, ProgressProxy pp)
+void DicomCatalogIndex::PerformCatalogIndexing(const datasource_folder &src_folder, ProgressProxy pp )
 {
 	TimeProfiler	scan_catalog_tp, fill_from_fileinfo_tp, check_actuality_tp;
 	if (m_b_show_info)
 	{
-		printf("%s : root_path \n", convert_to_string(root_path).c_str());
+		printf("%s : root_path \n", convert_to_string(src_folder.path()).c_str());
 		fflush(stdout);
 	}
 	scan_catalog_tp.Start();
@@ -116,7 +149,7 @@ void DicomCatalogIndex::PerformCatalogIndexing(const wstring& root_path, Progres
 	ProgressIndicatorScheduler	scheduler({ 15, 5, 80 });
 	progress.start("Scanning catalog", scheduler.n_steps());
 	auto file_info_vector = GetDirectoryFilesDetailed(
-		root_path,
+		src_folder.path(),
 		L"", true,
 		progress.subprogress(scheduler.operation_boundaries(0)));
 	scan_catalog_tp.Stop();
@@ -124,10 +157,24 @@ void DicomCatalogIndex::PerformCatalogIndexing(const wstring& root_path, Progres
 
 	fill_from_fileinfo_tp.Start();
 	// заполнить для каждого файла информацию о размере файла и дате создания из структур fileinfo
-	fill_from_fileinfo(
-		root_path,
-		file_info_vector,
-		progress.subprogress(scheduler.operation_boundaries(1)));
+	switch(src_folder.mode())
+	{
+	default:
+	case decltype(src_folder.mode())::read_and_update_index:
+		fill_from_fileinfo(
+			src_folder.path(),
+			file_info_vector,
+			progress.subprogress(scheduler.operation_boundaries(1)));
+		break;
+
+	case decltype(src_folder.mode())::read_index_as_is:
+		fill_from_json_info(
+			src_folder.path(),
+			file_info_vector,
+			progress.subprogress(scheduler.operation_boundaries(1)));
+		break;
+	}
+
 	fill_from_fileinfo_tp.Stop();
 
 	// проверить актуальность информации из json файлов и сохранить json файлы только обновлённых директорий
@@ -138,7 +185,7 @@ void DicomCatalogIndex::PerformCatalogIndexing(const wstring& root_path, Progres
 
 	if (m_b_show_info)
 	{
-		printf("%s : root_path \n", convert_to_string(root_path).c_str());
+		printf("%s : root_path \n", convert_to_string(src_folder.path()).c_str());
 		printf("1) %g sec: file list\n", scan_catalog_tp.LastElapsed().sec());
 
 		printf("2) %g s: fill_from_fileinfo  %zu: number of files  %zu: number of directories \n",
