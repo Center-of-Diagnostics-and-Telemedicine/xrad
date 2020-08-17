@@ -75,7 +75,7 @@ namespace Dicom
 
 		virtual bool	delete_dataelement(tag_e id, bool all = true, bool into = true) = 0;
 		virtual bool	exist_element(tag_e id) const = 0;
-
+		virtual vector<double> get_image_position(size_t frame_no) = 0;
 		//gets
 		virtual wstring	get_wstring(tag_e id, size_t num_of_frame = 0, const wstring &default_value = L"") const = 0;
 		//?virtual wstring get_wstring(tag_e id, const wstring &default_value = L"") const = 0;

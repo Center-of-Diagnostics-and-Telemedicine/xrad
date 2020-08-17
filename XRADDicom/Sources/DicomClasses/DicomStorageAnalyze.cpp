@@ -194,7 +194,11 @@ namespace
 			auto path_to_dir = el_dir.get_path();
 			for (const auto& el : el_dir) // для каждого файла
 			{
+<<<<<<< HEAD
 				if(el.is_dicom())//важное исправление, удалил условие "&& el.has_image_type()": нужно индексировать все дайкомы, а не только изображения. Терялись SR при анонимизации
+=======
+				if ( el.is_dicom() ) // важное исправление, удалено условие && el.has_image_type():нужно индексировать все дайкомы, а не только изображения. Терялись SR при анонимизации
+>>>>>>> feature/multiframe_spro
 				{
 					wstring filename = path_to_dir + wpath_separator() +
 							convert_to_wstring(el.get_file_name());
