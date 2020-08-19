@@ -347,10 +347,113 @@ namespace Dicom
 			return (m_dicom_file->getDataset()->tagExists(dcmTag, OFTrue));
 	}
 
+	double ContainerDCMTK::thickness_mf()
+	{
+		DcmDataset *Dataset = m_dicom_file->getDataset();
+		//unique_ptr<DcmDataset> Dataset = make_unique<DcmDataset>(m_dicom_file->getDataset());
+
+		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
+		double result;
+		string str1, str2;
+		try
+		{
+			if (Dataset->findAndGetSequence(DCM_SharedFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
+			{
+				DcmItem* item1 = dcmSequenceOfItems->getItem(0);
+				//	item1->print(cout);
+				//	fflush(stdout);
+				if (item1->findAndGetSequence(DCM_PixelMeasuresSequence, dcmSequenceOfItems1, true, true).good())
+				{
+					//dcmSequenceOfItems1->print(cout);
+					//fflush(stdout);
+					DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
+					//	item2->print(cout);
+					//	fflush(stdout);
+				
+					item2->findAndGetOFStringArray(DCM_SliceThickness, str2, true);
+				}
+				else throw logic_error("No tag of frame sequence in file");
+	
+				result = strtod(str1.c_str(), NULL);
+						}
+			else throw logic_error("No tag of frame sequence in file");
+		}
+		catch (...)
+		{
+//			delete Dataset;
+			delete dcmSequenceOfItems;
+			delete dcmSequenceOfItems1;
+
+			throw;
+		}
+//		delete Dataset;
+		delete dcmSequenceOfItems;
+		delete dcmSequenceOfItems1;
+
+		return result;
+	}
+
+	vector<double> ContainerDCMTK::scales_xy_mf()
+	{
+		DcmDataset *Dataset = m_dicom_file->getDataset();
+		//unique_ptr<DcmDataset> Dataset = make_unique<DcmDataset>(m_dicom_file->getDataset());
+
+		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
+		vector<double> result;
+		string str1, str2;
+		try
+		{
+
+			if (Dataset->findAndGetSequence(DCM_SharedFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
+			{
+				DcmItem* item1 = dcmSequenceOfItems->getItem(0);
+				//	item1->print(cout);
+				//	fflush(stdout);
+
+				if (item1->findAndGetSequence(DCM_PixelMeasuresSequence, dcmSequenceOfItems1, true, true).good())
+				{
+					//dcmSequenceOfItems1->print(cout);
+					//fflush(stdout);
+					DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
+					//	item2->print(cout);
+					//	fflush(stdout);
+
+					item2->findAndGetOFStringArray(DCM_PixelSpacing, str1, true);
+				}
+				else throw logic_error("No tag of frame sequence in file");
+
+				char* pEnd;
+				double d1, d2;
+				d1 = strtod(str1.c_str(), &pEnd);
+				d2 = strtod(pEnd + 1, NULL);
+
+				result.push_back(d1);
+				result.push_back(d2);
+			}
+			else throw logic_error("No tag of frame sequence in file");
+		}
+		catch (...)
+		{
+//			delete Dataset;
+			delete dcmSequenceOfItems;
+			delete dcmSequenceOfItems1;
+
+			throw;
+		}
+//		delete Dataset;
+		delete dcmSequenceOfItems;
+		delete dcmSequenceOfItems1;
+
+		return result;
+	}
+
+
+
 	vector<double> ContainerDCMTK::get_image_position(size_t frame_no) 
 	{
 		DcmDataset *Dataset = m_dicom_file->getDataset();
 
+		//unique_ptr<DcmDataset> Dataset = make_unique<DcmDataset>(m_dicom_file->getDataset());
 
 		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
 
@@ -358,30 +461,44 @@ namespace Dicom
 		vector<double> v;
 		size_t i = 0;
 		//		if (fileformat.getMetaInfo()->findAndGetSequenceItem(DCM_CTImageFrameTypeSequence, item, 0, false).good())//DCM_ImagePositionPatient
-		if (Dataset->findAndGetSequence(DCM_PerFrameFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
+		try
 		{
-			DcmItem* item1 = dcmSequenceOfItems->getItem(frame_no);
-		
+			if (Dataset->findAndGetSequence(DCM_PerFrameFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
+			{
+				DcmItem* item1 = dcmSequenceOfItems->getItem(frame_no);
+
 				item1->findAndGetSequence(DCM_PlanePositionSequence, dcmSequenceOfItems1, true, true);
 
 				DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
 
 				item2->findAndGetOFStringArray(DCM_ImagePositionPatient, str, true);
-			
-		}
-		else{
-			throw logic_error("No tag of frame sequence in file");
-		}
 
-		char* pEnd; char* pEnd2;
-		double d1, d2, d3;
-		d1 = strtod(str.c_str(), &pEnd);
-		d2 = strtod(pEnd + 1, &pEnd2);
-		d3 = strtod(pEnd2 + 1, NULL);
+			}
+			else {
+				throw logic_error("No tag of frame sequence in file");
+			}
 
-		v.push_back(d1);
-		v.push_back(d2);
-		v.push_back(d3);
+			char* pEnd; char* pEnd2;
+			double d1, d2, d3;
+			d1 = strtod(str.c_str(), &pEnd);
+			d2 = strtod(pEnd + 1, &pEnd2);
+			d3 = strtod(pEnd2 + 1, NULL);
+
+			v.push_back(d1);
+			v.push_back(d2);
+			v.push_back(d3);
+		}
+		catch (...)
+		{
+//			delete Dataset;
+			delete dcmSequenceOfItems;
+			delete dcmSequenceOfItems1;
+
+			throw;
+		}
+//		delete Dataset;
+		delete dcmSequenceOfItems;
+		delete dcmSequenceOfItems1;
 
 		return v;
 	}
@@ -897,6 +1014,67 @@ namespace Dicom
 				y = static_cast<out_sample>(range(x, min_value, max_value));
 			});
 		return result;
+	}
+
+	void ContainerDCMTK::set_pixeldata_mf(const RealFunctionMD_F32 &img_in, size_t bpp, bool is_signed, size_t ncomp)
+	{
+		(void)ncomp; //note (Kovbas) нужно будет для сохранения цветных изображений
+					 //разбираем и отдаём в объект файла данные изображения
+					 //todo (Kovbas) попробовать переделать так, чтобы было в одну строку (возможно, достаточно одного реинтерпрета). 20180601 - не знаю как это можно сделать и возможно ли.
+		unsigned long pixDataLen = (unsigned long)(img_in.sizes()[0] * img_in.sizes()[1] * img_in.sizes()[2] * bpp / CHAR_BIT); //явное преобразование для передачи в DCMTK
+																																// отправляем в объект файла сырое изображение. При сохранении оно будет жато в зависимости от выбора.
+		if (is_signed)
+		{
+			switch (bpp)
+			{
+			case 8:
+			{
+				auto buffer = CopyProperPixelValues<RealFunctionMD_I8>(img_in);
+				m_dicom_file->getDataset()->putAndInsertUint8Array(DCM_PixelData, reinterpret_cast<Uint8*>(&(buffer.at({ 0,0,0 }))), pixDataLen);
+			}
+			break;
+			case 16:
+			{
+				auto buffer = CopyProperPixelValues<RealFunctionMD_I16>(img_in);
+				m_dicom_file->getDataset()->putAndInsertUint8Array(DCM_PixelData, reinterpret_cast<Uint8*>(&(buffer.at({ 0,0,0 }))), pixDataLen);
+			}
+			break;
+			case 32:
+			{
+				auto buffer = CopyProperPixelValues<RealFunctionMD_I32>(img_in);
+				m_dicom_file->getDataset()->putAndInsertUint8Array(DCM_PixelData, reinterpret_cast<Uint8*>(&(buffer.at({ 0,0,0 }))), pixDataLen);
+			}
+			break;
+			default:
+				throw logic_error(ssprintf("Wrong reinterpret value  = %d", is_signed));
+			}
+		}
+		else
+		{
+			switch (bpp)
+			{
+			case 8:
+			{
+				auto buffer = CopyProperPixelValues<RealFunctionMD_UI8>(img_in);
+				m_dicom_file->getDataset()->putAndInsertUint8Array(DCM_PixelData, reinterpret_cast<Uint8*>(&(buffer.at({ 0,0,0 }))), pixDataLen);
+			}
+			break;
+			case 16:
+			{
+				auto buffer = CopyProperPixelValues<RealFunctionMD_UI16>(img_in);
+				m_dicom_file->getDataset()->putAndInsertUint8Array(DCM_PixelData, reinterpret_cast<Uint8*>(&(buffer.at({ 0,0,0 }))), pixDataLen);
+			}
+			break;
+			case 32:
+			{
+				auto buffer = CopyProperPixelValues<RealFunctionMD_UI32>(img_in);
+				m_dicom_file->getDataset()->putAndInsertUint8Array(DCM_PixelData, reinterpret_cast<Uint8*>(&(buffer.at({ 0,0,0 }))), pixDataLen);
+			}
+			break;
+			default:
+				throw logic_error(ssprintf("Wrong reinterpret value  = %d", is_signed));
+			}
+		}
 	}
 
 	void ContainerDCMTK::set_pixeldata(const RealFunction2D_F32 &img_in, size_t bpp, bool is_signed, size_t ncomp)

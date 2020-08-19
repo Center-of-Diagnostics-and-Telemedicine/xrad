@@ -75,7 +75,7 @@ namespace Dicom
 
 		virtual bool	delete_dataelement(tag_e id, bool all = true, bool into = true) = 0;
 		virtual bool	exist_element(tag_e id) const = 0;
-		virtual vector<double> get_image_position(size_t frame_no) = 0;
+		
 		//gets
 		virtual wstring	get_wstring(tag_e id, size_t num_of_frame = 0, const wstring &default_value = L"") const = 0;
 		//?virtual wstring get_wstring(tag_e id, const wstring &default_value = L"") const = 0;
@@ -94,7 +94,7 @@ namespace Dicom
 		// modify
 		//virtual void	set_wstring(tag_e id, const wstring &new_value, dataelement_delete_condition dc = force_preserve()) = 0;
 		virtual void	set_pixeldata(const RealFunction2D_F32 &img_in, size_t bpp, bool is_signed, size_t ncomp) = 0;
-
+		virtual void set_pixeldata_mf(const RealFunctionMD_F32 &img_in, size_t bpp, bool is_signed, size_t ncomp) = 0;
 
 		virtual bool set_wstring(tag_e id, const wstring &new_value, size_t num_of_frame = 0, bool set_only_if_exist = false) = 0;
 		virtual void set_wstring_values(tag_e id, const vector<wstring> &new_values, wchar_t delimeter = L'\\', size_t num_of_frame = 0, bool set_only_if_exist = false) = 0;
@@ -104,6 +104,11 @@ namespace Dicom
 		virtual void set_uint(tag_e id, size_t new_value, size_t num_of_frame = 0, bool set_only_if_exist = false) = 0;
 		virtual void set_int_values(tag_e id, const vector<int> &new_values, wchar_t delimeter = L'\\', size_t num_of_frame = 0, bool set_only_if_exist = false) = 0;
 		virtual void delete_all_private_tags() = 0;
+		
+		//multiframe
+		virtual vector<double> get_image_position(size_t frame_no) = 0;
+		virtual vector<double> scales_xy_mf() = 0;
+		virtual double thickness_mf() = 0;
 
 	};
 

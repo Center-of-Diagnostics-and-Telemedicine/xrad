@@ -120,6 +120,22 @@ namespace Dicom
 
 #endif
 		}
+		//! \brief Выгрузка в кэш изображений мультифрейма с обратной коррекцией slope и intercept.
+		//Размер изображения может отличаться от исходного -  вот это плохая идея.... todo
+		virtual void set_mf_images(const RealFunctionMD_F32 &image_p)
+		{
+			double	intercept = dicom_container()->get_double(e_rescale_intercept, 0);
+			double	slope = dicom_container()->get_double(e_rescale_slope, 1);
+
+			
+			set_vsize(image_p.sizes()[1]);
+			set_hsize(image_p.sizes()[2]);
+
+			//internal_image().MakeCopy(image_p, [&intercept, &slope](auto &y, const auto &x){y = (x-intercept)/slope;});
+			RealFunctionMD_F32 img_tmp;
+			img_tmp.MakeCopy(image_p, [&intercept, &slope](auto &y, const auto &x) {y = (x - intercept) / slope; });
+			dicom_container()->set_pixeldata_mf(img_tmp, bits_allocated(), signedness(), ncomponents());
+		}
 
 		//constructors
 		//?image();
@@ -134,6 +150,7 @@ namespace Dicom
 		double x_scale() const { return scales_xy()[0]; }
 		double y_scale() const { return scales_xy()[1]; }
 		std::vector<double> scales_xy() const { return dicom_container()->get_double_values(e_pixel_spacing); }
+		
 		size_t bits_allocated() const { return dicom_container()->get_uint(e_bits_allocated); }
 		size_t bytes_per_pixel() const { return  (bits_allocated() / CHAR_BIT); }
 		bool signedness() const { return dicom_container()->get_bool(e_signedness); }
