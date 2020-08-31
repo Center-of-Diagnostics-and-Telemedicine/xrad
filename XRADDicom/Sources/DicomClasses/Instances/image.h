@@ -8,6 +8,7 @@
 
 #include "LoadGenericClasses.h"
 #include <XRADBasic/MathFunctionTypes2D.h>
+#include <iostream>
 
 XRAD_BEGIN
 
@@ -124,17 +125,18 @@ namespace Dicom
 		//Размер изображения может отличаться от исходного -  вот это плохая идея.... todo
 		virtual void set_mf_images(const RealFunctionMD_F32 &image_p)
 		{
-			double	intercept = dicom_container()->get_double(e_rescale_intercept, 0);
-			double	slope = dicom_container()->get_double(e_rescale_slope, 1);
-
+			double	intercept = dicom_container()->get_intercept_mf();
+			double	slope = dicom_container()->get_slope_mf();
 			
 			set_vsize(image_p.sizes()[1]);
 			set_hsize(image_p.sizes()[2]);
 
-			//internal_image().MakeCopy(image_p, [&intercept, &slope](auto &y, const auto &x){y = (x-intercept)/slope;});
 			RealFunctionMD_F32 img_tmp;
+
 			img_tmp.MakeCopy(image_p, [&intercept, &slope](auto &y, const auto &x) {y = (x - intercept) / slope; });
+			
 			dicom_container()->set_pixeldata_mf(img_tmp, bits_allocated(), signedness(), ncomponents());
+			
 		}
 
 		//constructors

@@ -347,84 +347,131 @@ namespace Dicom
 			return (m_dicom_file->getDataset()->tagExists(dcmTag, OFTrue));
 	}
 
-	double ContainerDCMTK::thickness_mf()
+	double ContainerDCMTK::get_slope_mf()
 	{
 		DcmDataset *Dataset = m_dicom_file->getDataset();
-		//unique_ptr<DcmDataset> Dataset = make_unique<DcmDataset>(m_dicom_file->getDataset());
 
 		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
 		double result;
-		string str1, str2;
+		string str;
 		try
 		{
 			if (Dataset->findAndGetSequence(DCM_SharedFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
 			{
 				DcmItem* item1 = dcmSequenceOfItems->getItem(0);
-				//	item1->print(cout);
-				//	fflush(stdout);
+
+				if (item1->findAndGetSequence(DCM_PixelValueTransformationSequence, dcmSequenceOfItems1, true, true).good())
+				{
+					DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
+
+					item2->findAndGetOFStringArray(DCM_RescaleSlope, str, true);
+				}
+				else throw logic_error("No tag of frame sequence in file");
+
+				result = strtod(str.c_str(), NULL);
+			}
+			else throw logic_error("No tag of frame sequence in file");
+		}
+		catch (...)
+		{
+			throw;
+		}
+
+		return result;
+	}
+
+	double ContainerDCMTK::get_intercept_mf()
+	{
+		DcmDataset *Dataset = m_dicom_file->getDataset();
+
+		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
+		double result;
+		string str;
+		try
+		{
+			if (Dataset->findAndGetSequence(DCM_SharedFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
+			{
+				DcmItem* item1 = dcmSequenceOfItems->getItem(0);
+
+				if (item1->findAndGetSequence(DCM_PixelValueTransformationSequence, dcmSequenceOfItems1, true, true).good())
+				{
+					DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
+
+					item2->findAndGetOFStringArray(DCM_RescaleIntercept, str, true);
+				}
+				else throw logic_error("No tag of frame sequence in file");
+
+				result = strtod(str.c_str(), NULL);
+			}
+			else throw logic_error("No tag of frame sequence in file");
+		}
+		catch (...)
+		{
+			throw;
+		}
+
+		return result;
+	}
+
+	double ContainerDCMTK::get_thickness_mf()
+	{
+		DcmDataset *Dataset = m_dicom_file->getDataset();
+
+		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
+		double result;
+		string str;
+		try
+		{
+			if (Dataset->findAndGetSequence(DCM_SharedFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
+			{
+				DcmItem* item1 = dcmSequenceOfItems->getItem(0);
+
 				if (item1->findAndGetSequence(DCM_PixelMeasuresSequence, dcmSequenceOfItems1, true, true).good())
 				{
-					//dcmSequenceOfItems1->print(cout);
-					//fflush(stdout);
+
 					DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
-					//	item2->print(cout);
-					//	fflush(stdout);
 				
-					item2->findAndGetOFStringArray(DCM_SliceThickness, str2, true);
+					item2->findAndGetOFStringArray(DCM_SliceThickness, str, true);
 				}
 				else throw logic_error("No tag of frame sequence in file");
 	
-				result = strtod(str1.c_str(), NULL);
+				result = strtod(str.c_str(), NULL);
 						}
 			else throw logic_error("No tag of frame sequence in file");
 		}
 		catch (...)
 		{
-//			delete Dataset;
-			delete dcmSequenceOfItems;
-			delete dcmSequenceOfItems1;
-
 			throw;
 		}
-//		delete Dataset;
-		delete dcmSequenceOfItems;
-		delete dcmSequenceOfItems1;
 
 		return result;
 	}
 
-	vector<double> ContainerDCMTK::scales_xy_mf()
+	vector<double> ContainerDCMTK::get_scales_xy_mf()
 	{
 		DcmDataset *Dataset = m_dicom_file->getDataset();
-		//unique_ptr<DcmDataset> Dataset = make_unique<DcmDataset>(m_dicom_file->getDataset());
 
 		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
 		vector<double> result;
-		string str1, str2;
+		string str;
 		try
 		{
 
 			if (Dataset->findAndGetSequence(DCM_SharedFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
 			{
 				DcmItem* item1 = dcmSequenceOfItems->getItem(0);
-				//	item1->print(cout);
-				//	fflush(stdout);
 
 				if (item1->findAndGetSequence(DCM_PixelMeasuresSequence, dcmSequenceOfItems1, true, true).good())
 				{
-					//dcmSequenceOfItems1->print(cout);
-					//fflush(stdout);
 					DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
-					//	item2->print(cout);
-					//	fflush(stdout);
 
-					item2->findAndGetOFStringArray(DCM_PixelSpacing, str1, true);
+					item2->findAndGetOFStringArray(DCM_PixelSpacing, str, true);
 				}
 				else throw logic_error("No tag of frame sequence in file");
 
 				char* pEnd;
 				double d1, d2;
-				d1 = strtod(str1.c_str(), &pEnd);
+				d1 = strtod(str.c_str(), &pEnd);
 				d2 = strtod(pEnd + 1, NULL);
 
 				result.push_back(d1);
@@ -434,15 +481,8 @@ namespace Dicom
 		}
 		catch (...)
 		{
-//			delete Dataset;
-			delete dcmSequenceOfItems;
-			delete dcmSequenceOfItems1;
-
 			throw;
 		}
-//		delete Dataset;
-		delete dcmSequenceOfItems;
-		delete dcmSequenceOfItems1;
 
 		return result;
 	}
@@ -453,14 +493,11 @@ namespace Dicom
 	{
 		DcmDataset *Dataset = m_dicom_file->getDataset();
 
-		//unique_ptr<DcmDataset> Dataset = make_unique<DcmDataset>(m_dicom_file->getDataset());
-
 		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
 
 		string str;
 		vector<double> v;
-		size_t i = 0;
-		//		if (fileformat.getMetaInfo()->findAndGetSequenceItem(DCM_CTImageFrameTypeSequence, item, 0, false).good())//DCM_ImagePositionPatient
+
 		try
 		{
 			if (Dataset->findAndGetSequence(DCM_PerFrameFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
@@ -490,15 +527,8 @@ namespace Dicom
 		}
 		catch (...)
 		{
-//			delete Dataset;
-			delete dcmSequenceOfItems;
-			delete dcmSequenceOfItems1;
-
 			throw;
 		}
-//		delete Dataset;
-		delete dcmSequenceOfItems;
-		delete dcmSequenceOfItems1;
 
 		return v;
 	}

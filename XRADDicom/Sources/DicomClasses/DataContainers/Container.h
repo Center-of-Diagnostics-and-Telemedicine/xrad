@@ -107,8 +107,10 @@ namespace Dicom
 		
 		//multiframe
 		virtual vector<double> get_image_position(size_t frame_no) = 0;
-		virtual vector<double> scales_xy_mf() = 0;
-		virtual double thickness_mf() = 0;
+		virtual  double get_slope_mf() = 0;
+		virtual double get_intercept_mf() = 0;
+		virtual vector<double> get_scales_xy_mf() = 0;
+		virtual double get_thickness_mf() = 0;
 
 	};
 

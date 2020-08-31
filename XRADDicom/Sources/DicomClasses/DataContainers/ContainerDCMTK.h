@@ -74,8 +74,10 @@ namespace Dicom
 		virtual void delete_all_private_tags() override;
 
 		virtual vector<double>  get_image_position(size_t frame_no) override;
-		virtual vector<double> scales_xy_mf() override;
-		virtual double thickness_mf() override;
+		virtual  double get_slope_mf() override;
+		virtual double get_intercept_mf() override;
+		virtual vector<double> get_scales_xy_mf() override;
+		virtual double get_thickness_mf() override;
 
 	private:
 		//read/save
