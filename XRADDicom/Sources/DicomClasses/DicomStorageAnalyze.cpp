@@ -129,7 +129,6 @@ namespace
 		ProgressIndicatorScheduler	scheduler({ 5, 95 });
 		progress.start("Analyzing Dicom folder.", scheduler.n_steps());
 
-//		std::vector<wstring> filenames = GetDirectoryFilesComplete(src_folder.path(), /*src_folder.analyze_subfolders(), */progress.subprogress(scheduler.operation_boundaries(0)));
 		std::vector<wstring> filenames = GetDirectoryFiles(src_folder.path(), L" ", src_folder.analyze_subfolders(), progress.subprogress(scheduler.operation_boundaries(0)));
 
 
@@ -166,7 +165,8 @@ namespace
 		return studies_heap;
 	}
 
-	Dicom::patients_loader RawAnalyzeFolderIndexing(const Dicom::datasource_folder &src_folder,
+	Dicom::patients_loader RawAnalyzeFolderIndexing(
+		const Dicom::datasource_folder &src_folder,
 		const DicomInstanceFilters_t &filter_p,//TODO этот фильтр уже давно здесь дает предупреждение, пора и разобраться с ним
 		ProgressProxy pproxy)
 	{
@@ -176,18 +176,23 @@ namespace
 		progress.start(L"Analyzing Dicom folder.", scheduler.n_steps());
 
 		// индексировать все файлы в каталоге src_folder.path()
-		bool b_show_stdout = false;
-		Dicom::DicomCatalogIndex dcmCatalogIndex;
-		dcmCatalogIndex.CatalogIndexing(src_folder.path(), b_show_stdout, progress.subprogress(scheduler.operation_boundaries(0)));
+		
+		bool b_show_stdout = true;//temporary
+//		bool b_show_stdout = false;
+		bool b_check_consistency = true;
+		bool b_update = true;
+		Dicom::DicomCatalogIndex dicom_catalog_index(b_show_stdout, b_check_consistency, b_update);
+		dicom_catalog_index.PerformCatalogIndexing(src_folder, progress.subprogress(scheduler.operation_boundaries(0)));
 
 		ProgressBar progress_b(progress.subprogress(scheduler.operation_boundaries(1)));
-		progress_b.start(L"Fill instances.", 10000);
+		progress_b.start(L"Fill instances.", dicom_catalog_index.n_items());
 		//  сформировать instancestorages вектор для Dicom файлов
+
 		std::vector<Dicom::instancestorage_ptr> instancestorages;
-		for (auto& el_dir : dcmCatalogIndex.data()) // для каждой директории
+		for (auto& el_dir : dicom_catalog_index.data()) // для каждой директории
 		{
 			auto path_to_dir = el_dir.get_path();
-			for (const auto& el : el_dir.m_FilesIndex) // для каждого файла
+			for (const auto& el : el_dir) // для каждого файла
 			{
 				if ( el.is_dicom() ) // важное исправление, удалено условие && el.has_image_type():нужно индексировать все дайкомы, а не только изображения. Терялись SR при анонимизации
 				{
@@ -199,6 +204,7 @@ namespace
 			}
 			el_dir.clear(); // очистить занимаемую память для обработанной директории с индексами
 		}
+		progress_b.end();
 
 		Dicom::patients_loader studies_heap_cpy;
 #ifdef XRAD_DEBUG
@@ -224,16 +230,21 @@ namespace
 		return studies_heap;
 	}
 
-	Dicom::patients_loader RawAnalyzeFolderSelector(const Dicom::datasource_folder &src_folder,
+	Dicom::patients_loader RawAnalyzeFolderSelector(
+		const Dicom::datasource_folder &src_folder,
 		const DicomInstanceFilters_t &filter_p,
 		ProgressProxy pproxy)
 	{
 		switch (src_folder.mode())
 		{
 			default:
-			case decltype(src_folder.mode())::Index:
+			case decltype(src_folder.mode())::read_and_update_index:
 				return RawAnalyzeFolderIndexing(src_folder, filter_p, pproxy);
-			case decltype(src_folder.mode())::NoIndex:
+
+			case decltype(src_folder.mode())::read_index_as_is:
+				return RawAnalyzeFolderIndexing(src_folder, filter_p, pproxy);
+
+			case decltype(src_folder.mode())::no_index:
 				return RawAnalyzeFolder(src_folder, filter_p, pproxy);
 		}
 	}
@@ -250,13 +261,13 @@ namespace
 			return studies_heap;
 
 		// собираем информацию обо всех необходимых нам исследованиях, которые мы хотим забрать с сервера
-		list<Dicom::elemsmap_t> wrkLst;
+		list<Dicom::elemsmap_t> work_list;
 		//Dicom::fillListOfInstances(scu, filter, wrkLst);
 
 		std::mutex collector_mutex;
 		//TODO Kovbas добавляем в source данные о инстансах (источник данных и минимальные данные по каждому (то, что даёт запрос))
 		// а из сорса через Dicom::Container уже открываем это дело и всё с этим делаем.
-		for (auto el : wrkLst)
+		for (auto el : work_list)
 		{
 			//Dicom::instance_ptr instTmp = Dicom::CreateInstance(new Dicom::instancestorage_pacs(src_pacs, el));
 			//todo (Kovbas) решить вопрос с тем, что не все инстансы были получены с сервера
@@ -265,10 +276,10 @@ namespace
 		return studies_heap;
 	}
 
-	/*!
-		Возвращает кучу инстансев, разложенных в иерархию. Инстансы содержат только информацию для раскладывания их по иерархии.
-		Источники данных инстансев на выходе из функции закрыты для экономии памяти. Далее пользователь сам решает что с этим делать.
-	*/
+	//! \brief 	Возвращает кучу инстансов, разложенных по иерархическому дереву "patient-study-series-stack-acquisition".
+	//			Инстансы содержат только информацию, позволяющую определить принадлежность к определенной ветви этого дерева.
+	// 			Источники данных инстансов (dicom files) на выходе из функции закрыты для экономии памяти.
+	//			Пользователь может открывать и закрывать их по мере необходимости.
 	Dicom::patients_loader RawAnalyzeDicomSource(const Dicom::datasource_t &dicom_datasource,
 		//const Dicom::filter_t &filter,
 		const DicomInstanceFilters_t &filter_p,
@@ -277,11 +288,15 @@ namespace
 		switch (dicom_datasource.type())
 		{
 		case Dicom::datasource_t::folder:
-			return RawAnalyzeFolderSelector(dynamic_cast<const Dicom::datasource_folder&>(dicom_datasource), filter_p,
+			return RawAnalyzeFolderSelector(
+				dynamic_cast<const Dicom::datasource_folder&>(dicom_datasource), 
+				filter_p,
 				pproxy);
 
 		case Dicom::datasource_t::pacs:
-			return RawAnalyzePACS(dynamic_cast<const Dicom::datasource_pacs&>(dicom_datasource), filter_p,
+			return RawAnalyzePACS(
+				dynamic_cast<const Dicom::datasource_pacs&>(dicom_datasource),
+				filter_p,
 				pproxy);
 		}
 
@@ -304,12 +319,12 @@ namespace
 } // namespace
 
 
-Dicom::patients_loader GetDicomStudiesHeap(const Dicom::datasource_t &dicom_src,
-	//const Dicom::filter_t &filters,
+Dicom::patients_loader GetDicomStudiesHeap(
+	const Dicom::datasource_t &dicom_src,
 	const DicomInstanceFilters_t  &filters_p,
 	ProgressProxy progress_proxy)
 {
-	// Загружаем все дайкомы из указанной папки,
+	// Загружаем все дайкомы из указанного источника (папки или PACS),
 	// разбираем по сборкам, с которыми в последствии и будет работа.
 	RandomProgressBar	progress(progress_proxy);
 	progress.start("Retrieving Dicom studies list", 1);
@@ -317,7 +332,8 @@ Dicom::patients_loader GetDicomStudiesHeap(const Dicom::datasource_t &dicom_src,
 
 	if (studies_heap.empty()) return studies_heap; // дайкомов не обнаружено, уходим
 
-	// Здесь делается предварительная обработка acquisition: сортировка, удаление дубликатов и пустых элементов studies_heap
+	// Здесь делается предварительная обработка acquisition:
+	// сортировка instances внутри acquisition, удаление дубликатов и пустых элементов studies_heap на всех уровнях
 	Dicom::PatientsProcessorRecursive<Dicom::patients_loader>	processor(make_shared<AcquisitionPrepare>());
 	processor.Apply(studies_heap, progress.subprogress(0.5, 1));
 

@@ -38,6 +38,9 @@ bool auxiliary_tomogram_acquisition_condition::check(const Dicom::acquisition_lo
 {
 	if(Dicom::is_modality_ct(data.front()->modality()))
 	{
+		if (data.front()->get_m_frame_no())
+			return false;
+
 		for(auto &instance: data)
 		{
 			// Выявление не томограмм.
@@ -57,6 +60,7 @@ bool auxiliary_tomogram_acquisition_condition::check(const Dicom::acquisition_lo
 					return true;//вектор положения отсутствует
 			if(slice->dicom_container()->get_double_values(Dicom::e_image_orientation_patient).size() != 6)
 					return true;//вектор ориентации отсутствует.
+
 		}
 	}
 

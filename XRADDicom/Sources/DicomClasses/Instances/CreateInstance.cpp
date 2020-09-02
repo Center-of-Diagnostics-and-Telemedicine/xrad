@@ -29,13 +29,20 @@ namespace Dicom
 	{
 		instance_ptr result = unique_ptr<instance>(make_unique<T>());
 		result->copy_container(*instance_in);
-		if (result->exist_and_correct_essential_data())
+		if (result->get_m_frame_no() != 0)
+		{
 			return result;
+		}
 		else
-			if (TryCreateAnother == nullptr)
-				return nullptr;
+		{
+			if (result->exist_and_correct_essential_data())
+				return result;
 			else
-				return TryCreateAnother(instance_in);
+				if (TryCreateAnother == nullptr)
+					return nullptr;
+				else
+					return TryCreateAnother(instance_in);
+		}
 	}
 
 	instance_ptr	TryCreateGenericInstance(const instance_ptr &instance_in) { return TryCreateInstance_template<instance>(instance_in, nullptr); }
@@ -82,6 +89,9 @@ namespace Dicom
 
 		//создаём экземпляр соответствующего типа
 		wstring mod = prime->modality();
+
+		if (prime->dicom_container()->exist_element(e_number_of_frames))   prime->get_m_frame_no() = prime->dicom_container()->get_uint(e_number_of_frames, 0);
+		else prime->get_m_frame_no() = 0;
 
 		//tomograms
 		//CT
@@ -160,6 +170,14 @@ namespace Dicom
 				if (!instance_predicate_p(result)) // для проверки работы фильтра над инстансом, созданным индексированием
 					return nullptr;
 				result->dicom_container()->create_empty_instancestorage(instance_src_p);
+
+			//	Dicom::instance_open_close_class openclose(*result);
+				result->try_open_instancestorage(instance_src_p);
+				if (result->dicom_container()->exist_element(e_number_of_frames))   result->get_m_frame_no() = result->dicom_container()->get_uint(e_number_of_frames, 0);
+				else result->get_m_frame_no() = 0;
+				
+			//	result->set_num_of_frame(result->dicom_container()->frames_number());
+			//	result->dicom_container()->frames_number();
 			}
 			else
 			{

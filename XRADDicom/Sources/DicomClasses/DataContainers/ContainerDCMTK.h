@@ -67,11 +67,17 @@ namespace Dicom
 			\note Здесь не устанавливается то, как будет кодировано изображение. Это делается только при сохранении файла
 		*/
 		virtual void set_pixeldata(const RealFunction2D_F32 &img_in, size_t bpp, bool is_signed, size_t ncomp)  override;
-
+		virtual void set_pixeldata_mf(const RealFunctionMD_F32 &img_in, size_t bpp, bool is_signed, size_t ncomp) override;
 		virtual bool exist_element(tag_e id) const override;
 		bool exist_element(const DcmTag &dcmTag) const;
 
 		virtual void delete_all_private_tags() override;
+
+		virtual vector<double>  get_image_position(size_t frame_no) override;
+		virtual  double get_slope_mf() override;
+		virtual double get_intercept_mf() override;
+		virtual vector<double> get_scales_xy_mf() override;
+		virtual double get_thickness_mf() override;
 
 	private:
 		//read/save

@@ -347,6 +347,192 @@ namespace Dicom
 			return (m_dicom_file->getDataset()->tagExists(dcmTag, OFTrue));
 	}
 
+	double ContainerDCMTK::get_slope_mf()
+	{
+		DcmDataset *Dataset = m_dicom_file->getDataset();
+
+		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
+		double result;
+		string str;
+		try
+		{
+			if (Dataset->findAndGetSequence(DCM_SharedFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
+			{
+				DcmItem* item1 = dcmSequenceOfItems->getItem(0);
+
+				if (item1->findAndGetSequence(DCM_PixelValueTransformationSequence, dcmSequenceOfItems1, true, true).good())
+				{
+					DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
+
+					item2->findAndGetOFStringArray(DCM_RescaleSlope, str, true);
+				}
+				else throw logic_error("No tag of frame sequence in file");
+
+				result = strtod(str.c_str(), NULL);
+			}
+			else throw logic_error("No tag of frame sequence in file");
+		}
+		catch (...)
+		{
+			throw;
+		}
+
+		return result;
+	}
+
+	double ContainerDCMTK::get_intercept_mf()
+	{
+		DcmDataset *Dataset = m_dicom_file->getDataset();
+
+		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
+		double result;
+		string str;
+		try
+		{
+			if (Dataset->findAndGetSequence(DCM_SharedFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
+			{
+				DcmItem* item1 = dcmSequenceOfItems->getItem(0);
+
+				if (item1->findAndGetSequence(DCM_PixelValueTransformationSequence, dcmSequenceOfItems1, true, true).good())
+				{
+					DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
+
+					item2->findAndGetOFStringArray(DCM_RescaleIntercept, str, true);
+				}
+				else throw logic_error("No tag of frame sequence in file");
+
+				result = strtod(str.c_str(), NULL);
+			}
+			else throw logic_error("No tag of frame sequence in file");
+		}
+		catch (...)
+		{
+			throw;
+		}
+
+		return result;
+	}
+
+	double ContainerDCMTK::get_thickness_mf()
+	{
+		DcmDataset *Dataset = m_dicom_file->getDataset();
+
+		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
+		double result;
+		string str;
+		try
+		{
+			if (Dataset->findAndGetSequence(DCM_SharedFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
+			{
+				DcmItem* item1 = dcmSequenceOfItems->getItem(0);
+
+				if (item1->findAndGetSequence(DCM_PixelMeasuresSequence, dcmSequenceOfItems1, true, true).good())
+				{
+
+					DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
+				
+					item2->findAndGetOFStringArray(DCM_SliceThickness, str, true);
+				}
+				else throw logic_error("No tag of frame sequence in file");
+	
+				result = strtod(str.c_str(), NULL);
+						}
+			else throw logic_error("No tag of frame sequence in file");
+		}
+		catch (...)
+		{
+			throw;
+		}
+
+		return result;
+	}
+
+	vector<double> ContainerDCMTK::get_scales_xy_mf()
+	{
+		DcmDataset *Dataset = m_dicom_file->getDataset();
+
+		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
+		vector<double> result;
+		string str;
+		try
+		{
+
+			if (Dataset->findAndGetSequence(DCM_SharedFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
+			{
+				DcmItem* item1 = dcmSequenceOfItems->getItem(0);
+
+				if (item1->findAndGetSequence(DCM_PixelMeasuresSequence, dcmSequenceOfItems1, true, true).good())
+				{
+					DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
+
+					item2->findAndGetOFStringArray(DCM_PixelSpacing, str, true);
+				}
+				else throw logic_error("No tag of frame sequence in file");
+
+				char* pEnd;
+				double d1, d2;
+				d1 = strtod(str.c_str(), &pEnd);
+				d2 = strtod(pEnd + 1, NULL);
+
+				result.push_back(d1);
+				result.push_back(d2);
+			}
+			else throw logic_error("No tag of frame sequence in file");
+		}
+		catch (...)
+		{
+			throw;
+		}
+
+		return result;
+	}
+
+
+
+	vector<double> ContainerDCMTK::get_image_position(size_t frame_no) 
+	{
+		DcmDataset *Dataset = m_dicom_file->getDataset();
+
+		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
+
+		string str;
+		vector<double> v;
+
+		try
+		{
+			if (Dataset->findAndGetSequence(DCM_PerFrameFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
+			{
+				DcmItem* item1 = dcmSequenceOfItems->getItem(frame_no);
+
+				item1->findAndGetSequence(DCM_PlanePositionSequence, dcmSequenceOfItems1, true, true);
+
+				DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
+
+				item2->findAndGetOFStringArray(DCM_ImagePositionPatient, str, true);
+
+			}
+			else {
+				throw logic_error("No tag of frame sequence in file");
+			}
+
+			char* pEnd; char* pEnd2;
+			double d1, d2, d3;
+			d1 = strtod(str.c_str(), &pEnd);
+			d2 = strtod(pEnd + 1, &pEnd2);
+			d3 = strtod(pEnd2 + 1, NULL);
+
+			v.push_back(d1);
+			v.push_back(d2);
+			v.push_back(d3);
+		}
+		catch (...)
+		{
+			throw;
+		}
+
+		return v;
+	}
+
 	namespace
 	{
 
@@ -860,6 +1046,67 @@ namespace Dicom
 		return result;
 	}
 
+	void ContainerDCMTK::set_pixeldata_mf(const RealFunctionMD_F32 &img_in, size_t bpp, bool is_signed, size_t ncomp)
+	{
+		(void)ncomp; //note (Kovbas) нужно будет для сохранения цветных изображений
+					 //разбираем и отдаём в объект файла данные изображения
+					 //todo (Kovbas) попробовать переделать так, чтобы было в одну строку (возможно, достаточно одного реинтерпрета). 20180601 - не знаю как это можно сделать и возможно ли.
+		unsigned long pixDataLen = (unsigned long)(img_in.sizes()[0] * img_in.sizes()[1] * img_in.sizes()[2] * bpp / CHAR_BIT); //явное преобразование для передачи в DCMTK
+																																// отправляем в объект файла сырое изображение. При сохранении оно будет жато в зависимости от выбора.
+		if (is_signed)
+		{
+			switch (bpp)
+			{
+			case 8:
+			{
+				auto buffer = CopyProperPixelValues<RealFunctionMD_I8>(img_in);
+				m_dicom_file->getDataset()->putAndInsertUint8Array(DCM_PixelData, reinterpret_cast<Uint8*>(&(buffer.at({ 0,0,0 }))), pixDataLen);
+			}
+			break;
+			case 16:
+			{
+				auto buffer = CopyProperPixelValues<RealFunctionMD_I16>(img_in);
+				m_dicom_file->getDataset()->putAndInsertUint8Array(DCM_PixelData, reinterpret_cast<Uint8*>(&(buffer.at({ 0,0,0 }))), pixDataLen);
+			}
+			break;
+			case 32:
+			{
+				auto buffer = CopyProperPixelValues<RealFunctionMD_I32>(img_in);
+				m_dicom_file->getDataset()->putAndInsertUint8Array(DCM_PixelData, reinterpret_cast<Uint8*>(&(buffer.at({ 0,0,0 }))), pixDataLen);
+			}
+			break;
+			default:
+				throw logic_error(ssprintf("Wrong reinterpret value  = %d", is_signed));
+			}
+		}
+		else
+		{
+			switch (bpp)
+			{
+			case 8:
+			{
+				auto buffer = CopyProperPixelValues<RealFunctionMD_UI8>(img_in);
+				m_dicom_file->getDataset()->putAndInsertUint8Array(DCM_PixelData, reinterpret_cast<Uint8*>(&(buffer.at({ 0,0,0 }))), pixDataLen);
+			}
+			break;
+			case 16:
+			{
+				auto buffer = CopyProperPixelValues<RealFunctionMD_UI16>(img_in);
+				m_dicom_file->getDataset()->putAndInsertUint8Array(DCM_PixelData, reinterpret_cast<Uint8*>(&(buffer.at({ 0,0,0 }))), pixDataLen);
+			}
+			break;
+			case 32:
+			{
+				auto buffer = CopyProperPixelValues<RealFunctionMD_UI32>(img_in);
+				m_dicom_file->getDataset()->putAndInsertUint8Array(DCM_PixelData, reinterpret_cast<Uint8*>(&(buffer.at({ 0,0,0 }))), pixDataLen);
+			}
+			break;
+			default:
+				throw logic_error(ssprintf("Wrong reinterpret value  = %d", is_signed));
+			}
+		}
+	}
+
 	void ContainerDCMTK::set_pixeldata(const RealFunction2D_F32 &img_in, size_t bpp, bool is_signed, size_t ncomp)
 	{
 		(void)ncomp; //note (Kovbas) нужно будет для сохранения цветных изображений
@@ -960,10 +1207,21 @@ namespace Dicom
 		try
 		{
 			string charset("");
+			// Отрабатываем ситуацию, когда тэг (0008,0005) прописан не в корне дайком файла, а в одной из его вложенных веток
+			// Некоторые приборы так записывают. Из-за этого вьюверы (Radiant, Osirix, Horos) пытаются отобразить utf-8 строки
+			// в локальной 8-битной кодировке. Для исправления ошибки дублируем тэг в корне дайком-файла.
+			// Сделанные изменения влияют только на дайком-файлы, которые мы записываем из своей программы
+			// (например, при анонимизации)
 
-			if(dcmItem_p->tagExists(charset_tag, false))
+			bool	tag_exists_in_root = dcmItem_p->tagExists(charset_tag, false);
+			bool	tag_exists_in_sub = dcmItem_p->tagExists(charset_tag, true);
+
+			bool	b_exists = tag_exists_in_root || tag_exists_in_sub;
+			bool	b_sub = tag_exists_in_sub && !tag_exists_in_root;
+
+			if(b_exists)
 			{
-				dcmItem_p->findAndGetOFStringArray(charset_tag, charset, false);
+				dcmItem_p->findAndGetOFStringArray(charset_tag, charset, b_sub);
 				charset = fix_string_ending(charset);
 
 				if(charset != charset_utf8)
@@ -982,7 +1240,12 @@ namespace Dicom
 					}
 				}
 
-				dcmItem_p->findAndGetOFStringArray(charset_tag, charset, false);
+				dcmItem_p->findAndGetOFStringArray(charset_tag, charset, b_sub);
+				if(b_sub)
+				{
+					// если тэг был записан только во вложенной ветке, дублируем его в корне
+					set_wstring(e_specific_character_set, convert_to_wstring(charset));
+				}
 			}
 		}
 		catch(...)

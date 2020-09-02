@@ -625,8 +625,9 @@ namespace Dicom
 				if (currentLevel == level_p)
 				{
 					for (auto wrkEl : wrkLst)
+					{
 						resLstTmp.push_back(wrkEl);
-					//continue;
+					}
 					return;
 				}
 			}
@@ -638,8 +639,9 @@ namespace Dicom
 			if (currentLevel == level_p)
 			{
 				for (auto wrkEl : wrkLst)
+				{
 					resLstTmp.push_back(wrkEl);
-				//continue;
+				}
 				return;
 			}
 
@@ -648,8 +650,9 @@ namespace Dicom
 			if (currentLevel == level_p)
 			{
 				for (auto wrkEl : wrkLst)
+				{
 					resLstTmp.push_back(wrkEl);
-				//continue;
+				}
 				return;
 			}
 

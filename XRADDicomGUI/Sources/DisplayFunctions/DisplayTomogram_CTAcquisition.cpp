@@ -41,6 +41,7 @@ const vector<wstring> &options_ct_names()
 
 void	DisplayTomogram_CTAcquisition(const CTAcquisition &ct, const wstring &title)
 {
+	point3_F64 t;
 	display_ct_options_t options{ display_ct_slices };
 	auto title_full{ title + L" [" + ct.series_description() + L"]" };
 
@@ -53,7 +54,9 @@ void	DisplayTomogram_CTAcquisition(const CTAcquisition &ct, const wstring &title
 			switch (options)
 			{
 			case display_ct_slices:
-				DisplayMathFunction3D(ct.load_ordered_slices(), title_full);
+ 			    DisplayMathFunction3D(ct.load_ordered_slices(), title_full);
+			//	DisplayMathFunction3D(ct.slices(), title_full);
+				t = ct.scales();
 				break;
 
 			case display_ct_metadata:

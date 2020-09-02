@@ -8,6 +8,7 @@
 
 #include "LoadGenericClasses.h"
 #include <XRADBasic/MathFunctionTypes2D.h>
+#include <iostream>
 
 XRAD_BEGIN
 
@@ -65,6 +66,26 @@ namespace Dicom
 			image_p.CopyData(image_p/*, [&intercept, &slope](auto &y, const auto &x){y = x*slope + intercept;}*/);
 		}
 
+		virtual void get_image(RealFunction2D_F32 &image_p, size_t m_frame_no) const
+		{
+			if (image_p.vsize() != vsize() || image_p.hsize() != hsize())
+			{
+				ForceDebugBreak();
+				throw invalid_argument("Dicom::image::load_image, invalid buffer dimensions");
+			}
+;
+
+			//получаем изображение из файла
+			size_t bpp = dicom_container()->get_uint(e_bits_allocated);
+			bool signedness = dicom_container()->get_uint(e_pixel_representation) != 0;
+			//size_t ncomponents = 0;
+			size_t ncomponents = dicom_container()->get_uint(e_samples_per_pixel);
+			dicom_container()->get_pixeldata(image_p, bpp, signedness, ncomponents, m_frame_no);
+
+			// Важно: копирование в существующий массив без переаллокирования
+			image_p.CopyData(image_p/*, [&intercept, &slope](auto &y, const auto &x){y = x*slope + intercept;}*/);
+		}
+
 		//! \brief Получение изображения с учетом поправок slope и intercept во вновь создаваемый буфер
 		virtual  RealFunction2D_F32 get_image() const
 		{
@@ -100,6 +121,23 @@ namespace Dicom
 
 #endif
 		}
+		//! \brief Выгрузка в кэш изображений мультифрейма с обратной коррекцией slope и intercept.
+		//Размер изображения может отличаться от исходного -  вот это плохая идея.... todo
+		virtual void set_mf_images(const RealFunctionMD_F32 &image_p)
+		{
+			double	intercept = dicom_container()->get_intercept_mf();
+			double	slope = dicom_container()->get_slope_mf();
+			
+			set_vsize(image_p.sizes()[1]);
+			set_hsize(image_p.sizes()[2]);
+
+			RealFunctionMD_F32 img_tmp;
+
+			img_tmp.MakeCopy(image_p, [&intercept, &slope](auto &y, const auto &x) {y = (x - intercept) / slope; });
+			
+			dicom_container()->set_pixeldata_mf(img_tmp, bits_allocated(), signedness(), ncomponents());
+			
+		}
 
 		//constructors
 		//?image();
@@ -114,6 +152,7 @@ namespace Dicom
 		double x_scale() const { return scales_xy()[0]; }
 		double y_scale() const { return scales_xy()[1]; }
 		std::vector<double> scales_xy() const { return dicom_container()->get_double_values(e_pixel_spacing); }
+		
 		size_t bits_allocated() const { return dicom_container()->get_uint(e_bits_allocated); }
 		size_t bytes_per_pixel() const { return  (bits_allocated() / CHAR_BIT); }
 		bool signedness() const { return dicom_container()->get_bool(e_signedness); }

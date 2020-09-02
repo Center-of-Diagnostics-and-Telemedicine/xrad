@@ -33,7 +33,8 @@ namespace Dicom
 		dataelement_t() : m_modify_condition(e_modify_dataelement) {};
 		dataelement_t(const wstring &val, dataelement_modify_condition in_dc/*= e_modify_dataelement*/) : m_value(val), m_modify_condition(in_dc) {}
 
-		wstring value() const { return m_value; }
+		const wstring &value() const { return m_value; }
+		wstring &value() { return m_value; }
 
 		void	SetDeleteCondition(const dataelement_modify_condition &in_dc) { m_modify_condition = in_dc; }
 
