@@ -3,23 +3,25 @@
 	\date 10/09/2020 12:19:45 PM
 	\author sbp
 */
-#ifndef XRayAcquisition_h__
-#define XRayAcquisition_h__
+#ifndef GenericImageAcquisition_h__
+#define GenericImageAcquisition_h__
 
-#include "XRAYInstance.h"
-#include "GenericImageAcquisition.h"
+//#include "XRAYInstance.h"
+#include "ProcessAcquisition.h"
 #include <XRADDicom/Sources/DicomClasses/Instances/LoadGenericClasses.h>
 
 XRAD_BEGIN
 
-class XRayAcquisition : public GenericImageAcquisition
+class GenericImageAcquisition : public ProcessAcquisition
 {
 public:
-	XRayAcquisition(const shared_ptr<Dicom::acquisition_loader> &acquisition_loader_p);
-	XRayAcquisition(const size_t elements_amount); //note этот конструктор только для создания новых сборок
+	typedef	GenericImageAcquisition self;
+
+	GenericImageAcquisition(const shared_ptr<Dicom::acquisition_loader> &acquisition_loader_p);
+//	GenericImageAcquisition(const size_t elements_amount); //note этот конструктор только для создания новых сборок
 
 	//gets
-/*	virtual std::string classname() const { return "XRayAcquisition"; }
+	virtual std::string classname() const override { return "GenericImageAcquisition"; }
 
 	virtual size_t n_elements() const { return m_acquisition_loader->size(); }
 	void put_elements_to_instance(Dicom::instance &instance, size_t num_element) const;
@@ -34,7 +36,6 @@ public:
 
 	RealFunction2D_F32	slice(size_t pos) const;		// получить 2D изображение среза с номером pos
 	vector<RealFunction2D_F32>	slices() const;				// получить вектор 2D изображений
-	*/
 };
 
 XRAD_END

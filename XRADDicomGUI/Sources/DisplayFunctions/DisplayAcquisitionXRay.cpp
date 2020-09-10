@@ -39,7 +39,7 @@ const vector<wstring> &options_generic_rg_names()
 	return	options;
 }
 
-void	DisplayXRAYGeneric(const XRAYAcquisition &rg, const wstring &title)
+void	DisplayXRayGeneric(const XRayAcquisition &rg, const wstring &title)
 {
 	size_t display_rg_options(0);
 	wstring title_full = title + L" [" + rg.series_description() + L"]";

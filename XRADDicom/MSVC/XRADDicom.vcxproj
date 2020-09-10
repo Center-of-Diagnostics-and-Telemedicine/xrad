@@ -162,7 +162,8 @@
     <ClCompile Include="..\Sources\DicomClasses\Instances\xray_image.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\CreateProcessAcquisition.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\MRAcquisitionSiemens.cpp" />
-    <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\XRAYAcquisition.cpp" />
+    <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\GenericImageAcquisition.cpp" />
+    <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\XRayAcquisition.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\XRAYInstance.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\MRAcquisition.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\ProcessAcquisition.cpp" />
@@ -190,6 +191,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Sources\DicomClasses\ProcessContainers\XRayAcquisition.h" />
     <ClInclude Include="pre.h" />
     <ClInclude Include="..\Sources\DCMTKAccess\dcmtkCodec.h" />
     <ClInclude Include="..\Sources\DCMTKAccess\dcmtkElementsTools.h" />
@@ -217,7 +219,7 @@
     <ClInclude Include="..\Sources\DicomClasses\Instances\xray_image.h" />
     <ClInclude Include="..\Sources\DicomClasses\ProcessContainers\CreateProcessAcquisition.h" />
     <ClInclude Include="..\Sources\DicomClasses\ProcessContainers\MRAcquisitionSiemens.h" />
-    <ClInclude Include="..\Sources\DicomClasses\ProcessContainers\XRAYAcquisition.h" />
+    <ClInclude Include="..\Sources\DicomClasses\ProcessContainers\GenericImageAcquisition.h" />
     <ClInclude Include="..\Sources\DicomClasses\ProcessContainers\XRAYInstance.h" />
     <ClInclude Include="..\Sources\DicomClasses\ProcessContainers\MRAcquisition.h" />
     <ClInclude Include="..\Sources\DicomClasses\ProcessContainers\ProcessAcquisition.h" />
