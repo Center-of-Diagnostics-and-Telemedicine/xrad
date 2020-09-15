@@ -197,9 +197,10 @@ namespace Dicom
 		//закачиваем исследования
 		size_t nTrials = 10;
 
-
-		auto	started_time = std::chrono::high_resolution_clock::now();
-		auto	ended_time = std::chrono::high_resolution_clock::now();
+		using clock_type = std::chrono::steady_clock;
+			// high_resolution_clock может быть немонотонным
+		auto	started_time = clock_type::now();
+		auto	ended_time = clock_type::now();
 
 
 		vector<std::chrono::duration<long long>> delays = {0s, 10min, 30min, 1h, 1h, 1h, 1h, 1h, 1h, 1h, 1h};
@@ -213,8 +214,9 @@ namespace Dicom
 			if(i && ended_time - started_time < delay + dcmDatasetMap.size()*1min)
 			{
 				delay = delays[++delay_no];
-				auto	t0 = std::chrono::high_resolution_clock::now();
+				auto	t0 = clock_type::now();
 				auto	te = t0+delay;
+				#if 0
 				auto	delay_message = [t0,te]()
 				{
 				cout << "\rWating " << std::chrono::duration_cast<std::chrono::minutes>(te-t0).count() << " minutes before next attempt, " <<
@@ -226,13 +228,33 @@ namespace Dicom
 
 				//std::this_thread::sleep_for(delays[i]);
 				cout << "OK\n";
+				#else
+				RandomProgressBar pb(pproxy);
+				pb.start(ssprintf("Wating for %i minutes before attempt %zu/%zu.",
+						EnsureType<int>(std::chrono::duration_cast<std::chrono::minutes>(te-t0).count()),
+						EnsureType<size_t>(i),
+						EnsureType<size_t>(nTrials)));
+				auto delay_frac = 1./(te - t0).count(); // delay должна быть переведена в шкалу clock_type.
+				for (;;)
+				{
+					std::this_thread::sleep_for(200ms);
+					auto t = clock_type::now();
+					if (t >= te)
+					{
+						pb.set_position(1);
+						break;
+					}
+					pb.set_position(delay_frac * (t - t0).count());
+				}
+				pb.end();
+				#endif
 			}
 			else
 			{
 				delay_no = 0;
 			}
 
-			started_time = std::chrono::high_resolution_clock::now();
+			started_time = clock_type::now();
 
 			DownloadsRegistrator	failed_log(destination_folder, study_id_type, false, i);
 			wstring msg{ L"Downloading " + to_wstring(dcmDatasetMap.size()) + L" studies. Attempt " + to_wstring(i + 1) + L" of " + to_wstring(nTrials) };
@@ -292,7 +314,7 @@ namespace Dicom
 #pragma вернуть
 			//++for (auto el : dcmDatasetMap)
 				//printf("%s\n", convert_to_string(element_value_to_wstring(el.second, element_id_to_DcmTag(tag_t(study_id_type)))).c_str());
-		ended_time = std::chrono::high_resolution_clock::now();
+		ended_time = clock_type::now();
 		}
 
 		return true;
