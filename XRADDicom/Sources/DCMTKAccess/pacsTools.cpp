@@ -230,8 +230,8 @@ namespace Dicom
 				cout << "OK\n";
 				#else
 				RandomProgressBar pb(pproxy);
-				pb.start(ssprintf("Wating for %i minutes before attempt %zu/%zu.",
-						EnsureType<int>(std::chrono::duration_cast<std::chrono::minutes>(te-t0).count()),
+				pb.start(ssprintf("Wating for %li minutes before attempt %zu/%zu.",
+						(long)std::chrono::duration_cast<std::chrono::minutes>(te-t0).count(),
 						EnsureType<size_t>(i),
 						EnsureType<size_t>(nTrials)));
 				auto delay_frac = 1./(te - t0).count(); // delay должна быть переведена в шкалу clock_type.

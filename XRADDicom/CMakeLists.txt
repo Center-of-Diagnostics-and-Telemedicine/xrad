@@ -32,10 +32,10 @@ set(Project_Sources_cpp
 	Sources/DicomClasses/Hierarchy.cpp
 	Sources/DicomClasses/Indexing/DicomCatalogIndex.cpp
 	Sources/DicomClasses/Indexing/DicomClustering.cpp
-	Sources/DicomClasses/Indexing/DicomDirectoryIndex.cpp
-	Sources/DicomClasses/Indexing/DicomDirectoryIndexJson.cpp
 	Sources/DicomClasses/Indexing/DicomFileIndex.cpp
 	Sources/DicomClasses/Indexing/DicomFileIndexJson.cpp
+	Sources/DicomClasses/Indexing/SingleDirectoryIndex.cpp
+	Sources/DicomClasses/Indexing/SingleDirectoryIndexJson.cpp
 	Sources/DicomClasses/Instances/CreateInstance.cpp
 	Sources/DicomClasses/Instances/ct_slice.cpp
 	Sources/DicomClasses/Instances/image.cpp
@@ -83,10 +83,10 @@ set(Project_Sources_h
 	Sources/DicomClasses/Hierarchy.h
 	Sources/DicomClasses/Indexing/DicomCatalogIndex.h
 	Sources/DicomClasses/Indexing/DicomClustering.h
-	Sources/DicomClasses/Indexing/DicomDirectoryIndex.h
-	Sources/DicomClasses/Indexing/DicomDirectoryIndexJson.h
 	Sources/DicomClasses/Indexing/DicomFileIndex.h
 	Sources/DicomClasses/Indexing/DicomFileIndexJson.h
+	Sources/DicomClasses/Indexing/SingleDirectoryIndex.h
+	Sources/DicomClasses/Indexing/SingleDirectoryIndexJson.h
 	Sources/DicomClasses/Instances/CreateInstance.h
 	Sources/DicomClasses/Instances/ct_slice.h
 	Sources/DicomClasses/Instances/image.h

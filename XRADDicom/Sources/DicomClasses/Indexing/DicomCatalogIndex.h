@@ -12,7 +12,7 @@
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>
 #include "SingleDirectoryIndex.h"
 #include "SingleDirectoryIndexJson.h"
-#include <XRADDicom\Sources\DicomClasses\DataContainers\datasource.h>
+#include <XRADDicom/Sources/DicomClasses/DataContainers/datasource.h>
 
 XRAD_BEGIN
 
