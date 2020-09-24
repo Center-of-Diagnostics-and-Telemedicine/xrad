@@ -245,7 +245,7 @@ namespace Dicom
 	list<DcmDataset> findAndPrepareDcmDatasetLst(const datasource_pacs &datasource_p, e_dcm_hierarchy_level_t level, const DcmDataset &filter, ProgressProxy pp_p);
 	bool common_downloader(const datasource_pacs&, const DcmDataset &instance_info, const wstring &destination_folder);  //todo (Kovbas) при приведении этой функции к общей для использования всеми заменить destination_folder на ссылку на тип, родитель для типа папка и объект DcmFileFormat в памяти
 
-
+	 Uint8 findUncompressedPC(const OFString& sopClass, const DcmSCU& scu);
 
 	bool sendInstances();
 
