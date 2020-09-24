@@ -18,8 +18,6 @@ namespace Dicom
 
 	bool checkPACSAccessibility(const Dicom::pacs_params_t &src_pacs);
 
-	bool studiesDownloader(const datasource_pacs &datasource, const list<elemsmap_t>&, study_id_type_t study_id_type, const wstring &destination_folder, ProgressProxy pp = VoidProgressProxy());
-
 	bool sendInstancesMy();
 
 } //namespace Dicom
