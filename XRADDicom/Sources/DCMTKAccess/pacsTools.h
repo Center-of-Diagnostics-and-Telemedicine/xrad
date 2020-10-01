@@ -8,6 +8,10 @@
 
 #include <XRADDicom/Sources/DicomClasses/XRADDicomGeneral.h>
 #include <XRADDicom/Sources/DicomClasses/DataContainers/datasource.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/LoadGenericClasses.h>
+
+#include <dcmtk/config/osconfig.h>
+#include <dcmtk/dcmdata/dcfilefo.h>
 
 #undef dcmtklog
 
@@ -17,6 +21,8 @@ namespace Dicom
 {
 
 	bool checkPACSAccessibility(const Dicom::pacs_params_t &src_pacs);
+
+	list<DcmDataset> findDataset(const datasource_pacs &datasource_p, DcmDataset & request, const wstring &destination_folder, const wstring &id, size_t &count);
 
 	bool sendInstancesMy();
 

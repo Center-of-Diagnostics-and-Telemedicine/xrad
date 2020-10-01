@@ -7,7 +7,7 @@
   </ImportGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+       <AdditionalIncludeDirectories>.;$(XRAD_DCMTKInstallPath)include;$(XRAD_DCMTKExternalsPath)zlib-1.2.11\include;$(XRAD_OpenJPEGInstallPath)include\openjpeg-2.2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
 </Project>
