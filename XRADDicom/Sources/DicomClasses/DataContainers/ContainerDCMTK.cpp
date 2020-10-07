@@ -70,6 +70,20 @@ namespace Dicom
 	}
 	*/
 
+	namespace
+	{
+	OFFilename convert_to_OFFilename(const wstring &str)
+	{
+	// Проверяем поддержку конструктора OFFilename от const wchar_t*, используем его под Win32.
+	// Код проверки взят из DCMTK: offile.h.
+	#if (defined(WIDE_CHAR_FILE_IO_FUNCTIONS) || defined(WIDE_CHAR_MAIN_FUNCTION)) && defined(_WIN32)
+		return OFFilename(EnsureType<const wchar_t*>(GetPathMachineReadable(str).c_str()));
+	#else
+		return OFFilename(convert_to_string(GetPathMachineReadable(str)));
+	#endif
+	}
+	} // namespace
+
 	//только открывает файл. Все остальные работы выполняются в open_instancestorage
 	bool ContainerDCMTK::open_file(const instancestorage_file &instancestorage_file_p, bool use_exceptions)
 	{
@@ -77,8 +91,8 @@ namespace Dicom
 		{
 			auto dicom_file = make_unique<DcmFileFormat>();
 			//открываем файл
-			auto cond = dicom_file->loadFile(convert_to_string(GetPathMachineReadable(
-					instancestorage_file_p.full_file_path())));
+			auto cond = dicom_file->loadFile(convert_to_OFFilename(
+					instancestorage_file_p.full_file_path()));
 			if (!cond.good())
 			{
 				if (!use_exceptions && cond != EC_InvalidFilename)
@@ -325,7 +339,7 @@ namespace Dicom
 			//сохраняем файл
 			m_last_used_instancestorage = make_unique<instancestorage_file>(instancestorage_file(full_file_path));
 
-			return m_dicom_file->saveFile(convert_to_string(full_file_path), transfer_syntax).good();
+			return m_dicom_file->saveFile(convert_to_OFFilename(full_file_path), transfer_syntax).good();
 		}
 		catch (exception &ex)
 		{
