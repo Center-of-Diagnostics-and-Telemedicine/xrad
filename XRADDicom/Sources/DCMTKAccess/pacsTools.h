@@ -10,8 +10,8 @@
 #include <XRADDicom/Sources/DicomClasses/DataContainers/datasource.h>
 #include <XRADDicom/Sources/DicomClasses/Instances/LoadGenericClasses.h>
 
-#include <dcmtk/config/osconfig.h>
-#include <dcmtk/dcmdata/dcfilefo.h>
+//#include <dcmtk/config/osconfig.h>
+//#include <dcmtk/dcmdata/dcfilefo.h>
 
 #undef dcmtklog
 
