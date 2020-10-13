@@ -42,7 +42,7 @@
 #include "Sources/DicomClasses/DicomProcessors.h"
 
 //network tools
-#include "Sources/DCMTKAccess/pacsTools.h"
+//#include "Sources/DCMTKAccess/pacsTools.h"
 
 //--------------------------------------------------------------
 
