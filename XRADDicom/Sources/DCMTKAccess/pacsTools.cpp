@@ -32,7 +32,7 @@ namespace Dicom
 		count = 0;
 
 		ofstream dtst_dump;
-		dtst_dump.open(destination_folder + L"/" + L"search_dump" + id + L".txt", ios::out | ios::trunc);
+		dtst_dump.open(convert_to_string(destination_folder + L"/" + L"search_dump" + id + L".txt"), ios::out | ios::trunc);
 
 		try
 		{
