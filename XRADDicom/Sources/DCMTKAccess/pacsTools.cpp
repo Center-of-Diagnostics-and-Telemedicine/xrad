@@ -24,7 +24,34 @@ namespace Dicom
 		return initSCUAndCheckPACSAccessibility(scu, src_pacs_p, e_initSCUPreset::verif);
 	}
 
+	string getStudyInstanceUID(DcmDataset & dst)
+	{
+		string result;
+		dst.findAndGetOFStringArray(DCM_StudyInstanceUID, result);
+		return result;
+	}
 
+	set<string> getStudyInstanceUIDSet(list<DcmDataset> & wrkLst)
+	{
+		set<string> result;
+		for (auto &dst : wrkLst)
+		{
+			string buffer;
+			dst.findAndGetOFStringArray(DCM_StudyInstanceUID, buffer);
+			result.insert(move(buffer));
+		}
+		return result;
+	}
+
+	bool findDataset(const datasource_pacs &datasource_p, string rec, list<DcmDataset> & wrkLst, const wstring &destination_folder, size_t &count)
+	{
+		DcmDataset request;
+		//TODO initiate request from rec
+		wrkLst = findDataset(datasource_p, request, destination_folder, convert_to_wstring(rec), count);
+		if (!wrkLst.empty())
+			return false;
+		return true;
+	}
 
 	list<DcmDataset> findDataset(const datasource_pacs &datasource_p, DcmDataset & request, const wstring &destination_folder, const wstring &id, size_t &count)
 	{
@@ -32,7 +59,7 @@ namespace Dicom
 		count = 0;
 
 		ofstream dtst_dump;
-		dtst_dump.open(convert_to_string(destination_folder + L"/" + L"search_dump" + id + L".txt"), ios::out | ios::trunc);
+		dtst_dump.open(convert_to_string(destination_folder) + "/" + "search_dump__" + convert_to_string(id) + ".txt", ios::out | ios::trunc);
 
 		try
 		{

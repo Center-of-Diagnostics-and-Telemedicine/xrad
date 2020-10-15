@@ -23,6 +23,12 @@ namespace Dicom
 
 	list<DcmDataset> findDataset(const datasource_pacs &datasource_p, DcmDataset & request, const wstring &destination_folder, const wstring &id, size_t &count);
 
+	bool findDataset(const datasource_pacs &datasource_p, string rec, list<DcmDataset> & wrkLst, const wstring &destination_folder, size_t &count);
+
+	string getStudyInstanceUID(DcmDataset & dst);
+
+	set<string> getStudyInstanceUIDSet(list<DcmDataset> & wrkLst);
+
 	bool sendInstancesMy();
 
 } //namespace Dicom
