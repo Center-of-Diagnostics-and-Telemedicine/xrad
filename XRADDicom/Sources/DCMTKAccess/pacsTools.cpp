@@ -24,6 +24,13 @@ namespace Dicom
 		return initSCUAndCheckPACSAccessibility(scu, src_pacs_p, e_initSCUPreset::verif);
 	}
 
+	string getAccessionNumber(DcmDataset & dst)
+	{
+		string result;
+		dst.findAndGetOFStringArray(DCM_AccessionNumber, result);
+		return result;
+	}
+
 	string getStudyInstanceUID(DcmDataset & dst)
 	{
 		string result;
@@ -43,23 +50,50 @@ namespace Dicom
 		return result;
 	}
 
-	bool findDataset(const datasource_pacs &datasource_p, string rec, list<DcmDataset> & wrkLst, const wstring &destination_folder, size_t &count)
+	bool findDataset(const datasource_pacs &datasource_p, string rec, const string &modality, list<DcmDataset> & wrkLst, const wstring &destination_folder, size_t &count)
 	{
+		size_t pos = rec.find("_");
+		string name = rec.substr(0, pos );
+		string date = rec.substr(pos + 1, rec.length());
+
+		pos = name.find(" ");
+		name.replace(pos, 1, "^");
+		pos = name.find(" ");
+		name.replace(pos, 1, "^");
+
+		pos = date.find("-");
+		date.replace(pos, 1, "");
+		pos = date.find("-");
+		date.replace(pos, 1, "");
+		
 		DcmDataset request;
-		//TODO initiate request from rec
-		wrkLst = findDataset(datasource_p, request, destination_folder, convert_to_wstring(rec), count);
-		if (!wrkLst.empty())
+
+			request.putAndInsertOFStringArray(DCM_QueryRetrieveLevel, "STUDY");
+			request.putAndInsertOFStringArray(DCM_ModalitiesInStudy, modality);
+
+			request.putAndInsertOFStringArray(DCM_PatientName, name);
+			request.putAndInsertOFStringArray(DCM_PatientID, "");
+
+			request.putAndInsertOFStringArray(DCM_StudyDate, date);
+			request.putAndInsertOFStringArray(DCM_StudyTime, "");
+
+			request.putAndInsertOFStringArray(DCM_StudyInstanceUID, "");
+			request.putAndInsertOFStringArray(DCM_StudyID, "");
+			request.putAndInsertOFStringArray(DCM_AccessionNumber, "");
+
+		wrkLst = findDataset(datasource_p, request, destination_folder, rec, count);
+		if (wrkLst.empty())
 			return false;
 		return true;
 	}
 
-	list<DcmDataset> findDataset(const datasource_pacs &datasource_p, DcmDataset & request, const wstring &destination_folder, const wstring &id, size_t &count)
+	list<DcmDataset> findDataset(const datasource_pacs &datasource_p, DcmDataset & request, const wstring &destination_folder, const string &id, size_t &count)
 	{
 		list<DcmDataset> wrkLst;
 		count = 0;
 
 		ofstream dtst_dump;
-		dtst_dump.open(convert_to_string(destination_folder) + "/" + "search_dump__" + convert_to_string(id) + ".txt", ios::out | ios::trunc);
+		dtst_dump.open(convert_to_string(destination_folder) + "/" + "search_dump__" +string8_to_string(id) + ".txt", ios::out | ios::trunc);
 
 		try
 		{

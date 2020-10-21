@@ -21,11 +21,13 @@ namespace Dicom
 
 	bool checkPACSAccessibility(const Dicom::pacs_params_t &src_pacs);
 
-	list<DcmDataset> findDataset(const datasource_pacs &datasource_p, DcmDataset & request, const wstring &destination_folder, const wstring &id, size_t &count);
+	list<DcmDataset> findDataset(const datasource_pacs &datasource_p, DcmDataset & request, const wstring &destination_folder, const string &id, size_t &count);
 
-	bool findDataset(const datasource_pacs &datasource_p, string rec, list<DcmDataset> & wrkLst, const wstring &destination_folder, size_t &count);
+	bool findDataset(const datasource_pacs &datasource_p, string rec, const string &modality, list<DcmDataset> & wrkLst, const wstring &destination_folder, size_t &count);
 
 	string getStudyInstanceUID(DcmDataset & dst);
+
+	string getAccessionNumber(DcmDataset & dst);
 
 	set<string> getStudyInstanceUIDSet(list<DcmDataset> & wrkLst);
 
