@@ -75,19 +75,16 @@
     <ClCompile Include="..\Sources\Utils\BitmapFile.cpp">
       <Filter>Sources\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\System\xrad_fopen.cpp">
+      <Filter>Sources\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\System\xrad_fstream.cpp">
+      <Filter>Sources\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pre.h">
       <Filter>MSVC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CFile.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\System.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TextFile.h">
-      <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\CFile\shared_cfile.h">
       <Filter>Sources\CFile</Filter>
@@ -98,14 +95,14 @@
     <ClInclude Include="..\Sources\IniFile\XRADIniFile.h">
       <Filter>Sources\IniFile</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADSystemLink.h">
-      <Filter>Sources\PlatformSpecific\MSVC</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\FileNameOperations_Win32.h">
       <Filter>Sources\PlatformSpecific\MSVC\Internal</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\PlatformSpecific\MSVC\Internal\FileSystem_Win32.h">
       <Filter>Sources\PlatformSpecific\MSVC\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADSystemLink.h">
+      <Filter>Sources\PlatformSpecific\MSVC</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\PlatformSpecific\Qt\Internal\FileSystem_Qt.h">
       <Filter>Sources\PlatformSpecific\Qt\Internal</Filter>
@@ -133,6 +130,24 @@
     </ClInclude>
     <ClInclude Include="..\Sources\Utils\BitmapFile.h">
       <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CFile.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\System.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TextFile.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\System\xrad_fopen.h">
+      <Filter>Sources\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\System\xrad_fstream.h">
+      <Filter>Sources\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fstream.h">
+      <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

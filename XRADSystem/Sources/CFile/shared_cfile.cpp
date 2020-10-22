@@ -60,15 +60,7 @@ void shared_cfile::open(const wstring &path_in, const wstring &mode)
 	// допускается использование одного контейнера
 	// для разных файлов. если ранее контейнер был
 	// занят, освобождаем
-	FILE	*file;
-#if defined(XRAD_USE_CFILE_WIN32_VERSION)
-	file = _wfopen(GetPathSystemRawFromAutodetect(path_in).c_str(), mode.c_str());
-#elif defined(XRAD_USE_CFILE_UNIX_VERSION)
-	file = fopen(convert_to_string(GetPathSystemRawFromAutodetect(path_in)).c_str(),
-			convert_to_string(mode).c_str());
-#else
-	#error Unknown platform.
-#endif
+	FILE	*file = xrad_fopen(convert_to_string(path_in).c_str(), convert_to_string(mode).c_str());
 	if(!file)
 	{
 		throw file_container_error(convert_to_string(ssprintf(

@@ -36,7 +36,7 @@ int main(int argn, char **args)
 		}
 
 		// Установить язык по умолчанию из файла *.*.lang.
-		FILE *lang_fs = fopen((string(args[0]) + ".lang").c_str(), "rb");
+		FILE *lang_fs = xrad_fopen((string(args[0]) + ".lang").c_str(), "rb");
 		if (lang_fs)
 		{
 			// Читаем файл.

@@ -21,6 +21,8 @@ set(Project_Sources_cpp
 	Sources/System/FileNameOperations.cpp
 	Sources/System/FileNamePatternMatch.cpp
 	Sources/System/FileSystem.cpp
+	Sources/System/xrad_fopen.cpp
+	Sources/System/xrad_fstream.cpp
 	Sources/TextFile/text_encoding.cpp
 	Sources/TextFile/text_file.cpp
 	Sources/Utils/BitmapFile.cpp
@@ -28,6 +30,7 @@ set(Project_Sources_cpp
 
 set(Project_Sources_h
 	CFile.h
+	fstream.h
 	Sources/CFile/shared_cfile.h
 	Sources/IniFile/IniParser.hh
 	Sources/IniFile/XRADIniFile.h
@@ -36,6 +39,8 @@ set(Project_Sources_h
 	Sources/System/FileSystem.h
 	Sources/System/FileSystemDefs.h
 	Sources/System/SystemConfig.h
+	Sources/System/xrad_fopen.h
+	Sources/System/xrad_fstream.h
 	Sources/TextFile/text_encoding.h
 	Sources/TextFile/text_file.h
 	Sources/Utils/BitmapFile.h
