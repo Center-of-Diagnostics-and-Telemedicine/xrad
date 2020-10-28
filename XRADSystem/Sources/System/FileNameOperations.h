@@ -97,6 +97,16 @@ inline wstring	file_extension(wstring complete_filename_with_path)
 */
 wstring RemoveTrailingPathSeparator(const wstring &path);
 
+/*!
+	\brief Добавить конечный разделитель пути к строке: "/a/b" -&gt; "/a/b/"
+*/
+wstring AddTrailingPathSeparator(const wstring &path);
+
+/*!
+	\brief Сделать путь path + subpath с учетом вариантов, когда path или subpath пустые
+*/
+string MergePath(const string &path, const string &subpath);
+
 //--------------------------------------------------------------
 
 /*!
@@ -144,6 +154,11 @@ wstring GetPathGenericFromAutodetect(const wstring &path);
 //!
 //! См. \ref pg_FileSystem.
 wstring GetPathNativeFromGeneric(const wstring &path);
+
+//! \brief Преобразовать путь из формата generic в формат ОС (для отображения пользователю)
+//!
+//! См. \ref pg_FileSystem.
+string GetPathNativeFromGeneric(const string &path);
 
 //! \brief Комбинация GetPathNativeFromGeneric и GetPathGenericFromAutodetect.
 //! Эта функция должна исчезнуть после приведения в порядок работы с форматами файлов
