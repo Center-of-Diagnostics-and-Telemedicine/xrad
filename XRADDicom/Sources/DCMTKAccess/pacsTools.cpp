@@ -24,6 +24,13 @@ namespace Dicom
 		return initSCUAndCheckPACSAccessibility(scu, src_pacs_p, e_initSCUPreset::verif);
 	}
 
+	size_t getNumberOfInstances(DcmDataset & dst)
+	{
+		string result;
+		dst.findAndGetOFStringArray(DCM_NumberOfStudyRelatedInstances, result);
+		return stoi(result);
+	}
+
 	string getAccessionNumber(DcmDataset & dst)
 	{
 		string result;
@@ -81,6 +88,9 @@ namespace Dicom
 			request.putAndInsertOFStringArray(DCM_StudyID, "");
 			request.putAndInsertOFStringArray(DCM_AccessionNumber, "");
 
+			request.putAndInsertOFStringArray(DCM_NumberOfStudyRelatedInstances, "");
+
+			
 		wrkLst = findDataset(datasource_p, request, destination_folder, rec, count);
 		if (wrkLst.empty())
 			return false;

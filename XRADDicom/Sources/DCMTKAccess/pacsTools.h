@@ -29,6 +29,8 @@ namespace Dicom
 
 	string getAccessionNumber(DcmDataset & dst);
 
+	size_t getNumberOfInstances(DcmDataset & dst);
+
 	set<string> getStudyInstanceUIDSet(list<DcmDataset> & wrkLst);
 
 	bool sendInstancesMy();
