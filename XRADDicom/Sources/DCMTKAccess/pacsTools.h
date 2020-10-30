@@ -25,6 +25,25 @@ namespace Dicom
 
 	bool findDataset(const datasource_pacs &datasource_p, string rec, const string &modality, list<DcmDataset> & wrkLst, const wstring &destination_folder, size_t &count);
 
+	bool findDatasetAcNo(const datasource_pacs &datasource_p,
+		string rec,
+		const string &modality,
+		list<DcmDataset> & wrkLst,
+		const wstring &destination_folder, size_t &count);
+
+	bool findDatasetStID(const datasource_pacs &datasource_p,
+		string rec,
+		const string &modality,
+		list<DcmDataset> & wrkLst,
+		const wstring &destination_folder, size_t &count);
+
+	bool findDatasetStUID(const datasource_pacs &datasource_p,
+		string rec,
+		const string &modality,
+		list<DcmDataset> & wrkLst,
+		const wstring &destination_folder, size_t &count);
+
+
 	string getStudyInstanceUID(DcmDataset & dst);
 
 	string getAccessionNumber(DcmDataset & dst);
