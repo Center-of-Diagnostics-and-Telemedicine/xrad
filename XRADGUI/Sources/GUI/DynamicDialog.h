@@ -995,6 +995,7 @@ class ComboBox: public Control
 		//! \brief Создать ComboBox с заголовком
 		ComboBox(const wstring &caption, const vector<wstring> &items,
 				const GUIValue<size_t> &default_value,
+				Layout control_layout = Layout::Vertical,
 				const on_value_changed_t &on_value_changed = on_value_changed_t(),
 				const on_value_apply_t &on_value_apply = on_value_apply_t());
 
@@ -1002,6 +1003,7 @@ class ComboBox: public Control
 		ComboBox(bool use_caption, const wstring &caption,
 				const vector<wstring> &items,
 				const GUIValue<size_t> &default_value,
+				Layout control_layout = Layout::Vertical,
 				const on_value_changed_t &on_value_changed = on_value_changed_t(),
 				const on_value_apply_t &on_value_apply = on_value_apply_t());
 
@@ -1052,6 +1054,7 @@ class ComboBox: public Control
 		const wstring caption;
 		const vector<wstring> items;
 		const GUIValue<size_t> default_value;
+		const Layout control_layout;
 		const on_value_changed_t on_value_changed;
 		const on_value_apply_t on_value_apply;
 	private:
@@ -1089,12 +1092,14 @@ class EnumComboBoxImpl: public ControlProxy
 
 		EnumComboBoxImpl(const wstring &caption, const vector<choice_t> &choices,
 				const GUIValue<value_type> &default_value,
+				Layout control_layout = Layout::Vertical,
 				const on_value_changed_t &on_value_changed = on_value_changed_t(),
 				const on_value_apply_t &on_value_apply = on_value_apply_t());
 
 		EnumComboBoxImpl(bool use_caption, const wstring &caption,
 				const vector<choice_t> &choices,
 				const GUIValue<value_type> &default_value,
+				Layout control_layout = Layout::Vertical,
 				const on_value_changed_t &on_value_changed = on_value_changed_t(),
 				const on_value_apply_t &on_value_apply = on_value_apply_t());
 
@@ -1132,6 +1137,7 @@ class EnumComboBoxImpl: public ControlProxy
 	private:
 		vector<value_type> item_data;
 		const value_type default_value;
+		const Layout control_layout;
 		const on_value_changed_t on_value_changed;
 		const on_value_apply_t on_value_apply;
 		shared_ptr<ComboBox> combobox;
@@ -1161,6 +1167,7 @@ class ValueEnumComboBoxImpl: public EnumComboBoxImpl<T>
 
 		ValueEnumComboBoxImpl(const wstring &caption, const vector<choice_t> &choices,
 				const GUIValue<value_type*> &p_value,
+				Layout control_layout = Layout::Vertical,
 				const on_value_changed_t &on_value_changed = on_value_changed_t());
 
 		//! \brief Взять новое значение из контролируемой переменной
@@ -1221,10 +1228,12 @@ class EnumComboBox
 		static shared_ptr<ValueEnumComboBoxImpl<T>> Create(const wstring &caption,
 				const vector<Choice<T>> &choices,
 				const GUIValue<T*> &p_value,
+				Layout control_layout = Layout::Vertical,
 				const typename ValueEnumComboBoxImpl<T>::on_value_changed_t &on_value_changed =
 						typename ValueEnumComboBoxImpl<T>::on_value_changed_t())
 		{
-			return make_shared<ValueEnumComboBoxImpl<T>>(caption, choices, p_value, on_value_changed);
+			return make_shared<ValueEnumComboBoxImpl<T>>(caption, choices, p_value,
+					control_layout, on_value_changed);
 		}
 
 		//! \brief Создать комбобокс, привязанный к значениям произвольного типа,
@@ -1233,10 +1242,12 @@ class EnumComboBox
 		static shared_ptr<ValueEnumComboBoxImpl<T>> Create(const wstring &caption,
 				const vector<Choice<T>> &choices,
 				T *p_value,
+				Layout control_layout = Layout::Vertical,
 				const typename ValueEnumComboBoxImpl<T>::on_value_changed_t &on_value_changed =
 						typename ValueEnumComboBoxImpl<T>::on_value_changed_t())
 		{
-			return make_shared<ValueEnumComboBoxImpl<T>>(caption, choices, p_value, on_value_changed);
+			return make_shared<ValueEnumComboBoxImpl<T>>(caption, choices, p_value,
+					control_layout, on_value_changed);
 		}
 };
 

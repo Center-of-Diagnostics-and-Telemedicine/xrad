@@ -226,7 +226,8 @@ EnumComboBoxImpl<T>::EnumComboBoxImpl(const vector<choice_t> &choices,
 		const GUIValue<value_type> &default_value,
 		const on_value_changed_t &on_value_changed,
 		const on_value_apply_t &on_value_apply):
-	EnumComboBoxImpl(false, {}, choices, default_value, on_value_changed, on_value_apply)
+	EnumComboBoxImpl(false, {}, choices, default_value, Layout::Horizontal,
+			on_value_changed, on_value_apply)
 {
 }
 
@@ -234,9 +235,11 @@ template <class T>
 EnumComboBoxImpl<T>::EnumComboBoxImpl(const wstring &caption,
 		const vector<choice_t> &choices,
 		const GUIValue<value_type> &default_value,
+		Layout control_layout,
 		const on_value_changed_t &on_value_changed,
 		const on_value_apply_t &on_value_apply):
-	EnumComboBoxImpl(true, caption, choices, default_value, on_value_changed, on_value_apply)
+	EnumComboBoxImpl(true, caption, choices, default_value, control_layout,
+			on_value_changed, on_value_apply)
 {
 }
 
@@ -244,9 +247,11 @@ template <class T>
 EnumComboBoxImpl<T>::EnumComboBoxImpl(bool use_caption, const wstring &caption,
 		const vector<choice_t> &choices,
 		const GUIValue<value_type> &default_value,
+		Layout control_layout,
 		const on_value_changed_t &on_value_changed,
 		const on_value_apply_t &on_value_apply):
 	default_value(default_value.value),
+	control_layout(control_layout),
 	on_value_changed(on_value_changed),
 	on_value_apply(on_value_apply)
 {
@@ -274,6 +279,7 @@ EnumComboBoxImpl<T>::EnumComboBoxImpl(bool use_caption, const wstring &caption,
 	}
 	combobox = make_shared<ComboBox>(use_caption, caption, items,
 			ConvertGUIValue(default_value, default_choice_index),
+			control_layout,
 			[this](size_t item_index)
 			{
 				DoChoiceChanged(item_index);
@@ -367,9 +373,11 @@ template <class T>
 ValueEnumComboBoxImpl<T>::ValueEnumComboBoxImpl(const wstring &caption,
 		const vector<choice_t> &choices,
 		const GUIValue<value_type*> &p_value,
+		Layout control_layout,
 		const on_value_changed_t &on_value_changed):
 	parent(caption, choices,
 			ConvertGUIValue(p_value, *CheckNotNull(p_value.value)),
+			control_layout,
 			on_value_changed),
 	p_value(p_value.value)
 {

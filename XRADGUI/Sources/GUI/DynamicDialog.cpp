@@ -1267,27 +1267,30 @@ struct ComboBox::PrivateStorage
 ComboBox::ComboBox(const vector<wstring> &items, const GUIValue<size_t> &default_value,
 		const on_value_changed_t &on_value_changed,
 		const on_value_apply_t &on_value_apply):
-	ComboBox(false, {}, items, default_value, on_value_changed, on_value_apply)
+	ComboBox(false, {}, items, default_value, Layout::Horizontal, on_value_changed, on_value_apply)
 {
 }
 
 ComboBox::ComboBox(const wstring &caption, const vector<wstring> &items,
 		const GUIValue<size_t> &default_value,
+		Layout control_layout,
 		const on_value_changed_t &on_value_changed,
 		const on_value_apply_t &on_value_apply):
-	ComboBox(true, caption, items, default_value, on_value_changed, on_value_apply)
+	ComboBox(true, caption, items, default_value, control_layout, on_value_changed, on_value_apply)
 {
 }
 
 ComboBox::ComboBox(bool use_caption, const wstring &caption,
 		const vector<wstring> &items,
 		const GUIValue<size_t> &default_value,
+		Layout control_layout,
 		const on_value_changed_t &on_value_changed,
 		const on_value_apply_t &on_value_apply):
 	use_caption(use_caption),
 	caption(caption),
 	items(items),
 	default_value(default_value),
+	control_layout(control_layout),
 	on_value_changed(std::move(on_value_changed)),
 	on_value_apply(std::move(on_value_apply)),
 	value(default_value.value),
@@ -1352,6 +1355,7 @@ GuiControl ComboBox::CreateGuiControlImpl(GuiControlBindings *bindings)
 			value,
 			default_value,
 			history_value,
+			LayoutToUI(control_layout),
 			[this]()
 			{
 				if (!private_storage->gui_combobox)
