@@ -12,7 +12,7 @@
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>
 #include "SingleDirectoryIndex.h"
 #include "SingleDirectoryIndexJson.h"
-#include <XRADDicom\Sources\DicomClasses\DataContainers\datasource.h>
+#include <XRADDicom/Sources/DicomClasses/DataContainers/datasource.h>
 
 XRAD_BEGIN
 
@@ -55,7 +55,7 @@ class DicomCatalogIndex
 
 		\param 
 		*/
-		void fill_from_json_info(const wstring &path,
+		void FillFromJsonInfo(const wstring &path,
 			const DirectoryContentInfo& directory_tree,
 			ProgressProxy pp);
 
@@ -84,9 +84,14 @@ class DicomCatalogIndex
 		/// \param root_path [in] путь к анализируемому каталогу
 		/// \param show_info [in] выводить вспомогательную информацию
 
-		void PerformCatalogIndexing(const datasource_folder& src_folder, ProgressProxy pp = VoidProgressProxy());
+		void PerformCatalogIndexing(const datasource_folder& src_folder,
+				ProgressProxy pp = VoidProgressProxy());
 
 		vector<SingleDirectoryIndex> &data() { return m_data; }
+
+	private:
+		void PerformCatalogIndexingUpdate(const datasource_folder& src_folder, ProgressProxy pp);
+		void PerformCatalogIndexingReadFast(const datasource_folder& src_folder, ProgressProxy pp);
 };
 
 

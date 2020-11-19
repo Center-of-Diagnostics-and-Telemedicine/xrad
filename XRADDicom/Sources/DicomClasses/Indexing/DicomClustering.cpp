@@ -9,7 +9,7 @@
 */
 #include "pre.h"
 #include "DicomClustering.h"
-#include <XRADBasic/Sources/Utils/utf8_ofstream.h>
+#include <XRADSystem/Sources/System/SystemConfig.h>
 #include <fstream>
 #include <map>
 
@@ -205,15 +205,24 @@ namespace Dicom
 	void save_json(const json &json_to_save, const wstring &filename)
 	{
 		wstring native_filename = GetPathNativeFromGeneric(filename);
-#ifdef XRAD_COMPILER_MSC
+#if defined(XRAD_USE_CFILE_WIN32_VERSION)
 		auto	open_filename = native_filename;
+#elif defined(XRAD_USE_CFILE_UNIX_VERSION)
+		auto	open_filename = convert_to_string(native_filename);
 #else
-		auto	open_filename = native_filename;
+		#error Unknown OS platform.
 #endif
-		utf8_ofstream	out_file(open_filename, ios_base::out | ios_base::binary);
-
+		// Использование utf8_stream здесь может привести к недоразумениям:
+		// он может определять операторы <<, которые будут делать лишние преобразования,
+		// но они всё равно не будут использованы, т.к. в json используется только
+		// статический срез ostream&, а не фактический тип передаваемого потока.
+		// Сам json выводит данные в UTF-8.
+		ofstream	out_file(open_filename, ios_base::out | ios_base::binary);
 		XRAD_ASSERT_THROW(out_file.is_open());
-			
+
+		out_file << "\xEF\xBB\xBF"; //utf-8 BOM
+		out_file.width(1); // параметр потока должен быть установлен, чтобы вывод форматировался с отступами
+		out_file.fill('\t'); // отступы табуляцией
 		out_file << json_to_save << "\n";
 		out_file.close();
 	}
@@ -229,12 +238,13 @@ namespace Dicom
 	json load_json(const wstring &filename)
 	{
 		wstring native_filename = GetPathNativeFromGeneric(filename);
-		#ifdef XRAD_COMPILER_MSC
-			auto	open_filename = native_filename;
-		#else
-			auto	open_filename = native_filename;
-		#endif
-
+#if defined(XRAD_USE_CFILE_WIN32_VERSION)
+		auto	open_filename = native_filename;
+#elif defined(XRAD_USE_CFILE_UNIX_VERSION)
+		auto	open_filename = convert_to_string(native_filename);
+#else
+		#error Unknown OS platform.
+#endif
 		ifstream in_file(open_filename, ios_base::in | ios_base::binary);
 		XRAD_ASSERT_THROW(in_file.is_open());
 

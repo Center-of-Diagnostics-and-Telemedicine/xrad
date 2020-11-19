@@ -1279,12 +1279,14 @@ ComboBoxApi::ComboBoxApi(PrivateTag, bool use_caption, const wstring &caption,
 		size_t value,
 		const GUIValue<size_t> &default_value,
 		size_t history_value,
+		Layout control_layout,
 		function<void ()> on_value_changed):
 	use_caption(use_caption),
 	caption(caption),
 	items(items),
 	default_value(default_value),
 	history_value(history_value),
+	control_layout(control_layout),
 	on_value_changed(on_value_changed),
 	ui_value(value)
 {
@@ -1295,12 +1297,14 @@ shared_ptr<ComboBoxApi> ComboBoxApi::Create(bool use_caption, const wstring &cap
 		size_t value,
 		const GUIValue<size_t> &default_value,
 		size_t history_value,
+		Layout control_layout,
 		function<void ()> on_value_changed)
 {
 	return make_shared<ComboBoxApi>(PrivateTag(), use_caption, caption, items,
 			value,
 			default_value,
 			history_value,
+			control_layout,
 			on_value_changed);
 }
 
@@ -1422,12 +1426,12 @@ void ComboBoxApi::AddToDialog(QDialog *dialog, QBoxLayout *layout,
 		// Использование одного только layout дает побочный эффект: заголовок может отрываться
 		// от комбобокса при растягивании родительского layout.
 		// Поэтому нужно создать QWidget + QBoxLayout.
-		auto sub_layout = WrapLayout(layout, dialog, DynamicDialogLayout::Vertical, true);
-		sub_layout->setContentsMargins(QMargins(0, 0, 0, 0));
+		auto alignment = control_layout == Layout::Vertical? default_alignment: Qt::AlignBaseline;
+		auto sub_layout = WrapLayout(layout, dialog, control_layout, true);
 		ui_label = new QLabel(dialog);
 		ui_label->setText(wstring_to_qstring(caption));
-		sub_layout->addWidget(ui_label, StretchFromLayout(sub_layout), default_alignment);
-		sub_layout->addWidget(ui_combobox, StretchFromLayout(sub_layout), default_alignment);
+		sub_layout->addWidget(ui_label, 0, alignment);
+		sub_layout->addWidget(ui_combobox, StretchFromLayout(sub_layout), alignment);
 	}
 	else
 	{

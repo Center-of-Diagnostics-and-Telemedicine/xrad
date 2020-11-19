@@ -47,7 +47,7 @@ class SingleDirectoryIndex : public vector<DicomFileIndex>
 
 		PARENT(vector<DicomFileIndex>);
 
-		SingleDirectoryIndex(const wstring &in_path = L"") : m_path(in_path){};
+		SingleDirectoryIndex(const wstring &in_path = L"") : m_path(in_path){}
 		SingleDirectoryIndex(bool) = delete;
 		/// вектор инф-ции об отдельных файлах
 		//vector<DicomFileIndex>		m_FilesIndex;
@@ -94,6 +94,9 @@ class SingleDirectoryIndex : public vector<DicomFileIndex>
 
 		/// добавить структуру dcmFileIndex в контейнер директории
 		void	add_file_index(const DicomFileIndex& dcmFileIndex);
+
+		//! \brief Проверить актуальность по размерам и датам файлов, исключение при несоответствии
+		void CheckUpToDate(const vector<FileInfo>& file_infos);
 
 		/// очистить контейнер m_FilesIndex
 		void	clear()

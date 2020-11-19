@@ -725,12 +725,16 @@ class ComboBoxApi: public ControlApi, public std::enable_shared_from_this<ComboB
 		//! \name Инициализация
 		//! @{
 	public:
+		using Layout = DynamicDialogLayout;
+
+	public:
 		//! \brief Закрытый конструктор. Для создания объекта использовать функцию Create()
 		ComboBoxApi(PrivateTag, bool use_caption, const wstring &caption,
 				const vector<wstring> &items,
 				size_t value,
 				const GUIValue<size_t> &default_value,
 				size_t history_value,
+				Layout control_layout,
 				function<void ()> on_value_changed);
 		ComboBoxApi(const ComboBoxApi &) = delete;
 		ComboBoxApi &operator=(const ComboBoxApi &) = delete;
@@ -741,6 +745,7 @@ class ComboBoxApi: public ControlApi, public std::enable_shared_from_this<ComboB
 				size_t value,
 				const GUIValue<size_t> &default_value,
 				size_t history_value,
+				Layout control_layout,
 				function<void ()> on_value_changed);
 		//! @}
 
@@ -789,6 +794,7 @@ class ComboBoxApi: public ControlApi, public std::enable_shared_from_this<ComboB
 		const vector<wstring> items;
 		const GUIValue<size_t> default_value;
 		const size_t history_value;
+		const Layout control_layout;
 		const function<void ()> on_value_changed;
 		//! @}
 

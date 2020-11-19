@@ -152,6 +152,37 @@ wstring RemoveTrailingPathSeparator(const wstring &path)
 
 //--------------------------------------------------------------
 
+wstring AddTrailingPathSeparator(const wstring &path)
+{
+	if (path.empty())
+		return path;
+	if (path.back() == wpath_separator())
+		return path;
+	return path + wpath_separator();
+}
+
+//--------------------------------------------------------------
+
+string MergePath(const string &path, const string &subpath)
+{
+	if (!path.length())
+		return subpath;
+	if (!subpath.length())
+		return path;
+	return convert_to_string(AddTrailingPathSeparator(convert_to_wstring(path))) + subpath;
+}
+
+wstring MergePath(const wstring &path, const wstring &subpath)
+{
+	if (!path.length())
+		return subpath;
+	if (!subpath.length())
+		return path;
+	return AddTrailingPathSeparator(path) + subpath;
+}
+
+//--------------------------------------------------------------
+
 string CmpNormalizeFilename(const string &filename)
 {
 	return convert_to_string(CmpNormalizeFilename(convert_to_wstring(filename)));
@@ -194,6 +225,11 @@ wstring GetPathGenericFromAutodetect(const wstring &path)
 wstring GetPathNativeFromGeneric(const wstring &path)
 {
 	return api_GetPathNativeFromGeneric(path);
+}
+
+string GetPathNativeFromGeneric(const string &path)
+{
+	return convert_to_string(GetPathNativeFromGeneric(convert_to_wstring(path)));
 }
 
 wstring GetPathNativeFromAutodetect(const wstring &path)

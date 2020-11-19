@@ -50,29 +50,29 @@ index_file_type interpret_index_file_type(string s)
 namespace
 {
 
-// получить размер файла в байтах и времени создания файла в байтах
+// получить размер файла в байтах и время создания файла
 // https://tools.ietf.org/html/rfc3339
 // 1985-04-12T23:20:50.52Z
 // This represents 20 minutes and 50.52 seconds after the 23rd hour of April 12th, 1985 in UTC.
 // и/или https://ru.wikipedia.org/wiki/ISO_8601
 bool GetFileSizeAndModifyTime(const std::string& filename, uint64_t &size, std::string& str_date)
 {
-	struct stat stat_buf;
-	struct tm* clock;								// create a time structure
-	int rc = stat(filename.c_str(), &stat_buf);		// get the attributes of afile.txt
-	//xrad::fileinfo stat_fast = xrad::GetFileInfoStruct(convert_to_wstring(filename));
-	if (rc != 0)
+#if defined(XRAD_COMPILER_MSC)
+	struct __stat64 st;
+	if (_wstat64(convert_to_wstring(filename).c_str(), &st))
 		return false;
-	clock = gmtime(&(stat_buf.st_mtime));			// Get the last modified time and put it into the time structure
+	static_assert(std::is_same<decltype(st.st_size), file_size_t>::value, "Invalid types");
+#elif defined(XRAD_COMPILER_GNUC)
+	struct stat64 st;
+	if (fstat64(fileno(file), &st))
+		return false;
+	static_assert(std::is_same<decltype(st.st_size), file_size_t>::value, "Invalid types");
+#else
+	#error Unknown platform.
+#endif
 
-													// clock->tm_year returns the year (since 1900)
-													// clock->tm_mon returns the month (January = 0)
-													// clock->tm_mday returns the day of the month
-	str_date = ssprintf("%d-%02d-%02dT", clock->tm_year + 1900, clock->tm_mon, clock->tm_mday) +
-			ssprintf("%02d:%02d:%02dZ", clock->tm_hour, clock->tm_min, clock->tm_sec);
-
-	// TODO: Необходимо получить 64-битный размер файла.
-	size = stat_buf.st_size;
+	str_date = DicomFileIndex::FormatTime(&st.st_mtime);
+	size = st.st_size;
 	return true;
 }
 
@@ -204,10 +204,17 @@ bool DicomFileIndex::fill_name_size_time(const wstring& fname, const wstring &na
 		return false;
 	m_filename = name_part;
 	m_file_size = file_size;
-	m_file_mtime = convert_to_wstring(date);
+	m_file_mtime = date;
 	return true;
-};
+}
 
+string DicomFileIndex::FormatTime(const time_t *t)
+{
+	struct tm* clock = gmtime(t);
+	return ssprintf("%d-%02d-%02dT%02d:%02d:%02dZ",
+			clock->tm_year + 1900, clock->tm_mon, clock->tm_mday,
+			clock->tm_hour, clock->tm_min, clock->tm_sec);
+}
 
 // заполнить поля m_dicom_tags_value для файла fname
 bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring &name)
@@ -274,11 +281,7 @@ void DicomFileIndex::fill_from_fileinfo(const FileInfo &fileinfo_val)
 {
 	m_filename = fileinfo_val.filename;
 	m_file_size = fileinfo_val.size;
-
-	struct tm* clock = gmtime(&fileinfo_val.time_write);		// Get the last modified time and put it into the time structure
-
-	m_file_mtime = ssprintf(L"%d-%02d-%02dT", clock->tm_year + 1900, clock->tm_mon, clock->tm_mday);
-	m_file_mtime += ssprintf(L"%02d:%02d:%02dZ", clock->tm_hour, clock->tm_min, clock->tm_sec);
+	m_file_mtime = FormatTime(&fileinfo_val.time_write);
 }
 
 

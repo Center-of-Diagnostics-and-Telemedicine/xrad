@@ -2,7 +2,7 @@
 #define XRAD__File_GCCVisualCSpecific_h
 //--------------------------------------------------------------
 /*!
-	\addtogroup gr_CompilerSpecificGCC
+	\addtogroup gr_CompilerSpecific
 	@{
 
 	\file
@@ -74,5 +74,5 @@ typedef	unsigned char	rgb_pixel_component_type;
 #endif
 
 //--------------------------------------------------------------
-//! @} <!-- ^group gr_CompilerSpecificGCC -->
+//! @} <!-- ^group gr_CompilerSpecific -->
 #endif // XRAD__File_GCCVisualCSpecific_h

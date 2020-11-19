@@ -127,9 +127,10 @@ namespace
 		RandomProgressBar	progress(pproxy);
 
 		ProgressIndicatorScheduler	scheduler({ 5, 95 });
-		progress.start("Analyzing Dicom folder.", scheduler.n_steps());
+		progress.start("Analyzing Dicom folder", scheduler.n_steps());
 
-		std::vector<wstring> filenames = GetDirectoryFiles(src_folder.path(), L" ", src_folder.analyze_subfolders(), progress.subprogress(scheduler.operation_boundaries(0)));
+		std::vector<wstring> filenames = GetDirectoryFiles(src_folder.path(), L"",
+				src_folder.analyze_subfolders(), progress.subprogress(scheduler.operation_boundaries(0)));
 
 
 		for(auto name = filenames.begin(); name < filenames.end();)
@@ -173,7 +174,7 @@ namespace
 
 		RandomProgressBar	progress(pproxy);
 		ProgressIndicatorScheduler	scheduler({ 90, 2, 8 });
-		progress.start(L"Analyzing Dicom folder.", scheduler.n_steps());
+		progress.start(L"Analyzing Dicom folder", scheduler.n_steps());
 
 		// индексировать все файлы в каталоге src_folder.path()
 		
@@ -185,7 +186,7 @@ namespace
 		dicom_catalog_index.PerformCatalogIndexing(src_folder, progress.subprogress(scheduler.operation_boundaries(0)));
 
 		ProgressBar progress_b(progress.subprogress(scheduler.operation_boundaries(1)));
-		progress_b.start(L"Fill instances.", dicom_catalog_index.n_items());
+		progress_b.start(L"Fill instances", dicom_catalog_index.n_items());
 		//  сформировать instancestorages вектор для Dicom файлов
 
 		std::vector<Dicom::instancestorage_ptr> instancestorages;

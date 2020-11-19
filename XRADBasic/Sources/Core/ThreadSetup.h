@@ -15,7 +15,9 @@
 #include "Config.h"
 #include "BasicMacros.h"
 
-#if !defined(XRAD_USE_PREFER_STD_VERSION) && defined(XRAD_USE_MS_VERSION)
+#if defined(XRAD_USE_MS_VERSION)
+// !defined(XRAD_USE_PREFER_STD_VERSION):
+// XRAD_USE_PREFER_STD_VERSION не проверяем, т.к. STD-реализация неполноценная.
 #include <XRADBasic/Sources/PlatformSpecific/MSVC/Internal/ThreadSetup_MS.h>
 #else
 #define XRAD__ThreadSetup_STD_IMPLEMENTATION

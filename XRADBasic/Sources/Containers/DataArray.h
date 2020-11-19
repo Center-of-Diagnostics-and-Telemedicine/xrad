@@ -129,6 +129,8 @@ class DataArray : public DataOwner<T>
 		using parent::step;
 		using parent::at;
 
+		using parent::empty;
+
 		value_type *data();
 		const value_type *data() const;
 
