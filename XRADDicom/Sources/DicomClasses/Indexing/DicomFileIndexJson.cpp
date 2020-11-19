@@ -62,7 +62,7 @@ namespace Dicom
 		result.set_filename(json_get_tag_string(json_file_tag, u8"filename"));
 		uint64_t fi_file_size = json_get_tag_uint(json_file_tag, u8"size");
 		result.set_file_size(fi_file_size);
-		result.set_file_mtime(json_get_tag_string(json_file_tag, u8"time_write"));
+		result.set_file_mtime(convert_to_string(json_get_tag_string(json_file_tag, u8"time_write")));
 
 		result.set_dicomsource_type(file_info_source::non_dicom_from_json);	// на данном этапе заполнена информация об общих тэгах
 
@@ -234,7 +234,7 @@ namespace Dicom
 		
 		result.set_filename(json_get_tag_string(json_file_tag, u8"filename"));
 		result.set_file_size(json_get_tag_uint(json_file_tag, u8"size"));
-		result.set_file_mtime(json_get_tag_string(json_file_tag, u8"time_write"));
+		result.set_file_mtime(convert_to_string(json_get_tag_string(json_file_tag, u8"time_write")));
 
 		if (json_file_tag.size() == n_fields_non_dicom)
 		{

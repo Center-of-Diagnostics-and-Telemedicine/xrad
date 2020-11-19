@@ -96,7 +96,7 @@ enum class file_info_source
 
 		wstring m_filename;
 		uint64_t m_file_size;
-		wstring m_file_mtime;
+		string m_file_mtime;
 
 		/// требуется ли индексация, если true - то индексация требуется
 		bool								m_b_indexing_needed;
@@ -129,7 +129,9 @@ enum class file_info_source
 		uint64_t get_file_size() const { return m_file_size; }
 
 		/// получить время модификации файла (m_file_mtime)
-		wstring get_file_mtime() const { return m_file_mtime; }
+		string get_file_mtime() const { return m_file_mtime; }
+
+		static string FormatTime(const time_t *t);
 
 		/// заполнить поля DicomFileTagsValue и DicomFileTags для заданного файла
 		/// todo: собирать диагностическую информацию о процессе заполнения для обработки её в классе DicomDirectoryIndex
@@ -158,7 +160,7 @@ enum class file_info_source
 
 		void set_filename(const wstring &filename) { m_filename = filename; }
 		void set_file_size(uint64_t file_size) { m_file_size = file_size; }
-		void set_file_mtime(const wstring &file_mtime) { m_file_mtime = file_mtime; }
+		void set_file_mtime(const string &file_mtime) { m_file_mtime = file_mtime; }
 
 		/// получить значение m_b_indexing_needed, необходимость в индексации
 		/// \return требуется ли индексация

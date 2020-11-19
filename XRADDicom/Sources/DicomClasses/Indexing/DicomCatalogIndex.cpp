@@ -71,37 +71,45 @@ void DicomCatalogIndex::fill_from_fileinfo(const wstring &path,
 	}
 }
 
-void DicomCatalogIndex::fill_from_json_info(const wstring &path,
+void DicomCatalogIndex::FillFromJsonInfo(const wstring &path,
 	const DirectoryContentInfo& directory_tree,
 	ProgressProxy pp)
 {
 	RandomProgressBar	progress(pp);
-	progress.start("prepare fill_from_json_info");
+	progress.start("");
 
 	vector<pair<wstring, const vector<FileInfo>*>> all_dirs;
 	unroll_directories(path, directory_tree, &all_dirs);
-	progress.set_position(0.5);
+	progress.set_position(0.01);
 
-	ProgressBar	progress1(progress.subprogress(0.5, 1));
+	ProgressBar	progress1(progress.subprogress(0.01, 1));
 	progress1.start("", all_dirs.size());
 
+	auto index_filename_n = CmpNormalizeFilename(index_filename_type2());
 	for (auto &dir_data : all_dirs)
 	{
-		SingleDirectoryIndex current_directory_info(dir_data.first);
-		current_directory_info.fill_from_fileinfo(*dir_data.second);
-		const wstring& json_name = current_directory_info.get_path_json_2();
-
-		if (!json_name.empty())
+		auto &files = *dir_data.second;
+		auto it = find_if(files.begin(), files.end(),
+			[&index_filename_n](const FileInfo &fi)
+			{
+				return CmpNormalizeFilename(fi.filename) == index_filename_n;
+			});
+		if (it != files.end())
 		{
-			SingleDirectoryIndex loaded_index = load_parse_json(json_name);
-
-			//	if (current_directory_info.fill_from_fileinfo(*dir_data.second))
-			//	{
-			m_data.push_back(std::move(loaded_index));  // после функции move объект current_directory_info уже не хранит информации
-	//	}
+			SingleDirectoryIndex loaded_index = load_parse_json(MergePath(dir_data.first, it->filename));
+			loaded_index.CheckUpToDate(files);
+			m_data.push_back(std::move(loaded_index));
+		}
+		else
+		{
+			// Директория без файла индекса.
+			SingleDirectoryIndex empty_index(dir_data.first);
+			empty_index.CheckUpToDate(files);
 		}
 		++progress1;
 	}
+	progress1.end();
+	progress.end();
 }
 
 void DicomCatalogIndex::clear()
@@ -132,70 +140,123 @@ bool DicomCatalogIndex::operator==(const DicomCatalogIndex & a) const
 
 }
 
-//	CatalogIndexing->PerformCatalogIndexing
-//	Предлагаю в имена функций всегда включать глагол, выражающий суть выполняемых действий. КНС
-
-void DicomCatalogIndex::PerformCatalogIndexing(const datasource_folder &src_folder, ProgressProxy pp )
+void DicomCatalogIndex::PerformCatalogIndexing(const datasource_folder &src_folder,
+		ProgressProxy pp)
 {
-	TimeProfiler	scan_catalog_tp, fill_from_fileinfo_tp, check_actuality_tp;
-	if (m_b_show_info)
-	{
-		printf("%s : root_path \n", convert_to_string(src_folder.path()).c_str());
-		fflush(stdout);
-	}
-	scan_catalog_tp.Start();
-
-	RandomProgressBar	progress(pp);
-	ProgressIndicatorScheduler	scheduler({ 15, 5, 80 });
-	progress.start("Scanning catalog", scheduler.n_steps());
-	auto file_info_vector = GetDirectoryFilesDetailed(
-		src_folder.path(),
-		L"", true,
-		progress.subprogress(scheduler.operation_boundaries(0)));
-	scan_catalog_tp.Stop();
-
-
-	fill_from_fileinfo_tp.Start();
-	// заполнить для каждого файла информацию о размере файла и дате создания из структур fileinfo
 	switch(src_folder.mode())
 	{
-	default:
-	case decltype(src_folder.mode())::read_and_update_index:
-		fill_from_fileinfo(
-			src_folder.path(),
-			file_info_vector,
-			progress.subprogress(scheduler.operation_boundaries(1)));
-		break;
+		default:
+		case decltype(src_folder.mode())::read_and_update_index:
+			PerformCatalogIndexingUpdate(src_folder, pp);
+			break;
 
-	case decltype(src_folder.mode())::read_index_as_is:
-		fill_from_json_info(
+		case decltype(src_folder.mode())::read_index_as_is:
+			PerformCatalogIndexingReadFast(src_folder, pp);
+			break;
+	}
+}
+
+void DicomCatalogIndex::PerformCatalogIndexingUpdate(const datasource_folder& src_folder,
+		ProgressProxy pp)
+{
+	if (m_b_show_info)
+	{
+		printf("DICOM index (update): root path: \"%s\"\n",
+				EnsureType<const char*>(convert_to_string(src_folder.path()).c_str()));
+		fflush(stdout);
+	}
+	ProgressIndicatorScheduler	scheduler({ 15, 5, 80 });
+
+	TimeProfiler scan_catalog_tp;
+	scan_catalog_tp.Start();
+	RandomProgressBar	progress(pp);
+	progress.start("Scanning catalog", scheduler.n_steps());
+	auto file_info_vector = GetDirectoryFilesDetailed(
 			src_folder.path(),
-			file_info_vector,
-			progress.subprogress(scheduler.operation_boundaries(1)));
-		break;
+			L"", true,
+			progress.subprogress(scheduler.operation_boundaries(0)));
+	scan_catalog_tp.Stop();
+
+	if (m_b_show_info)
+	{
+		printf("DICOM index (update): file list: %g sec\n",
+				EnsureType<double>(scan_catalog_tp.LastElapsed().sec()));
 	}
 
+	TimeProfiler fill_from_fileinfo_tp;
+	fill_from_fileinfo_tp.Start();
+	// заполнить для каждого файла информацию о размере файла и дате создания из структур fileinfo
+	fill_from_fileinfo(
+			src_folder.path(),
+			file_info_vector,
+			progress.subprogress(scheduler.operation_boundaries(1)));
 	fill_from_fileinfo_tp.Stop();
+
+	if (m_b_show_info)
+	{
+		printf("DICOM index (update): fill_from_fileinfo: %g sec, number of files: %zu, "
+				"number of directories: %zu\n",
+				EnsureType<double>(fill_from_fileinfo_tp.LastElapsed().sec()),
+				EnsureType<size_t>(file_info_vector.files.size()),
+				EnsureType<size_t>(file_info_vector.directories.size()));
+	}
 
 	// проверить актуальность информации из json файлов и сохранить json файлы только обновлённых директорий
 
+	TimeProfiler check_actuality_tp;
 	check_actuality_tp.Start();
 	check_actuality_and_update(progress.subprogress(scheduler.operation_boundaries(2)));
 	check_actuality_tp.Stop();
 
 	if (m_b_show_info)
 	{
-		printf("%s : root_path \n", convert_to_string(src_folder.path()).c_str());
-		printf("1) %g sec: file list\n", scan_catalog_tp.LastElapsed().sec());
+		printf("DICOM index (update): check_actuality_and_update: %g sec, number of files: %zu\n",
+				EnsureType<double>(check_actuality_tp.LastElapsed().sec()),
+				EnsureType<size_t>(file_info_vector.files.size()));
+		fflush(stdout);
+	}
+}
 
-		printf("2) %g s: fill_from_fileinfo  %zu: number of files  %zu: number of directories \n",
-			fill_from_fileinfo_tp.LastElapsed().sec(),
-			file_info_vector.files.size(),
-			file_info_vector.directories.size());
+void DicomCatalogIndex::PerformCatalogIndexingReadFast(const datasource_folder& src_folder,
+		ProgressProxy pp)
+{
+	if (m_b_show_info)
+	{
+		printf("DICOM index (fast): root path: \"%s\"\n",
+				EnsureType<const char*>(convert_to_string(src_folder.path()).c_str()));
+		fflush(stdout);
+	}
+	ProgressIndicatorScheduler scheduler({ 15, 5 });
 
-		printf("3) %g sec: check_actuality_and_update \n%zu: number of files \n ",
-			check_actuality_tp.LastElapsed().sec(),
-			file_info_vector.files.size());
+	TimeProfiler scan_catalog_tp;
+	scan_catalog_tp.Start();
+	RandomProgressBar	progress(pp);
+	progress.start("Scanning catalog", scheduler.n_steps());
+	auto file_info_vector = GetDirectoryFilesDetailed(
+			src_folder.path(),
+			L"", true,
+			progress.subprogress(scheduler.operation_boundaries(0)));
+	scan_catalog_tp.Stop();
+	if (m_b_show_info)
+	{
+		printf("DICOM index (fast): file list: %g sec\n",
+				EnsureType<double>(scan_catalog_tp.LastElapsed().sec()));
+	}
+
+	TimeProfiler fill_from_jsoninfo_tp;
+	fill_from_jsoninfo_tp.Start();
+	FillFromJsonInfo(
+			src_folder.path(),
+			file_info_vector,
+			progress.subprogress(scheduler.operation_boundaries(1)));
+	fill_from_jsoninfo_tp.Stop();
+	if (m_b_show_info)
+	{
+		printf("DICOM index (fast): fill_from_jsoninfo: %g sec, number of files: %zu, "
+				"number of directories: %zu\n",
+				EnsureType<double>(fill_from_jsoninfo_tp.LastElapsed().sec()),
+				EnsureType<size_t>(file_info_vector.files.size()),
+				EnsureType<size_t>(file_info_vector.directories.size()));
 		fflush(stdout);
 	}
 }
