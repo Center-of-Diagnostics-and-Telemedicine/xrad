@@ -172,6 +172,15 @@ string MergePath(const string &path, const string &subpath)
 	return convert_to_string(AddTrailingPathSeparator(convert_to_wstring(path))) + subpath;
 }
 
+wstring MergePath(const wstring &path, const wstring &subpath)
+{
+	if (!path.length())
+		return subpath;
+	if (!subpath.length())
+		return path;
+	return AddTrailingPathSeparator(path) + subpath;
+}
+
 //--------------------------------------------------------------
 
 string CmpNormalizeFilename(const string &filename)

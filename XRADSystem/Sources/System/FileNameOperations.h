@@ -107,6 +107,8 @@ wstring AddTrailingPathSeparator(const wstring &path);
 */
 string MergePath(const string &path, const string &subpath);
 
+wstring MergePath(const wstring &path, const wstring &subpath);
+
 //--------------------------------------------------------------
 
 /*!
