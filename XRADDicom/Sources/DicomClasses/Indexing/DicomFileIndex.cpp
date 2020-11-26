@@ -25,12 +25,17 @@ namespace Dicom
 {
 
 
+namespace
+{
+
 //!	словарь значений поля "type" в json индексе
 //!	значение "type 1" соответствует иерархической записи полей по исследованиям/сериям/сборкам
 //! значение "type 2" соответствует неструктурированной записи информации обо всех файлах
 
-static const string	hierarchical_v0 = "type 1";
-static const string	raw_v0 = "type 2";
+const string	hierarchical_v0 = "type 1";
+const string	raw_v0 = "type 2";
+
+} // namespace
 
 string index_file_label(index_file_type ift)
 {
@@ -45,7 +50,6 @@ index_file_type interpret_index_file_type(string s)
 	if(s == hierarchical_v0) return index_file_type::hierarchical;
 	return index_file_type::unknown;
 }
-
 
 namespace
 {
@@ -79,7 +83,7 @@ bool GetFileSizeAndModifyTime(const std::string& filename, uint64_t &size, std::
 } // namespace
 
 // сформировать vector элементов tag : 12 элементов, описывающих Dicom instance
-vector<Dicom::tag_e>	DicomFileIndex::m_dicom_tags =
+const vector<Dicom::tag_e>	DicomFileIndex::m_dicom_tags =
 {
 	//IDs
 	Dicom::e_acquisition_number,			// 0
@@ -132,7 +136,6 @@ static const map<ImageType, string> imagetype_description_fixed =
 DicomFileIndex::DicomFileIndex()
 {
 	m_DicomSource = file_info_source::no_information;
-	m_b_indexing_needed = true;
 
 	if (m_dicom_tags_description.size() != get_dicom_tags_length()) // если описание тэгов ещё не заполнено
 	{
@@ -173,27 +176,6 @@ bool DicomFileIndex::has_image_type() const
 }
 
 
-// из списка тэгов файла сгенерировать строку
-wstring DicomFileIndex::get_summary_info_string() const
-{
-	wstring str_dicom;
-	if (!check_consistency())   //  отсутствуют заполненные поля
-		return str_dicom;
-
-	if (is_dicom())		// если Dicom файл, то записать Dicom тэги
-	{
-		// во внутренний блок пишем только индексы с [NFIELDS_TYPE_1 и до конца]
-		for (size_t i = 0; i < NFIELDS_TYPE_1; i++)
-		{
-			string str_tag_discr = get_dicom_tags_description(i);
-			str_dicom += get_dicom_tags_value(i);
-		}
-	}
-
-	return str_dicom;
-}
-
-
 // сформировать vector 3-х строк
 // 1) имя файла 2) размер файла в байтах файла 3) время создания файла
 bool DicomFileIndex::fill_name_size_time(const wstring& fname, const wstring &name_part)
@@ -219,7 +201,7 @@ string DicomFileIndex::FormatTime(const time_t *t)
 // заполнить поля m_dicom_tags_value для файла fname
 bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring &name)
 {
-	wstring full_filename = path + wpath_separator() + name;
+	wstring full_filename = MergePath(path, name);
 	if (!fill_name_size_time(full_filename, name))
 	{
 		m_DicomSource = file_info_source::file_not_exist;
@@ -277,14 +259,6 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 	return true;
 }
 
-void DicomFileIndex::fill_from_fileinfo(const FileInfo &fileinfo_val)
-{
-	m_filename = fileinfo_val.filename;
-	m_file_size = fileinfo_val.size;
-	m_file_mtime = FormatTime(&fileinfo_val.time_write);
-}
-
-
 // проверить соответветствие данных в структуре
 bool DicomFileIndex::check_consistency() const
 {
@@ -296,20 +270,6 @@ bool DicomFileIndex::check_consistency() const
 			return false;
 	}
 
-	return true;
-}
-
-
-bool DicomFileIndex::equal_fast(const DicomFileIndex& a) const
-{
-	if (!check_consistency() || !a.check_consistency())
-		return false;
-	if (m_file_size != a.m_file_size)
-		return false;
-	if (m_filename != a.m_filename)
-		return false;
-	if (m_file_mtime != a.m_file_mtime)
-		return false;
 	return true;
 }
 

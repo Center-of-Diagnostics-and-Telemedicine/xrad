@@ -1,4 +1,12 @@
-﻿#include "pre.h"
+﻿/*!
+	\file
+	\date 2019/10/21 10:00
+	\author novik
+
+	\brief Реализация функций для создания-записи-считывания json объектов с информацией о файлах
+	в директории
+*/
+#include "pre.h"
 #include "SingleDirectoryIndexJson.h"
 
 #include "DicomClustering.h"
@@ -12,38 +20,39 @@
 
 #include <XRADDicom/XRADDicom.h>
 
+#include <XRADBasic/ThirdParty/nlohmann/json.hpp>
 #include <typeinfo>
 
 /// директива для возможности тестирования записанных и считанных json объектов
 #define TEST_JSON
-
-
-/*!
-\file
-\date 2019/10/21 10:00
-\author novik
-
-\brief Реализация функций для создания-записи-считывания json объектов с информацией о файлах в директории
-*/
 
 XRAD_BEGIN
 
 namespace Dicom
 {
 
-static const map<string, string> map_header_json_type1 =
+
+
+using json = nlohmann::json;
+
+namespace
+{
+
+const map<string, string> map_header_json_type1 =
 {
 	{ "ID","purpose: Dicom catalog" },
 	{ "version","0.0" },
 	{ "type", index_file_label(index_file_type::hierarchical) }
 };
 
-static const map<string, string> map_header_json_type2 =
+const map<string, string> map_header_json_type2 =
 {
 	{ "ID","purpose: Dicom catalog" },
 	{ "version","0.0" },
 	{ "type", index_file_label(index_file_type::raw) }
 };
+
+
 
 // из списка тэгов для каждого файла сгенерировать json файл type1 (sample1.json)
 void dir_info_to_json_type1(const SingleDirectoryIndex& dcmDirectoryIndex, json& json_type1)
@@ -100,7 +109,6 @@ void dir_info_to_json_type1(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 		if (json_not_dicom.size() > 0)
 			json_type1["non Dicom"] = std::move(json_not_dicom);
 	}
-
 }
 
 
@@ -145,10 +153,10 @@ void dir_info_to_json_type2(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 }
 
 
+
 // загрузить json файл с деревом исследований Dicom файлов type 1
-SingleDirectoryIndex load_json_type1_tree(json& json_type1_dicom_section)
+void load_json_type1_tree(SingleDirectoryIndex& result, json& json_type1_dicom_section)
 {
-	SingleDirectoryIndex result;
 	XRAD_ASSERT_THROW(!json_type1_dicom_section.is_null());   // проверить, есть ли информация в json объекте
 
 	vector<string> reference_string;
@@ -189,14 +197,15 @@ SingleDirectoryIndex load_json_type1_tree(json& json_type1_dicom_section)
 		}
 
 	}
-
-	return result;
 }
+
+} // namespace
+
+
 
 // загрузить json файл, содержащий информацию об файлах, в структуру SingleDirectoryIndex& dcmDirectoryIndex
 SingleDirectoryIndex load_parse_json(const wstring& json_fname)
 {
-
 	json json_from_file = load_json(json_fname);
 
 	for (auto& map_v : map_header_json_type1)  // проверить наличие обязательных полей = { "ID", "version", "type" };
@@ -209,7 +218,7 @@ SingleDirectoryIndex load_parse_json(const wstring& json_fname)
 
 	XRAD_ASSERT_THROW(json_type != index_file_type::unknown);
 
-	SingleDirectoryIndex result;
+	SingleDirectoryIndex result(RemoveTrailingPathSeparator(file_path(json_fname)));
 	if (json_type == index_file_type::hierarchical)
 	{
 		// json файл тип type 1
@@ -220,7 +229,7 @@ SingleDirectoryIndex load_parse_json(const wstring& json_fname)
 		XRAD_ASSERT_THROW(!json_from_file["dicomlist"].is_null());
 		json& json_dicom_files = json_from_file.at("dicomlist");				// хранение информации о файлах в древовидной структуре первых 5-тэгов
 		
-		result = load_json_type1_tree(json_dicom_files);
+		load_json_type1_tree(result, json_dicom_files);
 	}
 
 	// json файл тип type 1 или 2
@@ -241,10 +250,10 @@ SingleDirectoryIndex load_parse_json(const wstring& json_fname)
 		{
 		}
 	}
-	result.set_path(RemoveTrailingPathSeparator(file_path(json_fname)));
 
 	return result;
 }
+
 
 
 // записать json файл,
@@ -314,64 +323,7 @@ bool test_write_load_json(SingleDirectoryIndex& dcmDirectoryIndex)
 }
 
 
-// проверить актуальность инф-ции быстрого сканирования в SingleDirectoryIndex и информации из json файла m_filename_json
-// на совпадание имена, размер, время создания
-void check_index_actuality(SingleDirectoryIndex& current_directory_index)
-{
-	const wstring& json_name = current_directory_index.get_path_json_2();
-	// если json файл пуст (отсутствует)
-	if (json_name.empty())
-	{
-		current_directory_index.set_indexing_needed(true);
-		return;
-	}
 
-	try
-	{
-		SingleDirectoryIndex loaded_index = load_parse_json(json_name);
-
-		current_directory_index.set_indexing_needed(false);	// предполагается отсутствие необходимости индексации, пока не доказано обратное
-
-		// проверить актуальность информации о файлах
-		for(auto& current_file_info : current_directory_index) // для каждого файла  DicomCatalogIndex
-		{
-			bool found = false;
-			// TODO: Переделать цикл на поиск в map по ключу.
-			auto filename = current_file_info.get_file_name();
-			for(const auto& loaded_file_data : loaded_index)  // для каждого файла, проиндексированного в json файле
-			{
-				if(loaded_file_data.get_file_name() == filename)
-				{
-					found = true;
-					if(loaded_file_data.equal_fast(current_file_info))
-					{
-						if(loaded_file_data.is_dicom()) // скопировать dicom тэги из json файла
-							current_file_info = loaded_file_data;
-						current_file_info.set_indexing_needed(false);
-					}
-					else
-					{
-						current_directory_index.set_indexing_needed(true);
-						current_file_info.set_indexing_needed(true);
-					}
-					break;
-				}
-			}
-			if(!found) // если не найдено совпадения для данного файла
-			{
-				current_directory_index.set_indexing_needed(true);
-				current_file_info.set_indexing_needed(true);
-			}
-		}
-
-	}
-	catch(...) // если проблемы чтения json файла
-	{
-		current_directory_index.set_indexing_needed(true);
-		return;
-	}
-}
-
-}  // end namespace Dicom
+} // namespace Dicom
 
 XRAD_END

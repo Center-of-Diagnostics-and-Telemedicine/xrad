@@ -5,6 +5,7 @@
 #include "DicomCatalogIndex.h"
 #include "SingleDirectoryIndex.h"
 #include "SingleDirectoryIndexJson.h"
+#include <XRADSystem/System.h>
 
 
 /// define TEST_JSON для тестирования работы индексатора
@@ -46,29 +47,63 @@ void unroll_directories(const wstring &path,
 }
 } // namespace
 
-void DicomCatalogIndex::fill_from_fileinfo(const wstring &path,
-		const DirectoryContentInfo& directory_tree,
-		ProgressProxy pp)
+void DicomCatalogIndex::FillFromJsonAndFileInfo(const wstring &path,
+	const DirectoryContentInfo& directory_tree,
+	ProgressProxy pp)
 {
 	RandomProgressBar	progress(pp);
-	progress.start("prepare fill_from_fileinfo");
+	progress.start("");
 
 	vector<pair<wstring, const vector<FileInfo>*>> all_dirs;
 	unroll_directories(path, directory_tree, &all_dirs);
-	progress.set_position(0.5);
+	progress.set_position(0.01);
 
-	ProgressBar	progress1(progress.subprogress(0.5, 1));
+	ProgressBar	progress1(progress.subprogress(0.01, 1));
 	progress1.start("", all_dirs.size());
 
-	for (auto &dir_data: all_dirs)
+	auto index_filename_n = CmpNormalizeFilename(index_filename_type2());
+	for (auto &dir_data : all_dirs)
 	{
-		SingleDirectoryIndex current_directory_info(dir_data.first);
-		if (current_directory_info.fill_from_fileinfo(*dir_data.second))
+		auto &files = *dir_data.second;
+		auto it = find_if(files.begin(), files.end(),
+			[&index_filename_n](const FileInfo &fi)
+			{
+				return CmpNormalizeFilename(fi.filename) == index_filename_n;
+			});
+		if (it != files.end())
 		{
-			m_data.push_back(std::move(current_directory_info));  // после функции move объект current_directory_info уже не хранит информации
+			auto filename = MergePath(dir_data.first, it->filename);
+			SingleDirectoryIndex loaded_index = load_parse_json(filename);
+			if (loaded_index.Update(files))
+			{
+				if (loaded_index.empty())
+				{
+					DeleteFile(filename);
+				}
+				else
+				{
+					save_to_jsons(loaded_index, index_file_type::hierarchical);
+					save_to_jsons(loaded_index, index_file_type::raw);
+				}
+			}
+			if (!loaded_index.empty())
+				m_data.push_back(std::move(loaded_index));
+		}
+		else
+		{
+			// Директория без файла индекса.
+			SingleDirectoryIndex new_index(dir_data.first);
+			if (new_index.Update(files))
+			{
+				save_to_jsons(new_index, index_file_type::hierarchical);
+				save_to_jsons(new_index, index_file_type::raw);
+				m_data.push_back(std::move(new_index));
+			}
 		}
 		++progress1;
 	}
+	progress1.end();
+	progress.end();
 }
 
 void DicomCatalogIndex::FillFromJsonInfo(const wstring &path,
@@ -110,12 +145,6 @@ void DicomCatalogIndex::FillFromJsonInfo(const wstring &path,
 	}
 	progress1.end();
 	progress.end();
-}
-
-void DicomCatalogIndex::clear()
-{
-	m_data.clear();
-	m_data.shrink_to_fit();
 }
 
 bool DicomCatalogIndex::operator==(const DicomCatalogIndex & a) const
@@ -176,7 +205,6 @@ void DicomCatalogIndex::PerformCatalogIndexingUpdate(const datasource_folder& sr
 			L"", true,
 			progress.subprogress(scheduler.operation_boundaries(0)));
 	scan_catalog_tp.Stop();
-
 	if (m_b_show_info)
 	{
 		printf("DICOM index (update): file list: %g sec\n",
@@ -185,34 +213,20 @@ void DicomCatalogIndex::PerformCatalogIndexingUpdate(const datasource_folder& sr
 
 	TimeProfiler fill_from_fileinfo_tp;
 	fill_from_fileinfo_tp.Start();
-	// заполнить для каждого файла информацию о размере файла и дате создания из структур fileinfo
-	fill_from_fileinfo(
+	// Загрузить данные из json (при наличии), актуализировать их, сохранить новые json в случае
+	// изменений данных.
+	FillFromJsonAndFileInfo(
 			src_folder.path(),
 			file_info_vector,
 			progress.subprogress(scheduler.operation_boundaries(1)));
 	fill_from_fileinfo_tp.Stop();
-
 	if (m_b_show_info)
 	{
-		printf("DICOM index (update): fill_from_fileinfo: %g sec, number of files: %zu, "
+		printf("DICOM index (update): fill from fileinfo: %g sec, number of files: %zu, "
 				"number of directories: %zu\n",
 				EnsureType<double>(fill_from_fileinfo_tp.LastElapsed().sec()),
 				EnsureType<size_t>(file_info_vector.files.size()),
 				EnsureType<size_t>(file_info_vector.directories.size()));
-	}
-
-	// проверить актуальность информации из json файлов и сохранить json файлы только обновлённых директорий
-
-	TimeProfiler check_actuality_tp;
-	check_actuality_tp.Start();
-	check_actuality_and_update(progress.subprogress(scheduler.operation_boundaries(2)));
-	check_actuality_tp.Stop();
-
-	if (m_b_show_info)
-	{
-		printf("DICOM index (update): check_actuality_and_update: %g sec, number of files: %zu\n",
-				EnsureType<double>(check_actuality_tp.LastElapsed().sec()),
-				EnsureType<size_t>(file_info_vector.files.size()));
 		fflush(stdout);
 	}
 }
@@ -261,30 +275,6 @@ void DicomCatalogIndex::PerformCatalogIndexingReadFast(const datasource_folder& 
 	}
 }
 
-
-
-void DicomCatalogIndex::check_actuality_and_update(ProgressProxy pp)
-{
-	ProgressBar progress(pp);
-	progress.start("", m_data.size());
-
-	// для каждой директории с файлами
-	for (auto& current_dir_index : m_data)
-	{
-		if(m_check_consistency)
-		{
-			check_index_actuality(current_dir_index);
-			if(current_dir_index.indexing_needed() && m_update) // если индексация нужна
-			{
-				current_dir_index.update();
-				// заполнять полную информацию о файлах с диска и сохранить её в json файл
-				save_to_jsons(current_dir_index, index_file_type::hierarchical);
-				save_to_jsons(current_dir_index, index_file_type::raw);
-			}
-		}
-		++progress;
-	}
-}
 
 
 bool DicomCatalogIndex::test_json_write_load()

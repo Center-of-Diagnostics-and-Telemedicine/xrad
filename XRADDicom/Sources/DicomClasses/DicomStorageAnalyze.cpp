@@ -180,9 +180,7 @@ namespace
 		
 		bool b_show_stdout = true;//temporary
 //		bool b_show_stdout = false;
-		bool b_check_consistency = true;
-		bool b_update = true;
-		Dicom::DicomCatalogIndex dicom_catalog_index(b_show_stdout, b_check_consistency, b_update);
+		Dicom::DicomCatalogIndex dicom_catalog_index(b_show_stdout);
 		dicom_catalog_index.PerformCatalogIndexing(src_folder, progress.subprogress(scheduler.operation_boundaries(0)));
 
 		ProgressBar progress_b(progress.subprogress(scheduler.operation_boundaries(1)));
@@ -204,6 +202,7 @@ namespace
 				++progress_b;
 			}
 			el_dir.clear(); // очистить занимаемую память для обработанной директории с индексами
+			el_dir.shrink_to_fit();
 		}
 		progress_b.end();
 

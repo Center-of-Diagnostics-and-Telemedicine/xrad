@@ -27,51 +27,37 @@ class DicomCatalogIndex
 	private:
 		/// требуется ли вывод вспомогательной информации в stdout
 		const bool	m_b_show_info;
-		const bool	m_check_consistency;
-		const bool	m_update;
 		/// вектор информации о директориях
-		vector<SingleDirectoryIndex>		m_data;
-	public:
+		vector<SingleDirectoryIndex>	m_data;
 
-		DicomCatalogIndex(bool show_info, bool check_consistency, bool update) : m_b_show_info(show_info), m_check_consistency(check_consistency), m_update(update)
+	public:
+		DicomCatalogIndex(bool show_info) : m_b_show_info(show_info)
 		{
 		}
 
-
 	private:
 		/*!
-			\brief обработать список структур с описаниями файлов
-			для получения списка vector<fileinfo>& fileinfo_raw использовать функцию GetDirectoryFilesDetailed
-
-			1) рассортировать файлы в списке fileinfo_raw по уникальным директориям
-			2) заполнить значения тэгов для каждого файла
-
-			\param fileinfo_raw [in] список структур с описаниями файлов
+			\brief Заполнить содержимое на основании содержания файлов json в дереве каталогов
+				 с проверкой актуальности сведений по directory_tree, обновить данные для измененных
+				 файлов, удалить лишние элементы
 		*/
-		void fill_from_fileinfo(const wstring &path, const DirectoryContentInfo& fileinfo_raw,
-				ProgressProxy pp = VoidProgressProxy());
-		/*!
-		\brief создает m_data на основании содержания файлов json в векторе каталогов от GetDirectoryFilesDetailed
+		void FillFromJsonAndFileInfo(const wstring &path,
+			const DirectoryContentInfo& directory_tree,
+			ProgressProxy pp);
 
-		\param 
+		/*!
+			\brief Заполнить содержимое на основании содержания файлов json в дереве каталогов
+				 с проверкой актуальности сведений по directory_tree (exception при несоответствии)
 		*/
 		void FillFromJsonInfo(const wstring &path,
 			const DirectoryContentInfo& directory_tree,
 			ProgressProxy pp);
-
-		/// проверить актуальность инф-ции из json файлов и сохранить json файлы только обновлённых директорий
-		/// по сути выполняет последовательность функций check_actuality() и  update() для каждой директории каталога,
-		/// но запись обновлённого json файла выполняется сразу
-		void check_actuality_and_update(ProgressProxy pp = VoidProgressProxy());
 
 	public:
 		/// проверить адекватность записи/чтения инф-ции в/из json файлов в двух форматах
 		bool test_json_write_load();
 
 	public:
-		/// стереть все данные, освободить память
-		void clear();
-
 		/// проверка равенства двух DicomFileIndex объектов
 		bool operator== (const DicomCatalogIndex& a)  const;
 		size_t	n_items() const;
