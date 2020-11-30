@@ -81,7 +81,7 @@ void SingleDirectoryIndex::CheckUpToDate(const vector<FileInfo>& file_infos) con
 	}
 }
 
-bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos)
+bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos, UpdateStat *stat)
 {
 	map<wstring, const FileInfo*> fs_entries;
 	for (auto &fi: file_infos)
@@ -108,7 +108,7 @@ bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos)
 	bool modified = false;
 
 	// Элементы для удаления перемещаем в конец, на них будет указывать it_end.
-	auto it_end = end();
+	vector<size_t> items_to_delete;
 	for (auto &ci: current_entries)
 	{
 		auto filename_n = ci.first;
@@ -119,13 +119,15 @@ bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos)
 			// Этого файла не должно быть в индексе.
 			for (auto i: ci.second)
 			{
-				auto it = begin() + i;
-				--it_end;
-				if (it != it_end)
+				if (stat)
 				{
-					using std::swap;
-					swap(*it, *it_end);
+					if ((*this)[i].is_dicom())
+						++stat->deleted_dicoms;
+					else
+						++stat->deleted_non_dicoms;
 				}
+
+				items_to_delete.push_back(i);
 			}
 			modified = true;
 		}
@@ -137,13 +139,15 @@ bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos)
 				// Такого файла больше нет.
 				for (auto i: ci.second)
 				{
-					auto it = begin() + i;
-					--it_end;
-					if (it != it_end)
+					if (stat)
 					{
-						using std::swap;
-						swap(*it, *it_end);
+						if ((*this)[i].is_dicom())
+							++stat->deleted_dicoms;
+						else
+							++stat->deleted_non_dicoms;
 					}
+
+					items_to_delete.push_back(i);
 				}
 				modified = true;
 			}
@@ -193,13 +197,15 @@ bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos)
 					{
 						if (i == di_index)
 							continue;
-						auto it = begin() + i;
-						--it_end;
-						if (it != it_end)
+						if (stat)
 						{
-							using std::swap;
-							swap(*it, *it_end);
+							if ((*this)[i].is_dicom())
+								++stat->deleted_dicoms;
+							else
+								++stat->deleted_non_dicoms;
 						}
+
+						items_to_delete.push_back(i);
 					}
 				}
 				// Если регистр имени файла изменился, но не требуется обновление по содержимому файла,
@@ -216,6 +222,33 @@ bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos)
 								EnsureType<const char*>(convert_to_string(MergePath(get_path(), fi.filename))
 										.c_str())));
 					}
+					if (stat)
+					{
+						if (di.is_dicom())
+						{
+							if (current_file_tags.is_dicom())
+							{
+								++stat->modified_dicoms;
+							}
+							else
+							{
+								++stat->deleted_dicoms;
+								++stat->added_non_dicoms;
+							}
+						}
+						else
+						{
+							if (current_file_tags.is_dicom())
+							{
+								++stat->deleted_non_dicoms;
+								++stat->added_dicoms;
+							}
+							else
+							{
+								++stat->modified_non_dicoms;
+							}
+						}
+					}
 					di = std::move(current_file_tags);
 					modified = true;
 				}
@@ -224,7 +257,20 @@ bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos)
 			}
 		}
 	}
-	// Удаляем перемещенные в конец элементы.
+
+	// Удаляем элементы, индексы которых находятся в items_to_delete.
+	sort(items_to_delete.begin(), items_to_delete.end());
+	auto it_end = end();
+	for (auto i: items_to_delete)
+	{
+		--it_end;
+		auto it = begin() + i;
+		if (it != it_end)
+		{
+			using std::swap;
+			swap(*it, *it_end);
+		}
+	}
 	erase(it_end, end());
 
 	for (auto &fsi: fs_entries)
@@ -241,6 +287,13 @@ bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos)
 				throw runtime_error(ssprintf("Error updating DICOM index data for file \"%s\".",
 						EnsureType<const char*>(convert_to_string(MergePath(get_path(), fsi.second->filename))
 								.c_str())));
+			}
+			if (stat)
+			{
+				if (current_file_tags.is_dicom())
+					++stat->added_dicoms;
+				else
+					++stat->added_non_dicoms;
 			}
 			push_back(std::move(current_file_tags));
 			modified = true;

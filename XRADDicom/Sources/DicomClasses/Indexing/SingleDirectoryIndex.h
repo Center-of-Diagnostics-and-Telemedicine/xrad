@@ -49,15 +49,28 @@ class SingleDirectoryIndex : public vector<DicomFileIndex>
 		//! \brief Проверить актуальность по размерам и датам файлов, исключение при несоответствии
 		void CheckUpToDate(const vector<FileInfo>& file_infos) const;
 
+		struct UpdateStat
+		{
+			size_t added_dicoms = 0;
+			size_t added_non_dicoms = 0;
+			size_t modified_dicoms = 0;
+			size_t modified_non_dicoms = 0;
+			size_t deleted_dicoms = 0;
+			size_t deleted_non_dicoms = 0;
+		};
+
 		/*!
 			\brief Проверить актуальность по размерам и датам файлов, актуализировать данные для
 			изменившихся файлов, добавить новые, удалить несуществующие
+
+			\param [in, out] stat Статистика по произведенным операциям. Данные по текущей операции
+				добавляются к данным, уже находящимся в *stat.
 
 			\return
 				- true - есть изменения (требуется сохранение)
 				- false - нет изменений
 		*/
-		bool Update(const vector<FileInfo>& file_infos);
+		bool Update(const vector<FileInfo>& file_infos, UpdateStat *stat = nullptr);
 };
 
 } //namespace Dicom

@@ -36,12 +36,20 @@ class DicomCatalogIndex
 		}
 
 	private:
+		struct FillFromJsonAndFileInfoStat
+		{
+			size_t modified_index_count = 0;
+			size_t created_index_count = 0;
+			size_t deleted_index_count = 0;
+			SingleDirectoryIndex::UpdateStat file_stat;
+		};
+
 		/*!
 			\brief Заполнить содержимое на основании содержания файлов json в дереве каталогов
 				 с проверкой актуальности сведений по directory_tree, обновить данные для измененных
 				 файлов, удалить лишние элементы
 		*/
-		void FillFromJsonAndFileInfo(const wstring &path,
+		FillFromJsonAndFileInfoStat FillFromJsonAndFileInfo(const wstring &path,
 			const DirectoryContentInfo& directory_tree,
 			ProgressProxy pp);
 

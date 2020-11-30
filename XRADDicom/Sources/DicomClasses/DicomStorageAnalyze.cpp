@@ -174,10 +174,10 @@ namespace
 
 		RandomProgressBar	progress(pproxy);
 		ProgressIndicatorScheduler	scheduler({ 90, 2, 8 });
-		progress.start(L"Analyzing Dicom folder", scheduler.n_steps());
+		progress.start(L"Analyzing DICOM folder", scheduler.n_steps());
 
 		// индексировать все файлы в каталоге src_folder.path()
-		
+
 		bool b_show_stdout = true;//temporary
 //		bool b_show_stdout = false;
 		Dicom::DicomCatalogIndex dicom_catalog_index(b_show_stdout);
@@ -225,7 +225,7 @@ namespace
 		{
 			createAndAddInstance(studies_heap, instancestorages[frame_no], get<dicom_instance_predicate>(filter_p), collector_mutex);
 		};
-		processor.perform(lambda, L"Parsing Dicom folder", progress.subprogress(scheduler.operation_boundaries(2)));
+		processor.perform(lambda, L"Parsing DICOM folder (with index)", progress.subprogress(scheduler.operation_boundaries(2)));
 
 		return studies_heap;
 	}
@@ -289,7 +289,7 @@ namespace
 		{
 		case Dicom::datasource_t::folder:
 			return RawAnalyzeFolderSelector(
-				dynamic_cast<const Dicom::datasource_folder&>(dicom_datasource), 
+				dynamic_cast<const Dicom::datasource_folder&>(dicom_datasource),
 				filter_p,
 				pproxy);
 

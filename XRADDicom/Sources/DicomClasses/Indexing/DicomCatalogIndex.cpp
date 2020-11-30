@@ -1,18 +1,4 @@
-﻿#include "pre.h"
-#include "DicomCatalogIndex.h"
-
-#include "DicomClustering.h"
-#include "DicomCatalogIndex.h"
-#include "SingleDirectoryIndex.h"
-#include "SingleDirectoryIndexJson.h"
-#include <XRADSystem/System.h>
-
-
-/// define TEST_JSON для тестирования работы индексатора
-#define TEST_JSON0
-
-
-/*!
+﻿/*!
 	\file
 	\date 2019/10/21 11:00
 	\author novik
@@ -21,17 +7,19 @@
 
 	Класс DicomCatalogIndex  предназначен для обработки всех поддиректорий
 */
+#include "pre.h"
+#include "DicomCatalogIndex.h"
+
+#include "DicomClustering.h"
+#include "DicomCatalogIndex.h"
+#include "SingleDirectoryIndex.h"
+#include "SingleDirectoryIndexJson.h"
+#include <XRADSystem/System.h>
 
 XRAD_BEGIN
 
 namespace Dicom
 {
-
-namespace
-{
-//! \brief Максимальное число индексируемых файлов
-//const size_t IndexFileCountMax = 1000000;
-} // namespace
 
 namespace
 {
@@ -47,9 +35,10 @@ void unroll_directories(const wstring &path,
 }
 } // namespace
 
-void DicomCatalogIndex::FillFromJsonAndFileInfo(const wstring &path,
-	const DirectoryContentInfo& directory_tree,
-	ProgressProxy pp)
+DicomCatalogIndex::FillFromJsonAndFileInfoStat DicomCatalogIndex::FillFromJsonAndFileInfo(
+		const wstring &path,
+		const DirectoryContentInfo& directory_tree,
+		ProgressProxy pp)
 {
 	RandomProgressBar	progress(pp);
 	progress.start("");
@@ -60,6 +49,8 @@ void DicomCatalogIndex::FillFromJsonAndFileInfo(const wstring &path,
 
 	ProgressBar	progress1(progress.subprogress(0.01, 1));
 	progress1.start("", all_dirs.size());
+
+	FillFromJsonAndFileInfoStat stat;
 
 	auto index_filename_n = CmpNormalizeFilename(index_filename_type2());
 	for (auto &dir_data : all_dirs)
@@ -74,16 +65,18 @@ void DicomCatalogIndex::FillFromJsonAndFileInfo(const wstring &path,
 		{
 			auto filename = MergePath(dir_data.first, it->filename);
 			SingleDirectoryIndex loaded_index = load_parse_json(filename);
-			if (loaded_index.Update(files))
+			if (loaded_index.Update(files, &stat.file_stat))
 			{
 				if (loaded_index.empty())
 				{
 					DeleteFile(filename);
+					++stat.deleted_index_count;
 				}
 				else
 				{
 					save_to_jsons(loaded_index, index_file_type::hierarchical);
 					save_to_jsons(loaded_index, index_file_type::raw);
+					++stat.modified_index_count;
 				}
 			}
 			if (!loaded_index.empty())
@@ -93,17 +86,19 @@ void DicomCatalogIndex::FillFromJsonAndFileInfo(const wstring &path,
 		{
 			// Директория без файла индекса.
 			SingleDirectoryIndex new_index(dir_data.first);
-			if (new_index.Update(files))
+			if (new_index.Update(files, &stat.file_stat))
 			{
 				save_to_jsons(new_index, index_file_type::hierarchical);
 				save_to_jsons(new_index, index_file_type::raw);
 				m_data.push_back(std::move(new_index));
+				++stat.created_index_count;
 			}
 		}
 		++progress1;
 	}
 	progress1.end();
 	progress.end();
+	return stat;
 }
 
 void DicomCatalogIndex::FillFromJsonInfo(const wstring &path,
@@ -166,7 +161,6 @@ bool DicomCatalogIndex::operator==(const DicomCatalogIndex & a) const
 			return false;
 	}
 	return true;
-
 }
 
 void DicomCatalogIndex::PerformCatalogIndexing(const datasource_folder &src_folder,
@@ -184,6 +178,31 @@ void DicomCatalogIndex::PerformCatalogIndexing(const datasource_folder &src_fold
 			break;
 	}
 }
+
+namespace
+{
+
+size_t CountFiles(const DirectoryContentInfo &dir)
+{
+	size_t result = dir.files.size();
+	for (auto &d: dir.directories)
+	{
+		result += CountFiles(d.content);
+	}
+	return result;
+}
+
+size_t CountDirectories(const DirectoryContentInfo &dir)
+{
+	size_t result = dir.directories.size();
+	for (auto &d: dir.directories)
+	{
+		result += CountDirectories(d.content);
+	}
+	return result;
+}
+
+} // namespace
 
 void DicomCatalogIndex::PerformCatalogIndexingUpdate(const datasource_folder& src_folder,
 		ProgressProxy pp)
@@ -215,7 +234,7 @@ void DicomCatalogIndex::PerformCatalogIndexingUpdate(const datasource_folder& sr
 	fill_from_fileinfo_tp.Start();
 	// Загрузить данные из json (при наличии), актуализировать их, сохранить новые json в случае
 	// изменений данных.
-	FillFromJsonAndFileInfo(
+	auto stat = FillFromJsonAndFileInfo(
 			src_folder.path(),
 			file_info_vector,
 			progress.subprogress(scheduler.operation_boundaries(1)));
@@ -225,8 +244,24 @@ void DicomCatalogIndex::PerformCatalogIndexingUpdate(const datasource_folder& sr
 		printf("DICOM index (update): fill from fileinfo: %g sec, number of files: %zu, "
 				"number of directories: %zu\n",
 				EnsureType<double>(fill_from_fileinfo_tp.LastElapsed().sec()),
-				EnsureType<size_t>(file_info_vector.files.size()),
-				EnsureType<size_t>(file_info_vector.directories.size()));
+				EnsureType<size_t>(CountFiles(file_info_vector)),
+				EnsureType<size_t>(CountDirectories(file_info_vector)));
+		printf("DICOM index update statistics:\n");
+		printf("\tindex files created: %zu\n", EnsureType<size_t>(stat.created_index_count));
+		printf("\tindex files deleted: %zu\n", EnsureType<size_t>(stat.deleted_index_count));
+		printf("\tindex files updated: %zu\n", EnsureType<size_t>(stat.modified_index_count));
+		printf("\tDICOM files added to index: %zu\n",
+				EnsureType<size_t>(stat.file_stat.added_dicoms));
+		printf("\tnon-DICOM files added to index: %zu\n",
+				EnsureType<size_t>(stat.file_stat.added_non_dicoms));
+		printf("\tDICOM files removed from index: %zu\n",
+				EnsureType<size_t>(stat.file_stat.deleted_dicoms));
+		printf("\tnon-DICOM files removed from index: %zu\n",
+				EnsureType<size_t>(stat.file_stat.deleted_non_dicoms));
+		printf("\tDICOM files updated in index: %zu\n",
+				EnsureType<size_t>(stat.file_stat.modified_dicoms));
+		printf("\tnon-DICOM files updated in index: %zu\n",
+				EnsureType<size_t>(stat.file_stat.modified_non_dicoms));
 		fflush(stdout);
 	}
 }
@@ -269,8 +304,8 @@ void DicomCatalogIndex::PerformCatalogIndexingReadFast(const datasource_folder& 
 		printf("DICOM index (fast): fill_from_jsoninfo: %g sec, number of files: %zu, "
 				"number of directories: %zu\n",
 				EnsureType<double>(fill_from_jsoninfo_tp.LastElapsed().sec()),
-				EnsureType<size_t>(file_info_vector.files.size()),
-				EnsureType<size_t>(file_info_vector.directories.size()));
+				EnsureType<size_t>(CountFiles(file_info_vector)),
+				EnsureType<size_t>(CountDirectories(file_info_vector)));
 		fflush(stdout);
 	}
 }
