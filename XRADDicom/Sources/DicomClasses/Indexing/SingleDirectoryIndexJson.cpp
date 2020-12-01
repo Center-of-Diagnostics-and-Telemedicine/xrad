@@ -196,7 +196,7 @@ SingleDirectoryIndex load_parse_json(const wstring& json_fname)
 {
 	json json_from_file = load_json(json_fname);
 
-	for (auto& map_v : map_header_json_type1)  // проверить наличие обязательных полей = { "ID", "version", "type" };
+	for (auto& map_v : map_header_json_type1) // проверить наличие обязательных полей = { "ID", "version", "type" };
 	{
 		XRAD_ASSERT_THROW(json_from_file.find(map_v.first) != json_from_file.end());
 	}
@@ -213,29 +213,32 @@ SingleDirectoryIndex load_parse_json(const wstring& json_fname)
 		// Парсинг type 1 нужно переписать полностью. Теперешний код, хотя и работает, содержит много натянутых зависимостей, которые усложняют сопровождение
 		//Error("json type 1 index is not tested");
 
-		XRAD_ASSERT_THROW(json_from_file.find("dicomlist") != json_from_file.end());		// если обязательное поле "dicom" отсутствует, то выйти
-		XRAD_ASSERT_THROW(!json_from_file["dicomlist"].is_null());
-		json& json_dicom_files = json_from_file.at("dicomlist");				// хранение информации о файлах в древовидной структуре первых 5-тэгов
-		
-		load_json_type1_tree(result, json_dicom_files);
+		auto it = json_from_file.find("dicomlist");
+		if (it != json_from_file.end())
+		{
+			// В индексе есть DICOM-файлы.
+			load_json_type1_tree(result, *it);
+		}
 	}
 
 	// json файл тип type 1 или 2
-
+	// Формат хранения о не-DICOM файлах в type 1 совпадает с форматом хранения обо всех файлах
+	// type 2.
 	string tag_name = json_type == index_file_type::hierarchical ? "non Dicom" : "filelist";
-	XRAD_ASSERT_THROW (json_from_file.find(tag_name) != json_from_file.end())		 // если обязательное поле отсутствует, то выйти
-
-	const json& json_filelist = *json_from_file.find(tag_name);
-	// из поле "filelist", считать всю инф-цию о dicom файлах
-	for (size_t i = 0; i < json_filelist.size(); i++)
+	auto it = json_from_file.find(tag_name);
+	if (it != json_from_file.end())
 	{
-		try
+		const json& json_filelist = *it;
+		for (size_t i = 0; i < json_filelist.size(); i++)
 		{
-			DicomFileIndex fileindex = from_json_get_file_index(json_filelist[i], index_file_type::plain);
-			result.add_file_index(fileindex);
-		}
-		catch(...)
-		{
+			try
+			{
+				DicomFileIndex fileindex = from_json_get_file_index(json_filelist[i], index_file_type::plain);
+				result.add_file_index(fileindex);
+			}
+			catch(...)
+			{
+			}
 		}
 	}
 
