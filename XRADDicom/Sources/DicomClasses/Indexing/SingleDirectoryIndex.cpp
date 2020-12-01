@@ -41,20 +41,23 @@ void throw_mismatch(const wstring &path, const wstring &filename)
 
 } // namespace
 
-void SingleDirectoryIndex::CheckUpToDate(const vector<FileInfo>& file_infos) const
+void SingleDirectoryIndex::CheckUpToDate(const vector<FileInfo>& file_infos,
+		const vector<wstring> &reserved_filenames) const
 {
 	map<wstring, const DicomFileIndex*> current_entries;
 	for (auto &di: *this)
 	{
 		current_entries[CmpNormalizeFilename(di.get_file_name())] = &di;
 	}
-	auto index_filename_1_n = CmpNormalizeFilename(index_filename_type1());
-	auto index_filename_2_n = CmpNormalizeFilename(index_filename_type2());
+	set<wstring> reserved_filename_set;
+	for (auto &f: reserved_filenames)
+	{
+		reserved_filename_set.insert(CmpNormalizeFilename(f));
+	}
 	for (auto &fi: file_infos)
 	{
 		auto filename_n = CmpNormalizeFilename(fi.filename);
-		if (filename_n != index_filename_1_n &&
-				filename_n != index_filename_2_n &&
+		if (!reserved_filename_set.count(filename_n) &&
 				may_be_dicom_filename(fi.filename))
 		{
 			auto it = current_entries.find(filename_n);
@@ -72,8 +75,7 @@ void SingleDirectoryIndex::CheckUpToDate(const vector<FileInfo>& file_infos) con
 	for (auto &dii: current_entries)
 	{
 		auto &filename_n = dii.first;
-		if (filename_n != index_filename_1_n &&
-				filename_n != index_filename_2_n &&
+		if (!reserved_filename_set.count(filename_n) &&
 				may_be_dicom_filename(dii.second->get_file_name()))
 		{
 			throw_mismatch(m_path, dii.second->get_file_name());
@@ -81,7 +83,9 @@ void SingleDirectoryIndex::CheckUpToDate(const vector<FileInfo>& file_infos) con
 	}
 }
 
-bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos, UpdateStat *stat)
+bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos,
+		const vector<wstring> &reserved_filenames,
+		UpdateStat *stat)
 {
 	map<wstring, const FileInfo*> fs_entries;
 	for (auto &fi: file_infos)
@@ -102,8 +106,11 @@ bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos, UpdateStat
 		auto &di = (*this)[i];
 		current_entries[CmpNormalizeFilename(di.get_file_name())].push_back(i);
 	}
-	auto index_filename_1_n = CmpNormalizeFilename(index_filename_type1());
-	auto index_filename_2_n = CmpNormalizeFilename(index_filename_type2());
+	set<wstring> reserved_filename_set;
+	for (auto &f: reserved_filenames)
+	{
+		reserved_filename_set.insert(CmpNormalizeFilename(f));
+	}
 
 	bool modified = false;
 
@@ -112,8 +119,7 @@ bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos, UpdateStat
 	for (auto &ci: current_entries)
 	{
 		auto filename_n = ci.first;
-		if (filename_n == index_filename_1_n ||
-				filename_n == index_filename_2_n ||
+		if (reserved_filename_set.count(filename_n) ||
 				!may_be_dicom_filename(filename_n))
 		{
 			// Этого файла не должно быть в индексе.
@@ -276,8 +282,7 @@ bool SingleDirectoryIndex::Update(const vector<FileInfo>& file_infos, UpdateStat
 	for (auto &fsi: fs_entries)
 	{
 		auto &filename_n = fsi.first;
-		if (filename_n != index_filename_1_n &&
-				filename_n != index_filename_2_n &&
+		if (!reserved_filename_set.count(filename_n) &&
 				may_be_dicom_filename(fsi.second->filename))
 		{
 			// Новый файл.

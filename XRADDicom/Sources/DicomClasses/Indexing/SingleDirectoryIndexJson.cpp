@@ -49,7 +49,7 @@ const map<string, string> map_header_json_type2 =
 {
 	{ "ID","purpose: Dicom catalog" },
 	{ "version","0.0" },
-	{ "type", index_file_label(index_file_type::raw) }
+	{ "type", index_file_label(index_file_type::plain) }
 };
 
 
@@ -152,7 +152,6 @@ void load_json_type1_tree(SingleDirectoryIndex& result, json& json_type1_dicom_s
 	vector<string> reference_string;
 	vector<vector<string>> flatten_result;
 	vector<json> vec_json_dicom;
-//#error
 	json_parse_type1(reference_string, json_type1_dicom_section, flatten_result, vec_json_dicom);
 
 	// для считывания этой древовидной структуры
@@ -193,7 +192,6 @@ void load_json_type1_tree(SingleDirectoryIndex& result, json& json_type1_dicom_s
 
 
 
-// загрузить json файл, содержащий информацию об файлах, в структуру SingleDirectoryIndex& dcmDirectoryIndex
 SingleDirectoryIndex load_parse_json(const wstring& json_fname)
 {
 	json json_from_file = load_json(json_fname);
@@ -233,7 +231,7 @@ SingleDirectoryIndex load_parse_json(const wstring& json_fname)
 	{
 		try
 		{
-			DicomFileIndex fileindex = from_json_get_file_index(json_filelist[i], index_file_type::raw);
+			DicomFileIndex fileindex = from_json_get_file_index(json_filelist[i], index_file_type::plain);
 			result.add_file_index(fileindex);
 		}
 		catch(...)
@@ -246,38 +244,25 @@ SingleDirectoryIndex load_parse_json(const wstring& json_fname)
 
 
 
-// записать json файл,
-wstring save_to_jsons(const SingleDirectoryIndex& dcmDirectoryIndex, index_file_type json_type)
+void save_to_jsons(const SingleDirectoryIndex& dcmDirectoryIndex, const wstring& json_fname,
+		index_file_type json_type)
 {
-
 	// для каждого уникального кластера (директории с dicom файлами) сформировать json объект
 	// json объект формируется согласно примерам образцов json файлов: sample1.json и sample2.json
-	wstring wstr_json_fname;
-	if (!dcmDirectoryIndex.size())
-		return wstr_json_fname; // TODO: Сделать удаление файла, если нет индексируемого содержимого.
-
 	json json_to_save;
 	switch (json_type)
 	{
 		case index_file_type::hierarchical:
 			dir_info_to_json_type1(dcmDirectoryIndex, json_to_save);
-			wstr_json_fname = dcmDirectoryIndex.get_path() + wpath_separator() +
-					index_filename_type1();
 			break;
-		case index_file_type::raw:
+		case index_file_type::plain:
 			dir_info_to_json_type2(dcmDirectoryIndex, json_to_save);
-			wstr_json_fname = dcmDirectoryIndex.get_path() + wpath_separator() +
-					index_filename_type2();
 			break;
 		default:
-			return wstr_json_fname;
+			throw invalid_argument("save_to_jsons: invalid json_type.");
 	}
-	// сохранить dicom файл  в текущей уникальной директории
-	//ShowText(L"Информация о записи dicom файла", ssprintf("%d число тэгов \nимя файла: \n%s", json_to_save.size(),
-	//	convert_to_string(wstr_json_fname).c_str(), false)  );
 
-	save_json(json_to_save, wstr_json_fname);
-	return wstr_json_fname;
+	save_json(json_to_save, json_fname);
 }
 
 
@@ -291,19 +276,18 @@ bool test_write_load_json(SingleDirectoryIndex& dcmDirectoryIndex)
 
 	try
 	{
-		wstring wstr_json_fname1 = save_to_jsons(dcmDirectoryIndex, index_file_type::hierarchical);
+		auto wstr_json_fname1 = MergePath(dcmDirectoryIndex.get_path(), index_filename_type1());
+		save_to_jsons(dcmDirectoryIndex, wstr_json_fname1, index_file_type::hierarchical);
 		SingleDirectoryIndex dir_index_from_json1 = load_parse_json(wstr_json_fname1); // если проблемы чтения json файла
 		
-		wstring wstr_json_fname2 = save_to_jsons(dcmDirectoryIndex, index_file_type::raw);
+		auto wstr_json_fname2 = MergePath(dcmDirectoryIndex.get_path(), index_filename_type2());
+		save_to_jsons(dcmDirectoryIndex, wstr_json_fname2, index_file_type::plain);
 		SingleDirectoryIndex dir_index_from_json2 = load_parse_json(wstr_json_fname2); // если проблемы чтения json файла
 
 		bool is_equal01 = dcmDirectoryIndex == dir_index_from_json1;
 		bool is_equal02 = dcmDirectoryIndex == dir_index_from_json2;
 		bool is_equal12 = dir_index_from_json1 == dir_index_from_json2;
 		bool res = is_equal01 && is_equal02 && is_equal12;
-		//if (!res)
-		//	ShowText(L"1", ssprintf("writeload res = %d\n file %s", res, convert_to_string(wstr_json_fname1).c_str()));
-
 		return res;
 	}
 	catch(...)

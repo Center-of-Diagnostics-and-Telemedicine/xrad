@@ -12,29 +12,40 @@
 
 XRAD_BEGIN
 
-
 namespace Dicom
 {
-	using json = nlohmann::json;
+
+using json = nlohmann::json;
 
 
-	/// из json объекта заданного типа сформировать DicomFileIndex объект
-	/// универсальная функция для двух типов json объектов
-	DicomFileIndex  from_json_get_file_index(const json& json_file_tag, index_file_type json_type);
+//! \brief Типы индексных файлов, связанные с полем "type" в json индексе
+//!
+//!	Значения поля type определяются словарем в cpp file.
+enum class index_file_type
+{
+	unknown = 0,
+	hierarchical = 1,
+	plain = 2
+};
 
-	/// из json объекта сгенерировать DicomFileIndex объект
-	DicomFileIndex from_json_type2(const json& json_file_tag);
+//! \brief Связь между словарем типов индекса и значениями index_file_type
+string	index_file_label(index_file_type ift);
+index_file_type interpret_index_file_type(const string &s);
 
-	/// в json объекта type1 записать инф-цию о файле во внутренний блок
-	bool to_json_type1_inner_block(const DicomFileIndex& dcmFileIndex, json& json_file_tag);
+//! \brief Число полей, включаемых в древовидную структуру json файла index_file_type::hierarchical
+const size_t NFIELDS_TYPE_1 = 5;
 
-	/// сгенерировать json объект type1
-	bool to_json_type1(const DicomFileIndex& dcmFileIndex, json& json_unique_type1);
+/// из json объекта заданного типа сформировать DicomFileIndex объект
+/// универсальная функция для двух типов json объектов
+DicomFileIndex  from_json_get_file_index(const json& json_file_tag, index_file_type json_type);
 
-	/// сгенерировать json объект type2
-	bool to_json_type2(const DicomFileIndex& dcmFileIndex, json& json_file_tag);
+/// в json объекта type1 записать инф-цию о файле во внутренний блок
+bool to_json_type1_inner_block(const DicomFileIndex& dcmFileIndex, json& json_file_tag);
 
-}   // end namespace Dicom
+/// сгенерировать json объект type2
+bool to_json_type2(const DicomFileIndex& dcmFileIndex, json& json_file_tag);
+
+} // namespace Dicom
 
 XRAD_END
 

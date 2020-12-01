@@ -16,12 +16,6 @@ XRAD_BEGIN
 namespace Dicom
 {
 
-//! \brief Имя json файла (тип 1)
-inline const wchar_t *index_filename_type1() { return L".v1-xrad-dicom-cat"; }
-
-//! \brief Имя json файла (тип 2)
-inline const wchar_t *index_filename_type2() { return L".v2-xrad-dicom-cat"; }
-
 /*!
 	\brief Класс для обработки и хранения инф-ции о dicom файлах в одной директории
 
@@ -47,7 +41,8 @@ class SingleDirectoryIndex : public vector<DicomFileIndex>
 		void	add_file_index(const DicomFileIndex& dcmFileIndex);
 
 		//! \brief Проверить актуальность по размерам и датам файлов, исключение при несоответствии
-		void CheckUpToDate(const vector<FileInfo>& file_infos) const;
+		void CheckUpToDate(const vector<FileInfo>& file_infos,
+				const vector<wstring> &reserved_filenames) const;
 
 		struct UpdateStat
 		{
@@ -70,7 +65,8 @@ class SingleDirectoryIndex : public vector<DicomFileIndex>
 				- true - есть изменения (требуется сохранение)
 				- false - нет изменений
 		*/
-		bool Update(const vector<FileInfo>& file_infos, UpdateStat *stat = nullptr);
+		bool Update(const vector<FileInfo>& file_infos, const vector<wstring> &reserved_filenames,
+				UpdateStat *stat = nullptr);
 };
 
 } //namespace Dicom

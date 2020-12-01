@@ -31,9 +31,36 @@ class DicomCatalogIndex
 		vector<SingleDirectoryIndex>	m_data;
 
 	public:
+		//! \brief Режим загрузки индекса
+		enum class IndexSourceMode
+		{
+			//! \brief Использовать иерархический индекс
+			hierarchical,
+			//! \brief Использовать неструктурированный индекс
+			plain
+		};
+
+		//! \brief Режим сохранения индекса
+		enum class IndexWriteMode
+		{
+			//! \brief Сохранять только файл индекса, используемый как источник
+			source,
+			//! \brief Сохранять все файлы индекса (для экспериментов)
+			all
+		};
+
 		DicomCatalogIndex(bool show_info) : m_b_show_info(show_info)
 		{
 		}
+
+		IndexSourceMode index_source_mode = IndexSourceMode::plain;
+		IndexWriteMode index_write_mode = IndexWriteMode::source;
+
+	private:
+		wstring GetIndexFilename(index_file_type *ft = nullptr) const;
+		vector<wstring> GetReservedFilenames() const;
+		void DeleteIndexFiles(const wstring &dir) const;
+		void SaveIndex(const SingleDirectoryIndex &index, const wstring &dir) const;
 
 	private:
 		struct FillFromJsonAndFileInfoStat

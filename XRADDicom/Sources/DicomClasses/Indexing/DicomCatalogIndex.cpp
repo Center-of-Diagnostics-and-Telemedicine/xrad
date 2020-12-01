@@ -21,6 +21,61 @@ XRAD_BEGIN
 namespace Dicom
 {
 
+wstring DicomCatalogIndex::GetIndexFilename(index_file_type *ft) const
+{
+	switch (index_source_mode)
+	{
+		case IndexSourceMode::hierarchical:
+			if (ft)
+				*ft = index_file_type::hierarchical;
+			return index_filename_type1();
+		default:
+		case IndexSourceMode::plain:
+			if (ft)
+				*ft = index_file_type::plain;
+			return index_filename_type2();
+	}
+}
+
+vector<wstring> DicomCatalogIndex::GetReservedFilenames() const
+{
+	return { index_filename_type1(), index_filename_type2() };
+}
+
+void DicomCatalogIndex::DeleteIndexFiles(const wstring &dir) const
+{
+	switch (index_write_mode)
+	{
+		default:
+		case IndexWriteMode::source:
+			DeleteFile(MergePath(dir, GetIndexFilename()));
+			break;
+		case IndexWriteMode::all:
+			DeleteFile(MergePath(dir, index_filename_type1()));
+			DeleteFile(MergePath(dir, index_filename_type2()));
+			break;
+	}
+}
+
+void DicomCatalogIndex::SaveIndex(const SingleDirectoryIndex &index, const wstring &dir) const
+{
+	switch (index_write_mode)
+	{
+		default:
+		case IndexWriteMode::source:
+		{
+			index_file_type ft = index_file_type::unknown;
+			auto filename = GetIndexFilename(&ft);
+			save_to_jsons(index, MergePath(dir, filename), ft);
+			break;
+		}
+		case IndexWriteMode::all:
+			save_to_jsons(index, MergePath(dir, index_filename_type1()), index_file_type::hierarchical);
+			save_to_jsons(index, MergePath(dir, index_filename_type2()), index_file_type::plain);
+			break;
+	}
+}
+
 namespace
 {
 void unroll_directories(const wstring &path,
@@ -52,7 +107,8 @@ DicomCatalogIndex::FillFromJsonAndFileInfoStat DicomCatalogIndex::FillFromJsonAn
 
 	FillFromJsonAndFileInfoStat stat;
 
-	auto index_filename_n = CmpNormalizeFilename(index_filename_type2());
+	auto index_filename_n = CmpNormalizeFilename(GetIndexFilename());
+	const vector<wstring> reserved_filenames = GetReservedFilenames();
 	for (auto &dir_data : all_dirs)
 	{
 		auto &files = *dir_data.second;
@@ -65,17 +121,16 @@ DicomCatalogIndex::FillFromJsonAndFileInfoStat DicomCatalogIndex::FillFromJsonAn
 		{
 			auto filename = MergePath(dir_data.first, it->filename);
 			SingleDirectoryIndex loaded_index = load_parse_json(filename);
-			if (loaded_index.Update(files, &stat.file_stat))
+			if (loaded_index.Update(files, reserved_filenames, &stat.file_stat))
 			{
 				if (loaded_index.empty())
 				{
-					DeleteFile(filename);
+					DeleteIndexFiles(dir_data.first);
 					++stat.deleted_index_count;
 				}
 				else
 				{
-					save_to_jsons(loaded_index, index_file_type::hierarchical);
-					save_to_jsons(loaded_index, index_file_type::raw);
+					SaveIndex(loaded_index, dir_data.first);
 					++stat.modified_index_count;
 				}
 			}
@@ -86,10 +141,9 @@ DicomCatalogIndex::FillFromJsonAndFileInfoStat DicomCatalogIndex::FillFromJsonAn
 		{
 			// Директория без файла индекса.
 			SingleDirectoryIndex new_index(dir_data.first);
-			if (new_index.Update(files, &stat.file_stat))
+			if (new_index.Update(files, reserved_filenames, &stat.file_stat))
 			{
-				save_to_jsons(new_index, index_file_type::hierarchical);
-				save_to_jsons(new_index, index_file_type::raw);
+				SaveIndex(new_index, dir_data.first);
 				m_data.push_back(std::move(new_index));
 				++stat.created_index_count;
 			}
@@ -115,7 +169,8 @@ void DicomCatalogIndex::FillFromJsonInfo(const wstring &path,
 	ProgressBar	progress1(progress.subprogress(0.01, 1));
 	progress1.start("", all_dirs.size());
 
-	auto index_filename_n = CmpNormalizeFilename(index_filename_type2());
+	auto index_filename_n = CmpNormalizeFilename(GetIndexFilename());
+	const vector<wstring> reserved_filenames = GetReservedFilenames();
 	for (auto &dir_data : all_dirs)
 	{
 		auto &files = *dir_data.second;
@@ -127,14 +182,14 @@ void DicomCatalogIndex::FillFromJsonInfo(const wstring &path,
 		if (it != files.end())
 		{
 			SingleDirectoryIndex loaded_index = load_parse_json(MergePath(dir_data.first, it->filename));
-			loaded_index.CheckUpToDate(files);
+			loaded_index.CheckUpToDate(files, reserved_filenames);
 			m_data.push_back(std::move(loaded_index));
 		}
 		else
 		{
 			// Директория без файла индекса.
 			SingleDirectoryIndex empty_index(dir_data.first);
-			empty_index.CheckUpToDate(files);
+			empty_index.CheckUpToDate(files, reserved_filenames);
 		}
 		++progress1;
 	}

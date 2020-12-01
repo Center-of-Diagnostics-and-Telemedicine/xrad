@@ -24,33 +24,6 @@ XRAD_BEGIN
 namespace Dicom
 {
 
-
-namespace
-{
-
-//!	словарь значений поля "type" в json индексе
-//!	значение "type 1" соответствует иерархической записи полей по исследованиям/сериям/сборкам
-//! значение "type 2" соответствует неструктурированной записи информации обо всех файлах
-
-const string	hierarchical_v0 = "type 1";
-const string	raw_v0 = "type 2";
-
-} // namespace
-
-string index_file_label(index_file_type ift)
-{
-	if(ift==index_file_type::hierarchical) return hierarchical_v0;
-	if(ift==index_file_type::raw) return raw_v0;
-	return "unknown";//кидать исключение при нынешней ситуации нельзя, т.к. инициализируются статические члены класса
-}
-
-index_file_type interpret_index_file_type(string s)
-{
-	if(s == raw_v0) return index_file_type::raw;
-	if(s == hierarchical_v0) return index_file_type::hierarchical;
-	return index_file_type::unknown;
-}
-
 namespace
 {
 
@@ -204,7 +177,6 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 	wstring full_filename = MergePath(path, name);
 	if (!fill_name_size_time(full_filename, name))
 	{
-		m_DicomSource = file_info_source::file_not_exist;
 		return false;
 	}
 	m_DicomSource = file_info_source::non_dicom_from_file;
@@ -235,7 +207,6 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 	}
 	catch (std::runtime_error &) // при неустойчивой работе сети не можем считать файлы
 	{
-		m_DicomSource = file_info_source::exeption_loading;
 		return false;
 	}
 	//catch (std::bad_alloc) {

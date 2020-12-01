@@ -17,36 +17,15 @@ XRAD_BEGIN
 namespace Dicom
 {
 
-//!	типы индексных файлов, связанные с полем "type" в json индексе
-//!	значения определяются словарем в cpp file.
+/*!
+	\brief Признак принадлежности информации к Dicom файлу, определяет источник информации
 
-enum class index_file_type
-{
-	unknown = 0,
-	hierarchical = 1,
-	raw = 2
-};
-
-//! связь между словарем типов индекса и значениями index_file_type
-string	index_file_label(index_file_type ift);
-index_file_type interpret_index_file_type(string s);
-
-
-
-/// число полей, включаемых в древовидную структуру json файла index_file_type::hierarchical
-const size_t NFIELDS_TYPE_1 = 5;
-
-//! An enum: признак принадлежности информации к Dicom файлу и определяет источник информации.
-/*! More detailed enum description. */
-//	класс назывался DicomSource. Переименован, т.к. путается с Dicom::source
+	\note Класс назывался DicomSource. Переименован, т.к. путается с Dicom::source.
+*/
 enum class file_info_source
 {
-	//! файл не найден, проверяется функцией, возвращающей размер файла (-1)
-	file_not_exist = 0,
-	//! получено исключение, когда информация считывалась с диска, одна из возможных причин - нестабильность локальной сети
-	exeption_loading,
 	//! неизвестно, Dicom это файл или нет
-	no_information,
+	no_information = 0,
 	//! не Dicom файл, информация считывалась с json файла
 	non_dicom_from_json,
 	//! Dicom файл, информация считывалась с json файла
@@ -57,15 +36,16 @@ enum class file_info_source
 	dicom_from_file
 };
 
-//! An enum: тип Dicom файла (CreateInstance), в данном случае тип "Image" несёт расширенный смысл, характеризующий Dicom файлы
+//! \brief Тип DICOM-файла (CreateInstance). В данном случае тип "Image" несёт расширенный смысл,
+//! характеризующий DICOM-файлы
 enum class ImageType
 {
-	image = 0,			///< базовый тип
-	tomogram_slice,		///< базовый тип для томограммы
-	ct_slice,			///< файл содержит изображение среза томограммы
-	xray_image,			///< файл содержит xray изображение
-	mr_slice,			///< файл содержит изображение среза МРТ
-	mr_slice_siemens,	///< файл содержит изображение среза МРТ с устройства Siemens
+	image = 0, //!< базовый тип
+	tomogram_slice, //!< базовый тип для томограммы
+	ct_slice, //!< файл содержит изображение среза томограммы
+	xray_image, //!< файл содержит xray изображение
+	mr_slice, //!< файл содержит изображение среза МРТ
+	mr_slice_siemens //!< файл содержит изображение среза МРТ с устройства Siemens
 };
 
 
@@ -175,14 +155,12 @@ public:
 	bool get_ImageType_xray_image() const;							///< получить значение ImageType::xray_image
 	bool get_ImageType_image() const;								///< получить значение ImageType::image
 	//! @}
-
 };
+
 
 
 } //namespace Dicom
 
 XRAD_END
-
-
 
 #endif // DicomFileIndex_h__
