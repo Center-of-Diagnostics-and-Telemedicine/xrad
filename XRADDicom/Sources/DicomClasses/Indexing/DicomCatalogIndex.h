@@ -78,6 +78,7 @@ class DicomCatalogIndex
 		*/
 		FillFromJsonAndFileInfoStat FillFromJsonAndFileInfo(const wstring &path,
 			const DirectoryContentInfo& directory_tree,
+			bool read_only,
 			ProgressProxy pp);
 
 		/*!
@@ -111,8 +112,8 @@ class DicomCatalogIndex
 		vector<SingleDirectoryIndex> &data() { return m_data; }
 
 	private:
-		void PerformCatalogIndexingUpdate(const datasource_folder& src_folder, ProgressProxy pp);
-		void PerformCatalogIndexingReadFast(const datasource_folder& src_folder, ProgressProxy pp);
+		void PerformCatalogIndexingUpdate(const wstring &path, bool read_only, ProgressProxy pp);
+		void PerformCatalogIndexingReadFast(const wstring &path, ProgressProxy pp);
 };
 
 

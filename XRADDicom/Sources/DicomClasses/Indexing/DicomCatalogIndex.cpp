@@ -122,6 +122,7 @@ void unroll_directories(const wstring &path,
 DicomCatalogIndex::FillFromJsonAndFileInfoStat DicomCatalogIndex::FillFromJsonAndFileInfo(
 		const wstring &path,
 		const DirectoryContentInfo& directory_tree,
+		bool read_only,
 		ProgressProxy pp)
 {
 	RandomProgressBar	progress(pp);
@@ -155,12 +156,14 @@ DicomCatalogIndex::FillFromJsonAndFileInfoStat DicomCatalogIndex::FillFromJsonAn
 			{
 				if (loaded_index.empty())
 				{
-					DeleteIndexFiles(dir_data.first);
+					if (!read_only)
+						DeleteIndexFiles(dir_data.first);
 					++stat.deleted_index_count;
 				}
 				else
 				{
-					SaveIndex(loaded_index, dir_data.first);
+					if (!read_only)
+						SaveIndex(loaded_index, dir_data.first);
 					++stat.modified_index_count;
 				}
 			}
@@ -173,7 +176,8 @@ DicomCatalogIndex::FillFromJsonAndFileInfoStat DicomCatalogIndex::FillFromJsonAn
 			SingleDirectoryIndex new_index(dir_data.first);
 			if (new_index.Update(files, reserved_filenames, &stat.file_stat))
 			{
-				SaveIndex(new_index, dir_data.first);
+				if (!read_only)
+					SaveIndex(new_index, dir_data.first);
 				m_data.push_back(std::move(new_index));
 				++stat.created_index_count;
 			}
@@ -256,11 +260,15 @@ void DicomCatalogIndex::PerformCatalogIndexing(const datasource_folder &src_fold
 	{
 		default:
 		case decltype(src_folder.mode())::read_and_update_index:
-			PerformCatalogIndexingUpdate(src_folder, pp);
+			PerformCatalogIndexingUpdate(src_folder.path(), false, pp);
+			break;
+
+		case decltype(src_folder.mode())::read_only_index:
+			PerformCatalogIndexingUpdate(src_folder.path(), true, pp);
 			break;
 
 		case decltype(src_folder.mode())::read_index_as_is:
-			PerformCatalogIndexingReadFast(src_folder, pp);
+			PerformCatalogIndexingReadFast(src_folder.path(), pp);
 			break;
 	}
 }
@@ -290,13 +298,24 @@ size_t CountDirectories(const DirectoryContentInfo &dir)
 
 } // namespace
 
-void DicomCatalogIndex::PerformCatalogIndexingUpdate(const datasource_folder& src_folder,
+void DicomCatalogIndex::PerformCatalogIndexingUpdate(const wstring &path, bool read_only,
 		ProgressProxy pp)
 {
+	struct Local
+	{
+		static const char *GetModeName(bool read_only)
+		{
+			if (read_only)
+				return "read-only";
+			else
+				return "update";
+		}
+	};
 	if (m_b_show_info)
 	{
-		printf("DICOM index (update): root path: \"%s\"\n",
-				EnsureType<const char*>(convert_to_string(src_folder.path()).c_str()));
+		printf("DICOM index (%s): root path: \"%s\"\n",
+				EnsureType<const char*>(Local::GetModeName(read_only)),
+				EnsureType<const char*>(convert_to_string(path).c_str()));
 		fflush(stdout);
 	}
 	ProgressIndicatorScheduler	scheduler({ 15, 5, 80 });
@@ -306,13 +325,14 @@ void DicomCatalogIndex::PerformCatalogIndexingUpdate(const datasource_folder& sr
 	RandomProgressBar	progress(pp);
 	progress.start("Scanning catalog", scheduler.n_steps());
 	auto file_info_vector = GetDirectoryFilesDetailed(
-			src_folder.path(),
+			path,
 			L"", true,
 			progress.subprogress(scheduler.operation_boundaries(0)));
 	scan_catalog_tp.Stop();
 	if (m_b_show_info)
 	{
-		printf("DICOM index (update): file list: %g sec\n",
+		printf("DICOM index (%s): file list: %g sec\n",
+				EnsureType<const char*>(Local::GetModeName(read_only)),
 				EnsureType<double>(scan_catalog_tp.LastElapsed().sec()));
 	}
 
@@ -321,14 +341,16 @@ void DicomCatalogIndex::PerformCatalogIndexingUpdate(const datasource_folder& sr
 	// Загрузить данные из json (при наличии), актуализировать их, сохранить новые json в случае
 	// изменений данных.
 	auto stat = FillFromJsonAndFileInfo(
-			src_folder.path(),
+			path,
 			file_info_vector,
+			read_only,
 			progress.subprogress(scheduler.operation_boundaries(1)));
 	fill_from_fileinfo_tp.Stop();
 	if (m_b_show_info)
 	{
-		printf("DICOM index (update): fill from fileinfo: %g sec, number of files: %zu, "
+		printf("DICOM index (%s): fill from fileinfo: %g sec, number of files: %zu, "
 				"number of directories: %zu\n",
+				EnsureType<const char*>(Local::GetModeName(read_only)),
 				EnsureType<double>(fill_from_fileinfo_tp.LastElapsed().sec()),
 				EnsureType<size_t>(CountFiles(file_info_vector)),
 				EnsureType<size_t>(CountDirectories(file_info_vector)));
@@ -352,13 +374,13 @@ void DicomCatalogIndex::PerformCatalogIndexingUpdate(const datasource_folder& sr
 	}
 }
 
-void DicomCatalogIndex::PerformCatalogIndexingReadFast(const datasource_folder& src_folder,
+void DicomCatalogIndex::PerformCatalogIndexingReadFast(const wstring &path,
 		ProgressProxy pp)
 {
 	if (m_b_show_info)
 	{
 		printf("DICOM index (fast): root path: \"%s\"\n",
-				EnsureType<const char*>(convert_to_string(src_folder.path()).c_str()));
+				EnsureType<const char*>(convert_to_string(path).c_str()));
 		fflush(stdout);
 	}
 	ProgressIndicatorScheduler scheduler({ 15, 5 });
@@ -368,7 +390,7 @@ void DicomCatalogIndex::PerformCatalogIndexingReadFast(const datasource_folder& 
 	RandomProgressBar	progress(pp);
 	progress.start("Scanning catalog", scheduler.n_steps());
 	auto file_info_vector = GetDirectoryFilesDetailed(
-			src_folder.path(),
+			path,
 			L"", true,
 			progress.subprogress(scheduler.operation_boundaries(0)));
 	scan_catalog_tp.Stop();
@@ -381,7 +403,7 @@ void DicomCatalogIndex::PerformCatalogIndexingReadFast(const datasource_folder& 
 	TimeProfiler fill_from_jsoninfo_tp;
 	fill_from_jsoninfo_tp.Start();
 	FillFromJsonInfo(
-			src_folder.path(),
+			path,
 			file_info_vector,
 			progress.subprogress(scheduler.operation_boundaries(1)));
 	fill_from_jsoninfo_tp.Stop();
