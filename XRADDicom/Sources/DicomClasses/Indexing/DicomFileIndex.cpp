@@ -24,62 +24,39 @@ XRAD_BEGIN
 namespace Dicom
 {
 
-
-//!	словарь значений поля "type" в json индексе
-//!	значение "type 1" соответствует иерархической записи полей по исследованиям/сериям/сборкам
-//! значение "type 2" соответствует неструктурированной записи информации обо всех файлах
-
-static const string	hierarchical_v0 = "type 1";
-static const string	raw_v0 = "type 2";
-
-string index_file_label(index_file_type ift)
-{
-	if(ift==index_file_type::hierarchical) return hierarchical_v0;
-	if(ift==index_file_type::raw) return raw_v0;
-	return "unknown";//кидать исключение при нынешней ситуации нельзя, т.к. инициализируются статические члены класса
-}
-
-index_file_type interpret_index_file_type(string s)
-{
-	if(s == raw_v0) return index_file_type::raw;
-	if(s == hierarchical_v0) return index_file_type::hierarchical;
-	return index_file_type::unknown;
-}
-
-
 namespace
 {
 
-// получить размер файла в байтах и времени создания файла в байтах
+// получить размер файла в байтах и время создания файла
 // https://tools.ietf.org/html/rfc3339
 // 1985-04-12T23:20:50.52Z
 // This represents 20 minutes and 50.52 seconds after the 23rd hour of April 12th, 1985 in UTC.
 // и/или https://ru.wikipedia.org/wiki/ISO_8601
 bool GetFileSizeAndModifyTime(const std::string& filename, uint64_t &size, std::string& str_date)
 {
-	struct stat stat_buf;
-	struct tm* clock;								// create a time structure
-	int rc = stat(filename.c_str(), &stat_buf);		// get the attributes of afile.txt
-	//xrad::fileinfo stat_fast = xrad::GetFileInfoStruct(convert_to_wstring(filename));
-	if (rc != 0)
+#if defined(XRAD_COMPILER_MSC)
+	struct __stat64 st;
+	if (_wstat64(convert_to_wstring(filename).c_str(), &st))
 		return false;
-	clock = gmtime(&(stat_buf.st_mtime));			// Get the last modified time and put it into the time structure
+	static_assert(std::is_same<decltype(st.st_size), file_size_t>::value, "Invalid types");
+#elif defined(XRAD_COMPILER_GNUC)
+	struct stat64 st;
+	if (fstat64(fileno(file), &st))
+		return false;
+	static_assert(std::is_same<decltype(st.st_size), file_size_t>::value, "Invalid types");
+#else
+	#error Unknown platform.
+#endif
 
-													// clock->tm_year returns the year (since 1900)
-													// clock->tm_mon returns the month (January = 0)
-													// clock->tm_mday returns the day of the month
-	str_date = ssprintf("%d-%02d-%02dT", clock->tm_year + 1900, clock->tm_mon, clock->tm_mday) +
-			ssprintf("%02d:%02d:%02dZ", clock->tm_hour, clock->tm_min, clock->tm_sec);
-
-	// TODO: Необходимо получить 64-битный размер файла.
-	size = stat_buf.st_size;
+	str_date = DicomFileIndex::FormatTime(&st.st_mtime);
+	size = st.st_size;
 	return true;
 }
 
 } // namespace
 
 // сформировать vector элементов tag : 12 элементов, описывающих Dicom instance
-vector<Dicom::tag_e>	DicomFileIndex::m_dicom_tags =
+const vector<Dicom::tag_e>	DicomFileIndex::m_dicom_tags =
 {
 	//IDs
 	Dicom::e_acquisition_number,			// 0
@@ -131,9 +108,6 @@ static const map<ImageType, string> imagetype_description_fixed =
 /// так как они статические - это делается единственный раз при создании первого экзкмпляра класса
 DicomFileIndex::DicomFileIndex()
 {
-	m_DicomSource = file_info_source::no_information;
-	m_b_indexing_needed = true;
-
 	if (m_dicom_tags_description.size() != get_dicom_tags_length()) // если описание тэгов ещё не заполнено
 	{
 		for (const auto& el : m_dicom_tags)
@@ -145,7 +119,6 @@ DicomFileIndex::DicomFileIndex()
 			m_dicom_description_tags[convert_to_string(wstring_tag_name)] = el;
 		}
 	}
-
 
 	// заполнить map типов изображений false
 	for (const auto& el : imagetype_description_fixed)
@@ -173,27 +146,6 @@ bool DicomFileIndex::has_image_type() const
 }
 
 
-// из списка тэгов файла сгенерировать строку
-wstring DicomFileIndex::get_summary_info_string() const
-{
-	wstring str_dicom;
-	if (!check_consistency())   //  отсутствуют заполненные поля
-		return str_dicom;
-
-	if (is_dicom())		// если Dicom файл, то записать Dicom тэги
-	{
-		// во внутренний блок пишем только индексы с [NFIELDS_TYPE_1 и до конца]
-		for (size_t i = 0; i < NFIELDS_TYPE_1; i++)
-		{
-			string str_tag_discr = get_dicom_tags_description(i);
-			str_dicom += get_dicom_tags_value(i);
-		}
-	}
-
-	return str_dicom;
-}
-
-
 // сформировать vector 3-х строк
 // 1) имя файла 2) размер файла в байтах файла 3) время создания файла
 bool DicomFileIndex::fill_name_size_time(const wstring& fname, const wstring &name_part)
@@ -204,18 +156,24 @@ bool DicomFileIndex::fill_name_size_time(const wstring& fname, const wstring &na
 		return false;
 	m_filename = name_part;
 	m_file_size = file_size;
-	m_file_mtime = convert_to_wstring(date);
+	m_file_mtime = date;
 	return true;
-};
+}
 
+string DicomFileIndex::FormatTime(const time_t *t)
+{
+	struct tm* clock = gmtime(t);
+	return ssprintf("%d-%02d-%02dT%02d:%02d:%02dZ",
+			clock->tm_year + 1900, clock->tm_mon, clock->tm_mday,
+			clock->tm_hour, clock->tm_min, clock->tm_sec);
+}
 
 // заполнить поля m_dicom_tags_value для файла fname
 bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring &name)
 {
-	wstring full_filename = path + wpath_separator() + name;
+	wstring full_filename = MergePath(path, name);
 	if (!fill_name_size_time(full_filename, name))
 	{
-		m_DicomSource = file_info_source::file_not_exist;
 		return false;
 	}
 	m_DicomSource = file_info_source::non_dicom_from_file;
@@ -246,7 +204,6 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 	}
 	catch (std::runtime_error &) // при неустойчивой работе сети не можем считать файлы
 	{
-		m_DicomSource = file_info_source::exeption_loading;
 		return false;
 	}
 	//catch (std::bad_alloc) {
@@ -270,18 +227,6 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 	return true;
 }
 
-void DicomFileIndex::fill_from_fileinfo(const FileInfo &fileinfo_val)
-{
-	m_filename = fileinfo_val.filename;
-	m_file_size = fileinfo_val.size;
-
-	struct tm* clock = gmtime(&fileinfo_val.time_write);		// Get the last modified time and put it into the time structure
-
-	m_file_mtime = ssprintf(L"%d-%02d-%02dT", clock->tm_year + 1900, clock->tm_mon, clock->tm_mday);
-	m_file_mtime += ssprintf(L"%02d:%02d:%02dZ", clock->tm_hour, clock->tm_min, clock->tm_sec);
-}
-
-
 // проверить соответветствие данных в структуре
 bool DicomFileIndex::check_consistency() const
 {
@@ -293,20 +238,6 @@ bool DicomFileIndex::check_consistency() const
 			return false;
 	}
 
-	return true;
-}
-
-
-bool DicomFileIndex::equal_fast(const DicomFileIndex& a) const
-{
-	if (!check_consistency() || !a.check_consistency())
-		return false;
-	if (m_file_size != a.m_file_size)
-		return false;
-	if (m_filename != a.m_filename)
-		return false;
-	if (m_file_mtime != a.m_file_mtime)
-		return false;
 	return true;
 }
 

@@ -62,6 +62,12 @@
 #endif // XRAD_COMPILER_MSC
 #endif // XRAD_NO_LIBRARIES_LINKS
 
+#ifdef DeleteFile
+// Win32 fix: макроопределение DeleteFile из Win32, подключенное через DCMTK, конфликтует
+// с функцией из System.h
+#undef DeleteFile
+#endif // DeleteFile
+
 //--------------------------------------------------------------
 
 // openjpeg for decode/encode JPEG2000

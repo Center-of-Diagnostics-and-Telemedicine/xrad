@@ -127,9 +127,10 @@ namespace
 		RandomProgressBar	progress(pproxy);
 
 		ProgressIndicatorScheduler	scheduler({ 5, 95 });
-		progress.start("Analyzing Dicom folder.", scheduler.n_steps());
+		progress.start("Analyzing Dicom folder", scheduler.n_steps());
 
-		std::vector<wstring> filenames = GetDirectoryFiles(src_folder.path(), L" ", src_folder.analyze_subfolders(), progress.subprogress(scheduler.operation_boundaries(0)));
+		std::vector<wstring> filenames = GetDirectoryFiles(src_folder.path(), L"",
+				src_folder.analyze_subfolders(), progress.subprogress(scheduler.operation_boundaries(0)));
 
 
 		for(auto name = filenames.begin(); name < filenames.end();)
@@ -173,19 +174,17 @@ namespace
 
 		RandomProgressBar	progress(pproxy);
 		ProgressIndicatorScheduler	scheduler({ 90, 2, 8 });
-		progress.start(L"Analyzing Dicom folder.", scheduler.n_steps());
+		progress.start(L"Analyzing DICOM folder", scheduler.n_steps());
 
 		// индексировать все файлы в каталоге src_folder.path()
-		
+
 		bool b_show_stdout = true;//temporary
 //		bool b_show_stdout = false;
-		bool b_check_consistency = true;
-		bool b_update = true;
-		Dicom::DicomCatalogIndex dicom_catalog_index(b_show_stdout, b_check_consistency, b_update);
+		Dicom::DicomCatalogIndex dicom_catalog_index(b_show_stdout);
 		dicom_catalog_index.PerformCatalogIndexing(src_folder, progress.subprogress(scheduler.operation_boundaries(0)));
 
 		ProgressBar progress_b(progress.subprogress(scheduler.operation_boundaries(1)));
-		progress_b.start(L"Fill instances.", dicom_catalog_index.n_items());
+		progress_b.start(L"Fill instances", dicom_catalog_index.n_items());
 		//  сформировать instancestorages вектор для Dicom файлов
 
 		std::vector<Dicom::instancestorage_ptr> instancestorages;
@@ -203,6 +202,7 @@ namespace
 				++progress_b;
 			}
 			el_dir.clear(); // очистить занимаемую память для обработанной директории с индексами
+			el_dir.shrink_to_fit();
 		}
 		progress_b.end();
 
@@ -225,7 +225,7 @@ namespace
 		{
 			createAndAddInstance(studies_heap, instancestorages[frame_no], get<dicom_instance_predicate>(filter_p), collector_mutex);
 		};
-		processor.perform(lambda, L"Parsing Dicom folder", progress.subprogress(scheduler.operation_boundaries(2)));
+		processor.perform(lambda, L"Parsing DICOM folder (with index)", progress.subprogress(scheduler.operation_boundaries(2)));
 
 		return studies_heap;
 	}
@@ -239,9 +239,9 @@ namespace
 		{
 			default:
 			case decltype(src_folder.mode())::read_and_update_index:
-				return RawAnalyzeFolderIndexing(src_folder, filter_p, pproxy);
-
+			case decltype(src_folder.mode())::read_only_index:
 			case decltype(src_folder.mode())::read_index_as_is:
+				return RawAnalyzeFolderIndexing(src_folder, filter_p, pproxy);
 				return RawAnalyzeFolderIndexing(src_folder, filter_p, pproxy);
 
 			case decltype(src_folder.mode())::no_index:
@@ -289,7 +289,7 @@ namespace
 		{
 		case Dicom::datasource_t::folder:
 			return RawAnalyzeFolderSelector(
-				dynamic_cast<const Dicom::datasource_folder&>(dicom_datasource), 
+				dynamic_cast<const Dicom::datasource_folder&>(dicom_datasource),
 				filter_p,
 				pproxy);
 
