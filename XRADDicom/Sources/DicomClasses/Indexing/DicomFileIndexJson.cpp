@@ -22,36 +22,6 @@ XRAD_BEGIN
 namespace Dicom
 {
 
-namespace
-{
-
-// словарь значений поля "type" в json индексе
-// значение "type 1" соответствует иерархической записи полей по исследованиям/сериям/сборкам
-// значение "type 2" соответствует неструктурированной записи информации обо всех файлах
-// Использовать глобальные переменные типа string здесь нельзя, т.к. обращение к ним происходит
-// при инициализации глобальных переменных других единиц трансляции, а порядок инициализации
-// разных единиц трансляции не определен, переменные типа string могут оказаться
-// неинициализированными на момент обращения к ним.
-
-constexpr const char *hierarchical_v0() { return "type 1"; }
-constexpr const char *plain_v0() { return "type 2"; }
-
-} // namespace
-
-string index_file_label(index_file_type ift)
-{
-	if(ift==index_file_type::hierarchical) return hierarchical_v0();
-	if(ift==index_file_type::plain) return plain_v0();
-	return "unknown";//кидать исключение при нынешней ситуации нельзя, т.к. инициализируются статические члены класса
-}
-
-index_file_type interpret_index_file_type(const string &s)
-{
-	if(s == plain_v0()) return index_file_type::plain;
-	if(s == hierarchical_v0()) return index_file_type::hierarchical;
-	return index_file_type::unknown;
-}
-
 
 
 namespace

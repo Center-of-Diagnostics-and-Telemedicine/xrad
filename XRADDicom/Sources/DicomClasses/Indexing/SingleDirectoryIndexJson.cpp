@@ -38,28 +38,34 @@ using json = nlohmann::json;
 namespace
 {
 
-const map<string, string> map_header_json_type1 =
-{
-	{ "ID","purpose: Dicom catalog" },
-	{ "version","0.0" },
-	{ "type", index_file_label(index_file_type::hierarchical) }
-};
+constexpr const char *index_type_id_hierarchical() { return "hierarchical"; }
+constexpr const char *index_type_id_plain() { return "plain"; }
 
-const map<string, string> map_header_json_type2 =
+index_file_type interpret_index_file_type(const string &s)
 {
-	{ "ID","purpose: Dicom catalog" },
-	{ "version","0.0" },
-	{ "type", index_file_label(index_file_type::plain) }
-};
+	if(s == index_type_id_plain())
+		return index_file_type::plain;
+	if(s == index_type_id_hierarchical())
+		return index_file_type::hierarchical;
+	return index_file_type::unknown;
+}
+
+constexpr const char *index_id_key() { return "id"; }
+constexpr const char *index_id_value() { return "XRAD DICOM catalog"; }
+
+constexpr const char *index_type_key() { return "type"; }
+
+constexpr const char *index_filelist_key() { return "file_list"; }
+constexpr const char *index_dicomlist_key() { return "dicom_list"; }
 
 
 
 // из списка тэгов для каждого файла сгенерировать json файл type1 (sample1.json)
 void dir_info_to_json_type1(const SingleDirectoryIndex& dcmDirectoryIndex, json& json_type1)
 {
-	// заполнить обязательные поля о "ID", "version", "type" из map_header_json_type1
-	for (auto& map_v : map_header_json_type1)
-		json_type1[map_v.first] = map_v.second;
+	// заполнить обязательные поля
+	json_type1[index_id_key()] = string(index_id_value());
+	json_type1[index_type_key()] = string(index_type_id_hierarchical());
 
 	// выделить уникальные исследования по 5-ти первым тэгам
 	json json_dicom_files; // хранение информации о файлах в древовидной структуре первых 5-тэгов
@@ -102,11 +108,11 @@ void dir_info_to_json_type1(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 
 	// если не пусто, записать древовидную информацию dicom файлав в тэг "dicomlist"
 	if (!json_dicom_files.empty())
-		json_type1["dicomlist"] = std::move(json_dicom_files);
+		json_type1[index_dicomlist_key()] = std::move(json_dicom_files);
 
-	// записать "non Dicom" файлы, это идентично записи в json type 2
+	// записать не-DICOM файлы, это идентично записи в json type 2
 	if (!json_not_dicom.empty())
-		json_type1["non Dicom"] = std::move(json_not_dicom);
+		json_type1[index_filelist_key()] = std::move(json_not_dicom);
 }
 
 
@@ -117,11 +123,9 @@ void dir_info_to_json_type2(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 	if (!dcmDirectoryIndex.size())
 		return;
 
-	// заполнить обязательные поля о "ID", "version", "type" из map_header_json_type1
-	for (auto& map_v : map_header_json_type2)
-	{
-		json_type2[map_v.first] = map_v.second;
-	}
+	// заполнить обязательные поля
+	json_type2[index_id_key()] = string(index_id_value());
+	json_type2[index_type_key()] = string(index_type_id_plain());
 
 	// Для определенности сохраняем элементы в порядке "возрастания" имени файла с учетом регистра
 	// в utf-8.
@@ -137,7 +141,7 @@ void dir_info_to_json_type2(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 		json json_file_tag;
 		if(to_json_type2(dicom_file_Tags, json_file_tag))	 // записать все тэги, характеризующие дайком файл
 		{
-			json_type2["filelist"].push_back(std::move(json_file_tag));
+			json_type2[index_filelist_key()].push_back(std::move(json_file_tag));
 		}
 	}
 }
@@ -145,7 +149,7 @@ void dir_info_to_json_type2(const SingleDirectoryIndex& dcmDirectoryIndex, json&
 
 
 // загрузить json файл с деревом исследований Dicom файлов type 1
-void load_json_type1_tree(SingleDirectoryIndex& result, json& json_type1_dicom_section)
+void load_json_type1_tree(SingleDirectoryIndex& result, const json &json_type1_dicom_section)
 {
 	XRAD_ASSERT_THROW(!json_type1_dicom_section.is_null());   // проверить, есть ли информация в json объекте
 
@@ -192,56 +196,93 @@ void load_json_type1_tree(SingleDirectoryIndex& result, json& json_type1_dicom_s
 
 
 
-SingleDirectoryIndex load_parse_json(const wstring& json_fname)
+SingleDirectoryIndex load_parse_json(const wstring& json_fname, ErrorReportMode erm)
 {
-	json json_from_file = load_json(json_fname);
-
-	for (auto& map_v : map_header_json_type1) // проверить наличие обязательных полей = { "ID", "version", "type" };
+	auto report_error = [&json_fname, erm](const string &message, size_t *err_counter = nullptr)
 	{
-		XRAD_ASSERT_THROW(json_from_file.find(map_v.first) != json_from_file.end());
-	}
-
-	// проверить тип json файла
-	index_file_type json_type = interpret_index_file_type(json_from_file["type"]);
-
-	XRAD_ASSERT_THROW(json_type != index_file_type::unknown);
+		switch (erm)
+		{
+			default:
+			case ErrorReportMode::log_and_recover:
+				if (err_counter)
+				{
+					if (*err_counter > 3)
+						return;
+					++*err_counter;
+				}
+				fprintf(stderr, "Error loading XRAD DICOM index file \"%s\":\n%s"
+						"\n",
+						EnsureType<const char*>(convert_to_string(json_fname).c_str()),
+						EnsureType<const char*>(message.c_str()));
+				break;
+			case ErrorReportMode::throw_exception:
+				throw runtime_error(ssprintf("Error loading XRAD DICOM index file \"%s\":\n%s",
+						EnsureType<const char*>(convert_to_string(json_fname).c_str()),
+						EnsureType<const char*>(message.c_str())));
+				break;
+		}
+	};
 
 	SingleDirectoryIndex result(RemoveTrailingPathSeparator(file_path(json_fname)));
-	if (json_type == index_file_type::hierarchical)
-	{
-		// json файл тип type 1
-		// Парсинг type 1 нужно переписать полностью. Теперешний код, хотя и работает, содержит много натянутых зависимостей, которые усложняют сопровождение
-		//Error("json type 1 index is not tested");
 
-		auto it = json_from_file.find("dicomlist");
+	try
+	{
+		const json json_from_file = load_json(json_fname);
+
+		// проверить тип json файла
+		auto it_type = json_from_file.find(index_type_key());
+		if (it_type == json_from_file.end())
+		{
+			report_error(ssprintf("Value not found: %s.", EnsureType<const char*>(index_type_key())));
+			return result;
+		}
+		index_file_type json_type = interpret_index_file_type(*it_type);
+		if (json_type == index_file_type::unknown)
+		{
+			report_error(ssprintf("Invalid index type: \"%s\".", EnsureType<const char*>(index_type_key())));
+			return result;
+		}
+
+		if (json_type == index_file_type::hierarchical)
+		{
+			// json файл тип type 1
+			// Парсинг type 1 нужно переписать полностью. Теперешний код, хотя и работает, содержит много натянутых зависимостей, которые усложняют сопровождение
+			//Error("json type 1 index is not tested");
+
+			auto it = json_from_file.find(index_dicomlist_key());
+			if (it != json_from_file.end())
+			{
+				// В индексе есть DICOM-файлы.
+				load_json_type1_tree(result, *it);
+			}
+		}
+
+		// json файл тип type 1 или 2
+		// Формат хранения о не-DICOM файлах в type 1 совпадает с форматом хранения обо всех файлах
+		// type 2.
+		auto it = json_from_file.find(index_filelist_key());
 		if (it != json_from_file.end())
 		{
-			// В индексе есть DICOM-файлы.
-			load_json_type1_tree(result, *it);
+			const json& json_filelist = *it;
+			size_t err_counter = 0;
+			for (size_t i = 0; i < json_filelist.size(); i++)
+			{
+				try
+				{
+					DicomFileIndex fileindex = from_json_get_file_index(json_filelist[i], index_file_type::plain);
+					result.add_file_index(fileindex);
+				}
+				catch(...)
+				{
+					report_error(GetExceptionStringOrRethrow(), &err_counter);
+				}
+			}
 		}
 	}
-
-	// json файл тип type 1 или 2
-	// Формат хранения о не-DICOM файлах в type 1 совпадает с форматом хранения обо всех файлах
-	// type 2.
-	string tag_name = json_type == index_file_type::hierarchical ? "non Dicom" : "filelist";
-	auto it = json_from_file.find(tag_name);
-	if (it != json_from_file.end())
+	catch (...)
 	{
-		const json& json_filelist = *it;
-		for (size_t i = 0; i < json_filelist.size(); i++)
-		{
-			try
-			{
-				DicomFileIndex fileindex = from_json_get_file_index(json_filelist[i], index_file_type::plain);
-				result.add_file_index(fileindex);
-			}
-			catch(...)
-			{
-			}
-		}
+		report_error(GetExceptionStringOrRethrow());
 	}
-
 	return result;
 }
 
@@ -281,11 +322,13 @@ bool test_write_load_json(SingleDirectoryIndex& dcmDirectoryIndex)
 	{
 		auto wstr_json_fname1 = MergePath(dcmDirectoryIndex.get_path(), index_filename_type1());
 		save_to_jsons(dcmDirectoryIndex, wstr_json_fname1, index_file_type::hierarchical);
-		SingleDirectoryIndex dir_index_from_json1 = load_parse_json(wstr_json_fname1); // если проблемы чтения json файла
-		
+		SingleDirectoryIndex dir_index_from_json1 = load_parse_json(wstr_json_fname1,
+				ErrorReportMode::throw_exception); // если проблемы чтения json файла
+
 		auto wstr_json_fname2 = MergePath(dcmDirectoryIndex.get_path(), index_filename_type2());
 		save_to_jsons(dcmDirectoryIndex, wstr_json_fname2, index_file_type::plain);
-		SingleDirectoryIndex dir_index_from_json2 = load_parse_json(wstr_json_fname2); // если проблемы чтения json файла
+		SingleDirectoryIndex dir_index_from_json2 = load_parse_json(wstr_json_fname2,
+				ErrorReportMode::throw_exception); // если проблемы чтения json файла
 
 		bool is_equal01 = dcmDirectoryIndex == dir_index_from_json1;
 		bool is_equal02 = dcmDirectoryIndex == dir_index_from_json2;

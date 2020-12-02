@@ -108,8 +108,6 @@ static const map<ImageType, string> imagetype_description_fixed =
 /// так как они статические - это делается единственный раз при создании первого экзкмпляра класса
 DicomFileIndex::DicomFileIndex()
 {
-	m_DicomSource = file_info_source::no_information;
-
 	if (m_dicom_tags_description.size() != get_dicom_tags_length()) // если описание тэгов ещё не заполнено
 	{
 		for (const auto& el : m_dicom_tags)
@@ -121,7 +119,6 @@ DicomFileIndex::DicomFileIndex()
 			m_dicom_description_tags[convert_to_string(wstring_tag_name)] = el;
 		}
 	}
-
 
 	// заполнить map типов изображений false
 	for (const auto& el : imagetype_description_fixed)

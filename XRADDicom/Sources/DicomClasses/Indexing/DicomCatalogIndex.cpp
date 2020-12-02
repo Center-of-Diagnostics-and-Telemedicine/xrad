@@ -42,20 +42,49 @@ vector<wstring> DicomCatalogIndex::GetReservedFilenames() const
 	return { index_filename_type1(), index_filename_type2() };
 }
 
+namespace
+{
+void DeleteFileLog(const wstring &filename)
+{
+	if (!DeleteFile(filename))
+	{
+		fprintf(stderr, "Error deleting XRAD DICOM index file \"%s\".\n",
+				EnsureType<const char*>(convert_to_string(filename).c_str()));
+	}
+}
+} // namespace
+
 void DicomCatalogIndex::DeleteIndexFiles(const wstring &dir) const
 {
 	switch (index_write_mode)
 	{
 		default:
 		case IndexWriteMode::source:
-			DeleteFile(MergePath(dir, GetIndexFilename()));
+			DeleteFileLog(MergePath(dir, GetIndexFilename()));
 			break;
 		case IndexWriteMode::all:
-			DeleteFile(MergePath(dir, index_filename_type1()));
-			DeleteFile(MergePath(dir, index_filename_type2()));
+			DeleteFileLog(MergePath(dir, index_filename_type1()));
+			DeleteFileLog(MergePath(dir, index_filename_type2()));
 			break;
 	}
 }
+
+namespace
+{
+void SaveToJsonLog(const SingleDirectoryIndex &index, const wstring &filename, index_file_type ft)
+{
+	try
+	{
+		save_to_jsons(index, filename, ft);
+	}
+	catch (...)
+	{
+		fprintf(stderr, "Error saving XRAD DICOM index file \"%s\":\n%s\n",
+				EnsureType<const char*>(convert_to_string(filename).c_str()),
+				EnsureType<const char*>(GetExceptionStringOrRethrow().c_str()));
+	}
+}
+} // namespace
 
 void DicomCatalogIndex::SaveIndex(const SingleDirectoryIndex &index, const wstring &dir) const
 {
@@ -120,7 +149,8 @@ DicomCatalogIndex::FillFromJsonAndFileInfoStat DicomCatalogIndex::FillFromJsonAn
 		if (it != files.end())
 		{
 			auto filename = MergePath(dir_data.first, it->filename);
-			SingleDirectoryIndex loaded_index = load_parse_json(filename);
+			SingleDirectoryIndex loaded_index = load_parse_json(filename,
+					ErrorReportMode::log_and_recover);
 			if (loaded_index.Update(files, reserved_filenames, &stat.file_stat))
 			{
 				if (loaded_index.empty())
@@ -181,7 +211,8 @@ void DicomCatalogIndex::FillFromJsonInfo(const wstring &path,
 			});
 		if (it != files.end())
 		{
-			SingleDirectoryIndex loaded_index = load_parse_json(MergePath(dir_data.first, it->filename));
+			SingleDirectoryIndex loaded_index = load_parse_json(MergePath(dir_data.first, it->filename),
+					ErrorReportMode::throw_exception);
 			loaded_index.CheckUpToDate(files, reserved_filenames);
 			m_data.push_back(std::move(loaded_index));
 		}

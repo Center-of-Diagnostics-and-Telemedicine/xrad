@@ -28,10 +28,6 @@ enum class index_file_type
 	plain = 2
 };
 
-//! \brief Связь между словарем типов индекса и значениями index_file_type
-string	index_file_label(index_file_type ift);
-index_file_type interpret_index_file_type(const string &s);
-
 //! \brief Число полей, включаемых в древовидную структуру json файла index_file_type::hierarchical
 const size_t NFIELDS_TYPE_1 = 5;
 

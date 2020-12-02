@@ -57,28 +57,28 @@ class DicomFileIndex
 {
 	/// вектор ID тэгов, которые нужно получить из dicom файла
 	/// переменная является статической, так как одинакова для всех экземпляров класса
-	static const vector<Dicom::tag_e>	m_dicom_tags;
+	static const vector<Dicom::tag_e> m_dicom_tags;
 
 	/// map ID -> discription, краткое описание каждого ID тэга
 	/// переменная является статической, так как одинакова для всех экземпляров класса
-	static map<Dicom::tag_e, std::string>	m_dicom_tags_description;
+	static map<Dicom::tag_e, std::string> m_dicom_tags_description;
 
 	/// map discription -> ID, ID для каждого краткого описания
 	/// переменная является статической, так как одинакова для всех экземпляров класса
-	static map<std::string, Dicom::tag_e>	m_dicom_description_tags;
+	static map<std::string, Dicom::tag_e> m_dicom_description_tags;
 
 	/// map ID -> value, значение по ID
-	map<size_t, wstring>				m_dicom_tags_value;
+	map<size_t, wstring> m_dicom_tags_value;
 
 	/// map ImageType -> bool
-	map<ImageType, bool>				m_dicom_image_type;
+	map<ImageType, bool> m_dicom_image_type;
 
 	wstring m_filename;
-	uint64_t m_file_size;
+	uint64_t m_file_size = 0;
 	string m_file_mtime;
 
 	/// признак file_info_source
-	file_info_source							m_DicomSource;
+	file_info_source m_DicomSource = file_info_source::no_information;
 
 public:
 	DicomFileIndex();
@@ -90,6 +90,7 @@ public:
 		if(m_filename.empty()) m_filename = other.m_filename;
 		if(m_file_mtime.empty()) m_file_mtime = other.m_file_mtime;
 		if(!m_file_size) m_file_size = other.m_file_size;
+		m_DicomSource = other.m_DicomSource;
 	}
 
 	/// содержит ли класс Dicom тэги

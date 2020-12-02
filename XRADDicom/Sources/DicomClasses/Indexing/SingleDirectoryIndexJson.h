@@ -16,13 +16,19 @@ namespace Dicom
 {
 
 //! \brief Имя json файла (тип 1)
-inline const wchar_t *index_filename_type1() { return L".v1-xrad-dicom-cat"; }
+inline const wchar_t *index_filename_type1() { return L".xrad-dicom-cat-v1"; }
 
 //! \brief Имя json файла (тип 2)
-inline const wchar_t *index_filename_type2() { return L".v2-xrad-dicom-cat"; }
+inline const wchar_t *index_filename_type2() { return L".xrad-dicom-cat-v2"; }
+
+enum class ErrorReportMode
+{
+	log_and_recover = 0,
+	throw_exception
+};
 
 //! \brief Загрузить json файл, предполагаем наш формат
-SingleDirectoryIndex load_parse_json(const wstring& json_fname);
+SingleDirectoryIndex load_parse_json(const wstring& json_fname, ErrorReportMode erm);
 
 //! \brief Записать json файл, вернуть имя json файла
 void save_to_jsons(const SingleDirectoryIndex& dcmDirectoryIndex, const wstring& json_fname,
