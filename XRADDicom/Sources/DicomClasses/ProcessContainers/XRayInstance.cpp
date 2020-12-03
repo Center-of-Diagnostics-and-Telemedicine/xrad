@@ -4,7 +4,7 @@
 	\author kovbas
 */
 #include "pre.h"
-#include "XRAYInstance.h"
+#include "XRayInstance.h"
 
 XRAD_BEGIN
 

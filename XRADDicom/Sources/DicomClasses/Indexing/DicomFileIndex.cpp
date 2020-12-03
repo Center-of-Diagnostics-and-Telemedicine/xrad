@@ -64,7 +64,8 @@ bool GetFileSizeAndModifyTime(const std::string& filename, uint64_t &size, std::
 	static_assert(std::is_same<decltype(st.st_size), file_size_t>::value, "Invalid types");
 #elif defined(XRAD_COMPILER_GNUC)
 	struct stat64 st;
-	if (fstat64(fileno(file), &st))
+//	if (fstat64(fileno(file), &st))
+	if (stat64(filename.c_str(), &st))
 		return false;
 	static_assert(std::is_same<decltype(st.st_size), file_size_t>::value, "Invalid types");
 #else

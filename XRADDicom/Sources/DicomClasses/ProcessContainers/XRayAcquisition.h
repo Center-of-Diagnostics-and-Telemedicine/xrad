@@ -6,7 +6,7 @@
 #ifndef XRayAcquisition_h__
 #define XRayAcquisition_h__
 
-#include "XRAYInstance.h"
+#include "XRayInstance.h"
 #include "GenericImageAcquisition.h"
 #include <XRADDicom/Sources/DicomClasses/Instances/LoadGenericClasses.h>
 
@@ -39,4 +39,4 @@ public:
 
 XRAD_END
 
-#endif // XRAYAcquisition_h__
+#endif // XRayAcquisition_h__
