@@ -538,9 +538,14 @@ namespace Dicom
 			v.push_back(d1);
 			v.push_back(d2);
 			v.push_back(d3);
+
+			delete dcmSequenceOfItems;
+			delete dcmSequenceOfItems1;
 		}
 		catch (...)
 		{
+			delete dcmSequenceOfItems;
+			delete dcmSequenceOfItems1;
 			throw;
 		}
 

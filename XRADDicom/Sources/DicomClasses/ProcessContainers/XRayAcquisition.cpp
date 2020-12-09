@@ -1,22 +1,24 @@
 ﻿/*!
 	\file
-	\date 4/23/2018 12:19:45 PM
-	\author kovbas
+	\date 10/09/2020 12:19:45 PM
+	\author sbp
 */
 #include "pre.h"
-#include "XRAYAcquisition.h"
+#include "ProcessAcquisition.h"
+#include "GenericImageAcquisition.h"
+#include "XRayAcquisition.h"
 #include <XRADDicom/Sources/DicomClasses/Instances/xray_image.h>
 
 XRAD_BEGIN
 
 
-XRAYAcquisition::XRAYAcquisition(const shared_ptr<Dicom::acquisition_loader> &acquisition_loader_p) : ProcessAcquisition(acquisition_loader_p)
+XRayAcquisition::XRayAcquisition(const shared_ptr<Dicom::acquisition_loader> &acquisition_loader_p) : GenericImageAcquisition(acquisition_loader_p)
 {
 }
 
+/*
 
-
-void XRAYAcquisition::put_elements_to_instance(Dicom::instance &instance, size_t element_num) const
+void GenericImageAcquisition::put_elements_to_instance(Dicom::instance &instance, size_t element_num) const
 {
 	auto	&ts = dynamic_cast<Dicom::xray_image &>(instance);
 
@@ -31,7 +33,7 @@ void XRAYAcquisition::put_elements_to_instance(Dicom::instance &instance, size_t
 
 
 
-xrad::RealFunction2D_F32 XRAYAcquisition::get_image(size_t no) const
+xrad::RealFunction2D_F32 GenericImageAcquisition::get_image(size_t no) const
 {
 	XRAD_ASSERT_THROW(no <= m_acquisition_loader->size()-1);
 
@@ -47,7 +49,7 @@ xrad::RealFunction2D_F32 XRAYAcquisition::get_image(size_t no) const
 
 
 // получить 2D изображение среза с номером pos
-RealFunction2D_F32	XRAYAcquisition::slice(size_t pos) const
+RealFunction2D_F32	GenericImageAcquisition::slice(size_t pos) const
 {
 	if (pos >= m_acquisition_loader->size())
 		return RealFunction2D_F32();
@@ -61,7 +63,7 @@ RealFunction2D_F32	XRAYAcquisition::slice(size_t pos) const
 
 
 // получить 3D изображение
-vector<RealFunction2D_F32>	XRAYAcquisition::slices() const
+vector<RealFunction2D_F32>	GenericImageAcquisition::slices() const
 {
 	vector<RealFunction2D_F32> slices;
 	slices.reserve(m_acquisition_loader->size());
@@ -75,5 +77,5 @@ vector<RealFunction2D_F32>	XRAYAcquisition::slices() const
 	return slices;
 }
 
-
+*/
 XRAD_END
