@@ -242,7 +242,6 @@ namespace
 			case decltype(src_folder.mode())::read_only_index:
 			case decltype(src_folder.mode())::read_index_as_is:
 				return RawAnalyzeFolderIndexing(src_folder, filter_p, pproxy);
-				return RawAnalyzeFolderIndexing(src_folder, filter_p, pproxy);
 
 			case decltype(src_folder.mode())::no_index:
 				return RawAnalyzeFolder(src_folder, filter_p, pproxy);

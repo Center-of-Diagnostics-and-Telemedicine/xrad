@@ -264,9 +264,6 @@ RealFunctionMD_F32    TomogramAcquisition::load_ordered_slices(
 	//    XRAD_ASSERT_THROW(slice_order.size() == sizes(0));
 	RealFunctionMD_F32 slices;
 
-	size_t i{ 0 };
-	size_t n_frames_to_be_resized{ 0 };
-
 	Dicom::tomogram_slice &first_slice = dynamic_cast<Dicom::tomogram_slice&>(*(m_acquisition_loader->front()));
 
 	slices.realloc({ slice_order.size(),first_slice.vsize(), first_slice.hsize() });
@@ -343,16 +340,11 @@ vector<pair<size_t, size_t>> TomogramAcquisition::determine_slice_order() const
 
 bool TomogramAcquisition::sort_axis(size_t &sort_axis_p) const
 {
-	RealFunction2D_F32	pp;
-	size_t i{ 0 };
-	size_t n_frames_to_be_realloced{ 0 };
-
 	sort_axis_p = size_t(-1);
 
-	Dicom::tomogram_slice &first_slice = dynamic_cast<Dicom::tomogram_slice&>(*(m_acquisition_loader->front()));
+	RealFunction2D_F32 pp(3, m_acquisition_loader->size());
 
-	pp.realloc( 3, m_acquisition_loader->size() );
-
+	size_t i = 0;
 	for (auto &el : *m_acquisition_loader)
 	{
 
@@ -369,21 +361,19 @@ bool TomogramAcquisition::sort_axis(size_t &sort_axis_p) const
 
 		else
 		{
-			n_frames_to_be_realloced = i + current_slice.get_m_frame_no();
+			size_t frame_count = current_slice.get_m_frame_no();
 
-			pp.resize( 3, n_frames_to_be_realloced );
+			pp.resize(3, pp.sizes(1) + frame_count - 1);
 
-			size_t local_multiframe_index{ 0 };
-
-			for (size_t ii = i; ii < n_frames_to_be_realloced; ++ii)
+			for (size_t local_multiframe_index = 0; local_multiframe_index < frame_count;
+					++local_multiframe_index)
 			{
 				vector<double> position = current_slice.image_position_patient(local_multiframe_index);
 				if (position.size() != 3)
 					return false;
-				std::copy(position.begin(), position.end(), pp.col(ii).begin());
-
-				local_multiframe_index++;
+				std::copy(position.begin(), position.end(), pp.col(i + local_multiframe_index).begin());
 			}
+			i += frame_count;
 		}
 	}
 
