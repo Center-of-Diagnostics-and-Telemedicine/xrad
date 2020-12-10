@@ -507,44 +507,35 @@ namespace Dicom
 	{
 		DcmDataset *Dataset = m_dicom_file->getDataset();
 
-		DcmSequenceOfItems *dcmSequenceOfItems, *dcmSequenceOfItems1;
-
+		DcmSequenceOfItems *dcmSequenceOfItems;
+		if (!Dataset->findAndGetSequence(DCM_PerFrameFunctionalGroupsSequence, dcmSequenceOfItems, true, false).good())
+		{
+			throw logic_error("No tag of frame sequence in file");
+		}
+		DcmItem* item1 = dcmSequenceOfItems->getItem(frame_no);
+		DcmSequenceOfItems *dcmSequenceOfItems1;
+		if (!item1->findAndGetSequence(DCM_PlanePositionSequence, dcmSequenceOfItems1, true, false).good())
+		{
+			throw logic_error("No tag of plane position in file");
+		}
+		DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
 		string str;
-		vector<double> v;
+		item2->findAndGetOFStringArray(DCM_ImagePositionPatient, str, true);
 
-		try
+		char* pEnd; char* pEnd2;
+		double d1 = strtod(str.c_str(), &pEnd);
+		if (*pEnd != '\\')
 		{
-			if (Dataset->findAndGetSequence(DCM_PerFrameFunctionalGroupsSequence, dcmSequenceOfItems, true, true).good())
-			{
-				DcmItem* item1 = dcmSequenceOfItems->getItem(frame_no);
-
-				item1->findAndGetSequence(DCM_PlanePositionSequence, dcmSequenceOfItems1, true, true);
-
-				DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
-
-				item2->findAndGetOFStringArray(DCM_ImagePositionPatient, str, true);
-
-			}
-			else {
-				throw logic_error("No tag of frame sequence in file");
-			}
-
-			char* pEnd; char* pEnd2;
-			double d1, d2, d3;
-			d1 = strtod(str.c_str(), &pEnd);
-			d2 = strtod(pEnd + 1, &pEnd2);
-			d3 = strtod(pEnd2 + 1, NULL);
-
-			v.push_back(d1);
-			v.push_back(d2);
-			v.push_back(d3);
+			throw runtime_error("Invalid image position patient tag format");
 		}
-		catch (...)
+		double d2 = strtod(pEnd + 1, &pEnd2);
+		if (*pEnd2 != '\\')
 		{
-			throw;
+			throw runtime_error("Invalid image position patient tag format");
 		}
+		double d3 = strtod(pEnd2 + 1, nullptr);
 
-		return v;
+		return {d1, d2, d3};
 	}
 
 	namespace

@@ -54,8 +54,8 @@ set(Project_Sources_cpp
 	Sources/DicomClasses/ProcessContainers/MRAcquisitionSiemens.cpp
 	Sources/DicomClasses/ProcessContainers/ProcessAcquisition.cpp
 	Sources/DicomClasses/ProcessContainers/TomogramAcquisition.cpp
-	Sources/DicomClasses/ProcessContainers/XRAYAcquisition.cpp
-	Sources/DicomClasses/ProcessContainers/XRAYInstance.cpp
+	Sources/DicomClasses/ProcessContainers/XRayAcquisition.cpp
+	Sources/DicomClasses/ProcessContainers/XRayInstance.cpp
 	Sources/DicomClasses/XRADDicomGeneral.cpp
 	Sources/Utils/file_info.cpp
 	Sources/Utils/logger.cpp
@@ -105,8 +105,8 @@ set(Project_Sources_h
 	Sources/DicomClasses/ProcessContainers/MRAcquisitionSiemens.h
 	Sources/DicomClasses/ProcessContainers/ProcessAcquisition.h
 	Sources/DicomClasses/ProcessContainers/TomogramAcquisition.h
-	Sources/DicomClasses/ProcessContainers/XRAYAcquisition.h
-	Sources/DicomClasses/ProcessContainers/XRAYInstance.h
+	Sources/DicomClasses/ProcessContainers/XRayAcquisition.h
+	Sources/DicomClasses/ProcessContainers/XRayInstance.h
 	Sources/DicomClasses/tags_enum.h
 	Sources/DicomClasses/XRADDicomGeneral.h
 	Sources/Utils/file_info.h
