@@ -132,13 +132,11 @@ namespace
 		std::vector<wstring> filenames = GetDirectoryFiles(src_folder.path(), L"",
 				src_folder.analyze_subfolders(), progress.subprogress(scheduler.operation_boundaries(0)));
 
-
-		for(auto name = filenames.begin(); name < filenames.end();)
-		{
-			if(may_be_dicom_filename(*name)) ++name;
-			else name = filenames.erase(name);
-		}
-
+		// Удаляем из списка заведомо не-DICOM файлы.
+		filenames.erase(remove_if(filenames.begin(), filenames.end(), [](const wstring &name)
+				{
+					return !may_be_dicom_filename(name);
+				}), filenames.end());
 
 		ParallelProcessor	processor;
 #ifdef XRAD_DEBUG

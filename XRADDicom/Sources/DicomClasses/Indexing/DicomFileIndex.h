@@ -10,7 +10,7 @@
 */
 
 #include <XRADDicom/Sources/DicomClasses/tags_enum.h>
-#include <XRADSystem/Sources/System/FileSystem.h>
+#include <XRADSystem/System.h>
 
 XRAD_BEGIN
 
@@ -74,7 +74,7 @@ class DicomFileIndex
 	map<ImageType, bool> m_dicom_image_type;
 
 	wstring m_filename;
-	uint64_t m_file_size = 0;
+	file_size_t m_file_size = 0;
 	string m_file_mtime;
 
 	/// признак file_info_source
@@ -103,7 +103,7 @@ public:
 	wstring get_file_name() const { return m_filename; }
 
 	/// получить размер файла (m_file_size)
-	uint64_t get_file_size() const { return m_file_size; }
+	file_size_t get_file_size() const { return m_file_size; }
 
 	/// получить время модификации файла (m_file_mtime)
 	string get_file_mtime() const { return m_file_mtime; }
@@ -126,7 +126,7 @@ public:
 	bool operator== (const DicomFileIndex& a) const;
 
 	void set_filename(const wstring &filename) { m_filename = filename; }
-	void set_file_size(uint64_t file_size) { m_file_size = file_size; }
+	void set_file_size(file_size_t file_size) { m_file_size = file_size; }
 	void set_file_mtime(const string &file_mtime) { m_file_mtime = file_mtime; }
 
 

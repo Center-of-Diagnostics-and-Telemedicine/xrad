@@ -36,6 +36,7 @@ auto api_GetDirectoryContent = GetDirectoryContent_MS;
 auto api_GetDirectoryContentDetailed = GetDirectoryContentDetailed_MS;
 auto api_FileExists = FileExists_MS;
 auto api_DirectoryExists = DirectoryExists_MS;
+auto api_GetFileInfo = GetFileInfo_MS;
 auto api_CreateFolder = CreateFolder_MS;
 auto api_CreatePath = CreatePath_MS;
 auto api_DeleteFile = DeleteFile_MS;
@@ -58,6 +59,7 @@ auto api_GetDirectoryContent = GetDirectoryContent_Qt;
 #error TODO: api_GetDirectoryContentDetailed not implemented.
 auto api_FileExists = FileExists_Qt;
 auto api_DirectoryExists = DirectoryExists_Qt;
+#error TODO: api_GetFileInfo not implemented.
 auto api_CreateFolder = CreateFolder_Qt;
 auto api_CreatePath = CreatePath_Qt;
 #error TODO: api_DeleteFile not implemented.
@@ -245,6 +247,27 @@ bool api_DirectoryExists(const wstring &directory_path)
 	return is_directory(status);
 }
 
+#ifdef XRAD_FSObjectInfo_HAS_C_A_TIMES
+	#error XRAD_FSObjectInfo_HAS_C_A_TIMES: Extended times are not supported.
+#endif
+
+bool api_GetFileInfo(const wstring &filename, FileInfo *file_info)
+{
+	if (!file_info)
+		throw invalid_argument("GetFileInfo: file_info == NULL.");
+	error_code ec;
+	filesystem::directory_entry entry(PrepareSystemPath(filename), ec);
+	if (ec)
+		return false;
+	entry.refresh(ec);
+	if (ec)
+		return false;
+	SplitFilename(filename, nullptr, &file_info->filename);
+	file_info->size = entry.file_size(ec);
+	file_info->time_write = FSTimeToTime(entry.last_write_time(ec));
+	return true;
+}
+
 bool api_CreateFolder(const wstring &directory_path, const wstring &subdirectory_name)
 {
 	if (!api_DirectoryExists(directory_path))
@@ -333,6 +356,11 @@ bool api_DirectoryExists(const wstring &directory_path)
 	return false;
 }
 
+bool api_GetFileInfo(const wstring &filename, FileInfo *file_info)
+{
+	return false;
+}
+
 bool api_CreateFolder(const wstring &directory_path, const wstring &subdirectory_name)
 {
 	return false;
@@ -401,6 +429,11 @@ bool DirectoryExists(const string &directory_path)
 bool DirectoryExists(const wstring &directory_path)
 {
 	return api_DirectoryExists(directory_path);
+}
+
+bool GetFileInfo(const string &filename, FileInfo *file_info)
+{
+	return api_GetFileInfo(convert_to_wstring(filename), file_info);
 }
 
 //--------------------------------------------------------------

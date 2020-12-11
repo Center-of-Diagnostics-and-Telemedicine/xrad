@@ -172,6 +172,12 @@ wstring GetPathNativeFromAutodetect(const wstring &path);
 //! В Windows решает проблему открытия файлов с очень длинными путями (больше MAX_PATH)
 //!
 //! См. \ref pg_FileSystem.
+string GetPathSystemRawFromGeneric(const string &path);
+
+//! \brief Преобразовать путь в формат ОС для передачи в функции открытия файлов.
+//! В Windows решает проблему открытия файлов с очень длинными путями (больше MAX_PATH)
+//!
+//! См. \ref pg_FileSystem.
 wstring GetPathSystemRawFromGeneric(const wstring &path);
 
 //! \brief Комбинация GetPathSystemRawFromGeneric и GetPathGenericFromAutodetect.
