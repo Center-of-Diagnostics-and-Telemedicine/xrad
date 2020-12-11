@@ -23,13 +23,13 @@ file_size_t filesize(FILE *file)
 	struct __stat64 st;
 	if (_fstat64(_fileno(file), &st))
 		return 0;
-	static_assert(std::is_same<decltype(st.st_size), file_size_t>::value, "Invalid types");
+	static_assert(std::is_same<std::make_unsigned_t<decltype(st.st_size)>, file_size_t>::value, "Invalid types");
 	return st.st_size;
 #elif defined(XRAD_COMPILER_GNUC)
 	struct stat64 st;
 	if (fstat64(fileno(file), &st))
 		return 0;
-	static_assert(std::is_same<decltype(st.st_size), file_size_t>::value, "Invalid types");
+	static_assert(std::is_same<std::make_unsigned_t<decltype(st.st_size)>, file_size_t>::value, "Invalid types");
 	return st.st_size;
 #else
 	#error Unknown platform.

@@ -237,6 +237,11 @@ wstring GetPathNativeFromAutodetect(const wstring &path)
 	return GetPathNativeFromGeneric(GetPathGenericFromAutodetect(path));
 }
 
+string GetPathSystemRawFromGeneric(const string &path)
+{
+	return convert_to_string(api_GetPathSystemRawFromGeneric(convert_to_wstring(path)));
+}
+
 wstring GetPathSystemRawFromGeneric(const wstring &path)
 {
 	return api_GetPathSystemRawFromGeneric(path);

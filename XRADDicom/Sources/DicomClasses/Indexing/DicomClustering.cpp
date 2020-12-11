@@ -204,7 +204,7 @@ namespace Dicom
 	*/
 	void save_json(const json &json_to_save, const wstring &filename)
 	{
-		wstring native_filename = GetPathNativeFromGeneric(filename);
+		wstring native_filename = GetPathSystemRawFromGeneric(filename);
 #if defined(XRAD_USE_CFILE_WIN32_VERSION)
 		auto	open_filename = native_filename;
 #elif defined(XRAD_USE_CFILE_UNIX_VERSION)
@@ -237,7 +237,7 @@ namespace Dicom
 	*/
 	json load_json(const wstring &filename)
 	{
-		wstring native_filename = GetPathNativeFromGeneric(filename);
+		wstring native_filename = GetPathSystemRawFromGeneric(filename);
 #if defined(XRAD_USE_CFILE_WIN32_VERSION)
 		auto	open_filename = native_filename;
 #elif defined(XRAD_USE_CFILE_UNIX_VERSION)
