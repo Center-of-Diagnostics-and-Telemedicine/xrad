@@ -58,7 +58,7 @@ void GetDirectoryContent_MS(const wstring &dir_path,
 	*/
 	FileNamePatternMatch filter_match(filter);
 
-	wstring search_string = dir_path;
+	wstring search_string = GetPathSystemRawFromGeneric(dir_path);
 	if (dir_path.length() && dir_path.back() != L'/' && dir_path.back() != L'\\')
 		search_string +=  L'\\';
 	search_string += L"*.*";
@@ -156,7 +156,7 @@ void GetDirectoryContentDetailed_MS(const wstring &dir_path,
 {
 	FileNamePatternMatch filter_match(filter);
 
-	wstring search_string = dir_path;
+	wstring search_string = GetPathSystemRawFromGeneric(dir_path);
 	if (dir_path.length() && dir_path.back() != L'/' && dir_path.back() != L'\\')
 		search_string += L'\\';
 	search_string += L"*.*";
@@ -233,13 +233,55 @@ bool DirectoryExists_MS(const wstring &directory_path)
 	return true;
 }
 
+namespace
+{
+
+// FILETIME отсчитывается от 1601-01-01T00:00:00Z.
+// time_t (UNIX time в MSVC2015 и др.) отсчитывается от 1970-01-01T00:00:00Z.
+// Разница в секундах:
+constexpr int64_t unix_to_ft_unix_disp = 11644473600ll;
+
+time_t FILETIMEToTime(FILETIME ft)
+{
+	// Проверяем time_t == int64_t (MSVC2015).
+	static_assert(std::is_same<time_t, int64_t>::value,
+			"Invalid C++ runtime library version (time_t type mismatch).");
+	auto ft_i = ((int64_t)ft.dwHighDateTime << 32) + ft.dwLowDateTime;
+	return ft_i/10000000 - unix_to_ft_unix_disp;
+}
+
+} // namespace
+
+bool GetFileInfo_MS(const wstring &filename, FileInfo *file_info)
+{
+	if (!file_info)
+		throw invalid_argument("GetFileInfo: file_info == NULL.");
+	// Функция _wstat64 не поддерживает длинные имена файлов ("\\?\C:\Temp\filename").
+	// Поэтому используем GetFileAttributesExW.
+	WIN32_FILE_ATTRIBUTE_DATA fa;
+	if (!GetFileAttributesExW(GetPathSystemRawFromGeneric_MS(filename).c_str(),
+			GetFileExInfoStandard, &fa))
+	{
+		return false;
+	}
+	if (fa.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+		return false;
+	SplitFilename(filename, nullptr, &file_info->filename);
+	file_info->size = ((file_size_t)fa.nFileSizeHigh << 32) + fa.nFileSizeLow;
+	file_info->time_write = FILETIMEToTime(fa.ftLastWriteTime);
+#ifdef XRAD_FSObjectInfo_HAS_C_A_TIMES
+	#error XRAD_FSObjectInfo_HAS_C_A_TIMES: Extended times are not supported.
+#endif
+	return true;
+}
+
 
 
 bool CreateFolder_MS(const wstring &in_directory_path, const wstring &subdirectory_name)
 {
 	if(!DirectoryExists_MS(in_directory_path))
 		return false;
-	wstring directory_path(in_directory_path);
+	wstring directory_path(GetPathSystemRawFromGeneric(in_directory_path));
 	size_t	len = directory_path.size();
 	if(directory_path[len-1]!=L'/' && directory_path[len-1]!=L'\\') directory_path += wpath_separator();
 	directory_path += subdirectory_name;
@@ -349,7 +391,7 @@ wstring GetCurrentDirectory_MS()
 bool SetCurrentDirectory_MS(const wstring &directory_path)
 {
 //	return SetCurrentDirectory(directory_path.c_str());
-	return _wchdir(directory_path.c_str())==0;
+	return _wchdir(GetPathSystemRawFromGeneric(directory_path).c_str())==0;
 }
 
 

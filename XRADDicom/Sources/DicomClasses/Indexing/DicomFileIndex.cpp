@@ -17,6 +17,7 @@
 #include <XRADDicom/Sources/DicomClasses/Instances/mr_slice.h>
 #include <XRADDicom/Sources/DicomClasses/Instances/mr_slice_siemens.h>
 
+#include <XRADSystem/System.h>
 #include <typeinfo>
 
 XRAD_BEGIN
@@ -32,25 +33,13 @@ namespace
 // 1985-04-12T23:20:50.52Z
 // This represents 20 minutes and 50.52 seconds after the 23rd hour of April 12th, 1985 in UTC.
 // и/или https://ru.wikipedia.org/wiki/ISO_8601
-bool GetFileSizeAndModifyTime(const std::string& filename, uint64_t &size, std::string& str_date)
+bool GetFileSizeAndModifyTime(const string& filename, file_size_t &size, string& str_date)
 {
-#if defined(XRAD_COMPILER_MSC)
-	struct __stat64 st;
-	if (_wstat64(convert_to_wstring(filename).c_str(), &st))
+	FileInfo file_info;
+	if (!GetFileInfo(filename, &file_info))
 		return false;
-	static_assert(std::is_same<decltype(st.st_size), file_size_t>::value, "Invalid types");
-#elif defined(XRAD_COMPILER_GNUC)
-	struct stat64 st;
-//	if (fstat64(fileno(file), &st))
-	if (stat64(filename.c_str(), &st))
-		return false;
-	static_assert(std::is_same<decltype(st.st_size), file_size_t>::value, "Invalid types");
-#else
-	#error Unknown platform.
-#endif
-
-	str_date = DicomFileIndex::FormatTime(&st.st_mtime);
-	size = st.st_size;
+	str_date = DicomFileIndex::FormatTime(&file_info.time_write);
+	size = file_info.size;
 	return true;
 }
 
@@ -146,12 +135,9 @@ bool DicomFileIndex::has_image_type() const
 	return false;
 }
 
-
-// сформировать vector 3-х строк
-// 1) имя файла 2) размер файла в байтах файла 3) время создания файла
 bool DicomFileIndex::fill_name_size_time(const wstring& fname, const wstring &name_part)
 {
-	uint64_t file_size;
+	file_size_t file_size = 0;
 	string date;
 	if (!GetFileSizeAndModifyTime(convert_to_string(fname), file_size, date))
 		return false;
@@ -164,8 +150,9 @@ bool DicomFileIndex::fill_name_size_time(const wstring& fname, const wstring &na
 string DicomFileIndex::FormatTime(const time_t *t)
 {
 	struct tm* clock = gmtime(t);
+	// NB! tm_year отсчитывается от 1900, tm_mon отсчитывается от 0.
 	return ssprintf("%d-%02d-%02dT%02d:%02d:%02dZ",
-			clock->tm_year + 1900, clock->tm_mon, clock->tm_mday,
+			clock->tm_year + 1900, clock->tm_mon + 1, clock->tm_mday,
 			clock->tm_hour, clock->tm_min, clock->tm_sec);
 }
 

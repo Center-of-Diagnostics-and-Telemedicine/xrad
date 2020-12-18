@@ -59,6 +59,7 @@ void GetDirectoryContentDetailed_MS(const wstring &dir_path,
 
 bool FileExists_MS(const wstring &filename);
 bool DirectoryExists_MS(const wstring &directory_path);
+bool GetFileInfo_MS(const wstring &filename, FileInfo *file_info);
 bool CreateFolder_MS(const wstring &directory_path, const wstring &subdirectory_name);
 bool CreatePath_MS(const wstring &directory_path);
 bool DeleteFile_MS(const wstring &filename);

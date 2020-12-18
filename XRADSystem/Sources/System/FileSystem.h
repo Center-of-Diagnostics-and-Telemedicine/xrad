@@ -3,6 +3,7 @@
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
+#include "FileSystemDefs.h"
 #include <vector>
 #include <string>
 #include <set>
@@ -16,7 +17,7 @@ XRAD_BEGIN
 struct FSObjectInfo
 {
 	wstring filename; //!< Имя файла/директории (относительное)
-	time_t time_write; //!< Время последней записи
+	time_t time_write = 0; //!< Время последней записи
 	#if 0
 	// Следующие данные нельзя получить через функции std::filesystem (можно через функции Win32).
 	// Кроме того, не все файловые системы поддерживают эти данные.
@@ -30,7 +31,7 @@ struct FSObjectInfo
 //! \brief Структура для хранения информации о файле
 struct FileInfo: FSObjectInfo
 {
-	unsigned long long size; ///< размер файла в байтах
+	file_size_t size = 0; //!< Размер файла в байтах
 };
 
 using DirectoryInfo = FSObjectInfo;
@@ -42,6 +43,18 @@ bool FileExists(const wstring &filename);
 
 bool DirectoryExists(const string &directory_path);
 bool DirectoryExists(const wstring &directory_path);
+
+/*!
+	\brief Получить информацию о файле
+
+	\param file_info [out] Должен быть не NULL. Структура для записи информации о файле.
+
+	\return
+		- true Информация о файле получена.
+		- false Информация не получена (файл не существует; такое имя имеет директория, а не файл;
+			нет доступа к информации о файле и т.п.).
+*/
+bool GetFileInfo(const string &filename, FileInfo *file_info);
 
 //--------------------------------------------------------------
 

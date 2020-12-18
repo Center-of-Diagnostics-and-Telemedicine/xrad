@@ -66,7 +66,8 @@ DicomFileIndex  from_json_get_file_index(const json& json_file_tag, index_file_t
 
 	// считать обязятельные поля FileNameSizeTimeDiscr
 	result.set_filename(json_get_tag_string(json_file_tag, u8"filename"));
-	uint64_t fi_file_size = json_get_tag_uint(json_file_tag, u8"size");
+	auto fi_file_size = json_get_tag_uint(json_file_tag, u8"size");
+	static_assert(std::is_same<decltype(fi_file_size), file_size_t>::value, "Invalid types.");
 	result.set_file_size(fi_file_size);
 	result.set_file_mtime(convert_to_string(json_get_tag_string(json_file_tag, u8"time_write")));
 
