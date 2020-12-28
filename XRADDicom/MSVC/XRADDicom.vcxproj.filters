@@ -108,9 +108,6 @@
     <ClCompile Include="..\Sources\DicomClasses\Hierarchy.cpp">
       <Filter>DicomClasses</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\XRAYAcquisition.cpp">
-      <Filter>DicomClasses\ProcessContainers\xray</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\XRAYInstance.cpp">
       <Filter>DicomClasses\ProcessContainers\xray</Filter>
     </ClCompile>
@@ -160,6 +157,12 @@
     </ClCompile>
     <ClCompile Include="..\Sources\DicomClasses\Indexing\SingleDirectoryIndexJson.cpp">
       <Filter>DicomClasses\Indexing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\GenericImageAcquisition.cpp">
+      <Filter>DicomClasses\ProcessContainers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\XRayAcquisition.cpp">
+      <Filter>DicomClasses\ProcessContainers\xray</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,9 +223,6 @@
     </ClInclude>
     <ClInclude Include="..\Sources\DicomClasses\dataelement.h">
       <Filter>DicomClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\DicomClasses\ProcessContainers\XRAYAcquisition.h">
-      <Filter>DicomClasses\ProcessContainers\xray</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\DicomClasses\ProcessContainers\XRAYInstance.h">
       <Filter>DicomClasses\ProcessContainers\xray</Filter>
@@ -285,6 +285,12 @@
     </ClInclude>
     <ClInclude Include="..\Sources\DicomClasses\Indexing\SingleDirectoryIndexJson.h">
       <Filter>DicomClasses\Indexing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\DicomClasses\ProcessContainers\GenericImageAcquisition.h">
+      <Filter>DicomClasses\ProcessContainers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\DicomClasses\ProcessContainers\XRayAcquisition.h">
+      <Filter>DicomClasses\ProcessContainers\xray</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

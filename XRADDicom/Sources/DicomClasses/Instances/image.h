@@ -197,7 +197,7 @@ namespace Dicom
 			parent::fill_tagslist_to_check_data(tagslist_to_check_data_p);
 
 			tagslist_to_check_data_p.insert(e_transfer_syntax_uid);
-			tagslist_to_check_data_p.insert(e_image_type);
+//!for hktn			tagslist_to_check_data_p.insert(e_image_type);
 			tagslist_to_check_data_p.insert(e_photometric_interpretation);
 
 			tagslist_to_check_data_p.insert(e_columns); //(0x0028, 0x0011)

@@ -49,6 +49,7 @@ set(Project_Sources_cpp
 	Sources/DicomClasses/Instances/tomogram_slice.cpp
 	Sources/DicomClasses/Instances/xray_image.cpp
 	Sources/DicomClasses/ProcessContainers/CreateProcessAcquisition.cpp
+	Sources/DicomClasses/ProcessContainers/GenericImageAcquisition.cpp	
 	Sources/DicomClasses/ProcessContainers/CTAcquisition.cpp
 	Sources/DicomClasses/ProcessContainers/MRAcquisition.cpp
 	Sources/DicomClasses/ProcessContainers/MRAcquisitionSiemens.cpp
@@ -100,6 +101,7 @@ set(Project_Sources_h
 	Sources/DicomClasses/Instances/tomogram_slice.h
 	Sources/DicomClasses/Instances/xray_image.h
 	Sources/DicomClasses/ProcessContainers/CreateProcessAcquisition.h
+	Sources/DicomClasses/ProcessContainers/GenericImageAcquisition.cpp
 	Sources/DicomClasses/ProcessContainers/CTAcquisition.h
 	Sources/DicomClasses/ProcessContainers/MRAcquisition.h
 	Sources/DicomClasses/ProcessContainers/MRAcquisitionSiemens.h

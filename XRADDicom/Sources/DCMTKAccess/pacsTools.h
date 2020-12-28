@@ -8,6 +8,9 @@
 
 #include <XRADDicom/Sources/DicomClasses/XRADDicomGeneral.h>
 #include <XRADDicom/Sources/DicomClasses/DataContainers/datasource.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/LoadGenericClasses.h>
+
+
 
 #undef dcmtklog
 
@@ -18,7 +21,36 @@ namespace Dicom
 
 	bool checkPACSAccessibility(const Dicom::pacs_params_t &src_pacs);
 
-	bool studiesDownloader(const datasource_pacs &datasource, const list<elemsmap_t>&, study_id_type_t study_id_type, const wstring &destination_folder, ProgressProxy pp = VoidProgressProxy());
+	list<DcmDataset> findDataset(const datasource_pacs &datasource_p, DcmDataset & request, const wstring &destination_folder, const string &id, size_t &count);
+
+	bool findDataset(const datasource_pacs &datasource_p, string rec, const string &modality, list<DcmDataset> & wrkLst, const wstring &destination_folder, size_t &count);
+
+	bool findDatasetAcNo(const datasource_pacs &datasource_p,
+		string rec,
+		const string &modality,
+		list<DcmDataset> & wrkLst,
+		const wstring &destination_folder, size_t &count);
+
+	bool findDatasetStID(const datasource_pacs &datasource_p,
+		string rec,
+		const string &modality,
+		list<DcmDataset> & wrkLst,
+		const wstring &destination_folder, size_t &count);
+
+	bool findDatasetStUID(const datasource_pacs &datasource_p,
+		string rec,
+		const string &modality,
+		list<DcmDataset> & wrkLst,
+		const wstring &destination_folder, size_t &count);
+
+
+	string getStudyInstanceUID(DcmDataset & dst);
+
+	string getAccessionNumber(DcmDataset & dst);
+
+	size_t getNumberOfInstances(DcmDataset & dst);
+
+	set<string> getStudyInstanceUIDSet(list<DcmDataset> & wrkLst);
 
 	bool sendInstancesMy();
 

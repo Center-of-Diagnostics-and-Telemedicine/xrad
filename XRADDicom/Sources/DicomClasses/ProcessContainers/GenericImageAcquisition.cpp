@@ -4,23 +4,22 @@
 	\author sbp
 */
 #include "pre.h"
-#include "ProcessAcquisition.h"
 #include "GenericImageAcquisition.h"
-#include "XRayAcquisition.h"
 #include <XRADDicom/Sources/DicomClasses/Instances/xray_image.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/image.h>
 
 XRAD_BEGIN
 
 
-XRayAcquisition::XRayAcquisition(const shared_ptr<Dicom::acquisition_loader> &acquisition_loader_p) : GenericImageAcquisition(acquisition_loader_p)
+GenericImageAcquisition::GenericImageAcquisition(const shared_ptr<Dicom::acquisition_loader> &acquisition_loader_p) : ProcessAcquisition(acquisition_loader_p)
 {
 }
 
-/*
+
 
 void GenericImageAcquisition::put_elements_to_instance(Dicom::instance &instance, size_t element_num) const
 {
-	auto	&ts = dynamic_cast<Dicom::xray_image &>(instance);
+	auto	&ts = dynamic_cast<Dicom::image &>(instance);
 
 	// кладём общие данные, чтобы можно было в последствии распарсить файлы
 	if (ts.stack_id() == L"")
@@ -77,5 +76,5 @@ vector<RealFunction2D_F32>	GenericImageAcquisition::slices() const
 	return slices;
 }
 
-*/
+
 XRAD_END

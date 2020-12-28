@@ -28,7 +28,7 @@ namespace Dicom
 		printf("---DcmDataset start---%s\n %s \n---DcmDataset end---\n", comment.c_str(),  ss.str().c_str());
 	}
 
-	static Uint8 findUncompressedPC(const OFString& sopClass, const DcmSCU& scu)
+	 Uint8 findUncompressedPC(const OFString& sopClass, const DcmSCU& scu)
 	{
 		DcmSCU& scuRef = const_cast<DcmSCU&>(scu);
 		Uint8 pc;

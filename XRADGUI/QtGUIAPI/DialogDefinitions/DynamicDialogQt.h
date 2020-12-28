@@ -10,7 +10,7 @@
 #include <XRADGUI/Sources/Core/GUICore.h>
 #include <XRADGUI/Sources/GUI/GUIValue.h>
 #include <atomic>
-
+#include <QtWidgets/QButtonGroup>
 // Устранение конфликта имен с WinAPI
 #ifdef CreateDialog
 #undef CreateDialog
