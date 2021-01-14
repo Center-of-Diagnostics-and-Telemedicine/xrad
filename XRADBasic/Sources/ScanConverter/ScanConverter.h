@@ -85,7 +85,16 @@ private:
 	public:
 		typedef	IM_T original_image_type;
 		typedef typename original_image_type::value_type original_sample_type;
+
+#if 0
+		// 2021_01_14 КНС. Обнаружил, что из-за следующей строчки некорректно отображались данные ЦДК от Сономед-500.
+		// Происходило сжатие complexI32 до complexI16, происходила потеря значащих разрядов.
+		// Удаление его может привести к большой нагрузке на память для многомерных данных
+		// Возможно, стоит перенести действия по сжатию данных в саму процедуру показа.
 		typedef typename ReducedWidth<typename original_image_type::value_type>::type converted_sample_type;
+#else
+		typedef typename original_sample_type converted_sample_type;
+#endif
 		typedef typename FactorTypeSelector<converted_sample_type>::factor_type factor_type;
 		typedef DataArray2D<DataArray<converted_sample_type> > converted_image_type;
 
