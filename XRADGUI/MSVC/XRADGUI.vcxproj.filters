@@ -275,6 +275,9 @@
     <ClCompile Include="..\..\XRADQt\QtStringConverters.cpp">
       <Filter>XRADQt</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\RasterImageFile\RasterImageFile.cpp">
+      <Filter>MSVC\Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pre.h">
@@ -463,6 +466,10 @@
     <ClInclude Include="..\..\XRADQt\QtStringConverters.h">
       <Filter>XRADQt</Filter>
     </ClInclude>
+    <ClInclude Include="..\Sources\RasterImageFile\RasterImageFile.h">
+      <Filter>MSVC\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\RasterImageFile\RasterImageFile.hh" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\QtGUIAPI\Common\StayOnTopDialog.h">
