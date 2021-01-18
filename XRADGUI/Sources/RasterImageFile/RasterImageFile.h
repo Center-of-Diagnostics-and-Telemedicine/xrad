@@ -7,7 +7,7 @@
 //#include <XRADBasic/Containers.h>
 //#include <Q:/XRAD/XRADBasic/Sources/DataArrayIO/DataArrayIOEnum.h>
 #include <XRADSystem/CFile.h>
-
+#include <XRADBasic/MathFunctionTypes2D.h>
 
 
 

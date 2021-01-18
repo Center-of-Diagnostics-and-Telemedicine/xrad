@@ -3,6 +3,7 @@
 #include <XRADSystem/CFile.h>
 #include <XRADBasic/Sources/DataArrayIO/DataArrayIOEnum.h>
 #include <XRADQt/QtStringConverters.h>
+#include <XRADSystem/Sources/System/FileNameOperations.h>
 
 #include "RasterImageFile.h"
 
