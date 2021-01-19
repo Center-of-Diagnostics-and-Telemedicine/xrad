@@ -187,7 +187,7 @@ void	MathFunction3DDisplayer<A3DT>::DisplayAnimationBase(const index_vector &iv,
 
 	bool	scan_conversion_possible = ((sco_12.depth_range().cm()!=0) && c1==1 && c2==2);
 	bool	scan_conversion = scan_conversion_possible ?
-		(Decide2("Scan conversion options:", "Raw data", "Scan converter", true) ? true:false) :
+		(Decide2(window_title + L": scan conversion options:", L"Raw data", L"Scan converter", SavedGUIValue<size_t>(1)) ? true:false) :
 		false;
 
 	bool	progress_needed = !IsProgressActive();
