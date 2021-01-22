@@ -146,7 +146,17 @@ wstring	WGetCurrentDirectory();
 	// в Windows.h это же имя может быть определено через #define SetCurrentDirectory SetCurrentDirectoryW
 #endif
 
+// Использование функции SetCurrentDirectory нежелательно по нескольким причинам:
+// 1. Она не потокобезопасная: текущая директория общая для всех потоков (Windows).
+// 2. Текущая директория не может указывать на длинный путь (больше MAX_PATH) в Windows.
+//
+// В то же время, использование GetCurrentDirectory вполне допустимо, например, для получения
+// полного пути из относительного в аргументах командной строки программы. Естественно, в случае
+// если SetCurrentDirectory в программе не используется.
+
+[[deprecated("SetCurrentDirectory is not thread-safe. Don't use it.")]]
 bool SetCurrentDirectory(const string &directory_path);
+[[deprecated("SetCurrentDirectory is not thread-safe. Don't use it.")]]
 bool SetCurrentDirectory(const wstring &directory_path);
 
 //--------------------------------------------------------------
