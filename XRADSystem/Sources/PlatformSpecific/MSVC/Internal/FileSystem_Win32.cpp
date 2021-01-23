@@ -283,21 +283,30 @@ bool CreateFolder_MS(const wstring &in_directory_path, const wstring &subdirecto
 		return false;
 	wstring directory_path(GetPathSystemRawFromGeneric(in_directory_path));
 	size_t	len = directory_path.size();
-	if(directory_path[len-1]!=L'/' && directory_path[len-1]!=L'\\') directory_path += wpath_separator();
+	if(directory_path[len-1]!=L'/' && directory_path[len-1]!=L'\\')
+		directory_path += L"\\";
 	directory_path += subdirectory_name;
-	//return WinApiCreateDirectory(directory_path);
-	//return CreateDirectoryW(directory.c_str(), NULL) == 0 ? false : true;//LPSECURITY_ATTRIBUTES
 
-	int	result = _wmkdir(directory_path.c_str());
-	if(!result)
+	// Функция _wmkdir не поддерживает длинные имена файлов ("\\?\C:\Temp\folder").
+	// Поэтому используем CreateDirectoryW.
+	SetLastError(0);
+	BOOL	result = CreateDirectoryW(directory_path.c_str(), NULL);
+	if(result)
 	{
-		SetCurrentDirectoryW(directory_path.c_str());
+		// Здесь был вызов SetCurrentDirectoryW. Вызов убран по ряду причин:
+		// 1. SetCurrentDirectoryW не поддерживает длинные пути без специальных настроек Windows:
+		// https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
+		// 2. Функцией нельзя безопасно пользоваться в многопоточных приложениях: текущая директория
+		// общая для всех потоков.
+		// 3. В реализации функции для других платформ этого вызова нет.
+
 		return true;//created
 	}
 	else
 	{
-		if(errno == EEXIST) return true;
-		else /*if(errno == ENOENT)*/ return false;
+		if (GetLastError() == ERROR_ALREADY_EXISTS)
+			return true;
+		return false;
 	}
 }
 

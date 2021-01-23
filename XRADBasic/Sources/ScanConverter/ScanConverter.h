@@ -93,7 +93,7 @@ private:
 		// Возможно, стоит перенести действия по сжатию данных в саму процедуру показа.
 		typedef typename ReducedWidth<typename original_image_type::value_type>::type converted_sample_type;
 #else
-		typedef typename original_sample_type converted_sample_type;
+		typedef original_sample_type converted_sample_type;
 #endif
 		typedef typename FactorTypeSelector<converted_sample_type>::factor_type factor_type;
 		typedef DataArray2D<DataArray<converted_sample_type> > converted_image_type;
