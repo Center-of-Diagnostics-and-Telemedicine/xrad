@@ -35,6 +35,8 @@ class	FibonacciRandomGenerator
 		void	InitIterators(uint32_t a_offset, uint32_t b_offset);
 		const T& GenerateInternal() const;
 
+		mutable	std::mutex	m_mutex;
+
 	public:
 
 		FibonacciRandomGenerator(){}
