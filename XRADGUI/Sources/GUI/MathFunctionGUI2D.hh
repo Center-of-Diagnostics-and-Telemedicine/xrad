@@ -271,7 +271,8 @@ struct SelectRectifierAndDisplayRaster<DisplayTagComplex>
 					GetDisplayRange(vlegend.display_range, vlegend.gamma, recommended_range, absolute_range);
 				else
 					vlegend.display_range = recommended_range;
-				ComplexFunction2D_F32	pixmap_data(image);
+				RealFunction2D_F32 pixmap_data;
+				MakeCopy(pixmap_data, image, Functors::assign_f1(Functors::absolute_value()));
 				DisplayRasterSelector(pixmap_data,
 										title, sco,
 										ylegend, xlegend, vlegend);
@@ -281,13 +282,13 @@ struct SelectRectifierAndDisplayRaster<DisplayTagComplex>
 			case complex_rectifier_real_auto:
 			case complex_rectifier_real_manual:
 			{
-				RealFunction2D_F32 pixmap_data;
 				range1_F64	recommended_range, absolute_range;
 				ComputeDisplayRanges(image, recommended_range, absolute_range, Functors::real_part());
 				if(rectifier_id == complex_rectifier_real_manual)
 					GetDisplayRange(vlegend.display_range, vlegend.gamma, recommended_range, absolute_range);
 				else
 					vlegend.display_range = recommended_range;
+				RealFunction2D_F32 pixmap_data;
 				MakeCopy(pixmap_data, image, Functors::assign_f1(Functors::real_part()));
 				DisplayRasterSelector(pixmap_data,
 										title, sco, ylegend, xlegend, vlegend);
