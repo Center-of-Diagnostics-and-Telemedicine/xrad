@@ -89,8 +89,29 @@ PainterWindow::~PainterWindow()
 {
 	//удаляем объект из массива диалогов
 	gui_controller.RemoveWidget(this);
+	delete drawing_graphicsView;
+	delete drawing_scene;
 
 }
+
+QImage	PainterWindow::GetResult()
+{
+	return result;
+}
+
+void PainterWindow::return_result_button_click()
+{
+	result = QImage(drawing_scene->sceneRect().size().toSize(), QImage::Format_RGB888);
+
+	QPainter painter(&result);
+	drawing_scene->render(&painter);
+
+
+	image_label->setGeometry(500, 500, result.width(), result.height());
+	image_label->setPixmap(QPixmap::fromImage(result));
+	image_label->show();
+}
+
 
 void PainterWindow::closeEvent(QCloseEvent *event)
 {
