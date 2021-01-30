@@ -7,33 +7,16 @@
 
 //--------------------------------------------------------------
 
+#include <QGraphicsView>
+
 #include <XRADGUI/Sources/Internal/std.h>
 #include <XRADBasic/Core.h>
-
-//#include "ui_PainterWindow.h"
-
-#ifdef XRAD_COMPILER_MSC
-#pragma warning (push)
-#pragma warning(disable:4083)
-#pragma warning(disable:4251)
-#pragma warning(disable:4275)
-#pragma warning(disable:4800)
-#pragma warning(disable:4250)
-#pragma warning(disable:4505)
-#endif // XRAD_COMPILER_MSC
-
-// вот эту штуку не получилось как следует включить в pre.h
-// в ней куча предупреждений не по делу
-#include <qwt_plot_curve.h>
-
-#ifdef XRAD_COMPILER_MSC
-#pragma warning (pop)
-#endif // XRAD_COMPILER_MSC
 
 #include "DataDisplayWindow.h"
 
 #include <XRADBasic/MathFunctionTypes.h>
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
+#include "paintScene.h"
 
 namespace XRAD_GUI
 {
@@ -57,6 +40,16 @@ class PainterWindow: public DataDisplayWindow
 	private:
 //		double	brush_size;
 
+		const size_t	m_vsize, m_hsize;
+		QString	m_title;
+
+		QGraphicsView* drawing_graphicsView;
+		PaintScene* drawing_scene;
+		QPushButton* return_result_button;
+		QImage result;
+		QLabel* image_label;
+
+		//TODO следующие функции пересмотреть
 		//	обработчики событий
 		void closeEvent(QCloseEvent *event);
 		void keyPressEvent ( QKeyEvent * event );

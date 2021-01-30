@@ -18,19 +18,55 @@ XRAD_USING
 
 
 
-PainterWindow::PainterWindow(const QString &title, size_t in_vsize, size_t in_hsize, GUIController &gc)
+PainterWindow::PainterWindow(const QString &in_title, size_t in_vsize, size_t in_hsize, GUIController &gc)
 	:
-	DataDisplayWindow(gc)
+	DataDisplayWindow(gc),
+	m_vsize(in_vsize),
+	m_hsize(in_hsize), 
+	m_title(in_title)
 {
 	try
 	{
 		// задаем положение окна
 		auto corner = GetCornerPosition();
-		setGeometry(QRect(QPoint(corner.x(), corner.y()), QPoint(in_vsize, in_hsize)));
+		setGeometry(QRect(QPoint(corner.x(), corner.y()), QPoint(int(in_vsize), int(in_hsize))));
 
 //		SetBackground(Qt::white, Qt::SolidPattern);
 
 //TODO	Копировать сюда остальное
+
+
+
+		if (objectName().isEmpty()) setObjectName(m_title);
+		setWindowTitle(m_title);
+
+		drawing_graphicsView = new QGraphicsView();
+		drawing_scene = new PaintScene();
+		return_result_button = new QPushButton();
+		image_label = new QLabel();
+
+
+
+		drawing_scene->SetColor(Qt::red);
+
+		connect(return_result_button, SIGNAL(clicked()), this, SLOT(return_result_button_click()));
+
+
+
+		resize(m_hsize + 1, m_vsize + 80);
+		drawing_graphicsView->resize(m_hsize, m_vsize);
+
+		return_result_button->setParent(this);
+		return_result_button->setGeometry((m_hsize / 2) - 50, m_vsize, 100, 40);
+		return_result_button->setText("Send image");
+
+		drawing_scene->setParent(drawing_graphicsView);
+		drawing_scene->setSceneRect(0, 0, m_hsize - 2, m_vsize - 2);
+		drawing_scene->setBackgroundBrush(Qt::white);
+
+		drawing_graphicsView->setScene(drawing_scene);
+		drawing_graphicsView->setParent(this);
+
 
 
 //		plot->installEventFilter(this);
@@ -167,31 +203,31 @@ void PainterWindow::keyPressEvent(QKeyEvent *event)
 
 
 
-// Обработчик обычных событий от мыши
-void PainterWindow::procMouseEvent(QEvent *event)
-{
-	// создаем указатель на событие от мыши
-	QMouseEvent *mEvent = static_cast<QMouseEvent *>(event);
-
-	// в зависимости от типа события вызываем соответствующий обработчик
-	//switch(event->type())
-	//{
-	//	// нажата кнопка мыши
-	//	case QEvent::MouseButtonPress:
-	//		StartCurrentValueDraw(mEvent);
-	//		break;
-	//		// перемещение мыши
-	//	case QEvent::MouseMove:
-	//		DrawCurrentValue(mEvent);
-	//		break;
-	//		// отпущена кнопка мыши
-	//	case QEvent::MouseButtonRelease:
-	//		EndCurrentValueDraw(mEvent);
-	//		break;
-	//		// для прочих событий ничего не делаем
-	//	default:;
-	//}
-}
+//// Обработчик обычных событий от мыши
+//void PainterWindow::procMouseEvent(QEvent *event)
+//{
+//	// создаем указатель на событие от мыши
+////	QMouseEvent *mEvent = static_cast<QMouseEvent *>(event);
+//
+//	// в зависимости от типа события вызываем соответствующий обработчик
+//	//switch(event->type())
+//	//{
+//	//	// нажата кнопка мыши
+//	//	case QEvent::MouseButtonPress:
+//	//		StartCurrentValueDraw(mEvent);
+//	//		break;
+//	//		// перемещение мыши
+//	//	case QEvent::MouseMove:
+//	//		DrawCurrentValue(mEvent);
+//	//		break;
+//	//		// отпущена кнопка мыши
+//	//	case QEvent::MouseButtonRelease:
+//	//		EndCurrentValueDraw(mEvent);
+//	//		break;
+//	//		// для прочих событий ничего не делаем
+//	//	default:;
+//	//}
+//}
 
 
 }//namespace XRAD_GUI
