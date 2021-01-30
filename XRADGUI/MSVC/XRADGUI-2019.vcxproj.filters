@@ -204,6 +204,9 @@
     <ClCompile Include="..\..\XRADQt\QtStringConverters.cpp">
       <Filter>XRADQt</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\RasterImageFile\RasterImageFile.cpp">
+      <Filter>Sources\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pre.h">

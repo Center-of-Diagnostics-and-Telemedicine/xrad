@@ -266,6 +266,7 @@
     <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\Keyboard_Win32.cpp" />
     <ClCompile Include="..\Sources\PlatformSpecific\Qt\Internal\Keyboard_Qt.cpp" />
     <ClCompile Include="..\..\XRADQt\QtStringConverters.cpp" />
+    <ClCompile Include="..\Sources\RasterImageFile\RasterImageFile.cpp" />
     <ClCompile Include="..\Sources\Utils\AutoProgressIndicatorScheduler.cpp" />
     <ClCompile Include="XRADGUI_pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
