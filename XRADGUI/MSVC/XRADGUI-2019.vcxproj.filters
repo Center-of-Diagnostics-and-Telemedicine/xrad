@@ -207,6 +207,12 @@
     <ClCompile Include="..\Sources\RasterImageFile\RasterImageFile.cpp">
       <Filter>Sources\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\PaintScene.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pre.h">
