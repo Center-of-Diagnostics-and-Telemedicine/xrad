@@ -13,168 +13,6 @@ namespace XRAD_GUI
 XRAD_USING
 
 
-
-//--------------------------------------------------------------
-//
-//	несколько вспомогательных процедур, нужных только здесь
-//
-
-namespace
-{
-
-int	listbox_index_from_line_style(graph_line_style gs)
-{
-	return gs;
-}
-
-graph_line_style line_style_from_listbox_index(int n)
-{
-	switch(n)
-	{
-		case 0:
-		default:
-			return solid_color_lines;
-			break;
-		case 1:
-			return dashed_black_lines;
-			break;
-		case 2:
-			return dashed_color_lines;
-			break;
-		case 3:
-			return textured_black_lines;
-			break;
-		case 4:
-			return textured_color_lines;
-			break;
-	};
-}
-
-double	MFVectorMinValue(const std::vector<xrad::RealFunctionF64> &f)
-{
-	double	result(0);
-	bool	found = false;
-	size_t i = 0;
-
-	while(i<f.size())
-	{
-		if(f[i].empty()) ++i;
-		else
-		{
-			result = MinValue(f[i]);
-			found = true;
-			break;
-		}
-	}
-
-	for(; i < f.size(); ++i)
-	{
-		if(!f[i].empty())
-		{
-			result = min(result, MinValue(f[i]));
-		}
-	}
-	if(found) return result;
-	else throw invalid_argument("Empty graph set");
-}
-
-double	MFVectorMaxValue(const std::vector<xrad::RealFunctionF64> &f)
-{
-	double	result(0);
-	bool	found = false;
-	size_t i = 0;
-
-	while(i<f.size())
-	{
-		if(f[i].empty()) ++i;
-		else
-		{
-			result = MaxValue(f[i]);
-			found = true;
-			break;
-		}
-	}
-
-	for(; i < f.size(); ++i)
-	{
-		if(!f[i].empty())
-		{
-			result = max(result, MaxValue(f[i]));
-		}
-	}
-	if(found) return result;
-	else throw invalid_argument("Empty graph set");
-
-// 	double	result = MaxValue(f[0]);
-// 	for(size_t i = 1; i < f.size(); ++i)
-// 	{
-// 		result = max(result, MaxValue(f[i]));
-// 	}
-// 	return result;
-}
-
-class	not_found{};
-
-int	FindIndex(const xrad::RealFunctionF64 &data_x_local, const xrad::RealFunctionF64 &data_y_local, double x, double y)
-{
-	std::vector<int> found;
-
-	if(data_x_local.empty() || data_y_local.empty()) throw not_found();
-
-	xrad::RealFunctionF64::const_iterator it = data_x_local.begin();
-	xrad::RealFunctionF64::const_iterator it1 = ++data_x_local.begin();
-
-	for(size_t i = 0; i < data_x_local.size()-1; ++i, ++it, ++it1)
-	{
-		double mid = 0.5 * (*it + *it1);
-		if (*it <= *it1)
-		{
-			if (in_range(x, *it, mid))
-			{
-				if (found.empty() || found.back() != i)
-					found.push_back(int(i));
-			}
-			else if (in_range(x, mid, *it1))
-				found.push_back(int(i+1));
-		}
-		else
-		{
-			if (in_range(x, mid, *it))
-			{
-				if (found.empty() || found.back() != i)
-					found.push_back(int(i));
-			}
-			else if (in_range(x, *it1, mid))
-				found.push_back(int(i+1));
-		}
-	}
-
-	if(found.size()==1) return found[0];//монотонное возрастание или убывание x, самый простой случай
-	else if(!found.size())// x за границами значений, возвращаем -1, далее по этому значению данные игнорируются
-	{
-		if(x <= MinValue(data_x_local)) return 0;
-		else if(x>=MaxValue(data_x_local)) return int(data_x_local.size())-1;
-		else throw not_found();
-		//return -1;
-		//if(x<=MinValue(data_x)) return 0;
-		//else return data_x.size()-1;
-	}
-	else
-	{
-		int	index = found[0];
-		double diff = fabs(data_y_local[index]-y);
-		vector<int>::iterator	it = found.begin()+1;
-		for(size_t i = 1; i < found.size(); ++i, ++it)
-		{
-			double	newdiff = fabs(data_y_local[*it]-y);
-			if(newdiff<diff) diff = newdiff, index = *it;
-		}
-		return index;
-	}
-}
-
-}//namespace
-
 //
 //--------------------------------------------------------------
 
@@ -186,8 +24,6 @@ PainterWindow::PainterWindow(const QString &title, size_t in_vsize, size_t in_hs
 {
 	try
 	{
-//		setupUi(this);
-
 		// задаем положение окна
 		auto corner = GetCornerPosition();
 		setGeometry(QRect(QPoint(corner.x(), corner.y()), QPoint(in_vsize, in_hsize)));
@@ -197,7 +33,6 @@ PainterWindow::PainterWindow(const QString &title, size_t in_vsize, size_t in_hs
 //TODO	Копировать сюда остальное
 
 
-		// устанавливаем обработчик событий
 //		plot->installEventFilter(this);
 
 //		QObject::connect(cbShowSymbol, SIGNAL(toggled(bool)), this, SLOT(slotSetSymbol(bool)));
