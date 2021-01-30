@@ -122,7 +122,7 @@ wstring PathFilenameToWString(const filesystem::path &path)
 
 time_t FSTimeToTime(filesystem::file_time_type ft)
 {
-#if defined(XRAD_COMPILER_MSC) && (_MSC_VER == 1924)
+#if defined(XRAD_COMPILER_MSC) && true// (_MSC_VER == 1924)
 	// Здесь file_time_type::clock не содержит метод to_time_t. Преобразуем вручную, используя
 	// информацию об устройстве runtime-библиотеки MSVC.
 
@@ -160,6 +160,7 @@ time_t FSTimeToTime(filesystem::file_time_type ft)
 #endif
 #else
 	return filesystem::file_time_type::clock::to_time_t(ft);
+//	return std::chrono::system_clock::to_time_t(ft);
 #endif
 }
 
