@@ -1,6 +1,12 @@
 #include "pre.h"
 #include "PaintScene.h"
 
+namespace XRAD_GUI
+{
+
+XRAD_USING
+
+
 PaintScene::PaintScene(QObject* parent) : QGraphicsScene(parent)
 {
 
@@ -40,7 +46,7 @@ void PaintScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 			QBrush(Qt::white));
 		// Сохраняем координаты точки нажатия
 		previousPoint = event->scenePos();
-	
+
 	}
 
 }
@@ -77,3 +83,4 @@ void PaintScene::SetColor(QColor in_color)
 {
 	color = in_color;
 }
+}//namespace XRAD_GUI

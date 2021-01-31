@@ -29,7 +29,7 @@ PainterWindow::PainterWindow(const QString &in_title, size_t in_vsize, size_t in
 	{
 		// задаем положение окна
 		auto corner = GetCornerPosition();
-		setGeometry(QRect(QPoint(corner.x(), corner.y()), QPoint(int(in_vsize), int(in_hsize))));
+		setGeometry(QRect(QPoint(corner.x(), corner.y()), QPoint(int(in_hsize), int(in_vsize))));
 
 //		SetBackground(Qt::white, Qt::SolidPattern);
 
@@ -47,17 +47,18 @@ PainterWindow::PainterWindow(const QString &in_title, size_t in_vsize, size_t in
 
 
 
-		drawing_scene->SetColor(Qt::red);
+//		drawing_scene->SetColor(Qt::red);
+		drawing_scene->SetColor(Qt::black);
 
 		connect(return_result_button, SIGNAL(clicked()), this, SLOT(return_result_button_click()));
 
 
 
-		resize(m_hsize + 1, m_vsize + 80);
-		drawing_graphicsView->resize(m_hsize, m_vsize);
+		resize(int(m_hsize) + 1, int(m_vsize) + 80);
+		drawing_graphicsView->resize(int(m_hsize), int(m_vsize));
 
 		return_result_button->setParent(this);
-		return_result_button->setGeometry((m_hsize / 2) - 50, m_vsize, 100, 40);
+		return_result_button->setGeometry(int(m_hsize / 2) - 50, int(m_vsize), 100, 40);
 		return_result_button->setText("Send image");
 
 		drawing_scene->setParent(drawing_graphicsView);
@@ -67,6 +68,7 @@ PainterWindow::PainterWindow(const QString &in_title, size_t in_vsize, size_t in
 		drawing_graphicsView->setScene(drawing_scene);
 		drawing_graphicsView->setParent(this);
 
+		result = QImage(drawing_scene->sceneRect().size().toSize(), QImage::Format_RGB888);
 
 
 //		plot->installEventFilter(this);
@@ -76,9 +78,13 @@ PainterWindow::PainterWindow(const QString &in_title, size_t in_vsize, size_t in
 
 
 		//добавляем объект в массив диалогов
-		gui_controller.AddWidget(this);
-		setAttribute(Qt::WA_DeleteOnClose);
+		if (testAttribute(Qt::WA_DeleteOnClose))
+		{
+			setAttribute(Qt::WA_DeleteOnClose, false);
+		}
+		drawing_scene->installEventFilter(this);
 		installEventFilter(this);
+		gui_controller.AddWidget(this);
 	}
 	catch(...)
 	{
@@ -89,19 +95,21 @@ PainterWindow::~PainterWindow()
 {
 	//удаляем объект из массива диалогов
 	gui_controller.RemoveWidget(this);
-	delete drawing_graphicsView;
 	delete drawing_scene;
-
+	delete drawing_graphicsView;
 }
 
 QImage	PainterWindow::GetResult()
 {
+	QPainter painter(&result);
+	drawing_scene->render(&painter);
+
 	return result;
 }
 
 void PainterWindow::return_result_button_click()
 {
-	result = QImage(drawing_scene->sceneRect().size().toSize(), QImage::Format_RGB888);
+//	result = QImage(drawing_scene->sceneRect().size().toSize(), QImage::Format_RGB888);
 
 	QPainter painter(&result);
 	drawing_scene->render(&painter);
@@ -164,61 +172,71 @@ void PainterWindow::SavePicture(QString filename)
 */
 
 
-void PainterWindow::slotSavePicture()
-{
-	const char *prompt = "Save picture";
-	const char *type = "png (*.png);;pdf (*.pdf);;svg (*.svg);;jpeg (*.jpg);;bmp (*.bmp)";
-	QString filename = GetSaveFileName(QFileDialog::tr(prompt), QFileDialog::tr(type));
-
-	SavePicture(filename);
-}
+//void PainterWindow::slotSavePicture()
+//{
+//	const char *prompt = "Save picture";
+//	const char *type = "png (*.png);;pdf (*.pdf);;svg (*.svg);;jpeg (*.jpg);;bmp (*.bmp)";
+//	QString filename = GetSaveFileName(QFileDialog::tr(prompt), QFileDialog::tr(type));
+//
+//	SavePicture(filename);
+//}
 
 // Обработчик всех событий
 bool PainterWindow::eventFilter(QObject *target, QEvent *event)
 {
 
+	/*
+	
+	result = QImage(drawing_scene->sceneRect().size().toSize(), QImage::Format_RGB888);
+
+	QPainter painter(&result);
+	drawing_scene->render(&painter);
+
+
+	*/
 
 	// если событие произошло для графика, то
 
-	//if(target == plot)
-	//{
-	//	// если произошло одно из событий от мыши, то
-	//	switch(event->type())
-	//	{
-	//		case QEvent::MouseButtonPress:
-	//		case QEvent::MouseMove:
-	//		case QEvent::MouseButtonRelease:
-	//			procMouseEvent(event);
-	//			break;
+	if(target == drawing_scene || target == drawing_graphicsView || true)
+	{
+		// если произошло одно из событий от мыши, то
+		switch(event->type())
+		{
+			case QEvent::MouseButtonPress:
+			case QEvent::MouseMove:
+			case QEvent::MouseButtonRelease:
+			case QEvent::Paint:
+			{
+				QPainter painter(&result);
+				drawing_scene->render(&painter);
+			}
 
-	//		case QEvent::Resize:
-	//		case QEvent::Show:
-	//			// 			case QEvent::UpdateRequest:
-	//			// 			case QEvent::Paint:
-	//			UpdateAxesDrawer();
-	//		default:
-	//			break;
-	//	};
-	//}
-	// передаем управление стандартному обработчику событий
+//				procMouseEvent(event);
+				break;
+
+			default:
+				break;
+		};
+	}
+	//передаем управление стандартному обработчику событий
 	return QObject::eventFilter(target, event);
 }
 
 void PainterWindow::keyPressEvent(QKeyEvent *event)
 {
-	//if(event->type()==QEvent::KeyPress)
-	//{
-	//	switch(event->key())
-	//	{
-	//		case Qt::Key_S:
-	//			if(event->modifiers() == Qt::ControlModifier) slotSavePicture();
-	//			break;
+	if(event->type()==QEvent::KeyPress)
+	{
+		switch(event->key())
+		{
+			//case Qt::Key_S:
+			//	if(event->modifiers() == Qt::ControlModifier) slotSavePicture();
+			//	break;
 
-	//		case Qt::Key_Escape:
-	//			emit signal_esc();
-	//			break;
-	//	};
-	//}
+			case Qt::Key_Escape:
+				emit signal_esc();
+				break;
+		};
+	}
 	return QWidget::keyPressEvent(event);
 }
 

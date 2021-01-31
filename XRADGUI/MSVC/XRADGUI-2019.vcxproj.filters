@@ -450,6 +450,12 @@
     <QtMoc Include="..\QtGUIAPI\Forms\ShowValueDialog.h">
       <Filter>QtGUIAPI\Forms</Filter>
     </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PaintScene.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.ui">

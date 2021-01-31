@@ -679,6 +679,12 @@ void ThreadGUI::do_UpdateConsole()
 	main_window->UpdateConsole();
 }
 
+PainterWindow *ThreadGUI::do_CreatePainterWindow(QString title, size_t vsize, size_t hsize)
+{
+	auto result = new PainterWindow(title, vsize, hsize, gui_controller);
+	return result;
+}
+
 
 
 }//namespace XRAD_GUI

@@ -18,6 +18,8 @@
 #include "TextWindow.h"
 #include "GraphWindow.h"
 #include "ImageWindow.h"
+#include "PainterWindow.h"
+
 #include "XRADGUIAPIDefs.h"
 #include <XRADGUI/Sources/Core/GUICore.h>
 #include <XRADBasic/Sources/Containers/DataArray.h>
@@ -163,6 +165,7 @@ class ThreadUser: public QThread
 		bool	request_SetImageAxesScales(ImageWindow*, double, double, double, double, double, double);
 
 		XRAD_GUI::TextWindow *request_CreateTextDisplayer(const QString &title);
+		XRAD_GUI::PainterWindow* request_CreatePainterWindow(QString title, size_t vsize, size_t hsize);
 		bool	request_SetFixedWidth(TextWindow *, bool fixed_width);
 		bool	request_SetEditable(TextWindow *, bool editable);
 		bool	request_SetFontSize(TextWindow *, double size);

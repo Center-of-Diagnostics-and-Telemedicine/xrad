@@ -315,6 +315,8 @@
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\MouseDrag.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PaintScene.h" />
     <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\WheelZoom.h" />
     <QtMoc Include="..\QtGUIAPI\DialogDefinitions\DecisionDialogs.h" />

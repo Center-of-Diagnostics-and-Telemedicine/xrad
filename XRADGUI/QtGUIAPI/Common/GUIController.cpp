@@ -445,6 +445,8 @@ void GUIController::InitDialogs()
 	make_connection_bc(request_SetupImageDefaultRanges, do_SetupImageDefaultRanges);
 	make_connection_bc(request_SetImageAxesScales, do_SetImageAxesScales);
 
+	make_connection_bc(request_CreatePainterWindow, do_CreatePainterWindow);
+
 	make_connection_bc(request_CreateTextDisplayer, do_CreateTextDisplayer);
 	make_connection_bc(request_SetFixedWidth, do_SetFixedWidth);
 	make_connection_bc(request_SetEditable, do_SetEditable);

@@ -645,5 +645,12 @@ void SetVersionInfo(const string &text)
 	api_SetVersionInfo(text);
 }
 
+RealFunction2D_F32	GetPainting(wstring title, size_t vsize, size_t hsize)
+{
+	RealFunction2D_F32 result = api_GetPainting(title, vsize, hsize);
+	return result;
+}
+
+
 //--------------------------------------------------------------
 XRAD_END

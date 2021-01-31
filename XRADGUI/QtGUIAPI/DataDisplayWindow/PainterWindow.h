@@ -12,11 +12,11 @@
 #include <XRADGUI/Sources/Internal/std.h>
 #include <XRADBasic/Core.h>
 
-#include "DataDisplayWindow.h"
 
-#include <XRADBasic/MathFunctionTypes.h>
-#include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
-#include "paintScene.h"
+#include <XRADBasic/ContainersAlgebra.h>
+#include <XRADGUI/QTGUIAPI/DataDisplayWindow/DataDisplayWindow.h>
+#include <XRADGUI/QTGUIAPI/DataDisplayWindow/PaintScene.h>
+
 
 namespace XRAD_GUI
 {
@@ -34,7 +34,7 @@ class PainterWindow: public DataDisplayWindow
 		PainterWindow(const QString &in_title, size_t in_vsize, size_t in_hsize, GUIController &gc);
 		~PainterWindow();
 
-		void	SavePicture(QString file_name);
+//		void	SavePicture(QString file_name);
 		QImage	GetResult();
 
 	private:
@@ -63,8 +63,8 @@ class PainterWindow: public DataDisplayWindow
 		//	слоты и сигналы
 
 	public slots:
-		void slotSavePicture();
-		void slotSaveRawData();
+		//void slotSavePicture();
+		//void slotSaveRawData();
 
 	private slots:
 		void return_result_button_click();

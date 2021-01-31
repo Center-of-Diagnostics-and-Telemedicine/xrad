@@ -15,6 +15,7 @@
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 #include <XRADBasic/Sources/Utils/PhysicalUnits.h>
 #include <XRADBasic/Sources/Containers/DataArray.h>
+#include <XRADBasic/ContainersAlgebra.h>
 
 #include <string>
 #include <vector>
@@ -201,6 +202,9 @@ void api_ShowImage(const wstring &title,
 //--------------------------------------------------------------
 
 void api_SetVersionInfo(const string &text);
+
+RealFunction2D_F32 api_GetPainting(wstring title, size_t vsize, size_t hsize);
+
 
 //--------------------------------------------------------------
 

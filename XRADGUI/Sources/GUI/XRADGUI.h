@@ -10,6 +10,9 @@
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 #include <XRADBasic/Sources/Utils/PhysicalUnits.h>
 #include <XRADBasic/Sources/Containers/FixedSizeArray.h>
+
+#include <XRADBasic/ContainersAlgebra.h>
+
 #include <vector>
 #include <string>
 #include <memory>
@@ -466,6 +469,9 @@ void DisplayImage(string name, const SAMPLE_T* data,
 		DisplayImage(string_to_wstring(name, e_decode_literals), data,
 			vs, hs, y_axis_legend, x_axis_legend, vlegend);
 		}
+
+
+RealFunction2D_F32	GetPainting(wstring title, size_t vsize, size_t hsize);
 
 
 //--------------------------------------------------------------

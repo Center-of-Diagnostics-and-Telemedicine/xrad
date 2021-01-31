@@ -10,6 +10,7 @@
 #include "StayOnTopDialog.h"
 #include "GraphWindow.h"
 #include "ImageWindow.h"
+#include "PainterWindow.h"
 #include "TextWindow.h"
 #include "ConsoleWindow.h"
 #include "XRADGUIAPIDefs.h"
@@ -108,7 +109,9 @@ class ThreadGUI:
 		bool	do_SetupImageDefaultRanges(ImageWindow *img, double min_value, double max_value, double gamma);
 		bool	do_SetImageAxesScales(ImageWindow *img, double z0, double dz, double y0, double dy, double x0, double dx);
 
+		PainterWindow* do_CreatePainterWindow(QString title, size_t vsize, size_t hsize);
 		TextWindow *do_CreateTextDisplayer(const QString &title);
+
 		bool	do_SetFixedWidth(TextWindow *, bool fixed_width);
 		bool	do_SetEditable(TextWindow *, bool editable);
 		bool	do_SetFontSize(TextWindow *, double size);

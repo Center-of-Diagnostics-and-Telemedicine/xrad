@@ -6,9 +6,14 @@
 #include <QTimer>
 #include <QDebug>
 
-class PaintScene : public QGraphicsScene
+
+namespace XRAD_GUI
 {
 
+XRAD_USING
+
+class PaintScene : public QGraphicsScene
+{
 	Q_OBJECT
 
 public:
@@ -24,10 +29,12 @@ private:
 	// Для рисования используем события мыши
 	void mousePressEvent(QGraphicsSceneMouseEvent* event);
 	void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-	
-	
-	
+
+
+
 
 };
+
+} //namespace XRAD_GUI
 
 #endif // PAINTSCENE_H

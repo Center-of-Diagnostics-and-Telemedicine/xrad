@@ -8,9 +8,11 @@
 
 #include "SavedSettings.h"
 #include "GUIController.h"
+#include "PainterWindow.h"
 #include <XRADQt/QtStringConverters.h>
 #include <XRADSystem/System.h>
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>
+#include <XRADBasic/ContainersAlgebra.h>
 
 namespace XRAD_GUI
 {
@@ -957,6 +959,39 @@ void api_ShowImage(const wstring &wtitle,
 
 }
 
+RealFunction2D_F32 api_GetPainting(wstring title, size_t vsize, size_t hsize)
+{
+	PainterWindow	*pw = emit work_thread().request_CreatePainterWindow(wstring_to_qstring(title), vsize, hsize);
+
+	if (IsPointerAValidGUIWidget(pw))
+	{
+		try
+		{
+
+			emit work_thread().request_ShowDataWindow(pw, true);
+			work_thread().Suspend(ThreadUser::suspend_for_data_analyze);
+
+			QImage result_qimage = pw->GetResult();
+
+			RealFunction2D_F32	result(vsize, hsize);
+
+			for (size_t i = 0; i < vsize; ++i)
+			{
+				for (size_t j = 0; j < hsize; j++)
+				{
+					result.at(i, j) = result_qimage.pixelColor(int(j), int(i)).lightnessF()*255;
+				}
+			}
+
+
+			return result;
+		}
+		catch (...)
+		{
+		}
+	}
+	return RealFunction2D_F32();
+}
 
 
 /*!
