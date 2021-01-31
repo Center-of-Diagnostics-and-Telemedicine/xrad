@@ -979,7 +979,7 @@ RealFunction2D_F32 api_GetPainting(wstring title, size_t vsize, size_t hsize)
 			{
 				for (size_t j = 0; j < hsize; j++)
 				{
-					result.at(i, j) = result_qimage.pixelColor(int(j), int(i)).lightnessF()*255;
+					result.at(i, j) = result_qimage->pixelColor(int(j), int(i)).lightnessF()*255;
 				}
 			}
 
