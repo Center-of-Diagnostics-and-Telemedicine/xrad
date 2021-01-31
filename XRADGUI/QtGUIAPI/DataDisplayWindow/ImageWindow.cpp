@@ -900,7 +900,7 @@ void ImageWindow::SaveVideo()
 	{
 		QString	fn;
 		QString file_name = folder_name + path_separator() +
-				fn.sprintf("%05zu.%s", EnsureType<size_t>(i), EnsureType<const char*>(format.c_str()));
+				fn.asprintf("%05zu.%s", EnsureType<size_t>(i), EnsureType<const char*>(format.c_str()));
 		frames_slider->setValue(int(i));
 		if(format == "bmp")
 		{
