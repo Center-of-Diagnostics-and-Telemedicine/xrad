@@ -20,35 +20,35 @@
 namespace XRAD_GUI
 {
 
-XRAD_USING
+	XRAD_USING
 
-//--------------------------------------------------------------
+		//--------------------------------------------------------------
 
-class GUIController; // TODO
+		class GUIController; // TODO
 
-//--------------------------------------------------------------
+		//--------------------------------------------------------------
 
-// класс предназначен для создания диалогов в GUI-потоке
+		// класс предназначен для создания диалогов в GUI-потоке
 
-class ThreadGUI:
-	public QObject
-{
+	class ThreadGUI :
+		public QObject
+	{
 		Q_OBJECT
 	private:
 		using self = ThreadGUI;
 		ProgressBarManager progress_bar_manager;
 
 	public:
-		GUIController &gui_controller;
+		GUIController& gui_controller;
 
-		ThreadGUI(GUIController &in_gui_globals, QObject *parent);
+		ThreadGUI(GUIController& in_gui_globals, QObject* parent);
 		~ThreadGUI();
 
-		inline void SetMainWindow(ConsoleWindow *w) { main_window = w; }
+		inline void SetMainWindow(ConsoleWindow* w) { main_window = w; }
 	public:
-		bool ActiveProgressBar(){return progress_bar_manager.Active();}
+		bool ActiveProgressBar() { return progress_bar_manager.Active(); }
 	private:
-		void	ExecuteActiveDialog(StayOnTopDialog *dialog);
+		void	ExecuteActiveDialog(StayOnTopDialog* dialog);
 		QPointer<StayOnTopDialog> active_dialog;
 
 	public slots:
@@ -65,22 +65,22 @@ class ThreadGUI:
 
 		// формы пользовательского ввода
 		void	do_GetString(QString& result, QString prompt, QString default_value);
-		void	do_GetIntegral(ptrdiff_t &result, QString prompt, ptrdiff_t min_value, ptrdiff_t max_value, ptrdiff_t default_value, size_t width, bool allow_out_of_range);
-		void	do_GetFloating(double &result, QString prompt, double min_value, double max_value, double default_value, bool allow_out_of_range);
+		void	do_GetIntegral(ptrdiff_t& result, QString prompt, ptrdiff_t min_value, ptrdiff_t max_value, ptrdiff_t default_value, size_t width, bool allow_out_of_range);
+		void	do_GetFloating(double& result, QString prompt, double min_value, double max_value, double default_value, bool allow_out_of_range);
 		// динамическая форма с командными кнопками
-		void	do_GetButtonDecision(size_t &result, const QString &prompt, const vector<QString> &buttons,
-				size_t default_button, size_t cancel_button);
+		void	do_GetButtonDecision(size_t& result, const QString& prompt, const vector<QString>& buttons,
+			size_t default_button, size_t cancel_button);
 		// динамическая форма с флажками
-		void	do_GetCheckboxDecision(const QString &prompt, const vector<pair<QString, bool*> > &boxes);
+		void	do_GetCheckboxDecision(const QString& prompt, const vector<pair<QString, bool*> >& boxes);
 		// динамическая форма с радиокнопками
-		void	do_GetRadioButtonDecision(size_t &result, const QString &prompt, const vector<QString> &buttons, size_t default_button);
+		void	do_GetRadioButtonDecision(size_t& result, const QString& prompt, const vector<QString>& buttons, size_t default_button);
 		// форма выбора/сохранения файла
 		//(если flag = "open" - выбор имени файла для дальнейшего его открытия,
 		//      flag = "save" - выбор директории и указание имени для сохранения файла)
 		//	меняю со строки на enum, строковый параметр небезопасен
-		bool do_GetFileName(file_dialog_mode flag, QString &return_file_name_buf, const QString &prompt, const QString &default_filename, const QString &type);
+		bool do_GetFileName(file_dialog_mode flag, QString& return_file_name_buf, const QString& prompt, const QString& default_filename, const QString& type);
 
-		bool do_GetFolderName(file_dialog_mode flag, QString &return_folder_name_buf, const QString &prompt, const QString &default_path);
+		bool do_GetFolderName(file_dialog_mode flag, QString& return_folder_name_buf, const QString& prompt, const QString& default_path);
 
 		// функции прогресса
 		void do_StartProgress(QString prompt, double count);
@@ -91,40 +91,40 @@ class ThreadGUI:
 
 
 		// рисование графика
-		GraphWindow*	do_CreateGraph(const QString &title, const QString &y_label, const QString &x_label);
-		bool	do_SetupGraphCurve(GraphWindow *graph, int curve_no, const DataArray<double> &data_y, const DataArray<double> &data_x, const QString& curve_name);
-		bool	do_SetupGraphLabels(GraphWindow *graph, const QString &title, const QString &y_label, const QString &x_label);
-		bool	do_SetupGraphTitle(GraphWindow *graph, const QString &title);
-		bool	do_GetGraphScale(const GraphWindow *, range2_F64&);
-		bool	do_SetGraphScale(GraphWindow *, const range2_F64&);
-		bool	do_SetGraphStyle(GraphWindow *, graph_line_style, double in_line_width);
+		GraphWindow* do_CreateGraph(const QString& title, const QString& y_label, const QString& x_label);
+		bool	do_SetupGraphCurve(GraphWindow* graph, int curve_no, const DataArray<double>& data_y, const DataArray<double>& data_x, const QString& curve_name);
+		bool	do_SetupGraphLabels(GraphWindow* graph, const QString& title, const QString& y_label, const QString& x_label);
+		bool	do_SetupGraphTitle(GraphWindow* graph, const QString& title);
+		bool	do_GetGraphScale(const GraphWindow*, range2_F64&);
+		bool	do_SetGraphScale(GraphWindow*, const range2_F64&);
+		bool	do_SetGraphStyle(GraphWindow*, graph_line_style, double in_line_width);
 
-		bool	do_SaveGraphPicture(GraphWindow *, const QString &filename_with_extension);
+		bool	do_SaveGraphPicture(GraphWindow*, const QString& filename_with_extension);
 
 		// вывод растрового изображения
-		ImageWindow*	do_CreateRasterImageSet(const QString &title, int vs, int hs);
-		bool	do_AddImageFrames(ImageWindow *img, size_t n_frames);
-		bool	do_SetupImageFrame(ImageWindow *, int, const void*, display_sample_type);
-		bool	do_SetupImageLabels(ImageWindow *img, const QString &title, const QString &z_label,const QString &y_label, const QString &x_label, const QString &value_label);
-		bool	do_SetupImageDefaultRanges(ImageWindow *img, double min_value, double max_value, double gamma);
-		bool	do_SetImageAxesScales(ImageWindow *img, double z0, double dz, double y0, double dy, double x0, double dx);
+		ImageWindow* do_CreateRasterImageSet(const QString& title, int vs, int hs);
+		bool	do_AddImageFrames(ImageWindow* img, size_t n_frames);
+		bool	do_SetupImageFrame(ImageWindow*, int, const void*, display_sample_type);
+		bool	do_SetupImageLabels(ImageWindow* img, const QString& title, const QString& z_label, const QString& y_label, const QString& x_label, const QString& value_label);
+		bool	do_SetupImageDefaultRanges(ImageWindow* img, double min_value, double max_value, double gamma);
+		bool	do_SetImageAxesScales(ImageWindow* img, double z0, double dz, double y0, double dy, double x0, double dx);
 
-		PainterWindow* do_CreatePainterWindow(QString title, size_t vsize, size_t hsize);
-		TextWindow *do_CreateTextDisplayer(const QString &title);
+		PainterWindow* do_CreatePainterWindow(QString title, size_t vsize, size_t hsize, shared_ptr<QImage> qimg_result);
+		TextWindow* do_CreateTextDisplayer(const QString& title);
 
-		bool	do_SetFixedWidth(TextWindow *, bool fixed_width);
-		bool	do_SetEditable(TextWindow *, bool editable);
-		bool	do_SetFontSize(TextWindow *, double size);
-		bool	do_SetPersistent(TextWindow *tw, bool persistent);
-		bool	do_SetStayOnTop(TextWindow *tw, bool stay_on_top);
-		bool	do_SetText(TextWindow *, const QString &text);
-		bool	do_SetTitle(TextWindow *, const QString &title);
-		QString	do_GetText(const TextWindow *);
+		bool	do_SetFixedWidth(TextWindow*, bool fixed_width);
+		bool	do_SetEditable(TextWindow*, bool editable);
+		bool	do_SetFontSize(TextWindow*, double size);
+		bool	do_SetPersistent(TextWindow* tw, bool persistent);
+		bool	do_SetStayOnTop(TextWindow* tw, bool stay_on_top);
+		bool	do_SetText(TextWindow*, const QString& text);
+		bool	do_SetTitle(TextWindow*, const QString& title);
+		QString	do_GetText(const TextWindow*);
 
-		bool	do_ShowDataWindow(QDialog *dialog_ptr, bool suspend);
-		bool	do_CloseDataWindow(QDialog *window);
-		bool	do_HideDataWindow(QDialog *window);
-		bool	do_SetDataWindowTitle(QDialog *window, const QString &title);
+		bool	do_ShowDataWindow(QDialog* dialog_ptr, bool suspend);
+		bool	do_CloseDataWindow(QDialog* window);
+		bool	do_HideDataWindow(QDialog* window);
+		bool	do_SetDataWindowTitle(QDialog* window, const QString& title);
 
 
 		void do_AcceptAndContinue();
@@ -133,19 +133,19 @@ class ThreadGUI:
 
 	public:
 		//! \brief Выполнить callback в потоке UI. Обрабатывает исключения
-		void WorkerUICallback(function<void ()> &&action);
+		void WorkerUICallback(function<void()>&& action);
 	private:
 		struct UICallbackParams
 		{
-			function<void ()> action;
+			function<void()> action;
 		};
 	signals:
-		void request_UICallback(UICallbackParams *params);
+		void request_UICallback(UICallbackParams* params);
 	private slots:
-		void do_UICallback(UICallbackParams *params);
+		void do_UICallback(UICallbackParams* params);
 
 	public:
-		void ExecuteDialog(StayOnTopDialog *dialog);
+		void ExecuteDialog(StayOnTopDialog* dialog);
 
 	public:
 		/*!
@@ -155,9 +155,9 @@ class ThreadGUI:
 
 			\param id Уникальный идентификатор. Не следует использовать NULL.
 		*/
-		void BeginDialogLoop(const void *id,
-				QDialog *dialog,
-				function<void ()> &&end_dialog);
+		void BeginDialogLoop(const void* id,
+			QDialog* dialog,
+			function<void()>&& end_dialog);
 
 		/*!
 			\brief Обозначить конец цикла обработки (модального) диалога, парная функция к
@@ -165,13 +165,13 @@ class ThreadGUI:
 
 			\param id Допускается передача незарегистрированного id.
 		*/
-		void EndDialogLoop(const void *id);
+		void EndDialogLoop(const void* id);
 
 	private:
-		ConsoleWindow *main_window = nullptr; //!< Указатель на главное окно интерфейса
-		vector<tuple<const void*, QPointer<QDialog>, function<void ()>,
-				ConsoleWindow::ThreadState>> active_dialogs;
-};
+		ConsoleWindow* main_window = nullptr; //!< Указатель на главное окно интерфейса
+		vector<tuple<const void*, QPointer<QDialog>, function<void()>,
+			ConsoleWindow::ThreadState>> active_dialogs;
+	};
 
 
 

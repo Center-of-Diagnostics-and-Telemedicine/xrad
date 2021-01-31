@@ -53,7 +53,7 @@ class PainterWindow: public DataDisplayWindow
 		void keyPressEvent ( QKeyEvent * event );
 
 		bool eventFilter(QObject *target,QEvent *event);
-		void procMouseEvent(QEvent *event);
+//		void procMouseEvent(QEvent *event);
 
 		// режим отображения координат
 
@@ -63,9 +63,6 @@ class PainterWindow: public DataDisplayWindow
 	public slots:
 		//void slotSavePicture();
 		//void slotSaveRawData();
-
-	private slots:
-		void return_result_button_click();
 
 	signals:
 		void signal_esc();
