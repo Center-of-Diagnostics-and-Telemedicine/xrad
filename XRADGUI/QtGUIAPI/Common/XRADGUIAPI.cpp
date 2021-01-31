@@ -961,7 +961,8 @@ void api_ShowImage(const wstring &wtitle,
 
 RealFunction2D_F32 api_GetPainting(wstring title, size_t vsize, size_t hsize)
 {
-	PainterWindow	*pw = emit work_thread().request_CreatePainterWindow(wstring_to_qstring(title), vsize, hsize);
+	shared_ptr<QImage>	result_qimage = make_shared<QImage>();
+	PainterWindow* pw = emit work_thread().request_CreatePainterWindow(wstring_to_qstring(title), vsize, hsize, result_qimage);
 
 	if (IsPointerAValidGUIWidget(pw))
 	{
@@ -971,7 +972,6 @@ RealFunction2D_F32 api_GetPainting(wstring title, size_t vsize, size_t hsize)
 			emit work_thread().request_ShowDataWindow(pw, true);
 			work_thread().Suspend(ThreadUser::suspend_for_data_analyze);
 
-			QImage result_qimage = pw->GetResult();
 
 			RealFunction2D_F32	result(vsize, hsize);
 

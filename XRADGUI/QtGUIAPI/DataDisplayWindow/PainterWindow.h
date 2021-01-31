@@ -31,11 +31,11 @@ class PainterWindow: public DataDisplayWindow
 		Q_OBJECT
 
 	public:
-		PainterWindow(const QString &in_title, size_t in_vsize, size_t in_hsize, GUIController &gc);
+		PainterWindow( QString in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController &gc);
 		~PainterWindow();
 
 //		void	SavePicture(QString file_name);
-		QImage	GetResult();
+//		QImage	GetResult();
 
 	private:
 //		double	brush_size;
@@ -45,9 +45,7 @@ class PainterWindow: public DataDisplayWindow
 
 		QGraphicsView* drawing_graphicsView;
 		PaintScene* drawing_scene;
-		QPushButton* return_result_button;
-		QImage result;
-		QLabel* image_label;
+		shared_ptr<QImage> result;
 
 		//TODO следующие функции пересмотреть
 		//	обработчики событий
