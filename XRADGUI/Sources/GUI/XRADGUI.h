@@ -471,7 +471,7 @@ void DisplayImage(string name, const SAMPLE_T* data,
 		}
 
 
-RealFunction2D_F32	GetPainting(wstring title, size_t vsize, size_t hsize);
+RealFunction2D_F32	GetPainting(const wstring& title, size_t vsize, size_t hsize);
 
 
 //--------------------------------------------------------------

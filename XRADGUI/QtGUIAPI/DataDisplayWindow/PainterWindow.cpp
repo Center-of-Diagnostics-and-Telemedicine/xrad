@@ -18,7 +18,7 @@ namespace XRAD_GUI
 
 
 
-		PainterWindow::PainterWindow( QString in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc)
+		PainterWindow::PainterWindow(const QString &in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc)
 		:
 		DataDisplayWindow(gc),
 		m_vsize(in_vsize),
