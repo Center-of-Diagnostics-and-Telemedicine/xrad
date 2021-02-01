@@ -20,8 +20,8 @@ axis_legend::axis_legend(double in_min, double in_step, string in_label) : min_v
 
 value_legend::value_legend(double in_min, double in_max, double in_gamma, wstring in_label) : display_range(in_min, in_max), gamma(in_gamma), label(in_label) {}
 value_legend::value_legend(double in_min, double in_max, double in_gamma, string in_label) : display_range(in_min, in_max), gamma(in_gamma), label(string_to_wstring(in_label, e_decode_literals)) {}
-value_legend::value_legend(const range1_F64 &in_display_range, double in_gamma, wstring in_label) : display_range(in_display_range), gamma(in_gamma), label(in_label) {}
-value_legend::value_legend(const range1_F64 &in_display_range, double in_gamma, string in_label) : display_range(in_display_range), gamma(in_gamma), label(string_to_wstring(in_label, e_decode_literals)) {}
+value_legend::value_legend(const range1_F64& in_display_range, double in_gamma, wstring in_label) : display_range(in_display_range), gamma(in_gamma), label(in_label) {}
+value_legend::value_legend(const range1_F64& in_display_range, double in_gamma, string in_label) : display_range(in_display_range), gamma(in_gamma), label(string_to_wstring(in_label, e_decode_literals)) {}
 
 
 //--------------------------------------------------------------
@@ -59,7 +59,7 @@ void Pause(void)
 	api_Pause();
 }
 
-void Delay(const physical_time &delay)
+void Delay(const physical_time& delay)
 {
 	api_Delay(delay);
 }
@@ -75,7 +75,7 @@ bool YesOrNo(string prompt, GUIValue<bool> default_choice)
 bool YesOrNo(wstring prompt, GUIValue<bool> default_choice)
 {
 	return !api_Decide2(prompt, L"Yes", L"No",
-			ConvertGUIValue<size_t>(default_choice, default_choice.value? 0: 1));
+		ConvertGUIValue<size_t>(default_choice, default_choice.value ? 0 : 1));
 }
 
 //--------------------------------------------------------------
@@ -94,7 +94,7 @@ size_t Decide2(string prompt, string choice0, string choice1, GUIValue<size_t> d
 
 
 //--------------------------------------------------------------
-size_t Decide(wstring prompt, const vector<wstring> &buttons, GUIValue<size_t> default_button)
+size_t Decide(wstring prompt, const vector<wstring>& buttons, GUIValue<size_t> default_button)
 {
 	if (!buttons.size())
 	{
@@ -104,10 +104,10 @@ size_t Decide(wstring prompt, const vector<wstring> &buttons, GUIValue<size_t> d
 	return api_Decide(prompt, buttons, default_button);
 }
 
-size_t Decide(string prompt, const vector<string> &buttons, GUIValue<size_t> default_button)
+size_t Decide(string prompt, const vector<string>& buttons, GUIValue<size_t> default_button)
 {
 	vector<wstring>	wbuttons;
-	for(auto button: buttons)
+	for (auto button : buttons)
 		wbuttons.push_back(convert_to_wstring(button));
 	return Decide(convert_to_wstring(prompt), wbuttons, default_button);
 }
@@ -115,17 +115,17 @@ size_t Decide(string prompt, const vector<string> &buttons, GUIValue<size_t> def
 
 //--------------------------------------------------------------
 
-size_t GetButtonDecision(string prompt, const std::vector<string> &buttons, GUIValue<size_t> default_button)
+size_t GetButtonDecision(string prompt, const std::vector<string>& buttons, GUIValue<size_t> default_button)
 {
 	std::vector<wstring> wbuttons;
-	for(auto button: buttons)
+	for (auto button : buttons)
 		wbuttons.push_back(convert_to_wstring(button));
 	return GetButtonDecision(convert_to_wstring(prompt), wbuttons, default_button);
 }
 
 //--------------------------------------------------------------
 
-size_t GetButtonDecision(wstring prompt, const std::vector<wstring> &buttons, GUIValue<size_t> default_button)
+size_t GetButtonDecision(wstring prompt, const std::vector<wstring>& buttons, GUIValue<size_t> default_button)
 {
 	size_t n_buttons = buttons.size();
 	if (!n_buttons)
@@ -142,7 +142,7 @@ size_t GetButtonDecision(wstring prompt, const std::vector<wstring> &buttons, GU
 namespace
 {
 
-	bool GetCheckboxDecisionBig(wstring prompt, const vector<pair<wstring, bool*> > &boxes)
+	bool GetCheckboxDecisionBig(wstring prompt, const vector<pair<wstring, bool*> >& boxes)
 	{
 		bool res = false;
 		if (boxes.size() <= api_GetCheckboxDecisionMaxBoxes())
@@ -166,7 +166,7 @@ namespace
 //--------------------------------------------------------------
 
 
-bool GetCheckboxDecision(wstring prompt, const vector<wstring> &texts, const vector<bool *> &values)
+bool GetCheckboxDecision(wstring prompt, const vector<wstring>& texts, const vector<bool*>& values)
 {
 	XRAD_ASSERT_THROW(texts.size() == values.size() && values.size());
 	//
@@ -181,12 +181,12 @@ bool GetCheckboxDecision(wstring prompt, const vector<wstring> &texts, const vec
 	return GetCheckboxDecisionBig(convert_to_wstring(prompt), boxes);
 }
 
-bool GetCheckboxDecision(string prompt, const vector<string> &texts, const vector<bool *> &values)
+bool GetCheckboxDecision(string prompt, const vector<string>& texts, const vector<bool*>& values)
 {
 	vector<wstring> wtexts;
 	wtexts.reserve(texts.size());
 
-	for(auto text: texts) wtexts.push_back(convert_to_wstring(text));
+	for (auto text : texts) wtexts.push_back(convert_to_wstring(text));
 	return GetCheckboxDecision(convert_to_wstring(prompt), wtexts, values);
 }
 
@@ -236,14 +236,14 @@ string GetFolderNameRead(string prompt, GUIValue<string> default_name, string fi
 		convert_to_wstring(filter)));
 }
 
-wstring GetFolderNameWrite(wstring prompt,  GUIValue<wstring> default_name, wstring filter)
+wstring GetFolderNameWrite(wstring prompt, GUIValue<wstring> default_name, wstring filter)
 {
 	wstring directory_name;
 	api_GetFolderName(directory_name, prompt, default_name, filter, XRAD_GUI::file_save_dialog);
 	return directory_name;
 }
 
-string GetFolderNameWrite(string prompt,  GUIValue<string> default_name, string filter)
+string GetFolderNameWrite(string prompt, GUIValue<string> default_name, string filter)
 {
 	return convert_to_string(GetFolderNameWrite(convert_to_wstring(prompt),
 		ConvertGUIValue(default_name, convert_to_wstring(default_name.value)),
@@ -266,7 +266,7 @@ string GetFolderNameWrite(string prompt,  GUIValue<string> default_name, string 
 
 //--------------------------------------------------------------
 
-void ForceUpdateGUI(const physical_time &update_interval)
+void ForceUpdateGUI(const physical_time& update_interval)
 {
 	api_ForceUpdateGUI(update_interval);
 }
@@ -281,10 +281,10 @@ bool IsProgressActive()
 namespace
 {
 
-class GUIProgressApi: public ProgressApi
-{
+	class GUIProgressApi : public ProgressApi
+	{
 	public:
-		virtual void Start(const wstring &message, double count) override
+		virtual void Start(const wstring& message, double count) override
 		{
 			api_StartProgress(message, count);
 			started = true;
@@ -316,10 +316,10 @@ class GUIProgressApi: public ProgressApi
 	private:
 		static bool started;
 		static bool overflow_reported;
-};
+	};
 
-bool GUIProgressApi::started = false;
-bool GUIProgressApi::overflow_reported = false;
+	bool GUIProgressApi::started = false;
+	bool GUIProgressApi::overflow_reported = false;
 
 } // namespace
 
@@ -406,7 +406,7 @@ void ShowFloating(string prompt, double value)
 string GetString(string prompt, GUIValue<string> default_string)
 {
 	return convert_to_string(GetString(convert_to_wstring(prompt),
-			ConvertGUIValue(default_string, convert_to_wstring(default_string.value))));
+		ConvertGUIValue(default_string, convert_to_wstring(default_string.value))));
 }
 
 wstring GetString(wstring prompt, GUIValue<wstring> default_string)
@@ -424,7 +424,7 @@ ptrdiff_t GetSigned(wstring prompt, GUIValue<ptrdiff_t> default_value, ptrdiff_t
 size_t GetUnsigned(wstring prompt, GUIValue<size_t> default_value, size_t min_value, size_t max_value, out_of_range_control allow_out_of_range)
 {
 	return (size_t)api_GetIntegral(prompt, ConvertGUIValue(default_value, (ptrdiff_t)default_value.value),
-			min_value, max_value, allow_out_of_range);
+		min_value, max_value, allow_out_of_range);
 }
 
 ptrdiff_t GetSigned(string prompt, GUIValue<ptrdiff_t> default_value, ptrdiff_t min_value, ptrdiff_t max_value, out_of_range_control allow_out_of_range)
@@ -463,9 +463,9 @@ double GetFloating(string prompt, GUIValue<double> default_value, double min_val
 template<>
 void DisplayImage<uint8_t>(wstring name, const uint8_t* data,
 	size_t vs, size_t hs,
-	const axis_legend &ylegend,
-	const axis_legend &xlegend,
-	const value_legend &value_legend)
+	const axis_legend& ylegend,
+	const axis_legend& xlegend,
+	const value_legend& value_legend)
 {
 	if (!vs || !hs) Error(ssprintf("DisplayImage(%s,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
 	api_ShowImage(name, data, gray_sample_ui8,
@@ -478,9 +478,9 @@ void DisplayImage<uint8_t>(wstring name, const uint8_t* data,
 template<>
 void DisplayImage<int16_t>(wstring name, const int16_t* data,
 	size_t vs, size_t hs,
-	const axis_legend &ylegend,
-	const axis_legend &xlegend,
-	const value_legend &value_legend)
+	const axis_legend& ylegend,
+	const axis_legend& xlegend,
+	const value_legend& value_legend)
 {
 	if (!vs || !hs) Error(ssprintf("DisplayImage(%s,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
 	api_ShowImage(name, data, gray_sample_i16,
@@ -493,9 +493,9 @@ void DisplayImage<int16_t>(wstring name, const int16_t* data,
 template<>
 void DisplayImage<float>(wstring name, const float* data,
 	size_t vs, size_t hs,
-	const axis_legend &ylegend,
-	const axis_legend &xlegend,
-	const value_legend &value_legend)
+	const axis_legend& ylegend,
+	const axis_legend& xlegend,
+	const value_legend& value_legend)
 {
 	if (!vs || !hs) Error(ssprintf("DisplayImage(%s,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
 	api_ShowImage(name, data, gray_sample_f32,
@@ -509,9 +509,9 @@ void DisplayImage<float>(wstring name, const float* data,
 template<>
 void DisplayImage<ColorPixel>(wstring name, const ColorPixel* data,
 	size_t vs, size_t hs,
-	const axis_legend &ylegend,
-	const axis_legend &xlegend,
-	const value_legend &value_legend)
+	const axis_legend& ylegend,
+	const axis_legend& xlegend,
+	const value_legend& value_legend)
 {
 	if (!vs || !hs) Error(ssprintf("DisplayImage(%s,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
 	api_ShowImage(name, data, rgba_sample_ui8,
@@ -522,11 +522,11 @@ void DisplayImage<ColorPixel>(wstring name, const ColorPixel* data,
 }
 
 template<>
-void DisplayImage<ColorSampleF32>(wstring name, const ColorSampleF32 * data,
+void DisplayImage<ColorSampleF32>(wstring name, const ColorSampleF32* data,
 	size_t vs, size_t hs,
-	const axis_legend &ylegend,
-	const axis_legend &xlegend,
-	const value_legend &vlegend)
+	const axis_legend& ylegend,
+	const axis_legend& xlegend,
+	const value_legend& vlegend)
 {
 	if (!vs || !hs) Error(ssprintf(L"DisplayImage(%Ls,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
 	api_ShowImage(name, data, rgb_sample_f32,
@@ -555,7 +555,7 @@ void DisplayImage<ColorSampleF32>(wstring name, const ColorSampleF32 * data,
 	явного инстанциирования шаблона.
 */
 template <class T>
-bool SaveParameter(const wstring &function_name, const wstring &param_name, const T &param)
+bool SaveParameter(const wstring& function_name, const wstring& param_name, const T& param)
 {
 	return api_SaveParameter(function_name, param_name, param);
 }
@@ -596,8 +596,8 @@ instantiate(float)
 	явного инстанциирования шаблона.
 */
 template <class T>
-T GetSavedParameter(const wstring &function_name, const wstring &param_name, const T &default_value,
-		bool *loaded)
+T GetSavedParameter(const wstring& function_name, const wstring& param_name, const T& default_value,
+	bool* loaded)
 {
 	return api_GetSavedParameter(function_name, param_name, default_value, loaded);
 }
@@ -624,11 +624,11 @@ instantiate(float)
 
 
 template<>
-void DisplayImage<complexF32>(wstring name, const complexF32 * data,
+void DisplayImage<complexF32>(wstring name, const complexF32* data,
 	size_t vs, size_t hs,
-	const axis_legend &ylegend,
-	const axis_legend &xlegend,
-	const value_legend &vlegend)
+	const axis_legend& ylegend,
+	const axis_legend& xlegend,
+	const value_legend& vlegend)
 {
 	if (!vs || !hs) Error(ssprintf(L"DisplayImage(%Ls,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
 	api_ShowImage(name, data, complex_sample_f32,
@@ -640,7 +640,7 @@ void DisplayImage<complexF32>(wstring name, const complexF32 * data,
 
 //--------------------------------------------------------------
 
-void SetVersionInfo(const string &text)
+void SetVersionInfo(const string& text)
 {
 	api_SetVersionInfo(text);
 }

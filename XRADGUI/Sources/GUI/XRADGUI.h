@@ -57,10 +57,10 @@ void SafeExecute(F f)
 	{
 		f();
 	}
-	catch (canceled_operation &)
+	catch (canceled_operation&)
 	{
 	}
-	catch (quit_application &)
+	catch (quit_application&)
 	{
 		throw;
 	}
@@ -75,7 +75,7 @@ void SafeExecute(F f)
 	\param delay Время задержки. Под Windows точность задания задержки 10 мс с округлением в бо́льшую сторону
 	(особенности реализации функций QThread::msleep(), usleep() и т.п.).
 */
-void Delay(const physical_time &delay);
+void Delay(const physical_time& delay);
 
 //! \brief Пауза рабочего потока с выводом диалогового окна
 void Pause();
@@ -97,8 +97,8 @@ size_t Decide2(wstring prompt, wstring choice0, wstring choice1, GUIValue<size_t
 	Эта функция практически эквивалентна \ref GetButtonDecision(). Отличия интерфейсные.
 	В диалоговом окне этой есть штатная кнопка Cancel, кидающая исключение canceled_operation.
 */
-size_t Decide(string prompt, const vector<string> &buttons, GUIValue<size_t> default_button = saved_default_value);
-size_t Decide(wstring prompt, const vector<wstring> &buttons, GUIValue<size_t> default_button = saved_default_value);
+size_t Decide(string prompt, const vector<string>& buttons, GUIValue<size_t> default_button = saved_default_value);
+size_t Decide(wstring prompt, const vector<wstring>& buttons, GUIValue<size_t> default_button = saved_default_value);
 
 
 
@@ -115,23 +115,23 @@ size_t Decide(wstring prompt, const vector<wstring> &buttons, GUIValue<size_t> d
 	- GetButtonDecision() с классом Button
 	- Decide()
 */
-size_t GetButtonDecision(string prompt, const std::vector<string> &buttons, GUIValue<size_t> default_button = saved_default_value);
-size_t GetButtonDecision(wstring prompt, const std::vector<wstring> &buttons, GUIValue<size_t> default_button = saved_default_value);
+size_t GetButtonDecision(string prompt, const std::vector<string>& buttons, GUIValue<size_t> default_button = saved_default_value);
+size_t GetButtonDecision(wstring prompt, const std::vector<wstring>& buttons, GUIValue<size_t> default_button = saved_default_value);
 
 template<class T>
 [[deprecated("Use GetButtonDecision() with the Button class")]]
-T GetButtonDecision(wstring prompt, const std::vector<wstring> &buttons, const std::vector<T> &answers)
+T GetButtonDecision(wstring prompt, const std::vector<wstring>& buttons, const std::vector<T>& answers)
 {
-	XRAD_ASSERT_THROW(buttons.size()==answers.size());
+	XRAD_ASSERT_THROW(buttons.size() == answers.size());
 	size_t	no = GetButtonDecision(prompt, buttons);
 	return answers[no];
 }
 
 template<class T>
 [[deprecated("Use GetButtonDecision() with the Button class")]]
-T GetButtonDecision(string prompt, const std::vector<string> &buttons, const std::vector<T> &answers)
+T GetButtonDecision(string prompt, const std::vector<string>& buttons, const std::vector<T>& answers)
 {
-	XRAD_ASSERT_THROW(buttons.size()==answers.size());
+	XRAD_ASSERT_THROW(buttons.size() == answers.size());
 	size_t	no = GetButtonDecision(prompt, buttons);
 	return answers[no];
 }
@@ -148,33 +148,33 @@ T GetButtonDecision(string prompt, const std::vector<string> &buttons, const std
 template <class T>
 class Button
 {
-	public:
-		Button(const wstring &caption, T id): caption(caption), id(id), is_default(false),
-				is_cancel(false) {}
+public:
+	Button(const wstring& caption, T id) : caption(caption), id(id), is_default(false),
+		is_cancel(false) {}
 
-		//! \brief Установить признак кнопки по умолчанию.
-		//! Задание значения true здесь имеет приоритет над заданием кнопки по умолчанию
-		//! в параметре GetButtonDecision()
-		Button &SetDefault(bool flag = true) { is_default = flag; return *this; }
+	//! \brief Установить признак кнопки по умолчанию.
+	//! Задание значения true здесь имеет приоритет над заданием кнопки по умолчанию
+	//! в параметре GetButtonDecision()
+	Button& SetDefault(bool flag = true) { is_default = flag; return *this; }
 
-		//! \brief Установить признак кнопки отмены
-		Button &SetCancel(bool flag = true) { is_cancel = flag; return *this; }
-	public:
-		wstring caption;
-		T id;
-		//! \brief Кнопка является кнопкой по умолчанию
-		bool is_default;
-		//! \brief Результат нажатия кнопки следует трактовать как отмену (Cancel)
-		bool is_cancel;
+	//! \brief Установить признак кнопки отмены
+	Button& SetCancel(bool flag = true) { is_cancel = flag; return *this; }
+public:
+	wstring caption;
+	T id;
+	//! \brief Кнопка является кнопкой по умолчанию
+	bool is_default;
+	//! \brief Результат нажатия кнопки следует трактовать как отмену (Cancel)
+	bool is_cancel;
 };
 
 //! \brief Создать кнопку для GetButtonDecision()
 template <class T>
-inline Button<T> MakeButton(const wstring &caption, T id) { return Button<T>(caption, id); }
+inline Button<T> MakeButton(const wstring& caption, T id) { return Button<T>(caption, id); }
 
 //! \brief Создать кнопку для GetButtonDecision
 template <class T>
-inline Button<T> MakeButton(const string &caption, T id) { return Button<T>(convert_to_wstring(caption), id); }
+inline Button<T> MakeButton(const string& caption, T id) { return Button<T>(convert_to_wstring(caption), id); }
 
 
 
@@ -182,7 +182,7 @@ inline Button<T> MakeButton(const string &caption, T id) { return Button<T>(conv
 //!
 //! Признак is_default == true у кнопки имеет приоритет над значением default_button_value.
 template <class T, class V = GUIValue<T>>
-T Decide(const wstring &prompt, const vector<Button<T>> &buttons, const V &default_button_value = saved_default_value)
+T Decide(const wstring& prompt, const vector<Button<T>>& buttons, const V& default_button_value = saved_default_value)
 {
 	GUIValue<T> default_button(default_button_value);
 	GUIValue<size_t> legacy_default_button = default_button.is_stored;
@@ -190,7 +190,7 @@ T Decide(const wstring &prompt, const vector<Button<T>> &buttons, const V &defau
 	vector<wstring> texts;
 	for (size_t i = 0; i < buttons.size(); ++i)
 	{
-		auto &b = buttons[i];
+		auto& b = buttons[i];
 		texts.push_back(b.caption);
 		if (!default_button_found)
 		{
@@ -200,7 +200,7 @@ T Decide(const wstring &prompt, const vector<Button<T>> &buttons, const V &defau
 				default_button_found = true;
 			}
 			else if (default_button.value_valid &&
-					try_equals<false>(b.id, default_button.value)) // не все типы T могут иметь operator==
+				try_equals<false>(b.id, default_button.value)) // не все типы T могут иметь operator==
 			{
 				legacy_default_button = MakeGUIValue(i, default_button.is_stored);
 				// default_button_found не устанавливаем, чтобы у флага b.is_default был приоритет
@@ -213,7 +213,7 @@ T Decide(const wstring &prompt, const vector<Button<T>> &buttons, const V &defau
 
 //! \brief Диалог выбора варианта. Возвращает id выбранной кнопки
 template <class T, class V = GUIValue<T>>
-T Decide(const wstring &prompt, std::initializer_list<Button<T>> buttons, const V &default_button = saved_default_value)
+T Decide(const wstring& prompt, std::initializer_list<Button<T>> buttons, const V& default_button = saved_default_value)
 {
 	return Decide(prompt, vector<Button<T>>(buttons), default_button);
 }
@@ -224,7 +224,7 @@ T Decide(const wstring &prompt, std::initializer_list<Button<T>> buttons, const 
 //!
 //! Признак is_default == true у кнопки имеет приоритет над значением default_button_value.
 template <class T, class V = GUIValue<T>>
-T GetButtonDecision(const wstring &prompt, const vector<Button<T>> &buttons, const V &default_button_value = saved_default_value)
+T GetButtonDecision(const wstring& prompt, const vector<Button<T>>& buttons, const V& default_button_value = saved_default_value)
 {
 	GUIValue<T> default_button(default_button_value);
 	GUIValue<size_t> legacy_default_button = default_button.is_stored;
@@ -232,7 +232,7 @@ T GetButtonDecision(const wstring &prompt, const vector<Button<T>> &buttons, con
 	vector<wstring> texts;
 	for (size_t i = 0; i < buttons.size(); ++i)
 	{
-		auto &b = buttons[i];
+		auto& b = buttons[i];
 		texts.push_back(b.caption);
 		if (!default_button_found)
 		{
@@ -242,7 +242,7 @@ T GetButtonDecision(const wstring &prompt, const vector<Button<T>> &buttons, con
 				default_button_found = true;
 			}
 			else if (default_button.value_valid &&
-					try_equals<false>(b.id, default_button.value)) // не все типы T могут иметь operator==
+				try_equals<false>(b.id, default_button.value)) // не все типы T могут иметь operator==
 			{
 				legacy_default_button = MakeGUIValue(i, default_button.is_stored);
 				// default_button_found не устанавливаем, чтобы у флага b.is_default был приоритет
@@ -255,21 +255,21 @@ T GetButtonDecision(const wstring &prompt, const vector<Button<T>> &buttons, con
 
 //! \brief Диалог выбора варианта (кнопки). Возвращает id выбранной кнопки
 template <class T, class V = GUIValue<T>>
-T GetButtonDecision(const string &prompt, const vector<Button<T>> &buttons, const V &default_button = saved_default_value)
+T GetButtonDecision(const string& prompt, const vector<Button<T>>& buttons, const V& default_button = saved_default_value)
 {
 	return GetButtonDecision(convert_to_wstring(prompt), buttons, default_button);
 }
 
 //! \brief Диалог выбора варианта (кнопки). Возвращает id выбранной кнопки
 template <class T, class V = GUIValue<T>>
-T GetButtonDecision(const wstring &prompt, std::initializer_list<Button<T>> buttons, const V &default_button = saved_default_value)
+T GetButtonDecision(const wstring& prompt, std::initializer_list<Button<T>> buttons, const V& default_button = saved_default_value)
 {
 	return GetButtonDecision(prompt, vector<Button<T>>(buttons), default_button);
 }
 
 //! \brief Диалог выбора варианта (кнопки). Возвращает id выбранной кнопки
 template <class T, class V = GUIValue<T>>
-T GetButtonDecision(const string &prompt, std::initializer_list<Button<T>> buttons, const V &default_button = saved_default_value)
+T GetButtonDecision(const string& prompt, std::initializer_list<Button<T>> buttons, const V& default_button = saved_default_value)
 {
 	return GetButtonDecision(prompt, vector<Button<T>>(buttons), default_button);
 }
@@ -283,8 +283,8 @@ T GetButtonDecision(const string &prompt, std::initializer_list<Button<T>> butto
 	\param [in,out] values  Значения на каждом флажке (отмечено/не отмечено)
 	\return 0-отмена, 1-дальше
 */
-bool GetCheckboxDecision(string prompt, const vector<string> &texts, const vector<bool *> &values);
-bool GetCheckboxDecision(wstring prompt, const vector<wstring> &texts, const vector<bool *> &values);
+bool GetCheckboxDecision(string prompt, const vector<string>& texts, const vector<bool*>& values);
+bool GetCheckboxDecision(wstring prompt, const vector<wstring>& texts, const vector<bool*>& values);
 
 
 
@@ -296,17 +296,17 @@ bool GetCheckboxDecision(wstring prompt, const vector<wstring> &texts, const vec
 ProgressProxy GUIProgressProxy();
 
 //! \brief Класс для GUI-прогресса с произвольными шагами
-class GUIRandomProgressBar: public RandomProgressBar
+class GUIRandomProgressBar : public RandomProgressBar
 {
-	public:
-		GUIRandomProgressBar(): RandomProgressBar(GUIProgressProxy()) {}
+public:
+	GUIRandomProgressBar() : RandomProgressBar(GUIProgressProxy()) {}
 };
 
 //! \brief Класс для GUI-прогресса с произвольными шагами
-class GUIProgressBar: public ProgressBar
+class GUIProgressBar : public ProgressBar
 {
-	public:
-		GUIProgressBar(): ProgressBar(GUIProgressProxy()) {}
+public:
+	GUIProgressBar() : ProgressBar(GUIProgressProxy()) {}
 };
 
 //!	\brief сообщает, активен ли в настоящее время индикатор прогресса
@@ -315,7 +315,7 @@ bool IsProgressActive();
 //! @}
 
 //! \brief	Принудительно обновляет все окна графического интерфейса. Нужно, если автоматическое обновление срабатывает реже, чем надо.
-void ForceUpdateGUI(const physical_time &update_interval = sec(0.1));
+void ForceUpdateGUI(const physical_time& update_interval = sec(0.1));
 
 
 //
@@ -336,19 +336,19 @@ void ForceUpdateGUI(const physical_time &update_interval = sec(0.1));
 //TODO название не слишком удачное, объединить с ShowString, добавив параметр (может быть)
 //TODO или сделать разницу не только в глаголе, но и в существительном (например, DisplayText)?
 void ShowText(wstring prompt, wstring text, bool bIsStopped = true);
-template<class S1, class S2> void ShowText(const S1 &prompt, const S2 &value, bool bIsStopped = true){ ShowText(convert_to_wstring(prompt), convert_to_wstring(value), bIsStopped);}
+template<class S1, class S2> void ShowText(const S1& prompt, const S2& value, bool bIsStopped = true) { ShowText(convert_to_wstring(prompt), convert_to_wstring(value), bIsStopped); }
 
 //	отображает значения во временном окне, которое закрывается кнопкой ОК
-void ShowString( wstring prompt, wstring value);
-template<class S1, class S2> void ShowString(const S1 &prompt, const S2 &value){ ShowString(convert_to_wstring(prompt), convert_to_wstring(value)); }
+void ShowString(wstring prompt, wstring value);
+template<class S1, class S2> void ShowString(const S1& prompt, const S2& value) { ShowString(convert_to_wstring(prompt), convert_to_wstring(value)); }
 
 void ShowUnsigned(wstring prompt, size_t value);
 void ShowSigned(wstring prompt, ptrdiff_t value);
-void ShowFloating( wstring prompt, double value);
+void ShowFloating(wstring prompt, double value);
 
-template<class S> void ShowUnsigned(const S &prompt, size_t value){ ShowUnsigned(convert_to_wstring(prompt), value); }
-template<class S> void ShowSigned(const S &prompt, ptrdiff_t value){ ShowSigned(convert_to_wstring(prompt), value); }
-template<class S> void ShowFloating( const S &prompt, double value){ ShowFloating(convert_to_wstring(prompt), value); }
+template<class S> void ShowUnsigned(const S& prompt, size_t value) { ShowUnsigned(convert_to_wstring(prompt), value); }
+template<class S> void ShowSigned(const S& prompt, ptrdiff_t value) { ShowSigned(convert_to_wstring(prompt), value); }
+template<class S> void ShowFloating(const S& prompt, double value) { ShowFloating(convert_to_wstring(prompt), value); }
 
 //! \name Функции пользовательского ввода
 //! \{
@@ -359,8 +359,8 @@ template<class S> void ShowFloating( const S &prompt, double value){ ShowFloatin
 	\return Текст
 */
 
-string GetString( string prompt, GUIValue<string> default_value = saved_default_value);
-wstring GetString( wstring prompt, GUIValue<wstring> default_value = saved_default_value);
+string GetString(string prompt, GUIValue<string> default_value = saved_default_value);
+wstring GetString(wstring prompt, GUIValue<wstring> default_value = saved_default_value);
 
 /*!	\brief Ввод целого числа
 	\param prompt Заголовок окна
@@ -370,10 +370,10 @@ wstring GetString( wstring prompt, GUIValue<wstring> default_value = saved_defau
 	\return Целое число
 */
 
-size_t GetUnsigned( string prompt, GUIValue<size_t> default_value, size_t min_value, size_t max_value, out_of_range_control allow_out_of_range = out_of_range_prohibited);
-size_t GetUnsigned( wstring prompt, GUIValue<size_t> default_value, size_t min_value, size_t max_value, out_of_range_control allow_out_of_range = out_of_range_prohibited);
-ptrdiff_t GetSigned( string prompt, GUIValue<ptrdiff_t> default_value, ptrdiff_t min_value, ptrdiff_t max_value, out_of_range_control allow_out_of_range = out_of_range_prohibited);
-ptrdiff_t GetSigned( wstring prompt, GUIValue<ptrdiff_t> default_value, ptrdiff_t min_value, ptrdiff_t max_value, out_of_range_control allow_out_of_range = out_of_range_prohibited);
+size_t GetUnsigned(string prompt, GUIValue<size_t> default_value, size_t min_value, size_t max_value, out_of_range_control allow_out_of_range = out_of_range_prohibited);
+size_t GetUnsigned(wstring prompt, GUIValue<size_t> default_value, size_t min_value, size_t max_value, out_of_range_control allow_out_of_range = out_of_range_prohibited);
+ptrdiff_t GetSigned(string prompt, GUIValue<ptrdiff_t> default_value, ptrdiff_t min_value, ptrdiff_t max_value, out_of_range_control allow_out_of_range = out_of_range_prohibited);
+ptrdiff_t GetSigned(wstring prompt, GUIValue<ptrdiff_t> default_value, ptrdiff_t min_value, ptrdiff_t max_value, out_of_range_control allow_out_of_range = out_of_range_prohibited);
 
 /*!	\brief Ввод вещественного числа
 	\param prompt Заголовок окна
@@ -382,8 +382,8 @@ ptrdiff_t GetSigned( wstring prompt, GUIValue<ptrdiff_t> default_value, ptrdiff_
 	\param default_value Значение по умолчанию
 	\return Вещественное число
 */
-double GetFloating( string prompt, GUIValue<double> default_value, double min_value, double max_value, out_of_range_control allow_out_of_range = out_of_range_prohibited);
-double GetFloating( wstring prompt, GUIValue<double> default_value, double min_value, double max_value, out_of_range_control allow_out_of_range = out_of_range_prohibited);
+double GetFloating(string prompt, GUIValue<double> default_value, double min_value, double max_value, out_of_range_control allow_out_of_range = out_of_range_prohibited);
+double GetFloating(wstring prompt, GUIValue<double> default_value, double min_value, double max_value, out_of_range_control allow_out_of_range = out_of_range_prohibited);
 //! \} //Функции пользовательского ввода
 
 
@@ -425,7 +425,7 @@ wstring GetFileNameWrite(wstring prompt, GUIValue<wstring> default_name = saved_
 	\sa GUISaveParameter.
 */
 template <class T>
-bool SaveParameter(const wstring &function_name, const wstring &param_name, const T &param);
+bool SaveParameter(const wstring& function_name, const wstring& param_name, const T& param);
 
 /*!
 	\brief Функция загрузки значения из системного хранилища. Имеет реализации
@@ -434,8 +434,8 @@ bool SaveParameter(const wstring &function_name, const wstring &param_name, cons
 	\sa GUILoadParameter.
 */
 template <class T>
-T GetSavedParameter(const wstring &function_name, const wstring &param_name,
-		const T &default_value, bool *loaded = nullptr);
+T GetSavedParameter(const wstring& function_name, const wstring& param_name,
+	const T& default_value, bool* loaded = nullptr);
 
 
 
@@ -454,21 +454,21 @@ T GetSavedParameter(const wstring &function_name, const wstring &param_name,
 
 template<class SAMPLE_T>
 void DisplayImage(wstring name, const SAMPLE_T* data,
-		size_t vs, size_t hs,
-		const axis_legend &y_axis_legend,
-		const axis_legend &x_axis_legend,
-		const value_legend &vlegend);
+	size_t vs, size_t hs,
+	const axis_legend& y_axis_legend,
+	const axis_legend& x_axis_legend,
+	const value_legend& vlegend);
 
 template<class SAMPLE_T>
 void DisplayImage(string name, const SAMPLE_T* data,
-		size_t vs, size_t hs,
-		const axis_legend &y_axis_legend,
-		const axis_legend &x_axis_legend,
-		const value_legend &vlegend)
-		{
-		DisplayImage(string_to_wstring(name, e_decode_literals), data,
-			vs, hs, y_axis_legend, x_axis_legend, vlegend);
-		}
+	size_t vs, size_t hs,
+	const axis_legend& y_axis_legend,
+	const axis_legend& x_axis_legend,
+	const value_legend& vlegend)
+{
+	DisplayImage(string_to_wstring(name, e_decode_literals), data,
+		vs, hs, y_axis_legend, x_axis_legend, vlegend);
+}
 
 
 RealFunction2D_F32	GetPainting(const wstring& title, size_t vsize, size_t hsize);
@@ -502,13 +502,13 @@ RealFunction2D_F32	GetPainting(const wstring& title, size_t vsize, size_t hsize)
 	Формат информации примерно следующий:
 	\verbatim
 	MyApplication version 0.99.1.1
-	
+
 	My Corporation Name
 
 	See readme.html for more information.
 	\endverbatim
 */
-void SetVersionInfo(const string &text);
+void SetVersionInfo(const string& text);
 
 //--------------------------------------------------------------
 

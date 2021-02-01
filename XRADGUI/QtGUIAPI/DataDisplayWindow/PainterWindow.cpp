@@ -18,7 +18,7 @@ namespace XRAD_GUI
 
 
 
-		PainterWindow::PainterWindow(const QString &in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc)
+		PainterWindow::PainterWindow(const QString& in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc)
 		:
 		DataDisplayWindow(gc),
 		m_vsize(in_vsize),
@@ -82,10 +82,10 @@ namespace XRAD_GUI
 
 	PainterWindow::~PainterWindow()
 	{
-	//	QPainter painter(result.get());
-	//	drawing_scene->render(&painter);
+		//	QPainter painter(result.get());
+		//	drawing_scene->render(&painter);
 
-		//удаляем объект из массива диалогов
+			//удаляем объект из массива диалогов
 		gui_controller.RemoveWidget(this);
 		delete drawing_scene;
 		delete drawing_graphicsView;
@@ -116,7 +116,7 @@ namespace XRAD_GUI
 			// если произошло одно из событий от мыши, то
 			switch (event->type())
 			{
-			//case QMouseEvent::GraphicsSceneMouseMove:
+				//case QMouseEvent::GraphicsSceneMouseMove:
 			case QMouseEvent::GraphicsSceneMousePress:
 			case QMouseEvent::GraphicsSceneMouseRelease:
 			{

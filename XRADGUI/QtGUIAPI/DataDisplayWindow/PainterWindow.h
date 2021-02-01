@@ -21,24 +21,24 @@
 namespace XRAD_GUI
 {
 
-XRAD_USING
+	XRAD_USING
 
 
 
 
-class PainterWindow: public DataDisplayWindow
-{
+		class PainterWindow : public DataDisplayWindow
+	{
 		Q_OBJECT
 
 	public:
-		PainterWindow(const QString &in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController &gc);
+		PainterWindow(const QString& in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc);
 		~PainterWindow();
 
-//		void	SavePicture(QString file_name);
-//		QImage	GetResult();
+		//		void	SavePicture(QString file_name);
+		//		QImage	GetResult();
 
 	private:
-//		double	brush_size;
+		//		double	brush_size;
 
 		const size_t	m_vsize, m_hsize;
 		QString	m_title;
@@ -49,16 +49,16 @@ class PainterWindow: public DataDisplayWindow
 
 		//TODO следующие функции пересмотреть
 		//	обработчики событий
-		void closeEvent(QCloseEvent *event);
-		void keyPressEvent ( QKeyEvent * event );
+		void closeEvent(QCloseEvent* event);
+		void keyPressEvent(QKeyEvent* event);
 
-		bool eventFilter(QObject *target,QEvent *event);
-//		void procMouseEvent(QEvent *event);
+		bool eventFilter(QObject* target, QEvent* event);
+		//		void procMouseEvent(QEvent *event);
 
-		// режим отображения координат
+				// режим отображения координат
 
 
-		//	слоты и сигналы
+				//	слоты и сигналы
 
 	public slots:
 		//void slotSavePicture();
@@ -66,7 +66,7 @@ class PainterWindow: public DataDisplayWindow
 
 	signals:
 		void signal_esc();
-};
+	};
 
 
 
