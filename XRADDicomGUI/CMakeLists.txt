@@ -18,6 +18,7 @@ set(Project_IncludeDirs ${Project_IncludeDirs}
 set(Project_Sources_cpp
 	Sources/dialogs.cpp
 	Sources/DisplayFunctions/DisplayAcquisitionXRay.cpp
+	Sources/DisplayFunctions/DisplayGenericImageAcquision.cpp
 	Sources/DisplayFunctions/DisplayProcessAcquisition.cpp
 	Sources/DisplayFunctions/DisplayTomogram_CTAcquisition.cpp
 	Sources/DisplayFunctions/DisplayTomogram_GenericAcquisition.cpp
@@ -29,6 +30,7 @@ set(Project_Sources_cpp
 set(Project_Sources_h
 	Sources/dialogs.h
 	Sources/DisplayFunctions/DisplayAcquisitionXRay.h
+	Sources/DisplayFunctions/DisplayGenericImageAcquision.h
 	Sources/DisplayFunctions/DisplayProcessAcquisition.h
 	Sources/DisplayFunctions/DisplayTomogram_CTAcquisition.h
 	Sources/DisplayFunctions/DisplayTomogram_GenericAcquisition.h
