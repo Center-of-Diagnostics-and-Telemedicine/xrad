@@ -554,7 +554,7 @@ if_tag<DISPLAY_TAG, DisplayTagScalar, void> MathFunction3DDisplayer<A3DT>::Displ
 
 				ComputeHistogram(array_md, histogram, absolute_range);
 				double	step = absolute_range.delta()/n;
-				DisplayMathFunction(histogram, absolute_range.p1() + step/2, step, "Histogram", "value", "probability");
+				DisplayMathFunction(histogram, absolute_range.p1() + step/2, step, title + L" 'histogram'", L"probability", L"value");
 			}
 			break;
 
@@ -568,7 +568,7 @@ if_tag<DISPLAY_TAG, DisplayTagScalar, void> MathFunction3DDisplayer<A3DT>::Displ
 				ComputeHistogramTransformed(array_md, histogram, recommended_range, Functors::amplitude_to_decibel_value());
 				double	step = recommended_range.delta()/n;
 				DisplayMathFunction(histogram, recommended_range.x1() + step/2,
-					step, convert_to_string(title) + "Histogram (log. abs)", "dB", "probability");
+					step, title + L" 'histogram (log. abs)'", L"probability", L"dB");
 			}
 			break;
 	}
@@ -595,7 +595,7 @@ if_tag<DISPLAY_TAG, DisplayTagComplex, void> MathFunction3DDisplayer<A3DT>::Disp
 
 				ComputeComponentsHistogram(array_md, histogram, range1_F64(minval, maxval));
 				double step = (maxval-minval)/n;
-				GraphSet	gs(convert_to_string(title)+" Histogram", "probability", "value");
+				GraphSet	gs(title + L" 'histogram'", L"probability", L"value");
 				//TODO сделать уточнение масштаба гистограммы: форсировать минимум в нуле, диапазоны по x  растянуть до minval, maxval. то же в остальных гистограммах, включая многомерные данные
 				gs.AddGraphUniform(histogram.row(0), minval+step/2, step, "real part");
 				gs.AddGraphUniform(histogram.row(1), minval+step/2, step, "imag part");
@@ -611,7 +611,7 @@ if_tag<DISPLAY_TAG, DisplayTagComplex, void> MathFunction3DDisplayer<A3DT>::Disp
 
 				ComputeHistogramTransformed(array_md, histogram, absolute_range, avf);
 				double step = absolute_range.delta()/n;
-				DisplayMathFunction(histogram, absolute_range.x1() + step/2, step, convert_to_string(title) + "Histogram (abs)", "abs. value", "probability");
+				DisplayMathFunction(histogram, absolute_range.x1() + step/2, step, title + L" 'histogram (abs)'", L"probability", L"abs. value");
 			}
 			break;
 
@@ -625,7 +625,7 @@ if_tag<DISPLAY_TAG, DisplayTagComplex, void> MathFunction3DDisplayer<A3DT>::Disp
 				ComputeHistogramTransformed(array_md, histogram, recommended_range, Functors::amplitude_to_decibel_value());
 				double step = recommended_range.delta()/n;
 				DisplayMathFunction(histogram, recommended_range.x1() + step/2,
-					step, convert_to_string(title) + "Histogram (log. abs)", "dB", "probability");
+					step, title + L" 'histogram (log. abs)'", L"probability", L"dB");
 			}
 			break;
 	}
@@ -657,7 +657,7 @@ if_tag<DISPLAY_TAG, DisplayTagRGB, void> MathFunction3DDisplayer<A3DT>::DisplayH
 				ComputeComponentsHistogram(array_md, histogram, range1_F64(minval, maxval));
 				double	step = (maxval-minval)/n;
 
-				GraphSet	gs(convert_to_string(title)+" 'histogram'", "probability", "value");
+				GraphSet	gs(title + L" 'histogram'", L"probability", L"value");
 				gs.AddGraphUniform(histogram.row(1), minval+step/2, step, "green");
 				gs.AddGraphUniform(histogram.row(2), minval+step/2, step, "blue");
 				gs.AddGraphUniform(histogram.row(0), minval+step/2, step, "red");
@@ -674,7 +674,7 @@ if_tag<DISPLAY_TAG, DisplayTagRGB, void> MathFunction3DDisplayer<A3DT>::DisplayH
 
 				double	step = absolute_range.delta()/n;
 
-				DisplayMathFunction(histogram, absolute_range.x1() + step/2, step, convert_to_string(title) + "Histogram (abs)", "abs. value", "probability");
+				DisplayMathFunction(histogram, absolute_range.x1() + step/2, step, title + L" 'histogram (abs)'", L"probability", L"abs. value");
 			}
 			break;
 	}
@@ -1072,7 +1072,7 @@ void	MathFunction3DDisplayer<A3DT>::Display()
 						MakeButton(L"1-2 planes - all", display_3D_options::coord_12_all),
 						MakeButton(L"0-2 planes - all", display_3D_options::coord_02_all),
 						MakeButton(L"0-1 planes - all", display_3D_options::coord_01_all),
-						MakeButton(L"Histogram analyzer", display_3D_options::histogram_analyzer),
+						MakeButton(L"Analyze histogram", display_3D_options::histogram_analyzer),
 						MakeButton(L"Fragment", display_3D_options::region_animation),
 						MakeButton(L"Local statistics", display_3D_options::local_statistics_analyzer),
 						MakeButton(L"Extended options", display_3D_options::extended_analyzer),
