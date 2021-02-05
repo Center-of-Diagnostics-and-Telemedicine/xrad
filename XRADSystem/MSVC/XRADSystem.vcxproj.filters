@@ -75,6 +75,12 @@
     <ClCompile Include="..\Sources\Utils\BitmapFile.cpp">
       <Filter>Sources\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\System\xrad_fopen.cpp">
+      <Filter>Sources\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\System\xrad_fstream.cpp">
+      <Filter>Sources\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pre.h">
@@ -132,6 +138,15 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="..\TextFile.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\System\xrad_fopen.h">
+      <Filter>Sources\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\System\xrad_fstream.h">
+      <Filter>Sources\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fstream.h">
       <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>
