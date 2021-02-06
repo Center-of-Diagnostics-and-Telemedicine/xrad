@@ -375,6 +375,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="..\..\..\..\source\repos\QPainterSB\QPainterSB\PainterWindow.ui" />
     <QtUic Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.ui" />
     <QtUic Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.ui" />
     <QtUic Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.ui" />

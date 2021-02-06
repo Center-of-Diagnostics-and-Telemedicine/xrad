@@ -11,7 +11,7 @@
 
 #include <XRADGUI/Sources/Internal/std.h>
 #include <XRADBasic/Core.h>
-
+#include <ui_PainterWindow.h>
 
 #include <XRADBasic/ContainersAlgebra.h>
 #include <XRADGUI/QTGUIAPI/DataDisplayWindow/DataDisplayWindow.h>
@@ -43,7 +43,7 @@ namespace XRAD_GUI
 		const size_t	m_vsize, m_hsize;
 		QString	m_title;
 
-		QGraphicsView* drawing_graphicsView;
+		
 		PaintScene* drawing_scene;
 		shared_ptr<QImage> result;
 
@@ -56,7 +56,7 @@ namespace XRAD_GUI
 		//		void procMouseEvent(QEvent *event);
 
 				// режим отображения координат
-
+		Ui::Dialog ui;
 
 				//	слоты и сигналы
 

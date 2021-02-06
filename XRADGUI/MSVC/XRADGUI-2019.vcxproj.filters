@@ -482,6 +482,9 @@
     <QtUic Include="..\QtGUIAPI\Forms\ShowValueDialog.ui">
       <Filter>QtGUIAPI\Forms</Filter>
     </QtUic>
+    <QtUic Include="..\..\..\..\source\repos\QPainterSB\QPainterSB\PainterWindow.ui">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="..\QtGUIAPI\Resources\XRADResources.qrc">

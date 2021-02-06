@@ -28,6 +28,7 @@ namespace XRAD_GUI
 	{
 		try
 		{
+			ui.setupUi(this);
 			// задаем положение окна
 			auto corner = GetCornerPosition();
 			setGeometry(QRect(QPoint(corner.x(), corner.y()), QPoint(int(in_hsize), int(in_vsize))));
@@ -41,7 +42,7 @@ namespace XRAD_GUI
 			if (objectName().isEmpty()) setObjectName(m_title);
 			setWindowTitle(m_title);
 
-			drawing_graphicsView = new QGraphicsView();
+			
 			drawing_scene = new PaintScene();
 
 
@@ -50,23 +51,18 @@ namespace XRAD_GUI
 
 
 			resize(int(m_hsize), int(m_vsize));
-			drawing_graphicsView->resize(int(m_hsize) + 5, int(m_vsize) + 5);
+			ui.drawing_graphicsView->resize(int(m_hsize) + 5, int(m_vsize) + 5);
 
 
-			drawing_scene->setParent(drawing_graphicsView);
+			drawing_scene->setParent(ui.drawing_graphicsView);
 			drawing_scene->setSceneRect(0, 0, m_hsize, m_vsize);
 			drawing_scene->setBackgroundBrush(Qt::white);
 
-			drawing_graphicsView->setScene(drawing_scene);
-			drawing_graphicsView->setParent(this);
+			ui.drawing_graphicsView->setScene(drawing_scene);
+			ui.drawing_graphicsView->setParent(this);
 
 			*result = QImage(drawing_scene->sceneRect().size().toSize(), QImage::Format_RGB888);
 
-
-			//		plot->installEventFilter(this);
-
-			//		QObject::connect(cbShowSymbol, SIGNAL(toggled(bool)), this, SLOT(slotSetSymbol(bool)));
-			//		QObject::connect(cbIgnoreScale, SIGNAL(toggled(bool)), this, SLOT(slotSetTransform(bool)));
 
 
 			setAttribute(Qt::WA_DeleteOnClose, true);
@@ -88,7 +84,7 @@ namespace XRAD_GUI
 			//удаляем объект из массива диалогов
 		gui_controller.RemoveWidget(this);
 		delete drawing_scene;
-		delete drawing_graphicsView;
+		//delete drawing_graphicsView;
 	}
 
 	//QImage	PainterWindow::GetResult()
@@ -111,7 +107,7 @@ namespace XRAD_GUI
 	// Обработчик всех событий
 	bool PainterWindow::eventFilter(QObject* target, QEvent* event)
 	{
-		if (target == drawing_scene || target == drawing_graphicsView)
+		if (target == drawing_scene || target == ui.drawing_graphicsView)
 		{
 			// если произошло одно из событий от мыши, то
 			switch (event->type())
