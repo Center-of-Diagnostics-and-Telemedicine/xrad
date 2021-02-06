@@ -68,6 +68,9 @@ namespace XRAD_GUI
 			setAttribute(Qt::WA_DeleteOnClose, true);
 			drawing_scene->installEventFilter(this);
 			ui.size_spinBox->installEventFilter(this);
+			ui.red_spinBox->installEventFilter(this);
+			ui.blue_spinBox->installEventFilter(this);
+			ui.green_spinBox->installEventFilter(this);
 			installEventFilter(this);
 
 			//добавляем объект в массив диалогов
@@ -120,8 +123,6 @@ namespace XRAD_GUI
 			{
 				QPainter painter(result.get());
 				drawing_scene->render(&painter);
-				drawing_scene->SetBrushColor(QColor::fromRgb(ui.red_spinBox->value(), ui.green_spinBox->value(), ui.blue_spinBox->value()));
-				drawing_scene->SetBrushSize(ui.size_spinBox->value());
 			}
 			break;			
 			default:
@@ -131,6 +132,11 @@ namespace XRAD_GUI
 		if (target == ui.size_spinBox)
 		{
 			ui.drawing_graphicsView->setCursor(GetCursor(ui.size_spinBox->value() / 2));
+			drawing_scene->SetBrushSize(ui.size_spinBox->value());
+		}
+		if (target == ui.red_spinBox || ui.blue_spinBox || ui.green_spinBox)
+		{
+			drawing_scene->SetBrushColor(QColor::fromRgb(ui.red_spinBox->value(), ui.green_spinBox->value(), ui.blue_spinBox->value()));
 		}
 		//передаем управление стандартному обработчику событий
 		return QObject::eventFilter(target, event);
