@@ -44,22 +44,22 @@ namespace XRAD_GUI
 
 			
 			drawing_scene = new PaintScene();
+			drawing_scene->setBackgroundBrush(Qt::white);
+
+			
 
 
-			drawing_scene->SetColor(Qt::black);
-
-
-
-			resize(int(m_hsize), int(m_vsize));
-			ui.drawing_graphicsView->resize(int(m_hsize) + 5, int(m_vsize) + 5);
-
+			setFixedSize(QSize(int(m_hsize) + 14, int(m_vsize) + 75));
 
 			drawing_scene->setParent(ui.drawing_graphicsView);
 			drawing_scene->setSceneRect(0, 0, m_hsize, m_vsize);
-			drawing_scene->setBackgroundBrush(Qt::white);
+			
 
+
+			ui.drawing_graphicsView->setFixedSize(m_hsize + 4, m_vsize + 4);
+			ui.drawing_graphicsView->setSceneRect(0, 0, m_hsize, m_vsize);
 			ui.drawing_graphicsView->setScene(drawing_scene);
-			ui.drawing_graphicsView->setParent(this);
+			
 
 			*result = QImage(drawing_scene->sceneRect().size().toSize(), QImage::Format_RGB888);
 
@@ -68,6 +68,7 @@ namespace XRAD_GUI
 			setAttribute(Qt::WA_DeleteOnClose, true);
 			drawing_scene->installEventFilter(this);
 			installEventFilter(this);
+
 			//добавляем объект в массив диалогов
 			gui_controller.AddWidget(this);
 		}
