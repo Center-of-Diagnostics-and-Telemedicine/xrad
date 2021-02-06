@@ -46,21 +46,23 @@ namespace XRAD_GUI
 		
 		PaintScene* drawing_scene;
 		shared_ptr<QImage> result;
-
+		
 
 		QPixmap GetCursor(size_t radius);
 		//TODO следующие функции пересмотреть
 		//	обработчики событий
+
+
 		void closeEvent(QCloseEvent* event);
 		void keyPressEvent(QKeyEvent* event);
 
 		bool eventFilter(QObject* target, QEvent* event);
 		//		void procMouseEvent(QEvent *event);
 
-				// режим отображения координат
+				
 		Ui::Dialog ui;
 
-				//	слоты и сигналы
+				
 
 	public slots:
 		//void slotSavePicture();

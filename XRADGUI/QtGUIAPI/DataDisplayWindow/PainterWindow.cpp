@@ -29,37 +29,29 @@ namespace XRAD_GUI
 		try
 		{
 			ui.setupUi(this);
+
+
 			// задаем положение окна
 			auto corner = GetCornerPosition();
 			setGeometry(QRect(QPoint(corner.x(), corner.y()), QPoint(int(in_hsize), int(in_vsize))));
 
-			//		SetBackground(Qt::white, Qt::SolidPattern);
-
-			//TODO	Копировать сюда остальное
-
-
-
 			if (objectName().isEmpty()) setObjectName(m_title);
 			setWindowTitle(m_title);
 
-			
-			drawing_scene = new PaintScene();
-			drawing_scene->setBackgroundBrush(Qt::white);
-
-			
-
 
 			setFixedSize(QSize(int(m_hsize) + 14, int(m_vsize) + 75));
+			//ui.drawing_graphicsView->setStyle();
 
+			drawing_scene = new PaintScene();
+			drawing_scene->setBackgroundBrush(Qt::white);
 			drawing_scene->setParent(ui.drawing_graphicsView);
 			drawing_scene->setSceneRect(0, 0, m_hsize, m_vsize);
-			
 
 
-			ui.drawing_graphicsView->setFixedSize(m_hsize + 4, m_vsize + 4);
+			ui.drawing_graphicsView->setFixedSize(int(m_hsize) + 4, int(m_vsize) + 4);
 			ui.drawing_graphicsView->setSceneRect(0, 0, m_hsize, m_vsize);
 			ui.drawing_graphicsView->setScene(drawing_scene);
-			
+
 
 			*result = QImage(drawing_scene->sceneRect().size().toSize(), QImage::Format_RGB888);
 
@@ -83,48 +75,33 @@ namespace XRAD_GUI
 
 	PainterWindow::~PainterWindow()
 	{
-		//	QPainter painter(result.get());
-		//	drawing_scene->render(&painter);
-
-			//удаляем объект из массива диалогов
+		//удаляем объект из массива диалогов
 		gui_controller.RemoveWidget(this);
 		delete drawing_scene;
-		//delete drawing_graphicsView;
 	}
-
-	//QImage	PainterWindow::GetResult()
-	//{
-	////	QPainter painter(&*result);
-	//	QPainter painter(result.get());
-	//	drawing_scene->render(&painter);
-	//
-	//	return result;
-	//}
-
 
 
 	void PainterWindow::closeEvent(QCloseEvent* event)
 	{
-
 		QDialog::closeEvent(event);
 	}
 
 	// Обработчик всех событий
 	bool PainterWindow::eventFilter(QObject* target, QEvent* event)
 	{
-		if (target == drawing_scene )
+		if (target == drawing_scene)
 		{
 			// если произошло одно из событий от мыши, то
 			switch (event->type())
 			{
-				//case QMouseEvent::GraphicsSceneMouseMove:
 			case QMouseEvent::GraphicsSceneMousePress:
 			case QMouseEvent::GraphicsSceneMouseRelease:
 			{
 				QPainter painter(result.get());
 				drawing_scene->render(&painter);
+
 			}
-			break;			
+			break;
 			default:
 				break;
 			};
@@ -166,7 +143,7 @@ namespace XRAD_GUI
 		//radius = 10;
 
 		QPixmap result_pxmp;
-		QImage result_img(radius * 2, radius * 2, QImage::Format_RGBA8888);
+		QImage result_img(int(radius) * 2, int(radius) * 2, QImage::Format_RGBA8888);
 
 		float thickness = radius < 30 ? 1.7 : float(radius) / 20;
 		float	circle_radius = radius - thickness;
@@ -181,7 +158,7 @@ namespace XRAD_GUI
 			for (size_t j = 0; j < 2 * radius; j++)
 			{
 				float delta = hypot(float(i) - radius, float(j) - radius) - circle_radius;
-				auto pt = QPoint(i, j);
+				auto pt = QPoint(int(i), int(j));
 				float	d = fabs(delta) / thickness;
 
 				if (d < 1)
