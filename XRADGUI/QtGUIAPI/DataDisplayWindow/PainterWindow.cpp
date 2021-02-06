@@ -67,6 +67,7 @@ namespace XRAD_GUI
 
 			setAttribute(Qt::WA_DeleteOnClose, true);
 			drawing_scene->installEventFilter(this);
+			ui.size_spinBox->installEventFilter(this);
 			installEventFilter(this);
 
 			//добавляем объект в массив диалогов
@@ -108,7 +109,7 @@ namespace XRAD_GUI
 	// Обработчик всех событий
 	bool PainterWindow::eventFilter(QObject* target, QEvent* event)
 	{
-		if (target == drawing_scene || target == ui.drawing_graphicsView)
+		if (target == drawing_scene )
 		{
 			// если произошло одно из событий от мыши, то
 			switch (event->type())
@@ -122,10 +123,14 @@ namespace XRAD_GUI
 				drawing_scene->SetBrushColor(QColor::fromRgb(ui.red_spinBox->value(), ui.green_spinBox->value(), ui.blue_spinBox->value()));
 				drawing_scene->SetBrushSize(ui.size_spinBox->value());
 			}
-			break;
+			break;			
 			default:
 				break;
 			};
+		}
+		if (target == ui.size_spinBox)
+		{
+			ui.drawing_graphicsView->setCursor(GetCursor(ui.size_spinBox->value() / 2));
 		}
 		//передаем управление стандартному обработчику событий
 		return QObject::eventFilter(target, event);
@@ -150,6 +155,41 @@ namespace XRAD_GUI
 	}
 
 
+	QPixmap PainterWindow::GetCursor(size_t  radius)
+	{
+		//radius = 10;
 
+		QPixmap result_pxmp;
+		QImage result_img(radius * 2, radius * 2, QImage::Format_RGBA8888);
+
+		float thickness = radius < 30 ? 1.7 : float(radius) / 20;
+		float	circle_radius = radius - thickness;
+
+		auto alpha = [](float d) -> unsigned int {return unsigned int(255. * sqrt(d)) << 24; };
+		int	black = 0;
+		int white = 0xFFFFFF;
+
+
+		for (size_t i = 0; i < 2 * radius; i++)
+		{
+			for (size_t j = 0; j < 2 * radius; j++)
+			{
+				float delta = hypot(float(i) - radius, float(j) - radius) - circle_radius;
+				auto pt = QPoint(i, j);
+				float	d = fabs(delta) / thickness;
+
+				if (d < 1)
+				{
+					int	color = delta < 0 ? black : white;
+
+					result_img.setPixel(pt, color | alpha(1 - d));
+				}
+				else result_img.setPixel(pt, 0x00000000);
+			}
+		}
+		result_pxmp = QPixmap::fromImage(result_img);
+
+		return result_pxmp;
+	}
 
 }//namespace XRAD_GUI

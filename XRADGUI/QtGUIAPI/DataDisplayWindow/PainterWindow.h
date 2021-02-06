@@ -47,6 +47,8 @@ namespace XRAD_GUI
 		PaintScene* drawing_scene;
 		shared_ptr<QImage> result;
 
+
+		QPixmap GetCursor(size_t radius);
 		//TODO следующие функции пересмотреть
 		//	обработчики событий
 		void closeEvent(QCloseEvent* event);
