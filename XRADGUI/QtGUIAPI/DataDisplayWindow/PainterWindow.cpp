@@ -119,6 +119,8 @@ namespace XRAD_GUI
 			{
 				QPainter painter(result.get());
 				drawing_scene->render(&painter);
+				drawing_scene->SetBrushColor(QColor::fromRgb(ui.red_spinBox->value(), ui.green_spinBox->value(), ui.blue_spinBox->value()));
+				drawing_scene->SetBrushSize(ui.size_spinBox->value());
 			}
 			break;
 			default:
