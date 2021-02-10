@@ -282,7 +282,7 @@ void DataArrayMD<A2DT>::CopyData(const DataArrayMD<A2DT2> &original, const funct
 	if(original.empty())
 	{
 		typename functor::result_type zero_converted;
-		f(zero_converted, zero_value(value_type()));
+		f(zero_converted, zero_value(typename A2DT2::value_type()));
 		fill(zero_converted);
 	}
 	else Apply_AA_MD_Different_F2(*this, original, f);
