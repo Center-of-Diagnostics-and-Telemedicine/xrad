@@ -270,6 +270,7 @@
     <ClCompile Include="..\..\XRADQt\QtStringConverters.cpp" />
     <ClCompile Include="..\Sources\RasterImageFile\RasterImageFile.cpp" />
     <ClCompile Include="..\Sources\Utils\AutoProgressIndicatorScheduler.cpp" />
+    <ClCompile Include="PaintWidget.cpp" />
     <ClCompile Include="XRADGUI_pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'">Create</PrecompiledHeader>
@@ -360,6 +361,7 @@
     <ClInclude Include="..\Sources\PlatformSpecific\Qt\Internal\Keyboard_Qt.h" />
     <ClInclude Include="..\..\XRADQt\QtStringConverters.h" />
     <ClInclude Include="..\Sources\Utils\AutoProgressIndicatorScheduler.h" />
+    <QtMoc Include="PaintWidget.h" />
     <ClInclude Include="pre.h" />
   </ItemGroup>
   <ItemGroup>
@@ -375,7 +377,12 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="..\..\..\..\source\repos\QPainterSB\QPainterSB\PainterWindow.ui" />
+    <QtUic Include="..\..\..\..\source\repos\QPainterSB\QPainterSB\PainterWindow.ui">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </QtUic>
     <QtUic Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.ui" />
     <QtUic Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.ui" />
     <QtUic Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.ui" />

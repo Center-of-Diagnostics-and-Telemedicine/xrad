@@ -21,48 +21,41 @@ namespace XRAD_GUI
 		PainterWindow::PainterWindow(const QString& in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc)
 		:
 		DataDisplayWindow(gc),
-		m_vsize(in_vsize),
-		m_hsize(in_hsize),
-		m_title(in_title),
-		result(in_result)
+		m_nVSize(in_vsize),
+		m_nHSize(in_hsize),
+		m_sTitle(in_title),
+		m_pResult(in_result)
 	{
 		try
 		{
 			ui.setupUi(this);
 
+			//QHBoxLayout* hbox = new QHBoxLayout();
 
-			// задаем положение окна
-			auto corner = GetCornerPosition();
-			setGeometry(QRect(QPoint(corner.x(), corner.y()), QPoint(int(in_hsize), int(in_vsize))));
-
-			if (objectName().isEmpty()) setObjectName(m_title);
-			setWindowTitle(m_title);
+			pw = new PaintWidget(this, m_nVSize, m_nHSize, m_pResult);
 
 
-			setFixedSize(QSize(int(m_hsize) + 14, int(m_vsize) + 75));
-			//ui.drawing_graphicsView->setStyle();
-
-			drawing_scene = new PaintScene();
-			drawing_scene->setBackgroundBrush(Qt::white);
-			drawing_scene->setParent(ui.drawing_graphicsView);
-			drawing_scene->setSceneRect(0, 0, m_hsize, m_vsize);
+			setWindowTitle(in_title);
+			setFixedSize(QSize(m_nHSize, m_nVSize + 100));
+			setMinimumSize(460, m_nVSize + 50);
 
 
-			ui.drawing_graphicsView->setFixedSize(int(m_hsize) + 4, int(m_vsize) + 4);
-			ui.drawing_graphicsView->setSceneRect(0, 0, m_hsize, m_vsize);
-			ui.drawing_graphicsView->setScene(drawing_scene);
+			*m_pResult = QImage(QSize(m_nHSize, m_nVSize), QImage::Format_RGB888);
 
+			myLabel.resize(m_nHSize, m_nVSize);
 
-			*result = QImage(drawing_scene->sceneRect().size().toSize(), QImage::Format_RGB888);
+			myLabel.show();
 
+			setLayout(ui.verticalLayout);
+			ui.verticalLayout->addWidget(pw);
 
-
-			setAttribute(Qt::WA_DeleteOnClose, true);
-			drawing_scene->installEventFilter(this);
-			ui.size_spinBox->installEventFilter(this);
 			ui.red_spinBox->installEventFilter(this);
-			ui.blue_spinBox->installEventFilter(this);
 			ui.green_spinBox->installEventFilter(this);
+			ui.blue_spinBox->installEventFilter(this);
+			ui.size_spinBox->installEventFilter(this);
+			ui.comboBox->installEventFilter(this);
+
+			pw->installEventFilter(this);
 			installEventFilter(this);
 
 			//добавляем объект в массив диалогов
@@ -77,7 +70,7 @@ namespace XRAD_GUI
 	{
 		//удаляем объект из массива диалогов
 		gui_controller.RemoveWidget(this);
-		delete drawing_scene;
+		
 	}
 
 
@@ -89,33 +82,38 @@ namespace XRAD_GUI
 	// Обработчик всех событий
 	bool PainterWindow::eventFilter(QObject* target, QEvent* event)
 	{
-		if (target == drawing_scene)
+		if (target == ui.comboBox)
 		{
-			// если произошло одно из событий от мыши, то
-			switch (event->type())
+			if (ui.comboBox->currentText() == "Hand")
 			{
-			case QMouseEvent::GraphicsSceneMousePress:
-			case QMouseEvent::GraphicsSceneMouseRelease:
-			{
-				QPainter painter(result.get());
-				drawing_scene->render(&painter);
-
+				pw->SetDrawer(PaintWidget::Drawers::Hand);
 			}
-			break;
-			default:
-				break;
-			};
+			else if (ui.comboBox->currentText() == "Rect")
+			{
+				pw->SetDrawer(PaintWidget::Drawers::Rect);
+			}
+			else if (ui.comboBox->currentText() == "Ellipse")
+			{
+				pw->SetDrawer(PaintWidget::Drawers::Ellipse);
+			}
+			else if (ui.comboBox->currentText() == "Line")
+			{
+				pw->SetDrawer(PaintWidget::Drawers::Line);
+			}
+		}
+		if (target == ui.red_spinBox || target == ui.green_spinBox || target == ui.blue_spinBox)
+		{
+			pw->SetColor(QColor::fromRgb(ui.red_spinBox->value(), ui.green_spinBox->value(), ui.blue_spinBox->value()));
+			ui.color_view_widget->setStyleSheet(GetStringStyleSheet(ui.red_spinBox->value(), ui.green_spinBox->value(), ui.blue_spinBox->value()));
+
 		}
 		if (target == ui.size_spinBox)
 		{
-			ui.drawing_graphicsView->setCursor(GetCursor(ui.size_spinBox->value() / 2));
-			drawing_scene->SetBrushSize(ui.size_spinBox->value());
+			pw->SetBrushSize(ui.size_spinBox->value());
+			pw->setCursor(GetCursor(ui.size_spinBox->value() / 2));
 		}
-		if (target == ui.red_spinBox || ui.blue_spinBox || ui.green_spinBox)
-		{
-			drawing_scene->SetBrushColor(QColor::fromRgb(ui.red_spinBox->value(), ui.green_spinBox->value(), ui.blue_spinBox->value()));
-		}
-		//передаем управление стандартному обработчику событий
+
+		
 		return QObject::eventFilter(target, event);
 	}
 
@@ -125,10 +123,6 @@ namespace XRAD_GUI
 		{
 			switch (event->key())
 			{
-				//case Qt::Key_S:
-				//	if(event->modifiers() == Qt::ControlModifier) slotSavePicture();
-				//	break;
-
 			case Qt::Key_Escape:
 				emit signal_esc();
 				break;
@@ -175,4 +169,21 @@ namespace XRAD_GUI
 		return result_pxmp;
 	}
 
+
+	QString PainterWindow::GetStringStyleSheet(int r, int g, int b)
+	{
+		QString result;
+
+		result.append("background-color: rgb(");
+		result.append(QString::number(r));
+		result.append(", ");
+		result.append(QString::number(g));
+		result.append(", ");
+		result.append(QString::number(b));
+		result.append(", ");
+
+		result.append(");");
+
+		return result;
+	}
 }//namespace XRAD_GUI

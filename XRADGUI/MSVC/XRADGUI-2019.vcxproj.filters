@@ -213,6 +213,9 @@
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\PaintScene.cpp">
       <Filter>QtGUIAPI\DataDisplayWindow</Filter>
     </ClCompile>
+    <ClCompile Include="PaintWidget.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pre.h">
@@ -379,6 +382,9 @@
     </ClInclude>
     <ClInclude Include="..\..\XRADQt\QtStringConverters.h">
       <Filter>XRADQt</Filter>
+    </ClInclude>
+    <ClInclude Include="PaintWidget.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

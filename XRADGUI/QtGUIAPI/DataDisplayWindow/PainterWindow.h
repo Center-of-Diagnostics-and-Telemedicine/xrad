@@ -12,11 +12,10 @@
 #include <XRADGUI/Sources/Internal/std.h>
 #include <XRADBasic/Core.h>
 #include <ui_PainterWindow.h>
-
 #include <XRADBasic/ContainersAlgebra.h>
 #include <XRADGUI/QTGUIAPI/DataDisplayWindow/DataDisplayWindow.h>
-#include <XRADGUI/QTGUIAPI/DataDisplayWindow/PaintScene.h>
 
+#include "PaintWidget.h"
 
 namespace XRAD_GUI
 {
@@ -34,35 +33,37 @@ namespace XRAD_GUI
 		PainterWindow(const QString& in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc);
 		~PainterWindow();
 
-		//		void	SavePicture(QString file_name);
-		//		QImage	GetResult();
+
 
 	private:
-		//		double	brush_size;
 
-		const size_t	m_vsize, m_hsize;
-		QString	m_title;
 
-		
-		PaintScene* drawing_scene;
-		shared_ptr<QImage> result;
-		
 
-		QPixmap GetCursor(size_t radius);
-		//TODO следующие функции пересмотреть
-		//	обработчики событий
+		//QPixmap GetCursor(size_t radius);
 
 
 		void closeEvent(QCloseEvent* event);
 		void keyPressEvent(QKeyEvent* event);
 
 		bool eventFilter(QObject* target, QEvent* event);
-		//		void procMouseEvent(QEvent *event);
 
-				
+
+
+
+		QString GetStringStyleSheet(int, int, int);
+
+
+		QLabel myLabel;
+		size_t m_nVSize, m_nHSize;
+		QString m_sTitle;
+
+		QPixmap GetCursor(size_t);
+
+		shared_ptr<QImage> m_pResult;
+		PaintWidget* pw;
+
 		Ui::Dialog ui;
 
-				
 
 	public slots:
 		//void slotSavePicture();
