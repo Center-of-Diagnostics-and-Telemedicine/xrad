@@ -1,7 +1,10 @@
-﻿// file Core.h
-//--------------------------------------------------------------
-#ifndef __Core_h
-#define __Core_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_Core_h
+#define XRAD__File_Core_h
 //--------------------------------------------------------------
 
 #include "Sources/Core/Config.h"
@@ -29,4 +32,4 @@
 #endif // XRAD_NO_LIBRARIES_LINKS
 
 //--------------------------------------------------------------
-#endif // __Core_h
+#endif // XRAD__File_Core_h
