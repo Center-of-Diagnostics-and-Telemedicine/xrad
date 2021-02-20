@@ -1,0 +1,8 @@
+﻿XRADGUI
+
+XRADGUI is a software library that contains C++ functions and classes for
+graphical user interface (GUI).
+
+This library uses interfaces of Qt and Qwt libraries.
+
+For copyright and license information see LICENSE file.
