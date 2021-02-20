@@ -3,4 +3,6 @@
 XRADConsoleUI is a software library that contains C++ startup code for console
 applications.
 
+XRADConsoleUI is a part of the XRAD library.
+
 For copyright and license information see LICENSE file.

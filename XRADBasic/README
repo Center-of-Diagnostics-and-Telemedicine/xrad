@@ -1,6 +1,8 @@
 ﻿XRADBasic
 
 XRADBasic is a software library that contains C++ functions and data containers
-for signal processing. It is a part of the XRAD library.
+for signal processing.
+
+XRADBasic is a part of the XRAD library.
 
 For copyright and license information see LICENSE file.
