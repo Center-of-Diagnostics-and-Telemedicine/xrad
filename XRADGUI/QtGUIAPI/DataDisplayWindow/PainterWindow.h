@@ -39,26 +39,18 @@ namespace XRAD_GUI
 
 
 
-		//QPixmap GetCursor(size_t radius);
-
-
 		void closeEvent(QCloseEvent* event);
 		void keyPressEvent(QKeyEvent* event);
 
 		bool eventFilter(QObject* target, QEvent* event);
 
 
-
-
+		QPixmap GetCursor(size_t);
 		QString GetStringStyleSheet(int, int, int);
-
-
-		QLabel myLabel;
-		size_t m_nVSize, m_nHSize;
 		QString m_sTitle;
 
-		QPixmap GetCursor(size_t);
-
+		size_t m_nVSize, m_nHSize;
+		
 		shared_ptr<QImage> m_pResult;
 		PaintWidget* pw;
 

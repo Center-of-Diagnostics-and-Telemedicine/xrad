@@ -1,38 +1,33 @@
 #include "pre.h"
 
 #include "paintwidget.h"
-#include <QPainter>
-#include <QPen>
 #include <QBrush>
 #include <QDebug>
+#include <QPainter>
+#include <QPen>
 
-namespace XRAD_GUI
-{
+namespace XRAD_GUI {
 
 	XRAD_USING
 
-		PaintWidget::PaintWidget(QWidget* parent, size_t in_vsize, size_t in_hsize, std::shared_ptr<QImage> in_result) :
+	PaintWidget::PaintWidget(QWidget* parent, size_t in_vsize, size_t in_hsize, std::shared_ptr<QImage> in_result) :
 		QWidget(parent),
 		m_nHsize(in_hsize),
 		m_nVsize(in_vsize),
 		m_pResult(in_result)
 	{
-
-
-		m_qPTargetPixmap = new QPixmap(m_nHsize, m_nVsize);
+		m_qPTargetPixmap = new QPixmap(int(m_nHsize), int(m_nVsize));
 		m_qPTargetPixmap->fill();
 
+		
 		initPen(m_qDrawingPen, m_qcolor, 10, Qt::RoundCap);
 		initPen(m_qErasingPen, Qt::white, 10, Qt::RoundCap);
-
 	}
 
 	PaintWidget::~PaintWidget()
 	{
 		delete m_qPTargetPixmap;
 	}
-
-
 
 	void PaintWidget::mousePressEvent(QMouseEvent* event)
 	{
@@ -45,7 +40,6 @@ namespace XRAD_GUI
 				PixmapPainter.setPen(m_qDrawingPen);
 				PixmapPainter.drawPoint(event->pos());
 			}
-
 		}
 		if (event->button() == Qt::MouseButton::RightButton)
 		{
@@ -54,7 +48,6 @@ namespace XRAD_GUI
 			PixmapPainter.setPen(m_qErasingPen);
 			PixmapPainter.drawPoint(event->pos());
 		}
-
 
 		m_qFigure.setP1(event->pos());
 		m_qFigure.setP2(event->pos());
@@ -65,20 +58,20 @@ namespace XRAD_GUI
 
 	void PaintWidget::mouseReleaseEvent(QMouseEvent* event)
 	{
-
 		if (event->button() == Qt::MouseButton::LeftButton)
 			m_bButtonLeft = false;
 
 		if (event->button() == Qt::MouseButton::RightButton)
 			m_bButtonRight = false;
 
-
 		m_qCurrentPos = event->pos();
 		update();
 	}
 
-	void PaintWidget::paintEvent(QPaintEvent* e)
+	void PaintWidget::paintEvent(QPaintEvent* event)
 	{
+		QPoint start_point = m_qFigure.p1();
+		QPoint end_point = m_qFigure.p2();
 
 		static bool wasPressed = false;
 		QPainter painter(this);
@@ -90,13 +83,13 @@ namespace XRAD_GUI
 		if (m_bButtonLeft)
 		{
 			painter.drawPixmap(0, 0, *m_qPTargetPixmap);
-			DrawFigure(painter, m_qFigure.p1(), m_qFigure.p2());
+			DrawFigure(painter, start_point, end_point);
 
 			wasPressed = true;
 		}
 		else if (wasPressed)
 		{
-			DrawFigure(PixmapPainter, m_qFigure.p1(), m_qFigure.p2());
+			DrawFigure(PixmapPainter, start_point, end_point);
 			painter.drawPixmap(0, 0, *m_qPTargetPixmap);
 			update();
 			wasPressed = false;
@@ -107,21 +100,17 @@ namespace XRAD_GUI
 		}
 		*m_pResult = m_qPTargetPixmap->toImage();
 		//*m_pResult = m_qPTargetPixmap->toImage();
-
 	}
 
 	void PaintWidget::mouseMoveEvent(QMouseEvent* event)
 	{
-
 		QPainter PixmapPainter(m_qPTargetPixmap);
 		PixmapPainter.setPen(m_qDrawingPen);
-
 
 		m_qFigure.setP2(event->pos());
 
 		m_qCurrentPos = event->pos();
-		if (m_bButtonLeft)
-		{
+		if (m_bButtonLeft) {
 			if (m_nDrawer == Hand)
 			{
 				PixmapPainter.setPen(m_qDrawingPen);
@@ -136,10 +125,8 @@ namespace XRAD_GUI
 			m_qPreviousPoint = event->pos();
 		}
 
-
 		update();
 	}
-
 
 	void PaintWidget::initPen(QPen& pen, const QColor& in_color, int in_width, Qt::PenCapStyle in_style)
 	{
@@ -174,14 +161,13 @@ namespace XRAD_GUI
 	void PaintWidget::SetBrushSize(size_t in_size)
 	{
 		m_nSize = in_size;
-		m_qDrawingPen.setWidth(m_nSize);
-		m_qErasingPen.setWidth(m_nSize);
+		m_qDrawingPen.setWidth(int(m_nSize));
+		m_qErasingPen.setWidth(int(m_nSize));
 	}
-
 
 	QPoint PaintWidget::GetCurrentBrushPos()
 	{
 		return m_qCurrentPos;
 	}
 
-}//namespace XRAD_GUI
+} // namespace XRAD_GUI
