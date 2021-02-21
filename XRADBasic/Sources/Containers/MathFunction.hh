@@ -573,12 +573,12 @@ void	MathFunction<XRAD__MathFunction_template_args>::FilterMedian(size_t filter_
 	//unfiltered_buffer.MakeCopy(*this);
 	//filter.realloc(filter_size);
 
-	//auto filter_begin = &filter.at(0);
-	//auto f2 = &filter.at(0) + fs2;
-	//auto filter_end = &filter.at(0) + filter_size;
-	auto filter_begin = filter.begin();
-	auto f2 = filter.begin() + fs2;
-	auto filter_end = filter.begin() + filter_size;
+	auto filter_begin = &filter.at(0);
+	auto f2 = &filter.at(0) + fs2;
+	auto filter_end = &filter.at(0) + filter_size;
+// 	auto filter_begin = filter.begin();
+// 	auto f2 = filter.begin() + fs2;
+// 	auto filter_end = filter.begin() + filter_size;
 	// Два буфера (копия данных и фильтр) аллокируются прямо здесь;
 	// следовательно, шаг step() у них равен единице.
 	// Поэтому вместо итератора, заданного в классе, используем

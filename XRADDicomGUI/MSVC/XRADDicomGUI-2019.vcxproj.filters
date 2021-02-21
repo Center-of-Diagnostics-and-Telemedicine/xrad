@@ -37,6 +37,9 @@
     <ClCompile Include="..\Sources\dialogs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\DisplayFunctions\DisplayGenericImageAcquision.cpp">
+      <Filter>DisplayFunctions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Sources\DisplayFunctions\DisplayAcquisitionXRay.h">

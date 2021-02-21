@@ -125,6 +125,7 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClCompile Include="..\Sources\dialogs.cpp" />
+    <ClCompile Include="..\Sources\DisplayFunctions\DisplayGenericImageAcquision.cpp" />
     <ClCompile Include="..\Sources\SelectSeriesInteractive.cpp" />
     <ClCompile Include="..\Sources\DisplayFunctions\DisplayAcquisitionXRay.cpp" />
     <ClCompile Include="..\Sources\DisplayFunctions\DisplayProcessAcquisition.cpp" />

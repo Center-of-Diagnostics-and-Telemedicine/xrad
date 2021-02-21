@@ -143,6 +143,8 @@
     <ClCompile Include="..\Sources\System\FileNameOperations.cpp" />
     <ClCompile Include="..\Sources\System\FileNamePatternMatch.cpp" />
     <ClCompile Include="..\Sources\System\FileSystem.cpp" />
+    <ClCompile Include="..\Sources\System\xrad_fopen.cpp" />
+    <ClCompile Include="..\Sources\System\xrad_fstream.cpp" />
     <ClCompile Include="..\Sources\TextFile\text_encoding.cpp" />
     <ClCompile Include="..\Sources\TextFile\text_file.cpp" />
     <ClCompile Include="..\Sources\Utils\BitmapFile.cpp" />
@@ -159,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CFile.h" />
+    <ClInclude Include="..\fstream.h" />
     <ClInclude Include="..\Sources\CFile\shared_cfile.h" />
     <ClInclude Include="..\Sources\IniFile\IniParser.hh" />
     <ClInclude Include="..\Sources\IniFile\XRADIniFile.h" />
@@ -170,6 +173,8 @@
     <ClInclude Include="..\Sources\System\FileNamePatternMatch.h" />
     <ClInclude Include="..\Sources\System\FileSystem.h" />
     <ClInclude Include="..\Sources\System\FileSystemDefs.h" />
+    <ClInclude Include="..\Sources\System\xrad_fopen.h" />
+    <ClInclude Include="..\Sources\System\xrad_fstream.h" />
     <ClInclude Include="..\Sources\System\SystemConfig.h" />
     <ClInclude Include="..\Sources\TextFile\text_encoding.h" />
     <ClInclude Include="..\Sources\TextFile\text_file.h" />

@@ -122,7 +122,14 @@ wstring PathFilenameToWString(const filesystem::path &path)
 
 time_t FSTimeToTime(filesystem::file_time_type ft)
 {
-#if defined(XRAD_COMPILER_MSC) && true// (_MSC_VER == 1924)
+#if defined(XRAD_COMPILER_MSC)
+#if _MSC_VER > 1928
+	#error This version of MSVC is too new and it should be tested.
+	// Необходимо убедиться, что для для отсчета времени в filesystem используется время FILETIME.
+	// Если это так, то код ниже будет работать верно, можно использовать его.
+	// Если не так, то нужно писать новое преобразование времени.
+#elif _MSC_VER >= 1924
+	// Проверено для версий 1924..1928.
 	// Здесь file_time_type::clock не содержит метод to_time_t. Преобразуем вручную, используя
 	// информацию об устройстве runtime-библиотеки MSVC.
 
@@ -136,6 +143,9 @@ time_t FSTimeToTime(filesystem::file_time_type ft)
 	return chrono::system_clock::to_time_t(chrono::system_clock::time_point(
 			chrono::system_clock::duration(ft.time_since_epoch().count() -
 					c_to_fs_time_disp_sec * file_clock::period::den)));
+#else
+	#error This version of MSVC is too old and it was not tested.
+#endif
 #elif defined(XRAD_COMPILER_GNUC)
 #if defined(__cpp_lib_filesystem) && (__cpp_lib_filesystem == 201703)
 	// From <bits/fs_fwd.h>: struct __file_clock
@@ -159,8 +169,11 @@ time_t FSTimeToTime(filesystem::file_time_type ft)
 	#error Unknown C++ library version.
 #endif
 #else
+	// Универсальный подход (C++17): если filesystem::file_time_type::clock есть
+	// std::chrono::system_clock, то можно использовать метод to_time_t.
+	// В противном случае универсального подхода нет, нужно искать специфический способ преобразования
+	// для используемой библиотеки C++.
 	return filesystem::file_time_type::clock::to_time_t(ft);
-//	return std::chrono::system_clock::to_time_t(ft);
 #endif
 }
 

@@ -162,6 +162,7 @@
     <ClCompile Include="..\Sources\DicomClasses\Instances\source.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\Instances\xray_image.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\CreateProcessAcquisition.cpp" />
+    <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\GenericImageAcquisition.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\MRAcquisitionSiemens.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\XRAYAcquisition.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\ProcessContainers\XRAYInstance.cpp" />
