@@ -74,7 +74,8 @@ namespace	AlgebraicStructures
 template<XRAD__template_1>
 class GenericFieldElement : public CONTAINER_T
 {
-	private:
+// 	private:
+	public:
 		typedef	CHILD_T child_type;
 
 		child_type &child_ref(){ return static_cast<child_type&>(*this); }
@@ -98,6 +99,7 @@ class GenericFieldElement : public CONTAINER_T
 		using parent::operator=;
 
 	public:
+		// сложение с другим FieldElement
 		template<XRAD__template_2>
 		child_type	&operator += (const GenericFieldElement<XRAD__template_2_args> &f2){ return algorithms_type::AA_Op_Assign(child_ref(), f2, Functors::plus_assign()); }
 
@@ -259,6 +261,34 @@ VT	sp(const GenericFieldElement<XRAD__template_1_args> &x, const GenericFieldEle
 {
 	return x.sp(y);
 }
+
+// операторы вида "число + вектор". Дополняют ранее существовавшие "вектор+число"
+template<XRAD__template_1>
+auto operator + (const VT &x, const GenericFieldElement<XRAD__template_1_args> &y)
+{
+	return y.child_ref() + x;
+}
+
+template<XRAD__template_1>
+auto	operator - (const VT &x, const GenericFieldElement<XRAD__template_1_args> &y)
+{
+	return -y.child_ref() + x;
+}
+
+template<XRAD__template_1>
+auto	operator * (const ST &x, const GenericFieldElement<XRAD__template_1_args> &y)
+{
+	return y.child_ref() * x;
+}
+
+template<XRAD__template_1>
+auto	operator / (const ST &x, const GenericFieldElement<XRAD__template_1_args> &y)
+{
+	auto	result = y.child_ref();
+	ApplyFunction(result, [](VT &x){return x = 1./x;});
+	return result * x;
+}
+
 
 //--------------------------------------------------------------
 /*!
