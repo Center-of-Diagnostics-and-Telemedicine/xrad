@@ -110,7 +110,20 @@ class GenericFieldElement : public CONTAINER_T
 		template<XRAD__template_2>
 		child_type	operator - (const GenericFieldElement<XRAD__template_2_args> &f2) const { return algorithms_type::AA_Op_New(child_ref(), f2, Functors::assign_minus()); }
 
+		// Маскирование. Поэлементно умножает или делит контейнер на другой, равный ему по размерам. Сходно по наполнению с AlgebraElement::operator*
+		template<class MASK_T>
+		child_type	&apply_mask(const MASK_T &f2){ return algorithms_type::AA_Op_Assign(child_ref(), f2, Functors::multiply_assign()); }
 
+		template<class MASK_T>
+		child_type	&apply_mask_inverse(const MASK_T &f2){ return algorithms_type::AA_Op_Assign(child_ref(), f2, Functors::divide_assign()); }
+
+		template<class MASK_T>
+		child_type	mask(const MASK_T &f2) const { return algorithms_type::AA_Op_New(child_ref(), f2, Functors::assign_multiply()); }
+
+		template<class MASK_T>
+		child_type	mask_inverse(const MASK_T &f2) const { return algorithms_type::AA_Op_New(child_ref(), f2, Functors::assign_divide()); }
+
+		// умножение на скаляр
 		child_type	&operator *= (const scalar_type &x) { return algorithms_type::AS_Op_Assign(child_ref(), x, Functors::multiply_assign()); }
 		child_type	&operator /= (const scalar_type &x) { return algorithms_type::AS_Op_Assign(child_ref(), x, Functors::divide_assign()); }
 
