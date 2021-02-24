@@ -23,7 +23,7 @@ string	VectorShowText(const DataArray<ComplexSample<T, ST> > &v, double factor)
 	string	result = "[";
 	for (size_t i = 0; i < v.size(); ++i)
 	{
-		result += ssprintf("(%.2f,%.2f)", double(v[i].re) / factor, double(v[i].im) / factor);
+		result += ssprintf("(%.3f,%.3f)", double(v[i].re) / factor, double(v[i].im) / factor);
 		if (i<v.size() - 1) result += "\t";
 	}
 	result += "]";
@@ -36,7 +36,7 @@ string	VectorShowText(const DataArray<T> &v, double factor)
 	string	result = "[";
 	for(size_t i = 0; i < v.size(); ++i)
 		{
-		result += ssprintf("%.2f", double(v[i])/factor);
+		result += ssprintf("%.3f", double(v[i])/factor);
 		if(i<v.size()-1) result += "\t";
 		}
 	result += "]";
@@ -54,42 +54,52 @@ inline string	OrderFactorString(int exponent)
 
 template<class VECTOR_T>
 void	ShowVector(string title, const VECTOR_T &v, bool is_stopped = true)
-	{
+{
 	DataArray<typename VECTOR_T::value_type_variable> buffer(v.size());
 	std::copy(v.begin(), v.end(), buffer.begin());
 
-	if(v.size() > 10)
+	size_t	decision(0);
+
+	while(decision != 2)
+	{
+		decision = GetButtonDecision(ssprintf("Vector '%s' display mode", title.c_str()), /*3,*/{"Text", "Graphics", "Exit display"});
+		switch(decision)
 		{
-//		DataArray<typename VECTOR_T::value_type> buffer(v);
-		DisplayMathFunction(buffer, 0, 1, title);
+			case 1:
+				DisplayMathFunction(buffer, 0, 1, title);
+				break;
+
+			case 0:
+			{
+				string	result;
+				int	exponent = floor(log10(MaxAbsoluteValue(buffer)));
+				if(abs(exponent)<3) exponent = 0;
+				double	factor = pow(10., exponent);
+
+				result += MatrixVectorGUIAuxiliaries::VectorShowText(buffer, factor);
+
+				if(exponent) result += MatrixVectorGUIAuxiliaries::OrderFactorString(exponent);
+
+		//		ShowText(title, result);
+				TextDisplayer	td(title);
+				td.SetText(result);
+				td.SetFixedWidth(true);
+				td.Display(is_stopped);
+			}
+			break;
 		}
-	else
-		{
-		string	result;
-		int	exponent = floor(log10(MaxAbsoluteValue(buffer)));
-		if(abs(exponent)<3) exponent = 0;
-		double	factor = pow(10., exponent);
 
-		result += MatrixVectorGUIAuxiliaries::VectorShowText(buffer, factor);
-
-		if(exponent) result += MatrixVectorGUIAuxiliaries::OrderFactorString(exponent);
-
-//		ShowText(title, result);
-		TextDisplayer	td(title);
-		td.SetText(result);
-		td.SetFixedWidth(true);
-		td.Display(is_stopped);
-		}
 	}
+}
 
 template<class MATRIX_T>
 void	ShowMatrix(string title, const MATRIX_T &m, bool is_stopped = true)
 {
-		size_t	decision(0);
+	size_t	decision(0);
 
 	while(decision != 2)
 	{
-		decision = Decide("Matrix display mode", /*3,*/ {"Text", "Graphics", "Exit display"});
+		decision = GetButtonDecision(ssprintf("Matrix '%s' display mode", title.c_str()), /*3,*/ {"Text", "Graphics", "Exit display"});
 		switch(decision)
 		{
 			case 1:
