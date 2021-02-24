@@ -19,7 +19,7 @@ using namespace std;
 template<class result_type>
 result_type  unit_matrix(size_t size)
 {
-	result_type	 result(size, size, 0);
+	result_type	 result(size, size, zero_value(typename result_type::value_type()));
 
 	for (size_t i = 0; i < size; i++)
 	{
