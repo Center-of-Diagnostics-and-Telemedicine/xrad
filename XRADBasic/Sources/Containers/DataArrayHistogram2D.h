@@ -194,7 +194,8 @@ void	ComputeComponentsHistogram(const DataArray2D<ROW_T> &img, DataArray2D<F1D> 
 	histogram.fill(0);
 
 	double	index_factor = double(histogram.hsize())/values_range.delta();
-	double	increment = 1./(img.vsize()*img.hsize()*n_data_components);
+//	double	increment = 1./(img.vsize()*img.hsize()*n_data_components);
+	double	increment = 1./(img.vsize()*img.hsize());
 
 	for(size_t i = 0; i < img.vsize(); ++i)
 	{
@@ -249,7 +250,7 @@ void	ComputeComponentsHistogram(const DataArray<T> &row, DataArray2D<F1D> &histo
 	histogram.fill(0);
 
 	double	index_factor = double(histogram.hsize())/values_range.delta();
-	double	increment = 1./(row.size()*n_data_components);
+	double	increment = 1./row.size();
 
 	typename DataArray<T>::const_iterator it = row.begin(), ie = row.end();
 	for(;it<ie;++it)
