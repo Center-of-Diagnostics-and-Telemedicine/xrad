@@ -234,6 +234,7 @@ GraphWindow::GraphWindow(const QString &title, const QString &in_y_label, const 
 		cbTransform->addItem("1st derivative");
 		cbTransform->addItem("2nd derivative");
 		cbTransform->addItem("Integral");
+		cbTransform->addItem("Sum");
 		cbTransform->setCurrentIndex(transform=0);
 
 		// устанавливаем обработчик событий
@@ -590,6 +591,14 @@ void	GraphWindow::UpdateTransformedCurve(size_t curve_no)
 		}
 	};
 
+	auto	sum = [](auto &y)
+	{
+		for(size_t i = 1; i < y.size(); ++i)
+		{
+			y[i] += y[i-1];
+		}
+	};
+
 	auto	log_transform = [](const auto &x)
 	{
 		return range(log(fabs(x)), -1000, infinity());
@@ -624,7 +633,9 @@ void	GraphWindow::UpdateTransformedCurve(size_t curve_no)
 			integral(data_y_transformed[curve_no], data_x[curve_no]);
 			break;
 
-// 		e_integral
+		case e_sum:
+			sum(data_y_transformed[curve_no]);
+			break;
 	}
 }
 
@@ -721,6 +732,9 @@ QString	GraphWindow::yLabelTransformed(const QString &in_label)
 
 		case e_integral:
 			return wstring_to_qstring(L"∫dx [") + in_label + "]";
+
+		case e_sum:
+			return wstring_to_qstring(L"Σ0...x [") + in_label + "]";
 	}
 }
 
