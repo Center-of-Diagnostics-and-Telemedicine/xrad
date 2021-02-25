@@ -86,7 +86,8 @@ enum graph_value_transforms
 	e_log_compress,
 	e_1st_derivative,
 	e_2nd_derivative,
-	e_integral
+	e_integral,
+	e_sum
 };
 
 enum graph_line_style
