@@ -9,54 +9,46 @@ XRAD_BEGIN
 
 
 
-//template <typename IMG_T, typename ST>
-template <typename IMG_T>
-void RasterImageFile::GetRGB(IMG_T& arg)
+template<class RGB_IMAGE_T> 
+RGB_IMAGE_T file::raster_image::rgb()
 {
-	arg.resize(m_sizes[0], m_sizes[1]);
+	using value_type = typename RGB_IMAGE_T::value_type;
+	ColorImageF64	buffer = rgb_internal();
+	double	scalefactor = scalefactor_calculator<value_type>::get(m_bits_per_channel);
+	
+	RGB_IMAGE_T result;
+	MakeCopy(result, buffer, [scalefactor](value_type &y, const auto &x){return y = x*scalefactor;});
+	return result;
+}
 
-	ColorImageF64	buffer = GetRGBInternal();
-
-	double	f = scalefactor_calculator<typename IMG_T::value_type>::get(m_bits_per_channel);
-
-	for (size_t i = 0; i < m_sizes[0]; i++)
-	{
-		for (size_t j = 0; j < m_sizes[1]; j++)
-		{
-		ColorSampleF64	&p = buffer.at(int(i), int(j));
-		arg.at(i, j) = typename IMG_T::value_type(p.red()*f, p.green()*f, p.blue()*f);
-		}
-	}
-};
-
-template <typename ROW_T>
-void RasterImageFile::GetChannel(color_type c, MathFunction2D<ROW_T>& arg)
+template <typename IMAGE_T> IMAGE_T file::raster_image::channel(color_channel in_channel)
 {
-
-	XRAD_ASSERT_THROW_M(numeric_limits<typename ROW_T::value_type>::max() > 360, invalid_argument, ssprintf("datatype is to small for hue"));
-
-	arg.resize(m_sizes[0], m_sizes[1]);
-
-	RealFunction2D_F64	buffer = GetChannelInternal(c);
-	double f, offset;
-	if (c == color_type::e_H)
+	using value_type = typename IMAGE_T::value_type;
+	RealFunction2D_F64	buffer = channel_internal(in_channel);
+	double scalefactor, offset;
+	if(in_channel == color_channel::hue)
 	{
-		f = 180.;
+		XRAD_ASSERT_THROW_M(numeric_limits<value_type>::max() > 360, invalid_argument, ssprintf("datatype is to small for hue"));
+		scalefactor = 180.;
 		offset = -1.;
 	}
 	else
 	{
-		f = sf_calculator<typename ROW_T::value_type>::get(m_bits_per_channel);
+		scalefactor = value_scalefactor_calculator<value_type>::get(m_bits_per_channel);
 		offset = 0.;
 	}
 
-	for (size_t i = 0; i < m_sizes[0]; i++)
-	{
-		for (size_t j = 0; j < m_sizes[1]; j++)
-		{
-			arg.at(i, j) = typename ROW_T::value_type((buffer.at(i, j) - offset)*f);
-		}
-	}
+	IMAGE_T	result;
+	result.MakeCopy(buffer, [scalefactor, offset](value_type &y, const auto &x){return y = (x-offset)*scalefactor;});
+
+	return result;
 }
+
+template <typename IMAGE_T>
+IMAGE_T file::raster_image::lightness()
+{
+	return channel(color_channel::lightness);
+}
+
 
 XRAD_END
