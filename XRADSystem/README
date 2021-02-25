@@ -6,3 +6,6 @@ with file system.
 XRADSystem is a part of the XRAD library.
 
 For copyright and license information see LICENSE file.
+
+This library depends on the following XRAD library:
+- XRADBasic.

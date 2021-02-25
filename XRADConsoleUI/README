@@ -6,3 +6,7 @@ applications.
 XRADConsoleUI is a part of the XRAD library.
 
 For copyright and license information see LICENSE file.
+
+This library depends on the following XRAD libraries:
+- XRADBasic;
+- XRADSystem.

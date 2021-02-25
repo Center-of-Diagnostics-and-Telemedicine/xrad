@@ -7,4 +7,8 @@ XRADGUI is a part of the XRAD library.
 
 For copyright and license information see LICENSE file.
 
-This library uses interfaces of Qt and Qwt libraries.
+This library depends on the following XRAD and third party libraries:
+- XRADBasic;
+- XRADSystem;
+- Qt;
+- Qwt.
