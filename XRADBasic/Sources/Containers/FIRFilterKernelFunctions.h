@@ -1,7 +1,12 @@
-﻿// file FIRFilterKernelFunctions.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file FIRFilterKernelFunctions.h
 //--------------------------------------------------------------
-#ifndef __FIRFilterKernelFunctions_h
-#define __FIRFilterKernelFunctions_h
+#ifndef XRAD__File_FIRFilterKernelFunctions_h
+#define XRAD__File_FIRFilterKernelFunctions_h
 //--------------------------------------------------------------
 
 #include "FIRFilterKernel.h"
@@ -26,4 +31,4 @@ XRAD_END
 #include "FIRFilterKernelFunctions.hh"
 
 //--------------------------------------------------------------
-#endif // __FIRFilterKernelFunctions_h
+#endif // XRAD__File_FIRFilterKernelFunctions_h

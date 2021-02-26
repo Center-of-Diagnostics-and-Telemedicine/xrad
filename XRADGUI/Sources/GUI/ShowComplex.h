@@ -1,13 +1,14 @@
-﻿//
-//  ShowComplex.h
-//  SimpleTest_QT_XC
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
 //
-//  Created by macintosh on 10.09.13.
-//  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
+//  Created on 10.09.13.
 //
 
-#ifndef __ShowComplex_h
-#define __ShowComplex_h
+#ifndef XRAD__File_ShowComplex_h
+#define XRAD__File_ShowComplex_h
 
 #include <XRADBasic/Sources/SampleTypes/ComplexSample.h>
 #include "XRADGUI.h"
@@ -25,4 +26,4 @@ void	ShowComplex(const string &title, const ComplexSample<CT,ST>&x)
 
 XRAD_END
 
-#endif
+#endif // XRAD__File_ShowComplex_h

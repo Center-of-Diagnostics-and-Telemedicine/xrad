@@ -1,7 +1,12 @@
-﻿// file RealFunction.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file RealFunction.h
 //--------------------------------------------------------------
-#ifndef __RealFunction_h
-#define __RealFunction_h
+#ifndef XRAD__File_RealFunction_h
+#define XRAD__File_RealFunction_h
 //--------------------------------------------------------------
 
 #include "MathFunction.h"
@@ -61,4 +66,4 @@ XRAD_END
 #include "RealFunction.hh"
 
 //--------------------------------------------------------------
-#endif // __RealFunction_h
+#endif // XRAD__File_RealFunction_h

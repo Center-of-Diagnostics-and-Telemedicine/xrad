@@ -1,5 +1,10 @@
-﻿#ifndef __math_function_multidimensional_cc
-#define __math_function_multidimensional_cc
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_math_function_multidimensional_cc
+#define XRAD__File_math_function_multidimensional_cc
 
 XRAD_BEGIN
 
@@ -103,4 +108,4 @@ void FilterArray3DSeparate(DataArrayMD<F2DT> &data, const point_3<FILTER_T, ST, 
 
 XRAD_END
 
-#endif //__math_function_multidimensional_cc
+#endif //XRAD__File_math_function_multidimensional_cc

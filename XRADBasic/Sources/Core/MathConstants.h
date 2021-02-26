@@ -1,5 +1,10 @@
-﻿#ifndef __math_constants_h
-#define __math_constants_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_math_constants_h
+#define XRAD__File_math_constants_h
 
 #include "Config.h"
 #include "BasicMacros.h"
@@ -83,4 +88,4 @@ inline double radians_per_degree(){return pi()/180.;}
 XRAD_END
 
 //--------------------------------------------------------------
-#endif //__math_constants_h
+#endif //XRAD__File_math_constants_h

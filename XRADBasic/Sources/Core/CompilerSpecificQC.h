@@ -1,4 +1,9 @@
-﻿// file CompilerSpecificQC.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file CompilerSpecificQC.h
 //--------------------------------------------------------------
 #ifndef CompilerSpecificQC_h__
 #define CompilerSpecificQC_h__

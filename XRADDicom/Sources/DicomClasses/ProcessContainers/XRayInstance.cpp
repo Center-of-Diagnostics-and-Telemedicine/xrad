@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 4/19/2018 5:50:09 PM
 	\author kovbas

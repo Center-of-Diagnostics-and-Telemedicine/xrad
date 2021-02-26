@@ -1,4 +1,9 @@
-﻿#include "pre.h"
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#include "pre.h"
 #include "MathFunctionGUI.h"
 
 #include "XRADGUI.h"
@@ -633,6 +638,6 @@ void	grafrgb(const ColorFunctionF64 &data, const wstring &data_title,
 		}
 	}
 }
-}//namespace __DisplayMathFunctionHelpers
+}//namespace NS_DisplayMathFunctionHelpers
 
 XRAD_END

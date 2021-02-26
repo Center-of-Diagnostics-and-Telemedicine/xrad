@@ -1,5 +1,10 @@
-﻿#ifndef __linear_vector_h
-#define __linear_vector_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_linear_vector_h
+#define XRAD__File_linear_vector_h
 /*!
 	\file
 	\brief Конечномерный вектор в линейном пространстве
@@ -72,4 +77,4 @@ class	LinearVector: public XRAD__Field1D(LinearVector,T,ST, FIELD_TAG)
 
 XRAD_END
 
-#endif //__linear_vector_h
+#endif //XRAD__File_linear_vector_h

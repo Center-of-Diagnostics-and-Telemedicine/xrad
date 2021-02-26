@@ -1,5 +1,10 @@
-﻿#ifndef __exponential_blur_algorithms_h
-#define __exponential_blur_algorithms_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_exponential_blur_algorithms_h
+#define XRAD__File_exponential_blur_algorithms_h
 
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 #include <XRADBasic/Sources/Algebra/FieldTraits.h>
@@ -75,4 +80,4 @@ XRAD_END
 
 #include "ExponentialBlurAlgorithms.hh"
 
-#endif // __exponential_blur_algorithms_h
+#endif // XRAD__File_exponential_blur_algorithms_h

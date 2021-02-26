@@ -1,4 +1,9 @@
-﻿// file SystemConfig.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file SystemConfig.h
 //--------------------------------------------------------------
 #ifndef XRAD__File_SystemConfig_h
 #define XRAD__File_SystemConfig_h

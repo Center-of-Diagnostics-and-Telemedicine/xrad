@@ -1,5 +1,10 @@
-﻿#ifndef __lab_color_sample_h
-#define __lab_color_sample_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_lab_color_sample_h
+#define XRAD__File_lab_color_sample_h
 
 #include "ColorSample.h"
 
@@ -42,4 +47,4 @@ inline XYZColorSample zero_value(const XYZColorSample &){return XYZColorSample (
 
 XRAD_END
 
-#endif //__lab_color_sample_h
+#endif //XRAD__File_lab_color_sample_h
