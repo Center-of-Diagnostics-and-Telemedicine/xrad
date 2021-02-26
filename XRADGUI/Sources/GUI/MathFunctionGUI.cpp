@@ -633,6 +633,6 @@ void	grafrgb(const ColorFunctionF64 &data, const wstring &data_title,
 		}
 	}
 }
-}//namespace __DisplayMathFunctionHelpers
+}//namespace NS_DisplayMathFunctionHelpers
 
 XRAD_END
