@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 2/11/2019 5:37:36 PM
 	\author Kovbas (kovbas)
@@ -7,7 +12,7 @@
 #define dialogs_h__
 
 #include <XRADDicom/XRADDicom.h>
-#include <XRAD/GUI/DynamicDialog.h>
+#include <XRADGUI/XRAD.h>
 
 XRAD_BEGIN
 

@@ -1,4 +1,9 @@
-﻿// file CooleyTukeyFFT.cpp
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file CooleyTukeyFFT.cpp
 //--------------------------------------------------------------
 #include "pre.h"
 
@@ -259,6 +264,9 @@ TransformerSet<complexF32, phasor_value_type>	FTCT_F32(&fft_phasors);
 TransformerSet<complexF64, phasor_value_type>	FTCT_F64(&fft_phasors);
 
 //--------------------------------------------------------------
+
+template class Transformer<complexF32, phasor_value_type>;
+template class Transformer<complexF64, phasor_value_type>;
 
 template class TransformerSet<complexF32, phasor_value_type>;
 template class TransformerSet<complexF64, phasor_value_type>;

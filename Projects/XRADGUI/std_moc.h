@@ -1,1 +1,0 @@
-﻿XRAD_USING

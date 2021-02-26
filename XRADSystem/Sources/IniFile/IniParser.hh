@@ -1,4 +1,9 @@
-﻿#ifndef XRAD_INI_FILES_CPP
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD_INI_FILES_CPP
 #error "These routines are needed in XRADIniFile.cpp only"
 #endif
 

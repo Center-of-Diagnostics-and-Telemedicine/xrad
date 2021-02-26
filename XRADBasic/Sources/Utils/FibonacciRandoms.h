@@ -1,4 +1,9 @@
-﻿#ifndef FibonacciRandoms_h__
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef FibonacciRandoms_h__
 #define FibonacciRandoms_h__
 
 /********************************************************************
@@ -34,6 +39,8 @@ class	FibonacciRandomGenerator
 		void	RandomizeStateVector();
 		void	InitIterators(uint32_t a_offset, uint32_t b_offset);
 		const T& GenerateInternal() const;
+
+		mutable	std::mutex	m_mutex;
 
 	public:
 

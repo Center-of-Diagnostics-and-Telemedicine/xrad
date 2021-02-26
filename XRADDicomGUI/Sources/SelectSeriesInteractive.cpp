@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 22:12:2016 12:26
 	\author KNS
@@ -6,7 +11,6 @@
 #include "pre.h"
 #include "SelectSeriesInteractive.h"
 
-#include <XRADGUI.h>
 #include <set>
 
 XRAD_BEGIN

@@ -1,4 +1,9 @@
-﻿//--------------------------------------------------------------
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//--------------------------------------------------------------
 #include "pre.h"
 #include <XRADBasic/Core.h>
 #include <XRADSystem/System.h>
@@ -36,7 +41,7 @@ int main(int argn, char **args)
 		}
 
 		// Установить язык по умолчанию из файла *.*.lang.
-		FILE *lang_fs = fopen((string(args[0]) + ".lang").c_str(), "rb");
+		FILE *lang_fs = xrad_fopen((string(args[0]) + ".lang").c_str(), "rb");
 		if (lang_fs)
 		{
 			// Читаем файл.

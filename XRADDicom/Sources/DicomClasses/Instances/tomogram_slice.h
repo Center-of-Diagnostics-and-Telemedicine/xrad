@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 26:12:2016 13:15
 	\author kns
@@ -37,7 +42,11 @@ namespace Dicom
 		double slice_thickness() const { return dicom_container()->get_double(e_slice_thickness); }
 		vector<double> image_orientation_patient() const { return dicom_container()->get_double_values(e_image_orientation_patient); }
 		vector<double> image_position_patient() const { return dicom_container()->get_double_values(e_image_position_patient); }
-
+	
+		vector<double> image_position_patient(size_t frame_no) { return dicom_container()->get_image_position(frame_no); }
+		vector<double> scales_xy_mf() { return dicom_container()->get_scales_xy_mf(); }
+		double thickness_mf() { return dicom_container()->get_thickness_mf(); }
+		
 		//sets
 		void set_slice_thickness(double val) { dicom_container()->set_double(e_slice_thickness, val); }
 		void set_image_position_patient(const std::vector<double> &val) { dicom_container()->set_double_values(e_image_position_patient, val); };

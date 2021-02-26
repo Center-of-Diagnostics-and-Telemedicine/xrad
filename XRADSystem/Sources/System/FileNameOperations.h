@@ -1,4 +1,9 @@
-﻿#ifndef XRAD__File_FileNameOperations_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_FileNameOperations_h
 #define XRAD__File_FileNameOperations_h
 //--------------------------------------------------------------
 
@@ -97,6 +102,18 @@ inline wstring	file_extension(wstring complete_filename_with_path)
 */
 wstring RemoveTrailingPathSeparator(const wstring &path);
 
+/*!
+	\brief Добавить конечный разделитель пути к строке: "/a/b" -&gt; "/a/b/"
+*/
+wstring AddTrailingPathSeparator(const wstring &path);
+
+/*!
+	\brief Сделать путь path + subpath с учетом вариантов, когда path или subpath пустые
+*/
+string MergePath(const string &path, const string &subpath);
+
+wstring MergePath(const wstring &path, const wstring &subpath);
+
 //--------------------------------------------------------------
 
 /*!
@@ -145,11 +162,22 @@ wstring GetPathGenericFromAutodetect(const wstring &path);
 //! См. \ref pg_FileSystem.
 wstring GetPathNativeFromGeneric(const wstring &path);
 
+//! \brief Преобразовать путь из формата generic в формат ОС (для отображения пользователю)
+//!
+//! См. \ref pg_FileSystem.
+string GetPathNativeFromGeneric(const string &path);
+
 //! \brief Комбинация GetPathNativeFromGeneric и GetPathGenericFromAutodetect.
 //! Эта функция должна исчезнуть после приведения в порядок работы с форматами файлов
 //!
 //! См. \ref pg_FileSystem.
 wstring GetPathNativeFromAutodetect(const wstring &path);
+
+//! \brief Преобразовать путь в формат ОС для передачи в функции открытия файлов.
+//! В Windows решает проблему открытия файлов с очень длинными путями (больше MAX_PATH)
+//!
+//! См. \ref pg_FileSystem.
+string GetPathSystemRawFromGeneric(const string &path);
 
 //! \brief Преобразовать путь в формат ОС для передачи в функции открытия файлов.
 //! В Windows решает проблему открытия файлов с очень длинными путями (больше MAX_PATH)

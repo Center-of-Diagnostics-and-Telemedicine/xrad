@@ -1,4 +1,9 @@
-﻿// file ComplexSample.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file ComplexSample.h
 //
 // A part of XRAD
 // Complex numbers library for scientific calculations.
@@ -8,8 +13,8 @@
 // 1999 Modified by ACS (Алексей Борисович Елизаров) (added constructor with SNoInit)
 // 19?? class complexF created by Nicholas S. Kulberg (Кульберг Николай Сергеевич)
 //--------------------------------------------------------------
-#ifndef __complex_sample_h
-#define __complex_sample_h
+#ifndef XRAD__File_complex_sample_h
+#define XRAD__File_complex_sample_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Sources/Core/Config.h>
@@ -421,4 +426,4 @@ XRAD_END
 #include "ComplexSample.hh"
 
 //--------------------------------------------------------------
-#endif // __complex_sample_h
+#endif // XRAD__File_complex_sample_h

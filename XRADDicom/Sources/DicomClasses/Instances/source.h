@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 2018/03/8 15:15
 	\author nicholas
@@ -96,6 +101,8 @@ namespace Dicom
 		void copy_container(const source &other);
 
 		void delete_all_private_tags() { dicom_container()->delete_all_private_tags(); }
+
+		size_t & get_m_frame_no() { return m_frame_no; }
 
 	public:
 		shared_ptr<Container> dicom_container() { return m_dicom_container; }

@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 4/23/2018 5:46:06 PM
 	\author kovbas
@@ -13,7 +18,7 @@ enum	display_tomogram_options
 	display_tomogram_slices,
 	display_tomogram_metadata,
 	display_DICOM_file_content,
-	display_tomogram_thiсkness,
+	display_tomogram_thickness,
 	display_tomogram_positions,
 	exit_tomogram_display
 };
@@ -26,7 +31,7 @@ const vector<wstring> &options_generic_tomogram_names()
 		options[display_tomogram_slices] = L"Display Tomogram Slices";
 	options[display_tomogram_metadata] = L"Display Tomogram Metadata";
 	options[display_DICOM_file_content] = L"Display DICOM-file content";
-	options[display_tomogram_thiсkness] = L"Display Tomogram slice thickness";
+	options[display_tomogram_thickness] = L"Display Tomogram slice thickness";
 	options[display_tomogram_positions] = L"Display Tomogram slice position";
 	options[exit_tomogram_display] = L"Exit display";
 	}
@@ -57,7 +62,7 @@ void	DisplayTomogram_GenericAcquisition(const TomogramAcquisition &tm, const wst
 				ShowText(title_full, tm.get_dicom_file_content(GetUnsigned("Enter number of frame.", 0, 0, tm.n_elements() - 1)));
 				break;
 
-			case display_tomogram_thiсkness:
+			case display_tomogram_thickness:
 				DisplayMathFunction(tm.thickness(), 0, 1, title_full + L" Slice Thikness", L"Slice No", L"mm");
 				break;
 			case display_tomogram_positions:

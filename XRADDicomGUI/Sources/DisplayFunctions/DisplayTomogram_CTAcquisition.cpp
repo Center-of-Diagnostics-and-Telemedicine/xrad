@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 4/23/2018 5:46:49 PM
 	\author kovbas
@@ -16,7 +21,7 @@ enum	display_ct_options_t
 	display_ct_current,
 	display_ct_voltage,
 	display_CTDI_vol,
-	display_ct_thiсkness,
+	display_ct_thickness,
 	display_ct_positions,
 	exit_ct_display
 };
@@ -32,7 +37,7 @@ const vector<wstring> &options_ct_names()
 		options[display_ct_current] = L"Display CT current";
 		options[display_ct_voltage] = L"Display CT voltage";
 		options[display_CTDI_vol] = L"Display CTDI vol";
-		options[display_ct_thiсkness] = L"Display CT slice thickness";
+		options[display_ct_thickness] = L"Display CT slice thickness";
 		options[display_ct_positions] = L"Display CT slice position";
 		options[exit_ct_display] = L"Exit display";
 	}
@@ -76,7 +81,7 @@ void	DisplayTomogram_CTAcquisition(const CTAcquisition &ct, const wstring &title
 				DisplayMathFunction(ct.CTDIvols(), 0, 1, title_full + L" CTDIVol", L"mGy?", L"Slice No");
 				break;
 
-			case display_ct_thiсkness:
+			case display_ct_thickness:
 				DisplayMathFunction(ct.thickness(), 0, 1, title_full + L" Slice Thickness", L"mm", L"Slice No");
 				break;
 			case display_ct_positions:

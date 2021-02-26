@@ -1,8 +1,13 @@
-﻿//	file String.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file String.h
 //	Created by ACS on 25.10.01
 //--------------------------------------------------------------
-#ifndef __String_h
-#define __String_h
+#ifndef XRAD__File_String_h
+#define XRAD__File_String_h
 //--------------------------------------------------------------
 
 //	(?) Внутренний файл библиотеки.
@@ -182,7 +187,13 @@ STRING	detabify(const STRING &text)
 //--------------------------------------------------------------
 
 //! \brief Разделить строку на части по заданному разделителю
+vector<string> split(const string &str, char delimiter);
+
+//! \brief Разделить строку на части по заданному разделителю
 vector<wstring> split(const wstring &str, wchar_t delimiter);
+
+//! \brief Склеить из частей одну строку, части соединить заданным разделителем
+string merge(const vector<string> &strings, const string &delimiter);
 
 //! \brief Склеить из частей одну строку, части соединить заданным разделителем
 wstring merge(const vector<wstring> &strings, const wstring &delimiter);
@@ -296,4 +307,4 @@ String normalize_line_ends(const String &text, LineEndKind line_end_kind)
 
 XRAD_END
 
-#endif // __String_h
+#endif // XRAD__File_String_h

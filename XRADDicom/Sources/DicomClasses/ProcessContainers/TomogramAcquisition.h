@@ -1,4 +1,9 @@
-﻿#ifndef TomogramAcquisition_h__
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef TomogramAcquisition_h__
 #define TomogramAcquisition_h__
 /*!
 	\file
@@ -51,8 +56,8 @@ public:
 	RealFunctionMD_F32	slices() const;
 	//! \brief Загрузить данные, упорядоченные в соответствии с determine_slice_order()
 	RealFunctionMD_F32	load_ordered_slices() const;
-	RealFunctionMD_F32	load_ordered_slices(const vector<size_t> &slice_order) const;
-	vector<size_t> determine_slice_order() const;
+	RealFunctionMD_F32	load_ordered_slices(const vector<pair<size_t, size_t>> &slice_order) const;
+	vector<pair<size_t, size_t>> determine_slice_order() const;
 
 	//! \brief Определяет ось, по которой следует производить сортировку срезов томограммы.
 	//! Выбирает ту ось, по которой происходит самая большая разница

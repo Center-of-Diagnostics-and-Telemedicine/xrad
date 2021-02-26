@@ -1,4 +1,9 @@
-﻿#ifndef DicomClustering_h__
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef DicomClustering_h__
 #define DicomClustering_h__
 /*!
 	\file
@@ -20,9 +25,9 @@ using json = nlohmann::json;
 	// вернуть список уникальных директорий
 	vector<wstring>	get_unique_paths(const vector<wstring>& vector_paths);
 
-	bool save_json(const json& json_to_save, wstring report_dst);
+	void save_json(const json& json_to_save, const wstring &filename);
 
-	bool load_json(json& json_loaded, const wstring& json_fname);
+	json load_json(const wstring &filename);
 
 	// flatten json to result string
 	void json_flatten_string(const vector<string>& reference_string,
@@ -35,9 +40,11 @@ using json = nlohmann::json;
 		vector<vector<string>>& result,
 		vector<json>& vec_json_dicom);
 
-	// получить из json объекта значение тэга str_tag_discr, скопировать его в str_tag_value
+	// получить из json объекта значение тэга label, скопировать его в str_tag_value
 	// проверяется, что это значение имеет тип string
-	bool json_get_tag_value(const json& json_obj, const string & str_tag_discr, string & str_tag_value);
+	wstring json_get_tag_string(const json& json_obj, const string &label);
+
+	uint64_t json_get_tag_uint(const json & json_obj, const string &label);
 
 }  // end namespace Dicom
 

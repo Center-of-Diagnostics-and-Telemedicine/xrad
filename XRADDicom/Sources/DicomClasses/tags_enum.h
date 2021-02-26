@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 12/26/2017 1:35:14 PM
 	\author kovbas
@@ -34,6 +39,8 @@ namespace Dicom
 		e_patient_mothers_birthname = 0x00101060,
 		e_medical_record_locator =	0x00101090,
 		e_referenced_patient_photo = 0x00101100,
+		e_patient_telephone_numbers = 0x00102154,
+		e_patient_address =			0x00101040,
 
 		//personal data history
 		e_assigning_faculty_sequence = 0x00401036,
@@ -102,6 +109,9 @@ namespace Dicom
 		e_instance_number =			0x00200013,
 		e_sop_instance_uid =		0x00080018,//(0008,0018)
 		e_media_storage_sop_instance_uid =		0x00020003,
+
+		e_referenced_sop_instance_uid = 0x00081155,
+
 		e_instance_creation_date = 0x00080012,
 		e_instance_creation_time = 0x00080013,
 		e_stack_id =				0x00209056, //номер стека
@@ -175,6 +185,8 @@ namespace Dicom
 		e_detector_type =			0x00187004,
 		e_distance_source_to_detector = 0x00181110,
 		e_convolution_kernel =		0x00181210,
+
+		e_acquisition_device_processing_description = 0x00181400,
 
 		e_shared_functional_groups_sequence = 0x52009229, //Shared Functional Groups Sequence (5200,9229)
 		e_per_frame_functional_groups_sequence = 0x52009230, // Per-frame Functional Groups Sequence (5200,9230)

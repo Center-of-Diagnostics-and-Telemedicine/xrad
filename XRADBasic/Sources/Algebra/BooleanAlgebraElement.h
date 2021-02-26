@@ -1,5 +1,10 @@
-﻿#ifndef __boolean_algebra_element_h
-#define __boolean_algebra_element_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_boolean_algebra_element_h
+#define XRAD__File_boolean_algebra_element_h
 /*!
 	\addtogroup gr_Algebra
 	@{
@@ -207,4 +212,4 @@ XRAD_END
 #undef XRAD__template_1B_args_bitwise
 
 //--------------------------------------------------------------
-#endif //__boolean_algebra_element_h
+#endif //XRAD__File_boolean_algebra_element_h

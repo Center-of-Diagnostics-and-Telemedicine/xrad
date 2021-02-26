@@ -1,8 +1,13 @@
-﻿//	file DataArray.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file DataArray.h
 //	Created by ACS on 09.06.03
 //--------------------------------------------------------------
-#ifndef __data_array_h
-#define __data_array_h
+#ifndef XRAD__File_data_array_h
+#define XRAD__File_data_array_h
 //--------------------------------------------------------------
 
 #include "DataOwner.h"
@@ -128,6 +133,8 @@ class DataArray : public DataOwner<T>
 		using parent::size;
 		using parent::step;
 		using parent::at;
+
+		using parent::empty;
 
 		value_type *data();
 		const value_type *data() const;
@@ -523,4 +530,4 @@ XRAD_END
 #include "DataArray.hh"
 
 //--------------------------------------------------------------
-#endif // __data_array_h
+#endif // XRAD__File_data_array_h

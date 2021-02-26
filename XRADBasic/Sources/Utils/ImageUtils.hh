@@ -1,6 +1,11 @@
-﻿//	file ImageUtils.hh
-#ifndef __image_utils_cc
-#define __image_utils_cc
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file ImageUtils.hh
+#ifndef XRAD__File_image_utils_cc
+#define XRAD__File_image_utils_cc
 
 #include <XRADBasic/Sources/Utils/StatisticUtils.h>
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
@@ -132,7 +137,7 @@ void	LogCompressRangeHistogram(DataArray2D<ROW_T> &img, double cut_shadows, doub
 
 	LogCompress(img);
 	CutComponentHistogramEdges(img, range1_F64(cut_shadows, cut_lights));
-	typedef ROW_T::value_type value_type;
+	typedef typename ROW_T::value_type value_type;
 
 	Apply_AS_2D_F2(img, value_type(MinComponentValue(img)), Functors::minus_assign());
 	}
@@ -194,7 +199,9 @@ void	LogCompressRangeDB(DataArray2D<ROW_T> &img, double dyn_range_shadows, doubl
 
 
 template<class ROW_T>
-double	ComputeQuantile(const ROW_T &pdf, double probability)
+double	ComputeQuantile(const ROW_T &pdf, double probability);
+/*
+	TODO: Разобраться с нормировкой.
 	{
 	// возвращает значение порога для квантиля p. результат безразмерный, значения от 0 до 1,
 	if(!in_range(probability, 0, 1))
@@ -210,7 +217,7 @@ double	ComputeQuantile(const ROW_T &pdf, double probability)
 	while(i < pdf.size() && cdf[i] < probability) {++i;}
 
 	return double(i)/s;
-	}
+	}*/
 
 
 template<class ROW_T>
@@ -403,7 +410,7 @@ void	NormalizeImage(DataArray2D<ROW_T> &img, const AM &black_point, const AM &wh
 template<class ROW_T, class AM>
 void	TruncateImageValues(DataArray2D<ROW_T> &img, const AM &black_point, const AM &white_point)
 	{
-	const size_t n_data_components = n_components(ROW_T::value_type());
+	const size_t n_data_components = n_components(typename ROW_T::value_type());
 //	const size_t n_ranges_components = n_components(black_point);
 	// если на последующей строке возникла ошибка компилятора,
 	// значит, заданы заведомо несовместимые варианты
@@ -427,4 +434,4 @@ void	TruncateImageValues(DataArray2D<ROW_T> &img, const AM &black_point, const A
 
 XRAD_END
 
-#endif	// __image_utils_cc
+#endif	// XRAD__File_image_utils_cc

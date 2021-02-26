@@ -1,4 +1,9 @@
-﻿// file FileNamePatternMatch.cpp
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file FileNamePatternMatch.cpp
 //--------------------------------------------------------------
 #include "pre.h"
 
@@ -18,15 +23,21 @@ FileNamePatternMatch::FileNamePatternMatch(const wstring &filter)
 	auto filters_v = split(filter, L';');
 	wregex filter_all_re(L"^\\s*\\*(?:\\.\\*)?\\s*$"); // " * ", " *.* "
 	wregex filter_ext_re(L"^\\s*\\*(\\.[^?*/\\\\]*?)\\s*$"); // " *.ext "
+	wregex filter_filename_re(L"^([^?*/\\\\]+)$"); // "filename.ext"
 	for (auto &s: filters_v)
 	{
 		if (regex_match(s, filter_all_re))
 		{
+			filenames.clear();
 			filters.clear();
 			return;
 		}
 		wsmatch match;
-		if (regex_match(s, match, filter_ext_re) && match.size() == 2)
+		if (regex_match(s, match, filter_filename_re) && match.size() == 2)
+		{
+			filenames.insert(get_upper(s));
+		}
+		else if (regex_match(s, match, filter_ext_re) && match.size() == 2)
 		{
 			wstring ext = match.str(1);
 			//printf("Debug: Filter format: \"%s\".\n", convert_to_string(ext).c_str());
@@ -44,9 +55,13 @@ FileNamePatternMatch::FileNamePatternMatch(const wstring &filter)
 
 bool FileNamePatternMatch::operator()(const wstring &filename) const
 {
-	if (filters.empty())
+	if (empty())
 		return true;
 	wstring filename_uc = get_upper(filename);
+	if (filenames.count(filename_uc))
+	{
+		return true;
+	}
 	for (const auto &ext: filters)
 	{
 		if (ext.length() == 1)

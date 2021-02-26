@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 2019/09/24 10:30
 	\author novik
@@ -9,7 +14,7 @@
 */
 #include "pre.h"
 #include "DicomClustering.h"
-
+#include <XRADSystem/Sources/System/SystemConfig.h>
 #include <fstream>
 #include <map>
 
@@ -112,28 +117,15 @@ namespace Dicom
 		switch (value.type())
 		{
 		case nlohmann::detail::value_t::array:
-		{
-			if (value.empty())
-			{
-				// flatten empty array as null
-				//result[reference_string] = nullptr;
-			}
-			else
+			if (!value.empty())
 			{
 				result.push_back(reference_string);
 				vec_json_dicom.push_back(value);
 			}
 			break;
-		}
 
 		case nlohmann::detail::value_t::object:
-		{
-			if (value.empty())
-			{
-				// flatten empty object as null
-				//result[reference_string] = nullptr;
-			}
-			else
+			if (!value.empty())
 			{
 				// iterate object and use keys as reference string
 				for (const auto& element : value.items())
@@ -144,13 +136,9 @@ namespace Dicom
 				}
 			}
 			break;
-		}
 
 		default: // сюда мы не должны попасть, так как 5 уникальных меток перед массивом заканчиваются раньше
-		{
 			break;
-		}
-
 		}
 	}
 
@@ -158,23 +146,29 @@ namespace Dicom
 	/*!
 	\brief получить из json объекта значение тэга
 
-	Получить из json объекта значение тэга str_tag_discr, скопировать его в str_tag_value.
+	Получить из json объекта значение тэга label, скопировать его в str_tag_value.
 	Проверить, что это значение имеет тип string
 
 	\param json_obj [in] - json объект для обработки
-	\param str_tag_discr [in] - имя тэга
-	\param str_tag_value [out] - значение тэга
-	\return упешно ли было получено значение
+	\param label [in] - имя тэга
+	\return значение тэга
 	*/
-	bool json_get_tag_value(const json & json_obj, const string & str_tag_discr, string & str_tag_value)
+	wstring json_get_tag_string(const json & json_obj, const string & label)
 	{
-		auto find_tag = json_obj.find(str_tag_discr);
-		if (find_tag == json_obj.end())
-			return false;							// если тэг не найден
-		if (!find_tag->is_string())
-			return false;							// если тип тэга не string
-		str_tag_value = (*find_tag);
-		return true;
+		auto find_tag = json_obj.find(label);
+		XRAD_ASSERT_THROW(find_tag != json_obj.end());
+		XRAD_ASSERT_THROW(find_tag->is_string());
+		return string8_to_wstring(*find_tag);
+	}
+
+	uint64_t json_get_tag_uint(const json & json_obj, const string & label)
+	{
+		auto find_tag = json_obj.find(label);
+		XRAD_ASSERT_THROW(find_tag != json_obj.end());
+		XRAD_ASSERT_THROW(find_tag->is_number_unsigned());
+
+		static_assert(numeric_limits<json::number_unsigned_t>::max() <= numeric_limits<uint64_t>::max(), "JSON unsigned number type is too wide.");
+		return *find_tag;
 	}
 
 
@@ -213,32 +207,29 @@ namespace Dicom
 
 	\return false в случае неуспешного завершения
 	*/
-	bool save_json(const json &json_to_save, wstring report_dst)
+	void save_json(const json &json_to_save, const wstring &filename)
 	{
-#if 1
-		// TODO: Unicode, GetPathNativeFromGeneric
-		// сохранить json файл
-		ofstream	out_file;
-#ifdef XRAD_COMPILER_MSC
-		out_file.open(report_dst);
+		wstring native_filename = GetPathSystemRawFromGeneric(filename);
+#if defined(XRAD_USE_CFILE_WIN32_VERSION)
+		auto	open_filename = native_filename;
+#elif defined(XRAD_USE_CFILE_UNIX_VERSION)
+		auto	open_filename = convert_to_string(native_filename);
 #else
-		out_file.open(convert_to_string(report_dst));
+		#error Unknown OS platform.
 #endif
+		// Использование utf8_stream здесь может привести к недоразумениям:
+		// он может определять операторы <<, которые будут делать лишние преобразования,
+		// но они всё равно не будут использованы, т.к. в json используется только
+		// статический срез ostream&, а не фактический тип передаваемого потока.
+		// Сам json выводит данные в UTF-8.
+		ofstream	out_file(open_filename, ios_base::out | ios_base::binary);
+		XRAD_ASSERT_THROW(out_file.is_open());
 
-		if (!out_file.is_open())
-			return false;
-
-		out_file << "\xEF\xBB\xBF";//utf-8 BOM
-		out_file.width(1);			// параметр потока должен быть установлен, чтобы вывод форматировался с отступами
-		out_file.fill('\t');		// отступы табуляцией
-		out_file << json_to_save << endl;
-#else // 0
-		//utf8_ofstream out_file(report_dst);
-		//out_file << convert_to_wstring(json_to_save.dump(4));
-#endif
+		out_file << "\xEF\xBB\xBF"; //utf-8 BOM
+		out_file.width(1); // параметр потока должен быть установлен, чтобы вывод форматировался с отступами
+		out_file.fill('\t'); // отступы табуляцией
+		out_file << json_to_save << "\n";
 		out_file.close();
-
-		return true;
 	}
 
 	/*!
@@ -249,32 +240,22 @@ namespace Dicom
 
 	\return false в случае неуспешного завершения
 	*/
-	bool	 load_json(json& json_loaded, const wstring& json_fname)
+	json load_json(const wstring &filename)
 	{
-		// TODO: Unicode, GetPathNativeFromGeneric
-		ifstream in_file;
-#ifdef XRAD_COMPILER_MSC
-		in_file.open(json_fname);
+		wstring native_filename = GetPathSystemRawFromGeneric(filename);
+#if defined(XRAD_USE_CFILE_WIN32_VERSION)
+		auto	open_filename = native_filename;
+#elif defined(XRAD_USE_CFILE_UNIX_VERSION)
+		auto	open_filename = convert_to_string(native_filename);
 #else
-		in_file.open(convert_to_string(json_fname));
+		#error Unknown OS platform.
 #endif
-		if (!in_file.is_open())
-			return false;  // empty json
+		ifstream in_file(open_filename, ios_base::in | ios_base::binary);
+		XRAD_ASSERT_THROW(in_file.is_open());
 
 		json	json_from_file;
-		try
-		{
-			in_file >> json_from_file;
-			json_loaded = json_from_file;
-		}
-		catch (...)
-		{
-			in_file.close();
-			return false;
-		}
-		in_file.close();
-
-		return true;
+		in_file >> json_from_file;
+		return json_from_file;
 	}
 
 

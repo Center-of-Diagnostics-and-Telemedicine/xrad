@@ -1,6 +1,11 @@
-﻿//	file MathFunction2D.hh
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file MathFunction2D.hh
 //--------------------------------------------------------------
-#ifndef __math_function_2d_h
+#ifndef XRAD__File_math_function_2d_h
 #error This file must be included from "MathFunction2D.h" only
 #endif
 
@@ -275,7 +280,7 @@ void	SmoothEdges(MathFunction2D<FT> &x, size_t edgeWidth, array_2D_sides side){
 
 
 
-//! \todo Передать в качестве параметра прогресс, убрать ifdef.
+//! \todo Передать в качестве параметра прогресс вместо message.
 template <class ARR2D, class ARR2D_PROC>
 void	ProcessTiles(ARR2D &theImage, size_t tileSize, void(*theFun)(ARR2D_PROC*), char *message)
 {
@@ -297,9 +302,7 @@ void	ProcessTiles(ARR2D &theImage, size_t tileSize, void(*theFun)(ARR2D_PROC*), 
 
 	size_t	top, left;
 
-#ifdef __XRAD_INTERFACE_FUNCTIONS
-	if(message) Start_Progress(message, v*h);
-#endif
+	//if(message) Start_Progress(message, v*h);
 
 	for(size_t i = 0; i < v-1; i++)
 	{
@@ -313,18 +316,16 @@ void	ProcessTiles(ARR2D &theImage, size_t tileSize, void(*theFun)(ARR2D_PROC*), 
 			//вызывается обработчик, который может быть наследником ARR2D
 			seg.PutDataSegment(result, top, left);
 			//сегмент вставляется на место
-#ifdef __XRAD_INTERFACE_FUNCTIONS
-			if(message) Next_Progress();
-#endif
+
+			//if(message) Next_Progress();
 		}
 		{// обработка последнего сегмента, который может иметь другую ширину
 			left = (h-1)*tileSize;
 			lastSegH.GetDataSegment(theImage, top, left);
 			theFun(&lastSegH);
 			lastSegH.PutDataSegment(result, top, left);
-#ifdef __XRAD_INTERFACE_FUNCTIONS
-			if(message) Next_Progress();
-#endif
+
+			//if(message) Next_Progress();
 		}
 	}
 
@@ -336,24 +337,20 @@ void	ProcessTiles(ARR2D &theImage, size_t tileSize, void(*theFun)(ARR2D_PROC*), 
 			lastSegV.GetDataSegment(theImage, top, left);
 			theFun(&lastSegV);
 			lastSegV.PutDataSegment(result, top, left);
-#ifdef __XRAD_INTERFACE_FUNCTIONS
-			if(message) Next_Progress();
-#endif
+
+			//if(message) Next_Progress();
 		}
 		{
 			left = (h-1)*tileSize;
 			lastSegVH.GetDataSegment(theImage, top, left);
 			theFun(&lastSegVH);
 			lastSegVH.PutDataSegment(result, top, left);
-#ifdef __XRAD_INTERFACE_FUNCTIONS
-			if(message) Next_Progress();
-#endif
+
+			//if(message) Next_Progress();
 		}
 	}
 
-#ifdef __XRAD_INTERFACE_FUNCTIONS
-	if(message) End_Progress();
-#endif
+	//if(message) End_Progress();
 	theImage.CopyData(result);
 }
 
@@ -389,7 +386,7 @@ void	ProcessOverlaps(ARR2D &theImage, size_t tileSize, size_t overlapSize, void(
 	result.fill(0);
 	array_2D_sides	side;
 
-#ifdef __XRAD_INTERFACE_FUNCTIONS
+#ifdef XRAD__Obsolete__INTERFACE_FUNCTIONS
 	if(message) Start_Progress(message, v*h);
 #endif
 
@@ -410,7 +407,7 @@ void	ProcessOverlaps(ARR2D &theImage, size_t tileSize, size_t overlapSize, void(
 			seg.PutDataSegment(result, top, left, 1);
 			//сегмент вставляется на место
 
-#ifdef __XRAD_INTERFACE_FUNCTIONS
+#ifdef XRAD__Obsolete__INTERFACE_FUNCTIONS
 			if(message) Next_Progress();
 #endif
 		}
@@ -423,7 +420,7 @@ void	ProcessOverlaps(ARR2D &theImage, size_t tileSize, size_t overlapSize, void(
 			if(i) side |= array_2D_top;
 			SmoothEdges(lastSegH, os, side);
 			lastSegH.PutDataSegment(result, top, left, 1);
-#ifdef __XRAD_INTERFACE_FUNCTIONS
+#ifdef XRAD__Obsolete__INTERFACE_FUNCTIONS
 			if(message) Next_Progress();
 #endif
 		}
@@ -440,7 +437,7 @@ void	ProcessOverlaps(ARR2D &theImage, size_t tileSize, size_t overlapSize, void(
 			if(j) side |= array_2D_left;
 			SmoothEdges(lastSegV, os, side);
 			lastSegV.PutDataSegment(result, top, left, 1);
-#ifdef __XRAD_INTERFACE_FUNCTIONS
+#ifdef XRAD__Obsolete__INTERFACE_FUNCTIONS
 			if(message) Next_Progress();
 #endif
 		}
@@ -453,13 +450,13 @@ void	ProcessOverlaps(ARR2D &theImage, size_t tileSize, size_t overlapSize, void(
 			if(left) side |= array_2D_left;
 			SmoothEdges(lastSegVH, os, side);
 			lastSegVH.PutDataSegment(result, top, left, 1);
-#ifdef __XRAD_INTERFACE_FUNCTIONS
+#ifdef XRAD__Obsolete__INTERFACE_FUNCTIONS
 			if(message) Next_Progress();
 #endif
 		}
 	}
 
-#ifdef __XRAD_INTERFACE_FUNCTIONS
+#ifdef XRAD__Obsolete__INTERFACE_FUNCTIONS
 	if(message) End_Progress();
 #endif
 	theImage.CopyData(result);

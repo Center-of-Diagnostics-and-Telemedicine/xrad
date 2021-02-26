@@ -1,8 +1,13 @@
-﻿//	file StatisticUtils.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file StatisticUtils.h
 //	Created by ACS on 28.05.01
 //--------------------------------------------------------------
-#ifndef __statistic_utils_h
-#define __statistic_utils_h
+#ifndef XRAD__File_statistic_utils_h
+#define XRAD__File_statistic_utils_h
 
 #include <XRADBasic/MathFunctionTypes.h>
 #include "DistributionContainer.h"
@@ -83,4 +88,4 @@ double	log_rician_pdf(double x, double nu, double sigma);
 
 XRAD_END
 
-#endif // __StatisticUtils_h
+#endif // XRAD__File_StatisticUtils_h

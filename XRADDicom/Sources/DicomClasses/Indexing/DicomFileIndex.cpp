@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 2019/10/17 13:00
 	\author novik
@@ -12,11 +17,12 @@
 
 #include <XRADDicom/XRADDicom.h>
 
-#include <XRADDicom/Sources/DicomClasses/instances/ct_slice.h>
-#include <XRADDicom/Sources/DicomClasses/instances/xray_image.h>
-#include <XRADDicom/Sources/DicomClasses/instances/mr_slice.h>
-#include <XRADDicom/Sources/DicomClasses/instances/mr_slice_siemens.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/ct_slice.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/xray_image.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/mr_slice.h>
+#include <XRADDicom/Sources/DicomClasses/Instances/mr_slice_siemens.h>
 
+#include <XRADSystem/System.h>
 #include <typeinfo>
 
 XRAD_BEGIN
@@ -24,8 +30,28 @@ XRAD_BEGIN
 namespace Dicom
 {
 
+namespace
+{
+
+// получить размер файла в байтах и время создания файла
+// https://tools.ietf.org/html/rfc3339
+// 1985-04-12T23:20:50.52Z
+// This represents 20 minutes and 50.52 seconds after the 23rd hour of April 12th, 1985 in UTC.
+// и/или https://ru.wikipedia.org/wiki/ISO_8601
+bool GetFileSizeAndModifyTime(const string& filename, file_size_t &size, string& str_date)
+{
+	FileInfo file_info;
+	if (!GetFileInfo(filename, &file_info))
+		return false;
+	str_date = DicomFileIndex::FormatTime(&file_info.time_write);
+	size = file_info.size;
+	return true;
+}
+
+} // namespace
+
 // сформировать vector элементов tag : 12 элементов, описывающих Dicom instance
-vector<Dicom::tag_e>	DicomFileIndex::m_dicom_tags =
+const vector<Dicom::tag_e>	DicomFileIndex::m_dicom_tags =
 {
 	//IDs
 	Dicom::e_acquisition_number,			// 0
@@ -47,12 +73,11 @@ vector<Dicom::tag_e>	DicomFileIndex::m_dicom_tags =
 	Dicom::e_accession_number,			// 10
 };  // заполнить вектор тэгов, которые будут получены из dicom файла
 
-vector<wstring> DicomFileIndex::m_FileNameSizeTimeDiscr = { L"filename", L"size_in_bytes", L"time_write" };
-map<Dicom::tag_e, std::string>	DicomFileIndex::m_dicom_tags_discription;
-map<std::string, Dicom::tag_e>	DicomFileIndex::m_dicom_discription_tags;		// map<discription -> ID>
+map<Dicom::tag_e, std::string>	DicomFileIndex::m_dicom_tags_description;
+map<std::string, Dicom::tag_e>	DicomFileIndex::m_dicom_description_tags;		// map<discription -> ID>
 
 
-static const map<ImageType, string> map_imagetype_disc =
+static const map<ImageType, string> imagetype_description_class =
 {
 	{ ImageType::image, typeid(Dicom::image).name() },
 	{ ImageType::tomogram_slice, typeid(Dicom::tomogram_slice).name() },
@@ -63,7 +88,7 @@ static const map<ImageType, string> map_imagetype_disc =
 };
 
 
-static const map<ImageType, string> map_imagetype_fix_disc =
+static const map<ImageType, string> imagetype_description_fixed =
 {
 	{ ImageType::image, "image" },
 	{ ImageType::tomogram_slice, "tomogram_slice" },
@@ -78,35 +103,30 @@ static const map<ImageType, string> map_imagetype_fix_disc =
 /// так как они статические - это делается единственный раз при создании первого экзкмпляра класса
 DicomFileIndex::DicomFileIndex()
 {
-	m_DicomSource = DicomSource::no_information;
-	m_bNeedIndexing = true;
-
-	if (m_dicom_tags_discription.size() != get_dicom_tags_length()) // если описание тэгов ещё не заполнено
+	if (m_dicom_tags_description.size() != get_dicom_tags_length()) // если описание тэгов ещё не заполнено
 	{
 		for (const auto& el : m_dicom_tags)
 		{
 			//wstring wstring_tag_name = Dicom::MakeContainer()->get_wstring(el); // уже не работает
 			wstring wstring_tag_name = Dicom::get_tagname(el);
 			//wstring tt = Dicom::get_tag_as_string(el) + Dicom::get_tagname(el);
-			m_dicom_tags_discription[el] = convert_to_string(wstring_tag_name);
-			m_dicom_discription_tags[convert_to_string(wstring_tag_name)] = el;
+			m_dicom_tags_description[el] = convert_to_string(wstring_tag_name);
+			m_dicom_description_tags[convert_to_string(wstring_tag_name)] = el;
 		}
 	}
 
-
 	// заполнить map типов изображений false
-	for (const auto& el : map_imagetype_fix_disc)
+	for (const auto& el : imagetype_description_fixed)
+	{
 		m_dicom_image_type[el.first] = false;
-
-	// резервируем память для полей m_FileNameSizeTimeDiscr
-	m_FileNameSizeTime.resize(m_FileNameSizeTimeDiscr.size());
-};
+	}
+}
 
 
 //  содержит ли Dicom тэги
 bool DicomFileIndex::is_dicom() const
 {
-	return (m_DicomSource == DicomSource::yes_dicom_from_json || m_DicomSource == DicomSource::yes_dicom_from_file);
+	return (m_DicomSource == file_info_source::dicom_from_json || m_DicomSource == file_info_source::dicom_from_file);
 }
 
 
@@ -114,65 +134,42 @@ bool DicomFileIndex::is_dicom() const
 bool DicomFileIndex::has_image_type() const
 {
 	for (const auto& el : m_dicom_image_type)
-		if (el.second)
-			return true;
+	{
+		if(el.second) return true;
+	}
 	return false;
 }
 
-
-// вернуть имя файла из  m_FileNameSizeTimeDiscr
-string DicomFileIndex::get_file_name() const
-{
-	if (m_FileNameSizeTime.size() > 0)
-		return m_FileNameSizeTime[0];
-	else
-		return string("");
-};
-
-
-// из списка тэгов файла сгенерировать строку
-wstring DicomFileIndex::get_summary_info_string() const
-{
-	wstring str_dicom;
-	if (!check_consistency())   //  отсутствуют заполненные поля
-		return str_dicom;
-
-	if (is_dicom())		// если Dicom файл, то записать Dicom тэги
-	{
-		// во внутренний блок пишем только индексы с [NFIELDS_TYPE_1 и до конца]
-		for (size_t i = 0; i < NFIELDS_TYPE_1; i++)
-		{
-			string str_tag_discr = get_dicom_tags_discr(i);
-			str_dicom += get_dicom_tags_value(i);
-		}
-	}
-
-	return str_dicom;
-}
-
-
-// сформировать vector 3-х строк
-// 1) имя файла 2) размер файла в байтах файла 3) время создания файла
 bool DicomFileIndex::fill_name_size_time(const wstring& fname, const wstring &name_part)
 {
-	string str_size, str_date;
-	if (!GetFileSizeAndModifyTime(convert_to_string(fname), str_size, str_date))
+	file_size_t file_size = 0;
+	string date;
+	if (!GetFileSizeAndModifyTime(convert_to_string(fname), file_size, date))
 		return false;
-	m_FileNameSizeTime = { convert_to_string(name_part), str_size, str_date };
+	m_filename = name_part;
+	m_file_size = file_size;
+	m_file_mtime = date;
 	return true;
-};
+}
 
+string DicomFileIndex::FormatTime(const time_t *t)
+{
+	struct tm* clock = gmtime(t);
+	// NB! tm_year отсчитывается от 1900, tm_mon отсчитывается от 0.
+	return ssprintf("%d-%02d-%02dT%02d:%02d:%02dZ",
+			clock->tm_year + 1900, clock->tm_mon + 1, clock->tm_mday,
+			clock->tm_hour, clock->tm_min, clock->tm_sec);
+}
 
 // заполнить поля m_dicom_tags_value для файла fname
 bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring &name)
 {
-	wstring full_filename = path + wpath_separator() + name;
+	wstring full_filename = MergePath(path, name);
 	if (!fill_name_size_time(full_filename, name))
 	{
-		m_DicomSource = DicomSource::file_not_exist;
 		return false;
 	}
-	m_DicomSource = DicomSource::not_dicom_from_file;
+	m_DicomSource = file_info_source::non_dicom_from_file;
 
 	try
 	{
@@ -195,12 +192,11 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 
 		// заполнить map типов изображения
 		string str_type_image = typeid(*dicom_instance).name();
-		for (auto& el : map_imagetype_disc)
+		for (auto& el : imagetype_description_class)
 			m_dicom_image_type[el.first] = (el.second == str_type_image);
 	}
 	catch (std::runtime_error &) // при неустойчивой работе сети не можем считать файлы
 	{
-		m_DicomSource = DicomSource::exeption_loading;
 		return false;
 	}
 	//catch (std::bad_alloc) {
@@ -219,49 +215,23 @@ bool DicomFileIndex::fill_filetags_from_file(const wstring &path, const wstring 
 			m_dicom_image_type[ImageType::image] = true;
 	}
 
-	m_DicomSource = DicomSource::yes_dicom_from_file;
+	m_DicomSource = file_info_source::dicom_from_file;
 
 	return true;
 }
-
-bool DicomFileIndex::fill_from_fileinfo(const FileInfo & fileinfo_val)
-{
-	string str_size, str_date;
-	struct tm* clock;
-
-	clock = gmtime(&fileinfo_val.time_write);		// Get the last modified time and put it into the time structure
-
-	str_date = ssprintf("%d-%02d-%02dT", clock->tm_year + 1900, clock->tm_mon, clock->tm_mday);
-	str_date += ssprintf("%02d:%02d:%02dZ", clock->tm_hour, clock->tm_min, clock->tm_sec);
-
-	str_size = ssprintf("%llu", EnsureType<unsigned long long>(fileinfo_val.size));
-	m_FileNameSizeTime = { convert_to_string(fileinfo_val.filename), str_size, str_date };
-	return true;
-}
-
 
 // проверить соответветствие данных в структуре
 bool DicomFileIndex::check_consistency() const
 {
 	if (is_dicom())
 	{
-		if (m_dicom_tags_discription.size() != get_dicom_tags_length())
+		if (m_dicom_tags_description.size() != get_dicom_tags_length())
 			return false;
 		if (m_dicom_tags_value.size() != get_dicom_tags_length())
 			return false;
 	}
-	if (m_FileNameSizeTimeDiscr.size() != m_FileNameSizeTime.size())
-		return false;
 
 	return true;
-}
-
-
-bool DicomFileIndex::equal_fast(const DicomFileIndex& a) const
-{
-	if (!check_consistency() || !a.check_consistency())
-		return false;
-	return m_FileNameSizeTime == a.m_FileNameSizeTime;
 }
 
 
@@ -274,13 +244,20 @@ bool DicomFileIndex::operator==(const DicomFileIndex& a) const
 	//if (!is_dicom())	// для не dicom файла проверить только совпадение имён
 	//	return get_file_name() == a.get_file_name();
 
-	// для dicom файла
-	bool t1 = m_dicom_tags_value == a.m_dicom_tags_value;
-	bool t2 = m_dicom_image_type == a.m_dicom_image_type;
-	bool t3 = m_FileNameSizeTime == a.m_FileNameSizeTime;
-	// bool t4 = m_FileNameSizeTimeDiscr == a.m_FileNameSizeTimeDiscr;
+	if (m_file_size != a.m_file_size)
+		return false;
+	if (m_filename != a.m_filename)
+		return false;
+	if (m_file_mtime != a.m_file_mtime)
+		return false;
 
-	return (t1 && t2 && t3);
+	// для dicom файла
+	if (m_dicom_tags_value != a.m_dicom_tags_value)
+		return false;
+	if (m_dicom_image_type != a.m_dicom_image_type)
+		return false;
+
+	return true;
 }
 
 
@@ -299,10 +276,10 @@ wstring DicomFileIndex::get_dicom_tags_value(size_t i) const
 }
 
 
-// получить значение m_dicom_tags_discription.at(m_dicom_tags[i])
-string DicomFileIndex::get_dicom_tags_discr(size_t i) const
+// получить значение m_dicom_tags_description.at(m_dicom_tags[i])
+string DicomFileIndex::get_dicom_tags_description(size_t i) const
 {
-	return m_dicom_tags_discription.at(m_dicom_tags[i]);
+	return m_dicom_tags_description.at(m_dicom_tags[i]);
 }
 
 
@@ -312,15 +289,15 @@ void DicomFileIndex::set_dicom_tags_value(size_t i, const wstring& wstr_value)
 	m_dicom_tags_value[m_dicom_tags[i]] = wstr_value;
 }
 
-// установить значение m_dicom_tags_discription.at(m_dicom_tags[i])
-void DicomFileIndex::set_dicom_tags_discr(size_t i, const string& str_value)
+// установить значение m_dicom_tags_description.at(m_dicom_tags[i])
+void DicomFileIndex::set_dicom_tags_description(size_t i, const string& str_value)
 {
-	m_dicom_tags_discription[m_dicom_tags[i]] = str_value;
+	m_dicom_tags_description[m_dicom_tags[i]] = str_value;
 }
 
 
-// установить значение DicomSource
-void DicomFileIndex::set_dicomsource_type(DicomSource dicome_type)
+// установить значение file_info_source
+void DicomFileIndex::set_dicomsource_type(file_info_source dicome_type)
 {
 	m_DicomSource = dicome_type;
 }
@@ -333,41 +310,20 @@ void DicomFileIndex::set_dicom_image_type(ImageType image_type, bool b_value)
 }
 
 
-// получить вектор ненулевых map_imagetype_disc
+// получить вектор ненулевых imagetype_description
 vector<string> DicomFileIndex::get_image_type_vector() const
 {
 	vector<string> vec_image_types;
 	for (auto& el : m_dicom_image_type)
 	{
-		if (!el.second || map_imagetype_disc.find(el.first) == map_imagetype_disc.end()) // если не нашли елемент по ключу
-			continue;
-		vec_image_types.push_back(map_imagetype_fix_disc.at(el.first));
+		if(el.second && imagetype_description_class.find(el.first) != imagetype_description_class.end()) // если нашли элемент по ключу
+		{
+			vec_image_types.push_back(imagetype_description_fixed.at(el.first));
+		}
 	}
 	return vec_image_types;
 }
 
-
-// получить значение m_FileNameSizeTime
-string DicomFileIndex::get_dicom_namesizetime_value(size_t i) const
-{
-	return m_FileNameSizeTime[i];
-}
-
-
-// получить значение m_FileNameSizeTimeDiscr
-wstring DicomFileIndex::get_dicom_namesizetime_discr(size_t i) const
-{
-	return m_FileNameSizeTimeDiscr[i];
-}
-
-
-// установить значение m_FileNameSizeTime
-void DicomFileIndex::set_dicom_namesizetime_value(size_t i, const string& str_value)
-{
-	//if (m_FileNameSizeTime.size() < i + 1)
-	//	m_FileNameSizeTime.resize(i+1);
-	m_FileNameSizeTime[i] = str_value;
-}
 
 
 // работа с ImageType - определение типа
@@ -422,33 +378,6 @@ bool DicomFileIndex::get_ImageType_image() const
 	if (m_dicom_image_type.find(ImageType::image) == m_dicom_image_type.end())
 		return false;
 	return m_dicom_image_type.at(ImageType::image);
-}
-
-
-// получить размер файла в байтах и времени создания файла в байтах
-// https://tools.ietf.org/html/rfc3339
-// 1985-04-12T23:20:50.52Z
-// This represents 20 minutes and 50.52 seconds after the 23rd hour of April 12th, 1985 in UTC.
-// и/или https://ru.wikipedia.org/wiki/ISO_8601
-bool GetFileSizeAndModifyTime(const std::string& filename, std::string& str_size, std::string& str_date)
-{
-	struct stat stat_buf;
-	struct tm* clock;								// create a time structure
-	int rc = stat(filename.c_str(), &stat_buf);		// get the attributes of afile.txt
-	//xrad::fileinfo stat_fast = xrad::GetFileInfoStruct(convert_to_wstring(filename));
-	if (rc != 0)
-		return false;
-	clock = gmtime(&(stat_buf.st_mtime));			// Get the last modified time and put it into the time structure
-
-													// clock->tm_year returns the year (since 1900)
-													// clock->tm_mon returns the month (January = 0)
-													// clock->tm_mday returns the day of the month
-	str_date = ssprintf("%d-%02d-%02dT", clock->tm_year + 1900, clock->tm_mon, clock->tm_mday) +
-			ssprintf("%02d:%02d:%02dZ", clock->tm_hour, clock->tm_min, clock->tm_sec);
-
-	// TODO: Необходимо получить 64-битный размер файла.
-	str_size = ssprintf("%ld", EnsureType<long>(stat_buf.st_size));
-	return true;
 }
 
 } //namespace Dicom

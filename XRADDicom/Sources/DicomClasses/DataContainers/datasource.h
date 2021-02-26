@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 10/18/2018 12:47:56 PM
 	\author Kovbas (kovbas)
@@ -77,64 +82,80 @@ namespace Dicom
 	class datasource_folder : public datasource_t
 	{
 	public:
-		enum class Mode
+		enum class mode_t
 		{
-			//! \brief Использовать индексирование каталогов (чтение и запись)
-			Index,
-			//! \brief Не использовать индексирование каталогов
-			NoIndex,
+			/*!
+				\brief Использовать и обновлять ранее построенные индексы каталогов
 
-			Default = Index
+				Данные сверяются с индексом по датам изменения файлов и по их размеру. При наличии изменений
+				данные обновляются, изменения в индексе сохраняются.
+
+				Ошибки работы с файлами индекса игнорируются (делаются записи в лог).
+				Ошибки получения информации по измененным и новым файлам не игнорируются (исключение).
+			*/
+			read_and_update_index,
+
+			/*!
+				\brief Использовать ранее построенные индексы каталогов, обновлять данные, но не сохранять
+
+				Данные сверяются с индексом по датам изменения файлов и по их размеру. При наличии изменений
+				данные обновляются, но изменения в индексе не сохраняются (режим read-only).
+
+				Ошибки работы с файлами индекса игнорируются (делаются записи в лог).
+				Ошибки получения информации по измененным и новым файлам не игнорируются (исключение).
+			*/
+			read_only_index,
+
+			/*!
+				\brief Использовать ранее построенные индексы каталогов без обновления
+				
+				Используются данные из индекса. Производится проверка изменений файлов по размеру и датам.
+				При обнаружении изменений выдается ошибка (исключение).
+			*/
+			read_index_as_is,
+
+			//! \brief Не использовать индексирование каталогов
+			no_index,
+
+			default_mode = read_and_update_index
 		};
 	public:
 		datasource_folder() = delete;
-		datasource_folder(const wstring &folder_path, bool analyze_subfolders_in)
-			:m_path(folder_path), m_analyze_subfolders(analyze_subfolders_in)
-		{}
-		datasource_folder(const wstring &folder_path, bool analyze_subfolders_in, Mode mode)
-			:m_path(folder_path), m_analyze_subfolders(analyze_subfolders_in), m_mode(mode)
-		{}
+		datasource_folder(const wstring &folder_path, bool analyze_subfolders_in);
+		datasource_folder(const wstring &folder_path, bool analyze_subfolders_in, mode_t mode);
 		virtual ~datasource_folder() override {}
 
 		virtual e_datasource type() const override { return folder; }
 
-		virtual datasource_t* clone() const override
-		{
-			return new datasource_folder(*this);
-		}
-		virtual wstring print() const override
-		{
-			return m_path;
-		}
+		virtual datasource_t* clone() const override;
+		virtual wstring print() const override {return m_path;}
 
 		wstring path() const { return m_path; }
 		bool analyze_subfolders() const { return m_analyze_subfolders; }
-		Mode mode() const { return m_mode; }
+		mode_t mode() const { return m_mode; }
 
 	private:
 		wstring m_path;
 		bool m_analyze_subfolders;
-		Mode m_mode = Mode::Default;
+		mode_t m_mode = mode_t::default_mode;
 	};
 
 	class datasource_pacs : public datasource_t, public pacs_params_t
 	{
 	public:
 		datasource_pacs() = delete;
-		datasource_pacs(const wstring &address_pacs_p, size_t port_pacs_p, const wstring &AETitle_pacs_p, const wstring &AETitle_local_p/*note Kovbas: use XRAD_SCU by default*/, size_t port_local_p/*note Kovbas: use 104 by default*/, e_request_t request_type_p)
-			:pacs_params_t(address_pacs_p, port_pacs_p, AETitle_pacs_p, AETitle_local_p, port_local_p, request_type_p)
-		{}
-		virtual ~datasource_pacs() override {}
+		datasource_pacs(const wstring &address_pacs_p, 
+						size_t port_pacs_p, 
+						const wstring &AETitle_pacs_p, 
+						const wstring &AETitle_local_p, //note Kovbas: use XRAD_SCU by default
+						size_t port_local_p,			// note Kovbas: use 104 by default
+						e_request_t request_type_p);
+
+		virtual ~datasource_pacs() {}
 
 		virtual e_datasource type() const override { return pacs; }
-		virtual datasource_pacs* clone() const override
-		{
-			return new datasource_pacs(*this);
-		}
-		virtual wstring print() const override
-		{
-			return pacs_params_t::print();
-		}
+		virtual datasource_pacs* clone() const override { return new datasource_pacs(*this); }
+		virtual wstring print() const override { return pacs_params_t::print(); }
 	};
 
 	class datasource_file : public datasource_t, public xrad::filesystem::file_info

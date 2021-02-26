@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 4/19/2018 2:27:56 PM
 	\author kovbas
@@ -13,7 +18,8 @@ XRAD_BEGIN
 // похоже на то, что это тестирование работы мультифреймов
 wstring ProcessAcquisition::get_dicom_file_content(size_t num_of_frame_p, bool byDCMTK) const
 {
-	return (*m_acquisition_loader)[num_of_frame_p + 1]->get_instance_content(byDCMTK);
+	//return (*m_acquisition_loader)[num_of_frame_p + 1]->get_instance_content(byDCMTK);
+	return (*m_acquisition_loader)[num_of_frame_p]->get_instance_content(byDCMTK);
 }
 
 

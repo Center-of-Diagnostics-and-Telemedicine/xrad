@@ -1,7 +1,12 @@
-﻿// file ComplexContainer.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file ComplexContainer.h
 //--------------------------------------------------------------
-#ifndef __ComplexContainer_h
-#define __ComplexContainer_h
+#ifndef XRAD__File_ComplexContainer_h
+#define XRAD__File_ComplexContainer_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
@@ -19,6 +24,7 @@ class ComplexContainer: public Container
 		using typename parent::value_type;
 		using typename parent::value_type_invariable;
 		using typename parent::value_type_variable;
+		using parent::GetDataComponent;
 
 		using self = ComplexContainer;
 		using invariable = ComplexContainer<typename Container::invariable,
@@ -141,4 +147,4 @@ XRAD_END
 #include "ComplexContainer.hh"
 
 //--------------------------------------------------------------
-#endif // __ComplexContainer_h
+#endif // XRAD__File_ComplexContainer_h

@@ -1,7 +1,12 @@
-﻿// file ArrayAnalyzeFunctors.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file ArrayAnalyzeFunctors.h
 //--------------------------------------------------------------
-#ifndef __ArrayAnalyzeFunctors_h
-#define __ArrayAnalyzeFunctors_h
+#ifndef XRAD__File_ArrayAnalyzeFunctors_h
+#define XRAD__File_ArrayAnalyzeFunctors_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
@@ -150,48 +155,6 @@ public:
 
 //--------------------------------------------------------------
 
-class real_part
-{
-	public:
-		template <class T>
-		auto operator() (const T &v) const
-		{
-			return real(v);
-		}
-};
-
-class imag_part
-{
-	public:
-		template <class T>
-		auto operator() (const T &v) const
-		{
-			return imag(v);
-		}
-};
-
-class phasor_value
-{
-	public:
-		template <class T>
-		auto operator() (const T &v) const
-		{
-			return phasor(v);
-		}
-};
-
-class phasord_value
-{
-	public:
-		template <class T>
-		auto operator() (const T &v) const
-		{
-			return phasord(v);
-		}
-};
-
-//--------------------------------------------------------------
-
 /*!
 	\brief Вспомогательный функтор для поиска в одномерном контейнере
 
@@ -289,4 +252,4 @@ class acquire_histogram_functor
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __ArrayAnalyzeFunctors_h
+#endif // XRAD__File_ArrayAnalyzeFunctors_h

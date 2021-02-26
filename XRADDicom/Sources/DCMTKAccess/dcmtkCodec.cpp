@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\author kovbas
 */
@@ -775,7 +780,7 @@ namespace Dicom
 		int j2kQuality = 100;
 		//ImageData           imageData;
 		//ImageData           imageData;
-		//clock_t             starttime;
+		//physical_time             starttime;
 		//UINT32		byteCnt; //возможно нужен будет при переводе на работу с цветными изображениями
 		//char		*bufferg_ptr, *bufferb_ptr, *out_ptr;
 		//unsigned int	mask;
@@ -801,7 +806,7 @@ namespace Dicom
 		//If debug > 0, get start time and print who.
 		/*if (DebugLevel > 0)
 		{
-			starttime = clock();
+			starttime = GetPerformanceCounter();
 			SystemDebug.printf("OpenJP2 %s compress started.\n", version);
 		}*/
 		//Get the data.
@@ -1109,7 +1114,7 @@ namespace Dicom
 		//else pDDO->ChangeVR(0x0002, 0x0010, "1.2.840.10008.1.2.4.90\0", 'IU');
 		// а вот это интересно (то, что выше)
 		// If debug > 0, print when finished
-		//if (DebugLevel > 0) SystemDebug.printf("OpenJP2 compress time %u milliseconds.\n", (clock() - starttime) / 1000);
+		//if (DebugLevel > 0) SystemDebug.printf("OpenJP2 compress time %lf milliseconds.\n", double((GetPerformanceCounter() - starttime).sec()) * 1000);
 		return true;
 	}
 

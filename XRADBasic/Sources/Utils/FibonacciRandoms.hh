@@ -1,4 +1,9 @@
-﻿#include <chrono>
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#include <chrono>
 
 XRAD_BEGIN
 
@@ -12,6 +17,7 @@ void	FibonacciRandomGenerator<T>::SeedBuiltInRand()
 template<class T>
 void	FibonacciRandomGenerator<T>::InitIterators(uint32_t a_offset, uint32_t b_offset)
 	{
+	std::lock_guard<std::mutex> lock(m_mutex);
 	i0 = state_vector.begin();
 	ie = state_vector.end();
 	// вершина стека всегда итератор a;
@@ -64,6 +70,7 @@ FibonacciRandomGenerator<T>::FibonacciRandomGenerator(uint32_t a_offset, uint32_
 template<class T>
 const T &FibonacciRandomGenerator<T>::Generate() const
 	{
+	std::lock_guard<std::mutex>	lock(m_mutex);
 	if(++a==ie) a=i0;
 	if(++b==ie) b=i0;
 

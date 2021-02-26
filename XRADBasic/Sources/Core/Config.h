@@ -1,7 +1,12 @@
-﻿// file Config.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file Config.h
 //--------------------------------------------------------------
-#ifndef __Config_h
-#define __Config_h
+#ifndef XRAD__File_Config_h
+#define XRAD__File_Config_h
 //--------------------------------------------------------------
 /*!
 	\defgroup gr_Config Конфигурация библиотеки XRAD
@@ -47,6 +52,16 @@
 	\par
 	Значение этой константы совпадает со значением `__GNUC__` (старший номер версии компилятора).
 	См. также `__GNUC__`, `__GNUC_MINOR__`, `__GNUC_PATCHLEVEL__`.
+
+	\par
+	Система сборки CMake:
+	~~~~
+	#define XRAD_COMPILER_CMAKE
+	~~~~
+
+	\par
+	Константа определяется в случае использования системы сборки CMake в дополнение к константам,
+	определяемым для компилятора. Сейчас значение этой константы пустое.
 */
 
 /*!
@@ -104,4 +119,4 @@
 
 //--------------------------------------------------------------
 //! @} <!-- ^group gr_Config -->
-#endif // __Config_h
+#endif // XRAD__File_Config_h

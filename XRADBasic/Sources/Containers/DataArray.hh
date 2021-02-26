@@ -1,5 +1,10 @@
-﻿#ifndef __data_array_cc
-#define __data_array_cc
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_data_array_cc
+#define XRAD__File_data_array_cc
 
 
 #include "BasicArrayInteractions1D.h"
@@ -104,7 +109,8 @@ void	DataArray<T>::resize(size_t in_size)
 		return;	// ничего не делает, если размеры одинаковы
 	//
 	DataArray<T> new_data(in_size);
-	new_data.CopyData(*this);
+	if (!empty())
+		new_data.CopyData(*this);
 	MoveData(new_data);
 
 //TODO Для наследников вызывается только родительский метод. Это может быть чревато ошибками.
@@ -243,7 +249,7 @@ void DataArray<T>::GetDataComponent(DataArray<T2> &component,
 	// Это ограничение текущей реализации DataOwner.
 	static_assert(sizeof(value_type) % sizeof(component_type) == 0,
 			"DataArray<T>::GetDataComponent: Data step must be a multiple of data size for DataOwner.");
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	{
 		// Проверка на то, что компонента находится внутри исходных данных.
 		auto *data_origin = &at(0);
@@ -273,7 +279,7 @@ void DataArray<T>::GetDataComponent(DataArray<T2> &component,
 	// Это ограничение текущей реализации DataOwner.
 	static_assert(sizeof(value_type) % sizeof(component_type) == 0,
 			"DataArray<T>::GetDataComponent: Data step must be a multiple of data size for DataOwner.");
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	{
 		// Проверка на то, что компонента находится внутри исходных данных.
 		auto *data_origin = &at(0);
@@ -452,4 +458,4 @@ void ApplyAction(DataArray<T> &array, const F &function)
 
 XRAD_END
 
-#endif // __data_array_cc
+#endif // XRAD__File_data_array_cc

@@ -1,9 +1,14 @@
-﻿#ifdef __field_element_h_inside
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifdef XRAD__File_field_element_h_inside
 #error Error: Recursive inclusion of FieldElement.h detected.
 #endif
-#ifndef __field_element_h
-#define __field_element_h
-#define __field_element_h_inside
+#ifndef XRAD__File_field_element_h
+#define XRAD__File_field_element_h
+#define XRAD__File_field_element_h_inside
 /*!
 	\addtogroup gr_Algebra
 	@{
@@ -74,7 +79,8 @@ namespace	AlgebraicStructures
 template<XRAD__template_1>
 class GenericFieldElement : public CONTAINER_T
 {
-	private:
+// 	private:
+	public:
 		typedef	CHILD_T child_type;
 
 		child_type &child_ref(){ return static_cast<child_type&>(*this); }
@@ -98,6 +104,7 @@ class GenericFieldElement : public CONTAINER_T
 		using parent::operator=;
 
 	public:
+		// сложение с другим FieldElement
 		template<XRAD__template_2>
 		child_type	&operator += (const GenericFieldElement<XRAD__template_2_args> &f2){ return algorithms_type::AA_Op_Assign(child_ref(), f2, Functors::plus_assign()); }
 
@@ -110,7 +117,20 @@ class GenericFieldElement : public CONTAINER_T
 		template<XRAD__template_2>
 		child_type	operator - (const GenericFieldElement<XRAD__template_2_args> &f2) const { return algorithms_type::AA_Op_New(child_ref(), f2, Functors::assign_minus()); }
 
+		// Маскирование. Поэлементно умножает или делит контейнер на другой, равный ему по размерам. Сходно по наполнению с AlgebraElement::operator*
+		template<class MASK_T>
+		child_type	&apply_mask(const MASK_T &f2){ return algorithms_type::AA_Op_Assign(child_ref(), f2, Functors::multiply_assign()); }
 
+		template<class MASK_T>
+		child_type	&apply_mask_inverse(const MASK_T &f2){ return algorithms_type::AA_Op_Assign(child_ref(), f2, Functors::divide_assign()); }
+
+		template<class MASK_T>
+		child_type	mask(const MASK_T &f2) const { return algorithms_type::AA_Op_New(child_ref(), f2, Functors::assign_multiply()); }
+
+		template<class MASK_T>
+		child_type	mask_inverse(const MASK_T &f2) const { return algorithms_type::AA_Op_New(child_ref(), f2, Functors::assign_divide()); }
+
+		// умножение на скаляр
 		child_type	&operator *= (const scalar_type &x) { return algorithms_type::AS_Op_Assign(child_ref(), x, Functors::multiply_assign()); }
 		child_type	&operator /= (const scalar_type &x) { return algorithms_type::AS_Op_Assign(child_ref(), x, Functors::divide_assign()); }
 
@@ -208,9 +228,7 @@ class GenericFieldElement : public CONTAINER_T
 		// действия со скалярным результатом
 		// скалярное произведение, результат возвращается, тип результата совпадает с value_type
 		template<XRAD__template_2>
-#ifdef XRAD_COMPILER_MSC
-		__declspec(deprecated("FieldElement::operator | is deprecated. Use sp() function instead"))
-#endif // TODO: GCC
+		[[deprecated("FieldElement::operator | is deprecated. Use sp() function instead")]]
 		value_type	operator | (const GenericFieldElement<XRAD__template_2_args> &f2) const
 		{
 			return sp(f2);
@@ -246,6 +264,34 @@ VT	sp(const GenericFieldElement<XRAD__template_1_args> &x, const GenericFieldEle
 {
 	return x.sp(y);
 }
+
+// операторы вида "число + вектор". Дополняют ранее существовавшие "вектор+число"
+template<XRAD__template_1>
+auto operator + (const VT &x, const GenericFieldElement<XRAD__template_1_args> &y)
+{
+	return y.child_ref() + x;
+}
+
+template<XRAD__template_1>
+auto	operator - (const VT &x, const GenericFieldElement<XRAD__template_1_args> &y)
+{
+	return -y.child_ref() + x;
+}
+
+template<XRAD__template_1>
+auto	operator * (const ST &x, const GenericFieldElement<XRAD__template_1_args> &y)
+{
+	return y.child_ref() * x;
+}
+
+template<XRAD__template_1>
+auto	operator / (const ST &x, const GenericFieldElement<XRAD__template_1_args> &y)
+{
+	auto	result = y.child_ref();
+	ApplyFunction(result, [](VT &x){return x = 1./x;});
+	return result * x;
+}
+
 
 //--------------------------------------------------------------
 /*!
@@ -419,5 +465,5 @@ XRAD__define_action(subtract_divide)
 
 XRAD_END
 
-#undef __field_element_h_inside
-#endif //__field_element_h
+#undef XRAD__File_field_element_h_inside
+#endif //XRAD__File_field_element_h

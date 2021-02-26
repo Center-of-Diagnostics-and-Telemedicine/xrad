@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 4/23/2018 5:47:27 PM
 	\author kovbas
@@ -16,7 +21,7 @@ enum	display_rg_options
 	//display_rg_current,
 	//display_rg_voltage,
 	//display_CTDI_vol,
-	display_rg_thiсkness,
+	display_rg_thickness,
 	display_rg_positions,
 	exit_rg_display
 };
@@ -32,14 +37,14 @@ const vector<wstring> &options_generic_rg_names()
 	//options[display_rg_current] = L"Display Image current";
 	//options[display_rg_voltage] = L"Display Image voltage";
 	//options[display_CTDI_vol] = L"Display CTDI vol";
-	options[display_rg_thiсkness] = L"Display Image slice thickness";
+	options[display_rg_thickness] = L"Display Image slice thickness";
 	options[display_rg_positions] = L"Display Image slice position";
 	options[exit_rg_display] = L"Exit display";
 	}
 	return	options;
 }
 
-void	DisplayXRAYGeneric(const XRAYAcquisition &rg, const wstring &title)
+void	DisplayXRayGeneric(const XRayAcquisition &rg, const wstring &title)
 {
 	size_t display_rg_options(0);
 	wstring title_full = title + L" [" + rg.series_description() + L"]";
@@ -86,7 +91,7 @@ void	DisplayXRAYGeneric(const XRAYAcquisition &rg, const wstring &title)
 			}
 			break;
 
-			/*?case display_rg_thiсkness:
+			/*?case display_rg_thickness:
 				//todo Kovbas Это актуально для рентгенов?
 				DisplayMathFunction(image.thickness(), 0, 1, title_full + L" Slice Thikness", L"Slice No", L"mm");
 				break;*/

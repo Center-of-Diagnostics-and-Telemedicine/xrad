@@ -1,5 +1,10 @@
-﻿#ifndef __least_squares_h
-#define __least_squares_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_least_squares_h
+#define XRAD__File_least_squares_h
 
 #include <XRADBasic/MathFunctionTypes.h>
 #include <XRADBasic/LinearVectorTypes.h>
@@ -103,4 +108,4 @@ void	DetectLSUniversalWeighted(const RealFunctionF64 &samples, const abstract_LS
 
 XRAD_END
 
-#endif //__least_squares_h
+#endif //XRAD__File_least_squares_h

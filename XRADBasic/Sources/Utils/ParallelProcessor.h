@@ -1,4 +1,9 @@
-﻿#ifndef ParallelProcessor_h__
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef ParallelProcessor_h__
 #define ParallelProcessor_h__
 
 /*!
@@ -127,7 +132,7 @@ private:
 	error_process_mode_t	m_error_process_mode = skip_rest;
 
 	//! \brief Вспомогательная величина, позволяет избежать обращений к макро в теле функции
-	#if defined(_DEBUG)
+	#if defined(XRAD_DEBUG)
 		const	bool	debug = true;
 	#else
 		const	bool	debug = false;
@@ -236,7 +241,7 @@ public:
 	//! \param in_n_actions_per_thread Необязательный параметр. Позволяет вручную установить нагрузку на один поток
 	//!	\param in_mode Необязательный параметр. Позволяет принудительно включить или выключить многопоточную обработку
 	//!	\param in_n_threads Необязательный параметр. Позволяет принудительно установить число потоков
-	void	init(size_t in_n_steps, mode_t in_mode = e_auto, size_t in_n_actions_per_thread = 0, size_t in_n_threads = omp_get_num_procs())
+	void	init(size_t in_n_steps, mode_t in_mode = e_auto, size_t in_n_actions_per_thread = 0, size_t in_n_threads = omp_get_max_threads())
 	{
 		//TODO добавить проверку корректности аргументов, бросать исключение. Специально ради этого запретил инициализирующий конструктор
 

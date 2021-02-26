@@ -1,5 +1,10 @@
-﻿#ifndef __universal_interpolation_2d_cc
-#define __universal_interpolation_2d_cc
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_universal_interpolation_2d_cc
+#define XRAD__File_universal_interpolation_2d_cc
 
 XRAD_BEGIN
 
@@ -37,4 +42,4 @@ const FILTER	*UniversalInterpolator2D<FILTER>::GetNeededFilter(double v, double 
 
 XRAD_END
 
-#endif //__universal_interpolation_2d_cc
+#endif //XRAD__File_universal_interpolation_2d_cc

@@ -1,5 +1,10 @@
-﻿#ifndef __DicomParameterCounter_h__
-#define __DicomParameterCounter_h__
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_DicomParameterCounter_h__
+#define XRAD__File_DicomParameterCounter_h__
 /*!
 	\file
 	\date 2018/02/28 10:38
@@ -83,4 +88,4 @@ inline double	weight_f(const Dicom::instance &/*data*/){ return 0;/*пример
 
 XRAD_END
 
-#endif // __DicomParameterCounter_h__
+#endif // XRAD__File_DicomParameterCounter_h__

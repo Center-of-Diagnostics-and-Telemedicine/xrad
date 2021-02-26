@@ -1,7 +1,12 @@
-﻿// file CommonConfig.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file CommonConfig.h
 //--------------------------------------------------------------
-#ifndef __CommonConfig_h
-#define __CommonConfig_h
+#ifndef XRAD__File_CommonConfig_h
+#define XRAD__File_CommonConfig_h
 //--------------------------------------------------------------
 /*!
 	\addtogroup gr_Config
@@ -21,10 +26,27 @@ namespace xrad
 }
 
 //--------------------------------------------------------------
+
+// Определение NDEBUG описано в стандарте C++ в связи с макросом assert.
+// Смысл его очень близок к тому, что нам нужно для включения и отключения в коде дополнительных
+// проверок.
+// Практика работы с разными компиляторами показывает, что NDEBUG определяется в нужных нам
+// случаях, использование CompilerSpecific не требуется.
+#ifndef NDEBUG
+	/*!
+		\brief Если определено, можно использовать дополнительные проверки в коде. Проверку
+		следует делать в виде ifdef XRAD_DEBUG / if defined(XRAD_DEBUG)
+
+		\note Сейчас значение контанты равно 1, но это может измениться в будущем.
+	*/
+	#define XRAD_DEBUG 1
+#endif
+
+//--------------------------------------------------------------
 // Настройки работы итераторов
 //--------------------------------------------------------------
 
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	//! \brief Контролироовать выход за границы массива для итераторов
 	#define XRAD_USE_CHECKED_ITERATORS
 #endif
@@ -38,4 +60,4 @@ namespace xrad
 
 //--------------------------------------------------------------
 //! @} <!-- ^group gr_Config -->
-#endif // __CommonConfig_h
+#endif // XRAD__File_CommonConfig_h

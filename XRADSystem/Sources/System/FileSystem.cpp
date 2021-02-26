@@ -1,4 +1,9 @@
-﻿#include "pre.h"
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#include "pre.h"
 #include "FileSystem.h"
 #include "FileNamePatternMatch.h"
 #include "FileNameOperations.h"
@@ -36,6 +41,7 @@ auto api_GetDirectoryContent = GetDirectoryContent_MS;
 auto api_GetDirectoryContentDetailed = GetDirectoryContentDetailed_MS;
 auto api_FileExists = FileExists_MS;
 auto api_DirectoryExists = DirectoryExists_MS;
+auto api_GetFileInfo = GetFileInfo_MS;
 auto api_CreateFolder = CreateFolder_MS;
 auto api_CreatePath = CreatePath_MS;
 auto api_DeleteFile = DeleteFile_MS;
@@ -58,6 +64,7 @@ auto api_GetDirectoryContent = GetDirectoryContent_Qt;
 #error TODO: api_GetDirectoryContentDetailed not implemented.
 auto api_FileExists = FileExists_Qt;
 auto api_DirectoryExists = DirectoryExists_Qt;
+#error TODO: api_GetFileInfo not implemented.
 auto api_CreateFolder = CreateFolder_Qt;
 auto api_CreatePath = CreatePath_Qt;
 #error TODO: api_DeleteFile not implemented.
@@ -120,7 +127,14 @@ wstring PathFilenameToWString(const filesystem::path &path)
 
 time_t FSTimeToTime(filesystem::file_time_type ft)
 {
-#if defined(XRAD_COMPILER_MSC) && (_MSC_VER == 1924)
+#if defined(XRAD_COMPILER_MSC)
+#if _MSC_VER > 1928
+	#error This version of MSVC is too new and it should be tested.
+	// Необходимо убедиться, что для для отсчета времени в filesystem используется время FILETIME.
+	// Если это так, то код ниже будет работать верно, можно использовать его.
+	// Если не так, то нужно писать новое преобразование времени.
+#elif _MSC_VER >= 1924
+	// Проверено для версий 1924..1928.
 	// Здесь file_time_type::clock не содержит метод to_time_t. Преобразуем вручную, используя
 	// информацию об устройстве runtime-библиотеки MSVC.
 
@@ -134,6 +148,9 @@ time_t FSTimeToTime(filesystem::file_time_type ft)
 	return chrono::system_clock::to_time_t(chrono::system_clock::time_point(
 			chrono::system_clock::duration(ft.time_since_epoch().count() -
 					c_to_fs_time_disp_sec * file_clock::period::den)));
+#else
+	#error This version of MSVC is too old and it was not tested.
+#endif
 #elif defined(XRAD_COMPILER_GNUC)
 #if defined(__cpp_lib_filesystem) && (__cpp_lib_filesystem == 201703)
 	// From <bits/fs_fwd.h>: struct __file_clock
@@ -157,6 +174,10 @@ time_t FSTimeToTime(filesystem::file_time_type ft)
 	#error Unknown C++ library version.
 #endif
 #else
+	// Универсальный подход (C++17): если filesystem::file_time_type::clock есть
+	// std::chrono::system_clock, то можно использовать метод to_time_t.
+	// В противном случае универсального подхода нет, нужно искать специфический способ преобразования
+	// для используемой библиотеки C++.
 	return filesystem::file_time_type::clock::to_time_t(ft);
 #endif
 }
@@ -243,6 +264,27 @@ bool api_DirectoryExists(const wstring &directory_path)
 	if (ec)
 		return false;
 	return is_directory(status);
+}
+
+#ifdef XRAD_FSObjectInfo_HAS_C_A_TIMES
+	#error XRAD_FSObjectInfo_HAS_C_A_TIMES: Extended times are not supported.
+#endif
+
+bool api_GetFileInfo(const wstring &filename, FileInfo *file_info)
+{
+	if (!file_info)
+		throw invalid_argument("GetFileInfo: file_info == NULL.");
+	error_code ec;
+	filesystem::directory_entry entry(PrepareSystemPath(filename), ec);
+	if (ec)
+		return false;
+	entry.refresh(ec);
+	if (ec)
+		return false;
+	SplitFilename(filename, nullptr, &file_info->filename);
+	file_info->size = entry.file_size(ec);
+	file_info->time_write = FSTimeToTime(entry.last_write_time(ec));
+	return true;
 }
 
 bool api_CreateFolder(const wstring &directory_path, const wstring &subdirectory_name)
@@ -333,6 +375,11 @@ bool api_DirectoryExists(const wstring &directory_path)
 	return false;
 }
 
+bool api_GetFileInfo(const wstring &filename, FileInfo *file_info)
+{
+	return false;
+}
+
 bool api_CreateFolder(const wstring &directory_path, const wstring &subdirectory_name)
 {
 	return false;
@@ -401,6 +448,11 @@ bool DirectoryExists(const string &directory_path)
 bool DirectoryExists(const wstring &directory_path)
 {
 	return api_DirectoryExists(directory_path);
+}
+
+bool GetFileInfo(const string &filename, FileInfo *file_info)
+{
+	return api_GetFileInfo(convert_to_wstring(filename), file_info);
 }
 
 //--------------------------------------------------------------

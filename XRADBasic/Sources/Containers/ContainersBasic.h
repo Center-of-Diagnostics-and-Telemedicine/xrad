@@ -1,5 +1,10 @@
-﻿#ifndef __containers_basic_h
-#define __containers_basic_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_containers_basic_h
+#define XRAD__File_containers_basic_h
 /*!
 	\file
 	\brief Базовые определения для контейнеров. Внутренний файл библиотеки
@@ -44,7 +49,7 @@ XRAD_BEGIN
 	можно ставить этот макрос за строчку перед throw().
 
 	Ситуация по умаолчанию -- когда все макро ставятся в зависимость от
-	определения _DEBUG. Можно задать их по-своему. Для этого определения
+	определения XRAD_DEBUG. Можно задать их по-своему. Для этого определения
 	должны стоять в "pre.h" до включения XRAD.h.
 
 	1-3 принимают значения 0 или 1.
@@ -54,7 +59,7 @@ XRAD_BEGIN
 
 //--------------------------------------------------------------
 
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 
 #ifndef XRAD_CHECK_NAN_FLOAT
 #define	XRAD_CHECK_NAN_FLOAT 0
@@ -72,7 +77,7 @@ XRAD_BEGIN
 #endif
 
 
-#else //_DEBUG
+#else //XRAD_DEBUG
 
 #ifndef XRAD_CHECK_NAN_FLOAT
 #define	XRAD_CHECK_NAN_FLOAT 0
@@ -87,7 +92,7 @@ XRAD_BEGIN
 #endif
 
 
-#endif //_DEBUG
+#endif //XRAD_DEBUG
 
 //--------------------------------------------------------------
 /*!
@@ -212,4 +217,4 @@ struct extrapolation
 XRAD_END
 
 //--------------------------------------------------------------
-#endif //__containers_basic_h
+#endif //XRAD__File_containers_basic_h

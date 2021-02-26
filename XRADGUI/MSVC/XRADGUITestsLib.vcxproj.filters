@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="MSVC">
+      <UniqueIdentifier>{58176736-9fbb-4b40-af0d-0abd1ba0fc96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XRADQt/Tests">
+      <UniqueIdentifier>{f2cdbf4d-9b49-4093-a99b-7ca28f4dc2c6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\XRADQt\Tests\QtStringConverters_Test.cpp">
+      <Filter>XRADQt/Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="XRADGUITestsLib_pre.cpp">
+      <Filter>MSVC</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pre.h">
+      <Filter>MSVC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\XRADQt\Tests\QtStringConverters_Test.h">
+      <Filter>XRADQt/Tests</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

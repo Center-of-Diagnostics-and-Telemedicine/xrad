@@ -1,9 +1,14 @@
-﻿//	file MathFunction.hh
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file MathFunction.hh
 //--------------------------------------------------------------
 // File "pre.h" should not be included
 
-#ifndef __mathfunction_cc
-#define __mathfunction_cc
+#ifndef XRAD__File_mathfunction_cc
+#define XRAD__File_mathfunction_cc
 
 // TODO: Разорвать эту зависимость от посторонних типов данных.
 #include "FIRFilterKernelFunctions.h"
@@ -573,12 +578,12 @@ void	MathFunction<XRAD__MathFunction_template_args>::FilterMedian(size_t filter_
 	//unfiltered_buffer.MakeCopy(*this);
 	//filter.realloc(filter_size);
 
-	//auto filter_begin = &filter.at(0);
-	//auto f2 = &filter.at(0) + fs2;
-	//auto filter_end = &filter.at(0) + filter_size;
-	auto filter_begin = filter.begin();
-	auto f2 = filter.begin() + fs2;
-	auto filter_end = filter.begin() + filter_size;
+	auto filter_begin = &filter.at(0);
+	auto f2 = &filter.at(0) + fs2;
+	auto filter_end = &filter.at(0) + filter_size;
+// 	auto filter_begin = filter.begin();
+// 	auto f2 = filter.begin() + fs2;
+// 	auto filter_end = filter.begin() + filter_size;
 	// Два буфера (копия данных и фильтр) аллокируются прямо здесь;
 	// следовательно, шаг step() у них равен единице.
 	// Поэтому вместо итератора, заданного в классе, используем
@@ -624,4 +629,4 @@ void	MathFunction<XRAD__MathFunction_template_args>::FilterGauss(double dispersi
 
 XRAD_END
 
-#endif //__mathfunction_cc
+#endif //XRAD__File_mathfunction_cc

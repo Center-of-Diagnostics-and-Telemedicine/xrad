@@ -1,7 +1,12 @@
-﻿// file ThreadSetup.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file ThreadSetup.h
 //--------------------------------------------------------------
-#ifndef __ThreadSetup_h
-#define __ThreadSetup_h
+#ifndef XRAD__File_ThreadSetup_h
+#define XRAD__File_ThreadSetup_h
 /*!
 	\file
 	Здесь определяются:
@@ -15,7 +20,9 @@
 #include "Config.h"
 #include "BasicMacros.h"
 
-#if !defined(XRAD_USE_PREFER_STD_VERSION) && defined(XRAD_USE_MS_VERSION)
+#if defined(XRAD_USE_MS_VERSION)
+// !defined(XRAD_USE_PREFER_STD_VERSION):
+// XRAD_USE_PREFER_STD_VERSION не проверяем, т.к. STD-реализация неполноценная.
 #include <XRADBasic/Sources/PlatformSpecific/MSVC/Internal/ThreadSetup_MS.h>
 #else
 #define XRAD__ThreadSetup_STD_IMPLEMENTATION
@@ -178,4 +185,4 @@ XRAD_END
 #include "ThreadSetup.hh"
 
 //--------------------------------------------------------------
-#endif // __ThreadSetup_h
+#endif // XRAD__File_ThreadSetup_h

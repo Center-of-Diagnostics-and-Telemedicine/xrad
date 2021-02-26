@@ -1,5 +1,10 @@
-﻿#ifndef __data_array_2d_cc
-#define __data_array_2d_cc
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_data_array_2d_cc
+#define XRAD__File_data_array_2d_cc
 
 #include "BasicArrayInteractions2D.h"
 
@@ -144,7 +149,8 @@ void	DataArray2D<RT>::resize(size_t in_vs, size_t in_hs)
 		return; // ничего не делает, если размеры одинаковы,
 	//
 	DataArray2D<RT> new_data(in_vs, in_hs);
-	new_data.CopyData(*this); // (*1529063555)
+	if (!empty())
+		new_data.CopyData(*this); // (*1529063555)
 	MoveData(new_data);
 }
 
@@ -528,7 +534,7 @@ void DataArray2D<RT>::GetDataComponent(DataArray2D<RT2> &component,
 	// Это ограничение текущей реализации DataOwner.
 	static_assert(sizeof(value_type) % sizeof(component_type) == 0,
 			"DataArray2D<RT>::GetDataComponent: Data step must be a multiple of data size for DataOwner.");
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	{
 		// Проверка на то, что компонента находится внутри исходных данных.
 		auto *data_origin = &parent::at(0);
@@ -559,7 +565,7 @@ void DataArray2D<RT>::GetDataComponent(DataArray2D<RT2> &component,
 	// Это ограничение текущей реализации DataOwner.
 	static_assert(sizeof(value_type) % sizeof(component_type) == 0,
 			"DataArray2D<RT>::GetDataComponent: Data step must be a multiple of data size for DataOwner.");
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	{
 		// Проверка на то, что компонента находится внутри исходных данных.
 		auto *data_origin = &parent::at(0);
@@ -610,7 +616,7 @@ auto DataArray2D<RT>::GetDataComponent(ComponentSelector component_selector) con
 template<class RT>
 bool DataArray2D<RT>::empty() const
 {
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	if(parent::empty() && (m_sizes[0] || m_sizes[1] || m_steps[0] || m_steps[1] || !m_rows.empty() || !m_columns.empty()))
 	{
 		ForceDebugBreak();
@@ -618,14 +624,14 @@ bool DataArray2D<RT>::empty() const
 		// относится только к отладке самого контейнера
 		throw logic_error(string(string(typeid(self).name())) + "::empty(), invalid array content");
 	}
-#endif //_DEBUG
+#endif //XRAD_DEBUG
 	return parent::empty();
 }
 
 template<class RT>
 bool DataArray2D<RT>::ready() const
 {
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	if(parent::ready() && (!m_sizes[0] || !m_sizes[1] || !m_steps[0] || !m_steps[1] || m_rows.empty() || m_columns.empty()))
 	{
 		ForceDebugBreak();
@@ -633,7 +639,7 @@ bool DataArray2D<RT>::ready() const
 		// относится только к отладке самого контейнера
 		throw logic_error(string(string(typeid(self).name())) + "::ready(), invalid array content");
 	}
-#endif //_DEBUG
+#endif //XRAD_DEBUG
 	return parent::ready()&&vsize()&&hsize();
 }
 
@@ -838,7 +844,7 @@ void DataArray2D<RT>::hflip()
 	if (empty())
 		return;
 	origin_offset += m_steps[1] * ptrdiff_t(m_sizes[1] - 1);
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	if (origin_offset < 0)
 	{
 		ForceDebugBreak();
@@ -857,7 +863,7 @@ void DataArray2D<RT>::vflip()
 	if (empty())
 		return;
 	origin_offset += m_steps[0] * ptrdiff_t(m_sizes[0] - 1);
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	if (origin_offset < 0)
 	{
 		ForceDebugBreak();
@@ -1019,4 +1025,4 @@ void ApplyAction(DataArray2D<RT> &array, const F &function)
 
 XRAD_END
 
-#endif // __data_array_2d_cc
+#endif // XRAD__File_data_array_2d_cc

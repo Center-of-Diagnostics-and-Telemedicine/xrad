@@ -1,5 +1,10 @@
-﻿#ifndef __ComplexFunctionMD_h
-#define __ComplexFunctionMD_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_ComplexFunctionMD_h
+#define XRAD__File_ComplexFunctionMD_h
 /*!
 	\file
 	\date 2014-09-27 15:58
@@ -76,4 +81,4 @@ XRAD_END
 #include "ComplexFunctionMD.hh"
 
 //--------------------------------------------------------------
-#endif //__ComplexFunctionMD_h
+#endif //XRAD__File_ComplexFunctionMD_h

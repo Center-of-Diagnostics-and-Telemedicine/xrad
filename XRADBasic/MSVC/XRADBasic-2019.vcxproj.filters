@@ -37,9 +37,6 @@
     <Filter Include="Sources\Utils">
       <UniqueIdentifier>{b40d4fb1-d09e-4db8-b937-8e9cd602da81}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Projects">
-      <UniqueIdentifier>{62b41888-09de-478b-8ad0-d452b1a35d6b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ThirdParty">
       <UniqueIdentifier>{0f534fa5-9196-4cdc-9e8c-1e49fc416881}</UniqueIdentifier>
     </Filter>
@@ -48,6 +45,9 @@
     </Filter>
     <Filter Include="ThirdParty\md5">
       <UniqueIdentifier>{86b29ff0-ea29-416e-a2df-5e29f5f50747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MSVC">
+      <UniqueIdentifier>{62b41888-09de-478b-8ad0-d452b1a35d6b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +157,7 @@
       <Filter>Sources\Utils</Filter>
     </ClCompile>
     <ClCompile Include="XRADBasic_pre.cpp">
-      <Filter>Projects</Filter>
+      <Filter>MSVC</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Utils\ProgressIndicatorScheduler.cpp">
       <Filter>Sources\Utils</Filter>
@@ -699,7 +699,7 @@
       <Filter>Sources\Utils</Filter>
     </ClInclude>
     <ClInclude Include="pre.h">
-      <Filter>Projects</Filter>
+      <Filter>MSVC</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Utils\Predicate.h">
       <Filter>Sources\Utils</Filter>

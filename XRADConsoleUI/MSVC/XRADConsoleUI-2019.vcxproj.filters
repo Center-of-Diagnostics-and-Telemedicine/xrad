@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Projects">
-      <UniqueIdentifier>{e1ac6241-69c1-48bf-ab42-eed5ce5f2caf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources">
       <UniqueIdentifier>{de09b193-22c8-426f-acbc-ab64f26cc8d2}</UniqueIdentifier>
     </Filter>
@@ -13,18 +10,21 @@
     <Filter Include="Sources\PlatformSpecific/MSVC\Internal">
       <UniqueIdentifier>{9f854d0e-2dab-4a72-b866-e4e829f39fd7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MSVC">
+      <UniqueIdentifier>{e1ac6241-69c1-48bf-ab42-eed5ce5f2caf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\ConsoleMain_MS.cpp">
       <Filter>Sources\PlatformSpecific/MSVC\Internal</Filter>
     </ClCompile>
     <ClCompile Include="XRADConsoleUI_pre.cpp">
-      <Filter>Projects</Filter>
+      <Filter>MSVC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pre.h">
-      <Filter>Projects</Filter>
+      <Filter>MSVC</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\PlatformSpecific\MSVC\MSVC_XRADConsoleUILink.h">
       <Filter>Sources\PlatformSpecific/MSVC</Filter>

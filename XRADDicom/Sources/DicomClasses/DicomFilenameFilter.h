@@ -1,5 +1,10 @@
-﻿#ifndef __DicomFilenameFilters_h
-#define __DicomFilenameFilters_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_DicomFilenameFilters_h
+#define XRAD__File_DicomFilenameFilters_h
 
 #include <XRADBasic/Core.h>
 
@@ -24,4 +29,4 @@ bool	may_be_dicom_filename(const wstring &name);
 
 XRAD_END
 
-#endif //__DicomFilenameFilters_h
+#endif //XRAD__File_DicomFilenameFilters_h

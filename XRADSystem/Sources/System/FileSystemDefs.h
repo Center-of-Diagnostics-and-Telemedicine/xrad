@@ -1,4 +1,9 @@
-﻿// file FileSystemDefs.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file FileSystemDefs.h
 //--------------------------------------------------------------
 #ifndef XRAD__File_FileSystemDefs_h
 #define XRAD__File_FileSystemDefs_h
@@ -21,12 +26,13 @@ XRAD_BEGIN
 using file_offset_t = int64_t;
 
 /*!
-	\brief Тип для хранения размера файла: знаковый, 64-битный, синоним file_offset_t
+	\brief Тип для хранения размера файла: беззнаковый, 64-битный
 
-	Тип сделан синонимом file_offset_t для упрощения арифметики.
-	Знаковость этого типа аналогична знаковости типа std::streamsize.
+	Тип С++, лежащий в основе, различается у разных компиляторов:
+	- MSVC: unsigned long long;
+	- GCC 9.2.1 / Ubuntu 18.04 x64: unsigned long.
 */
-using file_size_t = file_offset_t;
+using file_size_t = uint64_t;
 
 //--------------------------------------------------------------
 

@@ -1,4 +1,9 @@
-﻿#ifndef XRAD__algebraic_algorithms_data_array_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__algebraic_algorithms_data_array_h
 #define XRAD__algebraic_algorithms_data_array_h
 /*!
 	\addtogroup gr_Algebra

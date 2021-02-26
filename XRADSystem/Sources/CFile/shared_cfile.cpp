@@ -1,4 +1,9 @@
-﻿#include "pre.h"
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#include "pre.h"
 #include "shared_cfile.h"
 
 #include <XRADSystem/System.h>
@@ -23,13 +28,13 @@ file_size_t filesize(FILE *file)
 	struct __stat64 st;
 	if (_fstat64(_fileno(file), &st))
 		return 0;
-	static_assert(std::is_same<decltype(st.st_size), file_size_t>::value, "Invalid types");
+	static_assert(std::is_same<std::make_unsigned_t<decltype(st.st_size)>, file_size_t>::value, "Invalid types");
 	return st.st_size;
 #elif defined(XRAD_COMPILER_GNUC)
 	struct stat64 st;
 	if (fstat64(fileno(file), &st))
 		return 0;
-	static_assert(std::is_same<decltype(st.st_size), file_size_t>::value, "Invalid types");
+	static_assert(std::is_same<std::make_unsigned_t<decltype(st.st_size)>, file_size_t>::value, "Invalid types");
 	return st.st_size;
 #else
 	#error Unknown platform.
@@ -60,15 +65,7 @@ void shared_cfile::open(const wstring &path_in, const wstring &mode)
 	// допускается использование одного контейнера
 	// для разных файлов. если ранее контейнер был
 	// занят, освобождаем
-	FILE	*file;
-#if defined(XRAD_USE_CFILE_WIN32_VERSION)
-	file = _wfopen(GetPathSystemRawFromAutodetect(path_in).c_str(), mode.c_str());
-#elif defined(XRAD_USE_CFILE_UNIX_VERSION)
-	file = fopen(convert_to_string(GetPathSystemRawFromAutodetect(path_in)).c_str(),
-			convert_to_string(mode).c_str());
-#else
-	#error Unknown platform.
-#endif
+	FILE	*file = xrad_fopen(convert_to_string(path_in).c_str(), convert_to_string(mode).c_str());
 	if(!file)
 	{
 		throw file_container_error(convert_to_string(ssprintf(

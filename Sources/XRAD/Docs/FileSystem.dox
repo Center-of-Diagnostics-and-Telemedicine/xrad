@@ -202,4 +202,14 @@ os_info:
 
 \todo Написать раздел про URI и IRI.
 
+\sa \ref gr_FileSystem
+
+*/
+
+/*!
+	\defgroup gr_FileSystem Файловая система
+
+	Группа определена в файле FileSystem.dox.
+
+	\sa \ref pg_FileSystem
 */

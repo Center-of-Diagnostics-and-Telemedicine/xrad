@@ -1,7 +1,12 @@
-﻿// file ThreadSetup_MS.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file ThreadSetup_MS.h
 //--------------------------------------------------------------
-#ifndef __ThreadSetup_MS_h
-#define __ThreadSetup_MS_h
+#ifndef XRAD__File_ThreadSetup_MS_h
+#define XRAD__File_ThreadSetup_MS_h
 /*!
 	\file
 	В этом файле используются макросы:
@@ -13,7 +18,7 @@
 	Макрос `XRAD_MSVC_EHA` задается в property sheet `XRAD-EHA.props`.
 	Задавать его вручную не рекомендуется.
 
-	Макрос `XRAD_FP_EXCEPTIONS = 0 | 1` задается автоматически в зависимости от _DEBUG.
+	Макрос `XRAD_FP_EXCEPTIONS = 0 | 1` задается автоматически в зависимости от XRAD_DEBUG.
 */
 //--------------------------------------------------------------
 
@@ -43,7 +48,7 @@ class SystemException: public std::runtime_error
 #ifdef XRAD_MSVC_EHA
 
 #ifndef XRAD_FP_EXCEPTIONS
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	#define XRAD_FP_EXCEPTIONS 1
 #else
 	#define XRAD_FP_EXCEPTIONS 0
@@ -126,4 +131,4 @@ XRAD_END
 #endif // XRAD_USE_MS_VERSION
 
 //--------------------------------------------------------------
-#endif // __ThreadSetup_MS_h
+#endif // XRAD__File_ThreadSetup_MS_h

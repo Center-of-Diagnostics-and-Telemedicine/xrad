@@ -1,4 +1,9 @@
-﻿#ifndef XRAD__File_XRADDicom_pre_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_XRADDicom_pre_h
 #define XRAD__File_XRADDicom_pre_h
 //--------------------------------------------------------------
 
@@ -61,6 +66,12 @@
 #include <XRADDicom/Sources/PlatformSpecific/MSVC/MSVC_DCMTKLink.h>
 #endif // XRAD_COMPILER_MSC
 #endif // XRAD_NO_LIBRARIES_LINKS
+
+#ifdef DeleteFile
+// Win32 fix: макроопределение DeleteFile из Win32, подключенное через DCMTK, конфликтует
+// с функцией из System.h
+#undef DeleteFile
+#endif // DeleteFile
 
 //--------------------------------------------------------------
 

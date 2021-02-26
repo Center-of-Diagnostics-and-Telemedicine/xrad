@@ -1,5 +1,10 @@
-﻿#ifndef __DataArray2DAnalyze_h
-#define __DataArray2DAnalyze_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_DataArray2DAnalyze_h
+#define XRAD__File_DataArray2DAnalyze_h
 /*!
 	\file
 	\date 2014-10-10 17:21
@@ -217,7 +222,7 @@ template<class ROW_T>
 floating64_type<typename ROW_T::value_type> AverageValue(const DataArray2D<ROW_T> &array)
 {
 	double	s = array.vsize()*array.hsize();
-	if(!s) return ROW_T::value_type(0);
+	if(!s) return typename ROW_T::value_type(0);
 
 	// Здесь при делении нужно быть аккуратным с типами значений.
 	// Сейчас оба аргумента имеют тип числа с плавающей точкой, поэтому неприятностей нет.
@@ -245,7 +250,7 @@ template<class ROW_T>
 floating64_type<typename ROW_T::value_type> AverageSquare(const DataArray2D<ROW_T> &array)
 {
 	size_t	s = array.vsize()*array.hsize();
-	if(!s) return ROW_T::value_type(0);;
+	if(!s) return typename ROW_T::value_type(0);;
 
 	return SquareElementSum(array)/s;
 }
@@ -311,4 +316,4 @@ double AverageComponentValue(const DataArray2D<ROW_T> &array)
 XRAD_END
 
 //--------------------------------------------------------------
-#endif //__DataArray2DAnalyze_h
+#endif //XRAD__File_DataArray2DAnalyze_h

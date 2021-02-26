@@ -1,4 +1,9 @@
-﻿#ifndef FFTMD_h__
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef FFTMD_h__
 #define FFTMD_h__
 
 /*!
@@ -28,19 +33,18 @@ XRAD_BEGIN
 //TODO сделать версию FFTf (см. двумерную реализацию)
 template<class A2DT>
 void	FFT_3D(DataArrayMD<A2DT> &f, ftDirection dir, omp_usage_t omp = e_use_omp)
-//void	FFT_3D(DataArrayMD<A2DT> &f, ftDirection dir, omp_usage_t omp = e_dont_use_omp)
 {
-	size_t	n_processors = omp_get_num_procs();
-	size_t	n_slices = f.sizes()[0];
-	size_t	n_pieces = ceil(double(n_slices) / n_processors);
+	size_t	n_threads = omp_get_max_threads();
+	size_t	n_slices = f.sizes(0);
+	size_t	n_stages = (n_slices + n_threads - 1) / n_threads;
 
-	for(size_t i = 0; i < n_pieces; ++i)
+	for(size_t i = 0; i < n_stages; ++i)
 	{
-		size_t piece_size = min(n_processors, n_slices-i*n_processors);
+		size_t piece_size = min(n_threads, n_slices-i*n_threads);
 		if(omp == e_use_omp)
 		{
 			ThreadErrorCollector ec("FFT 3D (slices)");
-		#pragma omp parallel for schedule (guided)
+			#pragma omp parallel for schedule (guided)
 			for(ptrdiff_t j = 0; j < ptrdiff_t(piece_size); ++j)
 			{
 				if (ec.HasErrors())
@@ -55,7 +59,7 @@ void	FFT_3D(DataArrayMD<A2DT> &f, ftDirection dir, omp_usage_t omp = e_use_omp)
 				try
 				{
 					typename DataArrayMD<A2DT>::slice_type	slice;
-					size_t	slice_no = i*piece_size + j;
+					size_t	slice_no = i*n_threads + j;
 					f.GetSlice(slice, {slice_no, slice_mask(0), slice_mask(1)});
 					FFT(slice, dir, e_dont_use_omp);
 				}
@@ -71,9 +75,9 @@ void	FFT_3D(DataArrayMD<A2DT> &f, ftDirection dir, omp_usage_t omp = e_use_omp)
 			for(ptrdiff_t j = 0; j < ptrdiff_t(piece_size); ++j)
 			{
 				typename DataArrayMD<A2DT>::slice_type	slice;
-				size_t	slice_no = i*piece_size + j;
+				size_t	slice_no = i*n_threads + j;
 				f.GetSlice(slice, {slice_no, slice_mask(0), slice_mask(1)});
-				FFT(slice, dir);
+				FFT(slice, dir, e_dont_use_omp);
 			}
 		}
 	}
@@ -83,7 +87,7 @@ void	FFT_3D(DataArrayMD<A2DT> &f, ftDirection dir, omp_usage_t omp = e_use_omp)
 		{
 			ThreadErrorCollector ec("FFT 3D (rows)");
 			#pragma omp parallel for schedule (guided)
-			for(int j = 0; j < int(f.sizes(2)); ++j)
+			for(ptrdiff_t j = 0; j < ptrdiff_t(f.sizes(2)); ++j)
 			{
 				if (ec.HasErrors())
 				{
@@ -109,7 +113,7 @@ void	FFT_3D(DataArrayMD<A2DT> &f, ftDirection dir, omp_usage_t omp = e_use_omp)
 		}
 		else
 		{
-			for(int j = 0; j < int(f.sizes(2)); ++j)
+			for(ptrdiff_t j = 0; j < ptrdiff_t(f.sizes(2)); ++j)
 			{
 				typename DataArrayMD<A2DT>::row_type	row;
 				f.GetRow(row, {slice_mask(0), i, size_t(j)});

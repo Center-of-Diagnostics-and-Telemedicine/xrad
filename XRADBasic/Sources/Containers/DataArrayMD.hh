@@ -1,5 +1,10 @@
-﻿#ifndef __data_array_multidimensional_cc
-#define __data_array_multidimensional_cc
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_data_array_multidimensional_cc
+#define XRAD__File_data_array_multidimensional_cc
 
 #include "BasicArrayInteractionsMD.h"
 
@@ -184,7 +189,8 @@ void DataArrayMD<A2DT>::resize(const index_vector &new_sizes)
 	}
 
 	self buffer(new_sizes);
-	buffer.CopyData(*this);
+	if (!empty())
+		buffer.CopyData(*this);
 	MoveData(buffer);
 }
 
@@ -281,7 +287,7 @@ void DataArrayMD<A2DT>::CopyData(const DataArrayMD<A2DT2> &original, const funct
 	if(original.empty())
 	{
 		typename functor::result_type zero_converted;
-		f(zero_converted, zero_value(value_type()));
+		f(zero_converted, zero_value(typename A2DT2::value_type()));
 		fill(zero_converted);
 	}
 	else Apply_AA_MD_Different_F2(*this, original, f);
@@ -724,7 +730,7 @@ void DataArrayMD<A2DT>::GetDataComponent(DataArrayMD<A2DT2> &component,
 	static_assert(sizeof(value_type) % sizeof(component_type) == 0,
 			"DataArrayMD<A2DT>::GetDataComponent: Data step must be a multiple of data size for "
 			"DataOwner.");
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	{
 		// Проверка на то, что компонента находится внутри исходных данных.
 		auto *data_origin = &parent::at(0);
@@ -756,7 +762,7 @@ void DataArrayMD<A2DT>::GetDataComponent(DataArrayMD<A2DT2> &component,
 	static_assert(sizeof(value_type) % sizeof(component_type) == 0,
 			"DataArrayMD<A2DT>::GetDataComponent: Data step must be a multiple of data size for "
 			"DataOwner.");
-#ifdef _DEBUG
+#ifdef XRAD_DEBUG
 	{
 		// Проверка на то, что компонента находится внутри исходных данных.
 		auto *data_origin = &parent::at(0);
@@ -1155,4 +1161,4 @@ void ApplyAction(DataArrayMD<A2DT> &array, const F &function)
 
 XRAD_END
 
-#endif //__data_array_multidimensional_cc
+#endif //XRAD__File_data_array_multidimensional_cc

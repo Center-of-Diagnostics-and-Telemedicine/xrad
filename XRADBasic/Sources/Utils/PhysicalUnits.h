@@ -1,5 +1,10 @@
-﻿#ifndef __physical_units_h
-#define __physical_units_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_physical_units_h
+#define XRAD__File_physical_units_h
 
 #include <XRADBasic/Sources/Core/Config.h>
 #include <XRADBasic/Sources/Core/BasicMacros.h>
@@ -43,7 +48,7 @@ private:
 	// если не будет работать, вернуть динамическое преобразование
 	// для корректной работы dynamic_cast понадобится полиморфизм, достигаем этого созданием
 	// фиктивной виртуальной функции:
-	// virtual	void	__make_this_class_polymorphic(){}
+	// virtual	void	make_this_class_polymorphic__(){}
 
 protected:
 	T value;
@@ -295,7 +300,17 @@ define_unit_conversion(physical_time, nsec, 1e-9)
 define_unit_conversion(physical_time, minute, 60)
 define_unit_conversion(physical_time, hour, 3600)
 
-inline physical_time	current_clock(){ return clocks(clock()); }// time after program start
+/*!
+	\brief Processor time after program start. Differs in different operating systems (see notes)
+
+	Внимание! Тип счетчика различается в разных операционных системах.
+	- В Windows это время соответствует времени UTC.
+	- В Linux это время процессора, фактически использованное текущим процессом.
+		Т.е. если процесс ожидает ввода-вывода, это время заморожено, значение не меняется.
+		Если у процесса 4 потока, производящих вычисления, это время идет в 4 раза
+		быстрее UTC.
+*/
+inline physical_time	current_clock(){ return clocks(clock()); }
 inline physical_time	current_time(){ return sec(time(NULL)); }// time after 01.01.1970
 
 
@@ -519,4 +534,4 @@ FieldTraits<double>::tag_t GetFieldElementTag(physical_unit<T>*);
 
 XRAD_END
 
-#endif //__physical_units_h
+#endif //XRAD__File_physical_units_h

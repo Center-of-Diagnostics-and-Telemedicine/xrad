@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 10/10/2018 3:58:45 PM
 	\author Kovbas (kovbas)
@@ -28,7 +33,7 @@ namespace Dicom
 		printf("---DcmDataset start---%s\n %s \n---DcmDataset end---\n", comment.c_str(),  ss.str().c_str());
 	}
 
-	static Uint8 findUncompressedPC(const OFString& sopClass, const DcmSCU& scu)
+	 Uint8 findUncompressedPC(const OFString& sopClass, const DcmSCU& scu)
 	{
 		DcmSCU& scuRef = const_cast<DcmSCU&>(scu);
 		Uint8 pc;
@@ -625,8 +630,9 @@ namespace Dicom
 				if (currentLevel == level_p)
 				{
 					for (auto wrkEl : wrkLst)
+					{
 						resLstTmp.push_back(wrkEl);
-					//continue;
+					}
 					return;
 				}
 			}
@@ -638,8 +644,9 @@ namespace Dicom
 			if (currentLevel == level_p)
 			{
 				for (auto wrkEl : wrkLst)
+				{
 					resLstTmp.push_back(wrkEl);
-				//continue;
+				}
 				return;
 			}
 
@@ -648,8 +655,9 @@ namespace Dicom
 			if (currentLevel == level_p)
 			{
 				for (auto wrkEl : wrkLst)
+				{
 					resLstTmp.push_back(wrkEl);
-				//continue;
+				}
 				return;
 			}
 
