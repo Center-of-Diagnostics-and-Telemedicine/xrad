@@ -1,7 +1,7 @@
 ﻿// file DisplaySampleType.h
 //--------------------------------------------------------------
-#ifndef __DisplaySampleType_h
-#define __DisplaySampleType_h
+#ifndef XRAD__File_DisplaySampleType_h
+#define XRAD__File_DisplaySampleType_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/SampleTypes.h>
@@ -61,4 +61,4 @@ template<class T> inline display_sample_type DisplaySampleType() { return intern
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __DisplaySampleType_h
+#endif // XRAD__File_DisplaySampleType_h

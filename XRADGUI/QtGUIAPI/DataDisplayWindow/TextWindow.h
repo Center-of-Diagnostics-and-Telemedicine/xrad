@@ -1,8 +1,8 @@
 ﻿//	file TextWindow.h
 //	Created by KNS on 08.2013
 //--------------------------------------------------------------
-#ifndef __TextWindow_h
-#define __TextWindow_h
+#ifndef XRAD__File_TextWindow_h
+#define XRAD__File_TextWindow_h
 
 //--------------------------------------------------------------
 
@@ -65,4 +65,4 @@ class TextWindow : public DataDisplayWindow, public Ui::TextWindow
 
 }//namespace XRAD_GUI
 
-#endif //__TextWindow_h
+#endif //XRAD__File_TextWindow_h

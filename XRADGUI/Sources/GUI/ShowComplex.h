@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef __ShowComplex_h
-#define __ShowComplex_h
+#ifndef XRAD__File_ShowComplex_h
+#define XRAD__File_ShowComplex_h
 
 #include <XRADBasic/Sources/SampleTypes/ComplexSample.h>
 #include "XRADGUI.h"
@@ -25,4 +25,4 @@ void	ShowComplex(const string &title, const ComplexSample<CT,ST>&x)
 
 XRAD_END
 
-#endif
+#endif // XRAD__File_ShowComplex_h

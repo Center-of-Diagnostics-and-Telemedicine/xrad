@@ -1,7 +1,7 @@
 ﻿// file OutputRedirector.h
 //--------------------------------------------------------------
-#ifndef __OutputRedirector_h
-#define __OutputRedirector_h
+#ifndef XRAD__File_OutputRedirector_h
+#define XRAD__File_OutputRedirector_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
@@ -80,4 +80,4 @@ class OutputRedirector
 } // namespace XRAD_GUI
 
 //--------------------------------------------------------------
-#endif // __OutputRedirector_h
+#endif // XRAD__File_OutputRedirector_h

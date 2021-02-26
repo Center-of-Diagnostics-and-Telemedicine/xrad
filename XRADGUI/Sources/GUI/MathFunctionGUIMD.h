@@ -1,5 +1,5 @@
-﻿#ifndef __MathFunctionGUIMD_h
-#define __MathFunctionGUIMD_h
+﻿#ifndef XRAD__File_MathFunctionGUIMD_h
+#define XRAD__File_MathFunctionGUIMD_h
 
 //--------------------------------------------------------------
 //
@@ -26,4 +26,4 @@ XRAD_END
 
 #include "MathFunctionGUIMD.hh"
 
-#endif //__MathFunctionGUIMD_h
+#endif //XRAD__File_MathFunctionGUIMD_h

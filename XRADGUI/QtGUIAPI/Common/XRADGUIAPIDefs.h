@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------------------
-#ifndef __XRADGUIAPIDefs_h
-#define __XRADGUIAPIDefs_h
+#ifndef XRAD__File_XRADGUIAPIDefs_h
+#define XRAD__File_XRADGUIAPIDefs_h
 //--------------------------------------------------------------
 
 namespace XRAD_GUI
@@ -21,4 +21,4 @@ enum display_text_dialog_status
 }// namespace XRAD_GUI
 
 //--------------------------------------------------------------
-#endif // __XRADGUIAPIDefs_h
+#endif // XRAD__File_XRADGUIAPIDefs_h

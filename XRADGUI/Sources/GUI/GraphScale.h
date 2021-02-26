@@ -1,5 +1,5 @@
-﻿#ifndef	__graph_scale_h
-#define	__graph_scale_h
+﻿#ifndef	XRAD__File_graph_scale_h
+#define	XRAD__File_graph_scale_h
 
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 
@@ -54,4 +54,4 @@ double	guess_auto_grid(double range, GridScheme gs);
 XRAD_END
 
 
-#endif	//__graph_scale_h
+#endif	//XRAD__File_graph_scale_h

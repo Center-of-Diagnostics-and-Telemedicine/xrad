@@ -1,5 +1,5 @@
-﻿#ifndef __GraphStyleSet_h
-#define __GraphStyleSet_h
+﻿#ifndef XRAD__File_GraphStyleSet_h
+#define XRAD__File_GraphStyleSet_h
 //--------------------------------------------------------------
 //
 //	created:	2014/03/28
@@ -42,4 +42,4 @@ class	GraphStyles
 
 }//namespace XRAD_GUI
 
-#endif //__GraphStyleSet_h
+#endif //XRAD__File_GraphStyleSet_h

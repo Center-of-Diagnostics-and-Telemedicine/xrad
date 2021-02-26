@@ -1,5 +1,5 @@
-﻿#ifndef __math_functions_interface_h
-#define __math_functions_interface_h
+﻿#ifndef XRAD__File_math_functions_interface_h
+#define XRAD__File_math_functions_interface_h
 
 #include "XRADGUI.h"
 #include "ShowComplex.h"
@@ -200,4 +200,4 @@ void	DisplayMathFunction(const ARR_T &mf, double x0, double dx, const wstring &t
 
 XRAD_END
 
-#endif //__math_functions_interface_h
+#endif //XRAD__File_math_functions_interface_h

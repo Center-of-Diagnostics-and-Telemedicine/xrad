@@ -1,5 +1,5 @@
-﻿#ifndef __graph_set_h
-#define __graph_set_h
+﻿#ifndef XRAD__File_graph_set_h
+#define XRAD__File_graph_set_h
 
 #include <XRADGUI/Sources/Core/GUICore.h>
 #include "GraphScale.h"
@@ -93,4 +93,4 @@ bool	GraphSet::ChangeGraphParametric(size_t graph_no, const DataArray<T> &data_y
 
 XRAD_END
 
-#endif // __graph_set_h
+#endif // XRAD__File_graph_set_h

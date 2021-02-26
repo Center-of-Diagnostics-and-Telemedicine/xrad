@@ -1,5 +1,5 @@
-﻿#ifndef __PixelNormalizers_h
-#define __PixelNormalizers_h
+﻿#ifndef XRAD__File_PixelNormalizers_h
+#define XRAD__File_PixelNormalizers_h
 
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
 #include <XRADBasic/Sources/SampleTypes/ComplexSample.h>
@@ -255,4 +255,4 @@ class assign_color_lightness_normalized: public pixel_normalizer<T,PT>
 
 XRAD_END
 
-#endif //__PixelNormalizers_h
+#endif //XRAD__File_PixelNormalizers_h

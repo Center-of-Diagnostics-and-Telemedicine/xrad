@@ -1,7 +1,7 @@
 ﻿// file ThreadSync.h
 //--------------------------------------------------------------
-#ifndef __ThreadSync_h
-#define __ThreadSync_h
+#ifndef XRAD__File_ThreadSync_h
+#define XRAD__File_ThreadSync_h
 //--------------------------------------------------------------
 
 #include <type_traits>
@@ -198,4 +198,4 @@ class ThreadQueue
 #include "ThreadSync.hh"
 
 //--------------------------------------------------------------
-#endif // __ThreadSync_h
+#endif // XRAD__File_ThreadSync_h

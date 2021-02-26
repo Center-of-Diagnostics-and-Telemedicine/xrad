@@ -1,7 +1,7 @@
 ﻿// file AsyncTextBuffer.h
 //--------------------------------------------------------------
-#ifndef __AsyncTextBuffer_h
-#define __AsyncTextBuffer_h
+#ifndef XRAD__File_AsyncTextBuffer_h
+#define XRAD__File_AsyncTextBuffer_h
 //--------------------------------------------------------------
 
 #include <functional>
@@ -46,4 +46,4 @@ class AsyncTextBuffer
 } // namespace XRAD_GUI
 
 //--------------------------------------------------------------
-#endif // __AsyncTextBuffer_h
+#endif // XRAD__File_AsyncTextBuffer_h

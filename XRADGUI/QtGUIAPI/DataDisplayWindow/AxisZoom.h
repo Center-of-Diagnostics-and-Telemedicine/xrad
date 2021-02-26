@@ -1,5 +1,5 @@
-﻿#ifndef __axis_zoom_h
-#define __axis_zoom_h
+﻿#ifndef XRAD__File_axis_zoom_h
+#define XRAD__File_axis_zoom_h
 
 #include <QtCore/QEvent>
 
@@ -71,4 +71,4 @@ class AxisZoom : public QObject
 
 #include "ChartZoom.h"
 
-#endif // __axis_zoom_h
+#endif // XRAD__File_axis_zoom_h

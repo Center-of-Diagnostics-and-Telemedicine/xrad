@@ -1,7 +1,7 @@
 ﻿// file DynamicDialogQt.h
 //--------------------------------------------------------------
-#ifndef __DynamicDialogQt_h
-#define __DynamicDialogQt_h
+#ifndef XRAD__File_DynamicDialogQt_h
+#define XRAD__File_DynamicDialogQt_h
 //--------------------------------------------------------------
 
 #include <XRADGUI/Sources/Internal/std.h>
@@ -1572,4 +1572,4 @@ class DialogApi: public DialogApiInterface, protected DynamicDialogInterface,
 } // namespace XRAD_GUI
 
 //--------------------------------------------------------------
-#endif // __DynamicDialogQt_h
+#endif // XRAD__File_DynamicDialogQt_h

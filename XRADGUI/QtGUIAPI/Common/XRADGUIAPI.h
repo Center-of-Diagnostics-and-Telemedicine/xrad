@@ -4,8 +4,8 @@
 //  Modify by IRD on 05.2013 - create by QT
 //  version 1.0.2
 //--------------------------------------------------------------
-#ifndef __XRADGUIAPI_h
-#define __XRADGUIAPI_h
+#ifndef XRAD__File_XRADGUIAPI_h
+#define XRAD__File_XRADGUIAPI_h
 //--------------------------------------------------------------
 
 #include "XRADGUIAPIDefs.h"
@@ -207,4 +207,4 @@ void api_SetVersionInfo(const string &text);
 } // namespace XRAD_GUI
 
 //--------------------------------------------------------------
-#endif // __XRADGUIAPI_h
+#endif // XRAD__File_XRADGUIAPI_h
