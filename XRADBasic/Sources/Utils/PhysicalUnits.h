@@ -43,7 +43,7 @@ private:
 	// если не будет работать, вернуть динамическое преобразование
 	// для корректной работы dynamic_cast понадобится полиморфизм, достигаем этого созданием
 	// фиктивной виртуальной функции:
-	// virtual	void	__make_this_class_polymorphic(){}
+	// virtual	void	make_this_class_polymorphic__(){}
 
 protected:
 	T value;

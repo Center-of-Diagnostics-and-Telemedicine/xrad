@@ -208,9 +208,7 @@ class GenericFieldElement : public CONTAINER_T
 		// действия со скалярным результатом
 		// скалярное произведение, результат возвращается, тип результата совпадает с value_type
 		template<XRAD__template_2>
-#ifdef XRAD_COMPILER_MSC
-		__declspec(deprecated("FieldElement::operator | is deprecated. Use sp() function instead"))
-#endif // TODO: GCC
+		[[deprecated("FieldElement::operator | is deprecated. Use sp() function instead")]]
 		value_type	operator | (const GenericFieldElement<XRAD__template_2_args> &f2) const
 		{
 			return sp(f2);

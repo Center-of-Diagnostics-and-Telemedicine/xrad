@@ -47,7 +47,7 @@ class AlgebraElement<XRAD__template_1C_args> : public GenericAlgebraElement<XRAD
 
 	public:
 		typedef VT value_type;
-		typedef ComplexFieldTraits<ComplexSample<double, double>>::complex_component_type __debug_type;
+		typedef ComplexFieldTraits<ComplexSample<double, double>>::complex_component_type debug_type__;
 		typedef typename ComplexFieldTraits<VT>::complex_component_type complex_component_type;
 		typedef ST scalar_type;
 		using algorithms_type = typename parent::algorithms_type;

@@ -17,7 +17,7 @@ struct	PhysicalFrameDimensions
 	{
 	private:
 		range_1<physical_angle, double> m_angle_range;
-//		physical_angle	_start_angle, _end_angle;
+//		physical_angle	m_start_angle, m_end_angle;
 			// для линейного сканирования оба параметра равны между собой,
 			// обычно (но необязательно) они нулевые
 	//public:
