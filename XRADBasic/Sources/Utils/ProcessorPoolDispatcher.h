@@ -1,4 +1,9 @@
-﻿// file ProcessorPoolDispatcher.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file ProcessorPoolDispatcher.h
 //--------------------------------------------------------------
 #ifndef XRAD__ProcessorPoolDispatcher_h
 #define XRAD__ProcessorPoolDispatcher_h

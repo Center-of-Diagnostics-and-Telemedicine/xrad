@@ -1,4 +1,9 @@
-﻿#ifndef XRAD__File_data_array_multidimensional_cc
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_data_array_multidimensional_cc
 #define XRAD__File_data_array_multidimensional_cc
 
 #include "BasicArrayInteractionsMD.h"

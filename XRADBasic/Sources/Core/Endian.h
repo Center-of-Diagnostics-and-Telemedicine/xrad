@@ -1,4 +1,9 @@
-﻿//	file Endian.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file Endian.h
 //	Created by KNS on 10.11.10
 //--------------------------------------------------------------
 #ifndef XRAD__File_Endian_h

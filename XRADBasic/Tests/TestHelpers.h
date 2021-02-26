@@ -1,4 +1,9 @@
-﻿// file TestHelpers.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file TestHelpers.h
 //--------------------------------------------------------------
 #ifndef XRAD__File_TestHelpers_h
 #define XRAD__File_TestHelpers_h

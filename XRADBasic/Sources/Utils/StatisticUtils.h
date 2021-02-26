@@ -1,4 +1,9 @@
-﻿//	file StatisticUtils.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file StatisticUtils.h
 //	Created by ACS on 28.05.01
 //--------------------------------------------------------------
 #ifndef XRAD__File_statistic_utils_h

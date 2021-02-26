@@ -1,4 +1,9 @@
-﻿//--------------------------------------------------------------
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//--------------------------------------------------------------
 
 #ifndef XRAD__File_DataArrayIOFunctions_h
 #error This file must be included from "DataArrayIOFunctions.h" only

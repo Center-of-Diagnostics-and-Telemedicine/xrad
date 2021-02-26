@@ -1,4 +1,9 @@
-﻿//	file String.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file String.h
 //	Created by ACS on 25.10.01
 //--------------------------------------------------------------
 #ifndef XRAD__File_String_h

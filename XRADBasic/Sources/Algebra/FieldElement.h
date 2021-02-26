@@ -1,4 +1,9 @@
-﻿#ifdef XRAD__File_field_element_h_inside
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifdef XRAD__File_field_element_h_inside
 #error Error: Recursive inclusion of FieldElement.h detected.
 #endif
 #ifndef XRAD__File_field_element_h

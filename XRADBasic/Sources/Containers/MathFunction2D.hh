@@ -1,4 +1,9 @@
-﻿//	file MathFunction2D.hh
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file MathFunction2D.hh
 //--------------------------------------------------------------
 #ifndef XRAD__File_math_function_2d_h
 #error This file must be included from "MathFunction2D.h" only

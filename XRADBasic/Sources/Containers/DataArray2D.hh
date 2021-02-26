@@ -1,4 +1,9 @@
-﻿#ifndef XRAD__File_data_array_2d_cc
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_data_array_2d_cc
 #define XRAD__File_data_array_2d_cc
 
 #include "BasicArrayInteractions2D.h"

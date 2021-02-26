@@ -1,4 +1,9 @@
-﻿//	file ComplexFunction2D.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file ComplexFunction2D.h
 //--------------------------------------------------------------
 #ifndef XRAD__File_complex_function_2D_h
 #define XRAD__File_complex_function_2D_h

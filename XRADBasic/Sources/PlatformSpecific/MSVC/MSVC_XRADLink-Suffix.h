@@ -1,4 +1,9 @@
-﻿// file PC_XRADLink-Suffix.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file PC_XRADLink-Suffix.h
 //--------------------------------------------------------------
 #ifndef XRAD__File_PC_XRADLink_Suffix_h
 #define XRAD__File_PC_XRADLink_Suffix_h
