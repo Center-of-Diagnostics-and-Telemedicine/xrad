@@ -1,7 +1,7 @@
 ﻿// file BasicArrayInteractionsMD.h
 //--------------------------------------------------------------
-#ifndef __BasicArrayInteractionsMD_h
-#define __BasicArrayInteractionsMD_h
+#ifndef XRAD__File_BasicArrayInteractionsMD_h
+#define XRAD__File_BasicArrayInteractionsMD_h
 /*!
 	\file
 	\brief Оптимизированные операции над многомерными массивами типа DataArrayMD
@@ -745,4 +745,4 @@ void	roll(DataArrayMD<A2DT> &array, const offset_vector &in_roll_vector)
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __BasicArrayInteractionsMD_h
+#endif // XRAD__File_BasicArrayInteractionsMD_h

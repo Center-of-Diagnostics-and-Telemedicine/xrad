@@ -1,5 +1,5 @@
-﻿#ifndef __gradient_palette_h
-#define __gradient_palette_h
+﻿#ifndef XRAD__File_gradient_palette_h
+#define XRAD__File_gradient_palette_h
 
 #include <XRADBasic/Sources/SampleTypes/ColorSample.h>
 #include <vector>
@@ -47,4 +47,4 @@ XRAD_END
 
 
 
-#endif // __gradient_palette_h
+#endif // XRAD__File_gradient_palette_h

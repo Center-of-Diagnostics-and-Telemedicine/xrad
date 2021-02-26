@@ -1,5 +1,5 @@
-﻿#ifndef __physical_units_h
-#define __physical_units_h
+﻿#ifndef XRAD__File_physical_units_h
+#define XRAD__File_physical_units_h
 
 #include <XRADBasic/Sources/Core/Config.h>
 #include <XRADBasic/Sources/Core/BasicMacros.h>
@@ -529,4 +529,4 @@ FieldTraits<double>::tag_t GetFieldElementTag(physical_unit<T>*);
 
 XRAD_END
 
-#endif //__physical_units_h
+#endif //XRAD__File_physical_units_h

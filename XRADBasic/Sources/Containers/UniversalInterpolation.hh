@@ -1,4 +1,4 @@
-﻿#ifndef __universal_interpolation_h
+﻿#ifndef XRAD__File_universal_interpolation_h
 #error "#include this file only through UniversalInterpolation.h"
 #endif
 

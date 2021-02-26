@@ -1,5 +1,5 @@
-﻿#ifndef __crayons_h
-#define __crayons_h
+﻿#ifndef XRAD__File_crayons_h
+#define XRAD__File_crayons_h
 
 #include <XRADBasic/Sources/SampleTypes/ColorSample.h>
 
@@ -53,4 +53,4 @@ namespace	crayons
 
 XRAD_END
 
-#endif //__crayons_h
+#endif //XRAD__File_crayons_h

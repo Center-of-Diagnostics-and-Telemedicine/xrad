@@ -1,5 +1,5 @@
-﻿#ifndef __real_interpolation_2d
-#define __real_interpolation_2d
+﻿#ifndef XRAD__File_real_interpolation_2d
+#define XRAD__File_real_interpolation_2d
 //--------------------------------------------------------------
 
 #include <XRADBasic/FIRFilterKernelTypes2D.h>
@@ -342,4 +342,4 @@ XRAD_END
 #include "UniversalInterpolation2D.hh"
 
 //--------------------------------------------------------------
-#endif //__real_interpolation_2d
+#endif //XRAD__File_real_interpolation_2d

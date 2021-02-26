@@ -1,5 +1,5 @@
-﻿#ifndef __filter_kernel_h
-#define __filter_kernel_h
+﻿#ifndef XRAD__File_filter_kernel_h
+#define XRAD__File_filter_kernel_h
 //--------------------------------------------------------------
 
 #include "DataArray.h"
@@ -136,4 +136,4 @@ XRAD_END
 #include "FIRFilterKernel.hh"
 
 //--------------------------------------------------------------
-#endif //__filter_kernel_h
+#endif //XRAD__File_filter_kernel_h

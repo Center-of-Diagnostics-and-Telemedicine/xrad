@@ -1,5 +1,5 @@
-﻿#ifndef __table_function_h
-#define __table_function_h
+﻿#ifndef XRAD__File_table_function_h
+#define XRAD__File_table_function_h
 
 #include <XRADBasic/Sources/Containers/MathFunction.h>
 
@@ -42,4 +42,4 @@ XRAD_END
 
 #include "TableFunction.hh"
 
-#endif //__table_function_h
+#endif //XRAD__File_table_function_h

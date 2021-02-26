@@ -1,7 +1,7 @@
 ﻿// file BooleanFunctionTypes.h
 //--------------------------------------------------------------
-#ifndef __BooleanFunctionTypes_h
-#define __BooleanFunctionTypes_h
+#ifndef XRAD__File_BooleanFunctionTypes_h
+#define XRAD__File_BooleanFunctionTypes_h
 //--------------------------------------------------------------
 
 #include "Sources/Containers/BooleanFunction.h"
@@ -18,4 +18,4 @@ typedef BooleanFunctionLogical2D<int8_t> BooleanFunctionLogical2D8;
 
 XRAD_END
 
-#endif // __BooleanFunctionTypes_h
+#endif // XRAD__File_BooleanFunctionTypes_h

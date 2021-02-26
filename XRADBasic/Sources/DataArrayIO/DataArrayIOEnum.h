@@ -2,8 +2,8 @@
 //	Created by ACS on 29.04.03
 //	рекомендуется включать посредством <DataIO.h>
 //--------------------------------------------------------------
-#ifndef __DataIOEnum_h
-#define __DataIOEnum_h
+#ifndef XRAD__File_DataIOEnum_h
+#define XRAD__File_DataIOEnum_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
@@ -185,4 +185,4 @@ enum ioNumberOptions
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __DataIOEnum_h
+#endif // XRAD__File_DataIOEnum_h

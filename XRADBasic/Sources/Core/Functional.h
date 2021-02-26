@@ -1,7 +1,7 @@
 ﻿// file Functional.h
 //--------------------------------------------------------------
-#ifndef __Functional_h
-#define __Functional_h
+#ifndef XRAD__File_Functional_h
+#define XRAD__File_Functional_h
 //--------------------------------------------------------------
 /*!
 	\file
@@ -85,4 +85,4 @@ auto make_fn(Functor functor)
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __Functional_h
+#endif // XRAD__File_Functional_h

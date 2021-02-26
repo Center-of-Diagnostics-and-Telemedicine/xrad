@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------------------
 
-#ifndef __DataArrayIOFunctions_h
+#ifndef XRAD__File_DataArrayIOFunctions_h
 #error This file must be included from "DataArrayIOFunctions.h" only
 #endif
 

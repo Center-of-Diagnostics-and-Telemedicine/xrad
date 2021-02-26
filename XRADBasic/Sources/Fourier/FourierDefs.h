@@ -1,7 +1,7 @@
 ﻿// file FourierDefs.h
 //--------------------------------------------------------------
-#ifndef __FourierDefs_h
-#define __FourierDefs_h
+#ifndef XRAD__File_FourierDefs_h
+#define XRAD__File_FourierDefs_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
@@ -52,4 +52,4 @@ inline ft_flags operator | (ft_flags f1, ft_flags f2)
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __FourierDefs_h
+#endif // XRAD__File_FourierDefs_h

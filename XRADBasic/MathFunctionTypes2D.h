@@ -1,5 +1,5 @@
-﻿#ifndef __MathFunction2DTypes_h
-#define __MathFunction2DTypes_h
+﻿#ifndef XRAD__File_MathFunction2DTypes_h
+#define XRAD__File_MathFunction2DTypes_h
 /*!
 	\file
 	\date 2014-04-15 16:58
@@ -130,4 +130,4 @@ using ColorImageF64 = ColorImage<ColorSampleF64, double>;
 
 XRAD_END
 
-#endif //__MathFunction2DTypes_h
+#endif //XRAD__File_MathFunction2DTypes_h

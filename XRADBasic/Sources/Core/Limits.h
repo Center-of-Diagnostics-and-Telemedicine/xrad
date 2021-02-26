@@ -1,7 +1,7 @@
 ﻿// file XRAD/Core/Limits.h
 //--------------------------------------------------------------
-#ifndef __XRAD_Core_Limits_h
-#define __XRAD_Core_Limits_h
+#ifndef XRAD__File_XRAD_Core_Limits_h
+#define XRAD__File_XRAD_Core_Limits_h
 //--------------------------------------------------------------
 
 //	Внутренний файл библиотеки.
@@ -35,4 +35,4 @@ inline unsigned char	max_uchar() {return std::numeric_limits<unsigned char>::max
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __XRAD_Core_Limits_h
+#endif // XRAD__File_XRAD_Core_Limits_h

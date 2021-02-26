@@ -1,5 +1,5 @@
-﻿#ifndef __hex_char_h__
-#define __hex_char_h__
+﻿#ifndef XRAD__File_hex_char_h__
+#define XRAD__File_hex_char_h__
 
 #include "String.h"
 
@@ -176,4 +176,4 @@ uint32_t esc_sequence_to_char(T c)
 
 XRAD_END
 
-#endif //__hex_char_h__
+#endif //XRAD__File_hex_char_h__

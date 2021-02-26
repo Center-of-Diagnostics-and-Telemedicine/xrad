@@ -1,5 +1,5 @@
-﻿#ifndef __DataArrayAnalyze_h
-#define __DataArrayAnalyze_h
+﻿#ifndef XRAD__File_DataArrayAnalyze_h
+#define XRAD__File_DataArrayAnalyze_h
 /*!
 	\file
 	\date 2014-10-10 17:33
@@ -363,4 +363,4 @@ double MinComponentValue(const DataArray<T> &array, size_t *p)
 XRAD_END
 
 //--------------------------------------------------------------
-#endif //__DataArrayAnalyze_h
+#endif //XRAD__File_DataArrayAnalyze_h

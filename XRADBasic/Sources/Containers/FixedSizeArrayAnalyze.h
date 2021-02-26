@@ -1,7 +1,7 @@
 ﻿// file FixedSizeArrayAnalyze.h
 //--------------------------------------------------------------
-#ifndef __FixedSizeArrayAnalyze_h
-#define __FixedSizeArrayAnalyze_h
+#ifndef XRAD__File_FixedSizeArrayAnalyze_h
+#define XRAD__File_FixedSizeArrayAnalyze_h
 //--------------------------------------------------------------
 
 #include "FixedSizeArray.h"
@@ -46,4 +46,4 @@ T	MinValue(const FixedSizeArray<T, N> &array, size_t *p = NULL)
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __FixedSizeArrayAnalyze_h
+#endif // XRAD__File_FixedSizeArrayAnalyze_h

@@ -1,7 +1,7 @@
 ﻿// file TestHelpers.h
 //--------------------------------------------------------------
-#ifndef __TestHelpers_h
-#define __TestHelpers_h
+#ifndef XRAD__File_TestHelpers_h
+#define XRAD__File_TestHelpers_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
@@ -22,4 +22,4 @@ class ErrorReporter
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __TestHelpers_h
+#endif // XRAD__File_TestHelpers_h

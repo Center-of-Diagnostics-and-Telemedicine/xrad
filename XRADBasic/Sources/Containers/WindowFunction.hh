@@ -1,5 +1,5 @@
-﻿#ifndef __window_function_cc
-#define __window_function_cc
+﻿#ifndef XRAD__File_window_function_cc
+#define XRAD__File_window_function_cc
 
 XRAD_BEGIN
 
@@ -114,4 +114,4 @@ void CreateWindowFunction(MathFunction<XRAD__MathFunction_template_args> &functi
 
 XRAD_END
 
-#endif //__window_function_cc
+#endif //XRAD__File_window_function_cc

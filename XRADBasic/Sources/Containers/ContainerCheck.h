@@ -1,5 +1,5 @@
-﻿#ifndef __ContainerCheck_h
-#define __ContainerCheck_h
+﻿#ifndef XRAD__File_ContainerCheck_h
+#define XRAD__File_ContainerCheck_h
 /*!
 	\file
 	\date 2014-10-01 11:06
@@ -137,4 +137,4 @@ inline void	check_complex_container_##C()\
 
 
 //--------------------------------------------------------------
-#endif //__ContainerCheck_h
+#endif //XRAD__File_ContainerCheck_h

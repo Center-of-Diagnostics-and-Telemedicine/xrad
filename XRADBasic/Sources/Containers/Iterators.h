@@ -1,8 +1,8 @@
 ﻿// file Iterators.h
 // Created by ACS on 17.02.02
 //--------------------------------------------------------------
-#ifndef __iterators_h
-#define __iterators_h
+#ifndef XRAD__File_iterators_h
+#define XRAD__File_iterators_h
 /*!
 	\file
 	\brief Итераторы с шагом
@@ -308,4 +308,4 @@ XRAD_END
 #include "Iterators.hh"
 
 //--------------------------------------------------------------
-#endif // __iterators_h
+#endif // XRAD__File_iterators_h

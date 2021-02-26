@@ -1,7 +1,7 @@
 ﻿// file ColorContainer.h
 //--------------------------------------------------------------
-#ifndef __ColorContainer_h
-#define __ColorContainer_h
+#ifndef XRAD__File_ColorContainer_h
+#define XRAD__File_ColorContainer_h
 //--------------------------------------------------------------
 
 #include "ReferenceOwner.h"
@@ -129,4 +129,4 @@ XRAD_END
 #include "ColorContainer.hh"
 
 //--------------------------------------------------------------
-#endif // __ColorContainer_h
+#endif // XRAD__File_ColorContainer_h

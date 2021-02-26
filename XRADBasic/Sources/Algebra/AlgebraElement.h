@@ -1,9 +1,9 @@
-﻿#ifdef __algebra_element_h_inside
+﻿#ifdef XRAD__File_algebra_element_h_inside
 #error Error: Recursive inclusion of AlgebraElement.h detected.
 #endif
-#ifndef __algebra_element_h
-#define __algebra_element_h
-#define __algebra_element_h_inside
+#ifndef XRAD__File_algebra_element_h
+#define XRAD__File_algebra_element_h
+#define XRAD__File_algebra_element_h_inside
 
 #include "FieldElement.h"
 #include <XRADBasic/Sources/Core/Functors.h>
@@ -208,5 +208,5 @@ XRAD_END
 #undef XRAD__template_2_args
 
 //--------------------------------------------------------------
-#undef __algebra_element_h_inside
-#endif  //__algebra_element_h
+#undef XRAD__File_algebra_element_h_inside
+#endif  //XRAD__File_algebra_element_h

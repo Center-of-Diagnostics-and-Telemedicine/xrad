@@ -1,7 +1,7 @@
 ﻿// file AlgebraicAlgorithmsMD.h
 //--------------------------------------------------------------
-#ifndef __AlgebraicAlgorithmsMD_h
-#define __AlgebraicAlgorithmsMD_h
+#ifndef XRAD__File_AlgebraicAlgorithmsMD_h
+#define XRAD__File_AlgebraicAlgorithmsMD_h
 /*!
 	\addtogroup gr_Algebra
 	@{
@@ -110,4 +110,4 @@ class	AlgebraicAlgorithmsDataArrayMD
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __AlgebraicAlgorithmsMD_h
+#endif // XRAD__File_AlgebraicAlgorithmsMD_h

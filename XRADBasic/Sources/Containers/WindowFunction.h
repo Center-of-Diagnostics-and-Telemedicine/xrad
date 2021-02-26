@@ -1,7 +1,7 @@
 ﻿//	file WindowFunction.h
 //--------------------------------------------------------------
-#ifndef __window_function_h
-#define __window_function_h
+#ifndef XRAD__File_window_function_h
+#define XRAD__File_window_function_h
 /*!
 	\file
 	\brief Вычисление типовых оконных функций,
@@ -250,4 +250,4 @@ XRAD_END
 #include "WindowFunction.hh"
 
 //--------------------------------------------------------------
-#endif //__window_function_h
+#endif //XRAD__File_window_function_h

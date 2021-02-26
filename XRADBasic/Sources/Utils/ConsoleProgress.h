@@ -1,7 +1,7 @@
 ﻿// file ConsoleProgress.h
 //--------------------------------------------------------------
-#ifndef __ConsoleProgress_h
-#define __ConsoleProgress_h
+#ifndef XRAD__File_ConsoleProgress_h
+#define XRAD__File_ConsoleProgress_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
@@ -18,4 +18,4 @@ ProgressProxy ConsoleProgressProxy();
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __ConsoleProgress_h
+#endif // XRAD__File_ConsoleProgress_h

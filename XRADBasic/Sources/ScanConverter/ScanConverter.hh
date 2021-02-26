@@ -1,4 +1,4 @@
-﻿#ifndef __scan_converter_h
+﻿#ifndef XRAD__File_scan_converter_h
 #error "This file should be included through ScanConverter.h"
 #endif
 

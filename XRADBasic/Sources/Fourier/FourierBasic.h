@@ -2,8 +2,8 @@
 // Created by KNS, modified by ACS
 // FFT routines, machine-independent interface
 //--------------------------------------------------------------
-#ifndef __Fourier_h
-#define __Fourier_h
+#ifndef XRAD__File_Fourier_h
+#define XRAD__File_Fourier_h
 //--------------------------------------------------------------
 
 #include "FourierDefs.h"

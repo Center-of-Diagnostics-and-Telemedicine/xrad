@@ -2,7 +2,7 @@
 // Created by ACS on 17.02.02
 //--------------------------------------------------------------
 
-#ifndef __iterators_h
+#ifndef XRAD__File_iterators_h
 	#error This file must be included from <Iterators.h> only!
 #endif
 

@@ -1,7 +1,7 @@
 ﻿// file FIRFilterKernelTypes.h
 //--------------------------------------------------------------
-#ifndef __FIRFilterKernelTypes_h
-#define __FIRFilterKernelTypes_h
+#ifndef XRAD__File_FIRFilterKernelTypes_h
+#define XRAD__File_FIRFilterKernelTypes_h
 //--------------------------------------------------------------
 
 #include "Sources/Containers/FIRFilterKernel.h"
@@ -20,4 +20,4 @@ typedef FIRFilterKernel<complexF64, double, AlgebraicStructures::FieldTagComplex
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __FIRFilterKernelTypes_h
+#endif // XRAD__File_FIRFilterKernelTypes_h

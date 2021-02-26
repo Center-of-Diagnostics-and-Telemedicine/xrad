@@ -1,7 +1,7 @@
 ﻿// file ProgressProxyApi.h
 //--------------------------------------------------------------
-#ifndef __ProgressProxyApi_h
-#define __ProgressProxyApi_h
+#ifndef XRAD__File_ProgressProxyApi_h
+#define XRAD__File_ProgressProxyApi_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Sources/Core/FlowControl.h>
@@ -73,4 +73,4 @@ class ProgressProxyApi: public ProgressProxyCore
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __ProgressProxyApi_h
+#endif // XRAD__File_ProgressProxyApi_h

@@ -1,5 +1,5 @@
-﻿#ifndef __MathFunctionTypesMD_h
-#define __MathFunctionTypesMD_h
+﻿#ifndef XRAD__File_MathFunctionTypesMD_h
+#define XRAD__File_MathFunctionTypesMD_h
 /*!
 	\file
 	\date 2014-09-29 10:17
@@ -96,4 +96,4 @@ typedef ComplexFunctionMD<complexF64, double>  ComplexFunctionMD_F64;
 
 XRAD_END
 
-#endif //__MathFunctionTypesMD_h
+#endif //XRAD__File_MathFunctionTypesMD_h

@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------------------
-#ifndef __DataArrayIOFunctions_h
-#define __DataArrayIOFunctions_h
+#ifndef XRAD__File_DataArrayIOFunctions_h
+#define XRAD__File_DataArrayIOFunctions_h
 //--------------------------------------------------------------
 
 #include "DataArrayIOTypes.h"
@@ -67,4 +67,4 @@ XRAD_END
 
 //--------------------------------------------------------------
 
-#endif // __DataArrayIOFunctions_h
+#endif // XRAD__File_DataArrayIOFunctions_h

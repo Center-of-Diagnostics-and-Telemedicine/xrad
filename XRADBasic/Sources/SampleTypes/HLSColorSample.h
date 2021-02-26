@@ -1,5 +1,5 @@
-﻿#ifndef __hls_color_sample_h
-#define __hls_color_sample_h
+﻿#ifndef XRAD__File_hls_color_sample_h
+#define XRAD__File_hls_color_sample_h
 
 #include "ColorSample.h"
 
@@ -22,4 +22,4 @@ public:
 
 XRAD_END
 
-#endif //__hls_color_sample_h
+#endif //XRAD__File_hls_color_sample_h

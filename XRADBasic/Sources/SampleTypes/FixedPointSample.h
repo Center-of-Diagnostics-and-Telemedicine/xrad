@@ -1,5 +1,5 @@
-﻿#ifndef __fixed_point_sample_h
-#define __fixed_point_sample_h
+﻿#ifndef XRAD__File_fixed_point_sample_h
+#define XRAD__File_fixed_point_sample_h
 
 #include <XRADBasic/Core.h>
 #include <cstdint>
@@ -585,4 +585,4 @@ void	ExportProcessedImage(IN_BUF &a1, PROC_BUF &a2, typename IN_BUF::value_type 
 
 XRAD_END
 
-#endif //__fixed_point_sample_h
+#endif //XRAD__File_fixed_point_sample_h

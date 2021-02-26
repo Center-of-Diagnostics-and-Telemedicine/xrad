@@ -1,7 +1,7 @@
 ﻿// file Functors.h
 //--------------------------------------------------------------
-#ifndef __Functors_h
-#define __Functors_h
+#ifndef XRAD__File_Functors_h
+#define XRAD__File_Functors_h
 //--------------------------------------------------------------
 
 #include "Config.h"
@@ -588,4 +588,4 @@ using functor_result_type_t = typename functor_result_type<Functor, Argument>::t
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __Functors_h
+#endif // XRAD__File_Functors_h

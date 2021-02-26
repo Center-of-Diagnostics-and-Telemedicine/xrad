@@ -1,7 +1,7 @@
 ﻿//	file ComplexFunction2D.h
 //--------------------------------------------------------------
-#ifndef __complex_function_2D_h
-#define __complex_function_2D_h
+#ifndef XRAD__File_complex_function_2D_h
+#define XRAD__File_complex_function_2D_h
 
 #include "MathFunction2D.h"
 #include "ComplexFunction.h"
@@ -68,4 +68,4 @@ XRAD_END
 #include "ComplexFunction2D.hh"
 
 //--------------------------------------------------------------
-#endif //__complex_function_2D_h
+#endif //XRAD__File_complex_function_2D_h

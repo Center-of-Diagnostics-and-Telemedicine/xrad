@@ -1,5 +1,5 @@
-﻿#ifndef __RandomNoiseGenerator_h
-#define __RandomNoiseGenerator_h
+﻿#ifndef XRAD__File_RandomNoiseGenerator_h
+#define XRAD__File_RandomNoiseGenerator_h
 
 //--------------------------------------------------------------
 //
@@ -119,4 +119,4 @@ class	IrwingHallNoiseGenerator: public RandomNoiseGenerator
 
 XRAD_END
 
-#endif //__RandomNoiseGenerator_h
+#endif //XRAD__File_RandomNoiseGenerator_h

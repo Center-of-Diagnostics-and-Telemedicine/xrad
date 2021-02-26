@@ -1,8 +1,8 @@
 ﻿//	file number_traits.h
 //	Created by ACS on 22.02.02
 //--------------------------------------------------------------
-#ifndef __number_traits_h
-#define __number_traits_h
+#ifndef XRAD__File_number_traits_h
+#define XRAD__File_number_traits_h
 //--------------------------------------------------------------
 
 #include "Config.h"
@@ -191,4 +191,4 @@ check_if_number_traits_defined(unsigned long long)
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __number_traits_h
+#endif // XRAD__File_number_traits_h

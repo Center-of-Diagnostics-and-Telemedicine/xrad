@@ -1,7 +1,7 @@
 ﻿// file FieldTraits.h
 //--------------------------------------------------------------
-#ifndef __FieldTraits_h
-#define __FieldTraits_h
+#ifndef XRAD__File_FieldTraits_h
+#define XRAD__File_FieldTraits_h
 /*!
 	\addtogroup gr_Algebra
 	@{
@@ -133,4 +133,4 @@ struct FieldTraits<T, typename std::enable_if<
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __FieldTraits_h
+#endif // XRAD__File_FieldTraits_h

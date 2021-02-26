@@ -1,7 +1,7 @@
 ﻿// file BasicArrayInteractions2D.h
 //--------------------------------------------------------------
-#ifndef __BasicArrayInteractions2D_h
-#define __BasicArrayInteractions2D_h
+#ifndef XRAD__File_BasicArrayInteractions2D_h
+#define XRAD__File_BasicArrayInteractions2D_h
 /*!
 	\file
 	\brief Оптимизированные операции над двумерными массивами типа DataArray2D
@@ -381,4 +381,4 @@ void Apply_AAS_2D_F3(Array1 &&array_1, Array2 &&array_2, Scalar &&scalar, Functo
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __BasicArrayInteractions2D_h
+#endif // XRAD__File_BasicArrayInteractions2D_h

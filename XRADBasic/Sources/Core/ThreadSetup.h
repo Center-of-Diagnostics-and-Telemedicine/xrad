@@ -1,7 +1,7 @@
 ﻿// file ThreadSetup.h
 //--------------------------------------------------------------
-#ifndef __ThreadSetup_h
-#define __ThreadSetup_h
+#ifndef XRAD__File_ThreadSetup_h
+#define XRAD__File_ThreadSetup_h
 /*!
 	\file
 	Здесь определяются:
@@ -180,4 +180,4 @@ XRAD_END
 #include "ThreadSetup.hh"
 
 //--------------------------------------------------------------
-#endif // __ThreadSetup_h
+#endif // XRAD__File_ThreadSetup_h

@@ -1,5 +1,5 @@
-﻿#ifndef __lab_color_sample_h
-#define __lab_color_sample_h
+﻿#ifndef XRAD__File_lab_color_sample_h
+#define XRAD__File_lab_color_sample_h
 
 #include "ColorSample.h"
 
@@ -42,4 +42,4 @@ inline XYZColorSample zero_value(const XYZColorSample &){return XYZColorSample (
 
 XRAD_END
 
-#endif //__lab_color_sample_h
+#endif //XRAD__File_lab_color_sample_h

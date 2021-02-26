@@ -1,7 +1,7 @@
 ﻿// file Config.h
 //--------------------------------------------------------------
-#ifndef __Config_h
-#define __Config_h
+#ifndef XRAD__File_Config_h
+#define XRAD__File_Config_h
 //--------------------------------------------------------------
 /*!
 	\defgroup gr_Config Конфигурация библиотеки XRAD
@@ -114,4 +114,4 @@
 
 //--------------------------------------------------------------
 //! @} <!-- ^group gr_Config -->
-#endif // __Config_h
+#endif // XRAD__File_Config_h

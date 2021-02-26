@@ -1,5 +1,5 @@
-﻿#ifndef __containers_basic_h
-#define __containers_basic_h
+﻿#ifndef XRAD__File_containers_basic_h
+#define XRAD__File_containers_basic_h
 /*!
 	\file
 	\brief Базовые определения для контейнеров. Внутренний файл библиотеки
@@ -212,4 +212,4 @@ struct extrapolation
 XRAD_END
 
 //--------------------------------------------------------------
-#endif //__containers_basic_h
+#endif //XRAD__File_containers_basic_h

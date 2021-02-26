@@ -1,5 +1,5 @@
-﻿#ifndef __image_utils_h
-#define __image_utils_h
+﻿#ifndef XRAD__File_image_utils_h
+#define XRAD__File_image_utils_h
 
 XRAD_BEGIN
 
@@ -10,4 +10,4 @@ XRAD_END
 
 #include "ImageUtils.hh"
 
-#endif // __image_utils_h
+#endif // XRAD__File_image_utils_h

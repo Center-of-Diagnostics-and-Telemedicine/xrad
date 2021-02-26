@@ -1,6 +1,6 @@
 ﻿//	file MathFunction.h
-#ifndef __mathfunction_h
-#define __mathfunction_h
+#ifndef XRAD__File_mathfunction_h
+#define XRAD__File_mathfunction_h
 
 #include "DataArray.h"
 #include <XRADBasic/Sources/Algebra/AlgebraicStructures1D.h>
@@ -160,4 +160,4 @@ XRAD_END
 #include "MathFunction.hh"
 
 //--------------------------------------------------------------
-#endif //__mathfunction_h
+#endif //XRAD__File_mathfunction_h

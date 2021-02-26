@@ -1,6 +1,6 @@
-﻿#ifndef __pre_h
-#define __pre_h
+﻿#ifndef XRAD__File_pre_h
+#define XRAD__File_pre_h
 
 #include <XRADBasic/Core.h>
 
-#endif //__pre_h
+#endif //XRAD__File_pre_h

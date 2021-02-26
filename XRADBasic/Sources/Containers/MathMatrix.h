@@ -1,5 +1,5 @@
-﻿#ifndef __math_matrix_h
-#define __math_matrix_h
+﻿#ifndef XRAD__File_math_matrix_h
+#define XRAD__File_math_matrix_h
 
 #include "DataArray2D.h"
 #include "LinearVector.h"
@@ -114,4 +114,4 @@ XRAD_END
 #include "MathMatrix.hh"
 #include "MathMatrix_Ext.hh"
 
-#endif //__math_matrix_h
+#endif //XRAD__File_math_matrix_h

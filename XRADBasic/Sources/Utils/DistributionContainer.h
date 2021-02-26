@@ -1,5 +1,5 @@
-﻿#ifndef __distribution_container_h
-#define __distribution_container_h
+﻿#ifndef XRAD__File_distribution_container_h
+#define XRAD__File_distribution_container_h
 
 #include "StatisticUtils.h"
 
@@ -95,4 +95,4 @@ class	TableDistributionContainer: public DistributionContainer
 
 XRAD_END
 
-#endif // __distribution_container_h
+#endif // XRAD__File_distribution_container_h

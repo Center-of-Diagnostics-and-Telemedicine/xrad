@@ -2,8 +2,8 @@
 //	Created by ACS on 29.04.03
 //	рекомендуется включать посредством <DataIO.h>
 //--------------------------------------------------------------
-#ifndef __DataIOTypes_h
-#define __DataIOTypes_h
+#ifndef XRAD__File_DataIOTypes_h
+#define XRAD__File_DataIOTypes_h
 //--------------------------------------------------------------
 
 #include "DataArrayIOTypesHelpers.h"
@@ -159,4 +159,4 @@ inline  float32_text_iotype *textConversion(const float *value){return NULL;}
 
 XRAD_END
 
-#endif // __DataIOTypes_h
+#endif // XRAD__File_DataIOTypes_h

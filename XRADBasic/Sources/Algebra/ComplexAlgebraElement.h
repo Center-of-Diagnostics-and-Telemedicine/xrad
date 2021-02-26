@@ -1,5 +1,5 @@
-﻿#ifndef __complex_algebra_element_h
-#define __complex_algebra_element_h
+﻿#ifndef XRAD__File_complex_algebra_element_h
+#define XRAD__File_complex_algebra_element_h
 /*!
 	\addtogroup gr_Algebra
 	@{
@@ -96,4 +96,4 @@ class AlgebraElement<XRAD__template_1C_args> : public GenericAlgebraElement<XRAD
 }//namespace	AlgebraicStructures
 XRAD_END
 
-#endif //__complex_algebra_element_h
+#endif //XRAD__File_complex_algebra_element_h

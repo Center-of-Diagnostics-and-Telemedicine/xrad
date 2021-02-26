@@ -1,7 +1,7 @@
 ﻿// file PC_XRADBasicLink.h
 //--------------------------------------------------------------
-#ifndef __PC_XRADBasicLink_h
-#define __PC_XRADBasicLink_h
+#ifndef XRAD__File_PC_XRADBasicLink_h
+#define XRAD__File_PC_XRADBasicLink_h
 //--------------------------------------------------------------
 
 #include "MSVC_XRADLink-Suffix.h"
@@ -19,4 +19,4 @@
 #endif
 
 //--------------------------------------------------------------
-#endif // __PC_XRADBasicLink_h
+#endif // XRAD__File_PC_XRADBasicLink_h

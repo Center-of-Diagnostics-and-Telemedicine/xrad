@@ -1,5 +1,5 @@
-﻿#ifndef __index_vector_h
-#define __index_vector_h
+﻿#ifndef XRAD__File_index_vector_h
+#define XRAD__File_index_vector_h
 /*!
 	\file
 	\brief Векторы индексов, смещений для обращения к многомерному массиву
@@ -80,4 +80,4 @@ inline size_t	dimension_no(size_t slice_mask){return (slice_mask ^ internal_slic
 
 XRAD_END
 
-#endif //__index_vector_h
+#endif //XRAD__File_index_vector_h

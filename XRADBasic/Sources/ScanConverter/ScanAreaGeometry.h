@@ -1,5 +1,5 @@
-﻿#ifndef	__scan_area_geometry_h
-#define	__scan_area_geometry_h
+﻿#ifndef	XRAD__File_scan_area_geometry_h
+#define	XRAD__File_scan_area_geometry_h
 
 #include <XRADBasic/Sources/Utils/PhysicalUnits.h>
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
@@ -147,4 +147,4 @@ struct	SampledFrameDimensions
 
 XRAD_END
 
-#endif //__scan_area_geometry_h
+#endif //XRAD__File_scan_area_geometry_h

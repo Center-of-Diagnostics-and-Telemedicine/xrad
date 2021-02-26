@@ -1,7 +1,7 @@
 ﻿// file AlgebraicAlgorithms2D.h
 //--------------------------------------------------------------
-#ifndef __AlgebraicAlgorithms2D_h
-#define __AlgebraicAlgorithms2D_h
+#ifndef XRAD__File_AlgebraicAlgorithms2D_h
+#define XRAD__File_AlgebraicAlgorithms2D_h
 /*!
 	\addtogroup gr_Algebra
 	@{
@@ -110,4 +110,4 @@ class AlgebraicAlgorithmsDataArray2D
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __AlgebraicAlgorithms2D_h
+#endif // XRAD__File_AlgebraicAlgorithms2D_h

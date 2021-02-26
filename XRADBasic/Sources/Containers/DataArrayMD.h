@@ -1,5 +1,5 @@
-﻿#ifndef __data_array_multidimensional_h
-#define __data_array_multidimensional_h
+﻿#ifndef XRAD__File_data_array_multidimensional_h
+#define XRAD__File_data_array_multidimensional_h
 
 #include "DataArray2D.h"
 #include "IndexVector.h"
@@ -634,4 +634,4 @@ XRAD_END
 #include "DataArrayMD.hh"
 
 //--------------------------------------------------------------
-#endif //__data_array_multidimensional_h
+#endif //XRAD__File_data_array_multidimensional_h

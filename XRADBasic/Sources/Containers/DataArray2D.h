@@ -1,5 +1,5 @@
-﻿#ifndef __data_array_2d_h
-#define __data_array_2d_h
+﻿#ifndef XRAD__File_data_array_2d_h
+#define XRAD__File_data_array_2d_h
 //--------------------------------------------------------------
 
 #include "DataArray.h"
@@ -543,4 +543,4 @@ XRAD_END
 #include "DataArray2D.hh"
 
 //--------------------------------------------------------------
-#endif //__data_array_2d_h
+#endif //XRAD__File_data_array_2d_h

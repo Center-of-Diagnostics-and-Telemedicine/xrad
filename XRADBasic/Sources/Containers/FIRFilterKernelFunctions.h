@@ -1,7 +1,7 @@
 ﻿// file FIRFilterKernelFunctions.h
 //--------------------------------------------------------------
-#ifndef __FIRFilterKernelFunctions_h
-#define __FIRFilterKernelFunctions_h
+#ifndef XRAD__File_FIRFilterKernelFunctions_h
+#define XRAD__File_FIRFilterKernelFunctions_h
 //--------------------------------------------------------------
 
 #include "FIRFilterKernel.h"
@@ -26,4 +26,4 @@ XRAD_END
 #include "FIRFilterKernelFunctions.hh"
 
 //--------------------------------------------------------------
-#endif // __FIRFilterKernelFunctions_h
+#endif // XRAD__File_FIRFilterKernelFunctions_h

@@ -1,9 +1,9 @@
-﻿#ifdef __AlgebraicStructures1D_h_inside
+﻿#ifdef XRAD__File_AlgebraicStructures1D_h_inside
 #error Error: Recursive inclusion of AlgebraicStructures1D.h detected.
 #endif
-#ifndef __AlgebraicStructures1D_h
-#define __AlgebraicStructures1D_h
-#define __AlgebraicStructures1D_h_inside
+#ifndef XRAD__File_AlgebraicStructures1D_h
+#define XRAD__File_AlgebraicStructures1D_h
+#define XRAD__File_AlgebraicStructures1D_h_inside
 /*!
 	\addtogroup gr_Algebra
 	@{
@@ -69,5 +69,5 @@ using BooleanAlgebraBitwise1D = AlgebraicStructures::BooleanAlgebraElementBitwis
 //! @} <!-- ^group gr_Algebra -->
 XRAD_END
 
-#undef __AlgebraicStructures1D_h_inside
-#endif //__AlgebraicStructures1D_h
+#undef XRAD__File_AlgebraicStructures1D_h_inside
+#endif //XRAD__File_AlgebraicStructures1D_h

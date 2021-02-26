@@ -1,5 +1,5 @@
-﻿#ifndef __math_function_multidimensional_h
-#define __math_function_multidimensional_h
+﻿#ifndef XRAD__File_math_function_multidimensional_h
+#define XRAD__File_math_function_multidimensional_h
 //--------------------------------------------------------------
 
 #include "DataArrayMD.h"
@@ -74,4 +74,4 @@ XRAD_END
 #include "MathFunctionMD.hh"
 
 //--------------------------------------------------------------
-#endif //__math_function_multidimensional_h
+#endif //XRAD__File_math_function_multidimensional_h

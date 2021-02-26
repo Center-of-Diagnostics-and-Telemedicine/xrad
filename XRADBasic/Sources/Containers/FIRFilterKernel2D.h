@@ -1,5 +1,5 @@
-﻿#ifndef __short_filter_h
-#define __short_filter_h
+﻿#ifndef XRAD__File_short_filter_h
+#define XRAD__File_short_filter_h
 //--------------------------------------------------------------
 
 #include "FIRFilterKernel.h"
@@ -198,4 +198,4 @@ XRAD_END
 #include "FIRFilterKernel2D.hh"
 
 //--------------------------------------------------------------
-#endif //__short_filter_h
+#endif //XRAD__File_short_filter_h

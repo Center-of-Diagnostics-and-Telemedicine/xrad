@@ -1,9 +1,9 @@
-﻿#ifdef __field_element_h_inside
+﻿#ifdef XRAD__File_field_element_h_inside
 #error Error: Recursive inclusion of FieldElement.h detected.
 #endif
-#ifndef __field_element_h
-#define __field_element_h
-#define __field_element_h_inside
+#ifndef XRAD__File_field_element_h
+#define XRAD__File_field_element_h
+#define XRAD__File_field_element_h_inside
 /*!
 	\addtogroup gr_Algebra
 	@{
@@ -419,5 +419,5 @@ XRAD__define_action(subtract_divide)
 
 XRAD_END
 
-#undef __field_element_h_inside
-#endif //__field_element_h
+#undef XRAD__File_field_element_h_inside
+#endif //XRAD__File_field_element_h

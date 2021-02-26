@@ -1,5 +1,5 @@
-﻿#ifndef __special_function_h
-#define __special_function_h
+﻿#ifndef XRAD__File_special_function_h
+#define XRAD__File_special_function_h
 
 #include <XRADBasic/Sources/SampleTypes/ComplexSample.h>
 
@@ -71,4 +71,4 @@ using namespace SpecialFunctions;
 XRAD_END
 
 //--------------------------------------------------------------
-#endif //__special_function_h
+#endif //XRAD__File_special_function_h

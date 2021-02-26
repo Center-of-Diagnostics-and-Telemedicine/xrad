@@ -1,8 +1,8 @@
 ﻿//	file String.h
 //	Created by ACS on 25.10.01
 //--------------------------------------------------------------
-#ifndef __String_h
-#define __String_h
+#ifndef XRAD__File_String_h
+#define XRAD__File_String_h
 //--------------------------------------------------------------
 
 //	(?) Внутренний файл библиотеки.
@@ -302,4 +302,4 @@ String normalize_line_ends(const String &text, LineEndKind line_end_kind)
 
 XRAD_END
 
-#endif // __String_h
+#endif // XRAD__File_String_h

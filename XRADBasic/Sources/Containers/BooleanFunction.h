@@ -1,5 +1,5 @@
-﻿#ifndef __boolean_function_h
-#define __boolean_function_h
+﻿#ifndef XRAD__File_boolean_function_h
+#define XRAD__File_boolean_function_h
 
 #include "DataArray.h"
 #include <XRADBasic/Sources/Algebra/AlgebraicStructures1D.h>
@@ -62,4 +62,4 @@ class	BooleanFunctionBitwise: public BooleanAlgebraBitwise1D<BooleanFunctionBitw
 
 XRAD_END
 
-#endif //__boolean_function_h
+#endif //XRAD__File_boolean_function_h

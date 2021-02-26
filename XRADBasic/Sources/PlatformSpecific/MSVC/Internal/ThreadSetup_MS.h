@@ -1,7 +1,7 @@
 ﻿// file ThreadSetup_MS.h
 //--------------------------------------------------------------
-#ifndef __ThreadSetup_MS_h
-#define __ThreadSetup_MS_h
+#ifndef XRAD__File_ThreadSetup_MS_h
+#define XRAD__File_ThreadSetup_MS_h
 /*!
 	\file
 	В этом файле используются макросы:
@@ -126,4 +126,4 @@ XRAD_END
 #endif // XRAD_USE_MS_VERSION
 
 //--------------------------------------------------------------
-#endif // __ThreadSetup_MS_h
+#endif // XRAD__File_ThreadSetup_MS_h

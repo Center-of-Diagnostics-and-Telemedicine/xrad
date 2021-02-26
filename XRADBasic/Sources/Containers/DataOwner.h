@@ -1,7 +1,7 @@
 ﻿//	file DataOwner.h
 //--------------------------------------------------------------
-#ifndef __data_owner_h
-#define __data_owner_h
+#ifndef XRAD__File_data_owner_h
+#define XRAD__File_data_owner_h
 //--------------------------------------------------------------
 
 #include "Iterators.h"
@@ -290,4 +290,4 @@ XRAD_END
 #include "DataOwner.hh"
 
 //--------------------------------------------------------------
-#endif //__data_owner_h
+#endif //XRAD__File_data_owner_h

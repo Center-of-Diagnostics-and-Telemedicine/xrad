@@ -1,5 +1,5 @@
-﻿#ifndef __complex_function_h
-#define __complex_function_h
+﻿#ifndef XRAD__File_complex_function_h
+#define XRAD__File_complex_function_h
 /*!
 	\file
 	\date 2014-04-29 11:03
@@ -117,4 +117,4 @@ XRAD_END
 #include "ComplexFunction.hh"
 
 //--------------------------------------------------------------
-#endif //__complex_function_h
+#endif //XRAD__File_complex_function_h

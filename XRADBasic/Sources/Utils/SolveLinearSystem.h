@@ -1,5 +1,5 @@
-﻿#ifndef __SolveLinearSystem_h
-#define __SolveLinearSystem_h
+﻿#ifndef XRAD__File_SolveLinearSystem_h
+#define XRAD__File_SolveLinearSystem_h
 
 #include <XRADBasic/MathMatrixTypes.h>
 
@@ -240,4 +240,4 @@ void	SolveLinearSystem(LinearVector<XRAD__LinearVector_template_args> &solution,
 
 XRAD_END
 
-#endif //__SolveLinearSystem_h
+#endif //XRAD__File_SolveLinearSystem_h

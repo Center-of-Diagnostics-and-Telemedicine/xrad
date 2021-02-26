@@ -1,7 +1,7 @@
 ﻿// file BasicArrayInteractions1D.h
 //--------------------------------------------------------------
-#ifndef __BasicArrayInteractions1D_h
-#define __BasicArrayInteractions1D_h
+#ifndef XRAD__File_BasicArrayInteractions1D_h
+#define XRAD__File_BasicArrayInteractions1D_h
 /*!
 	\file
 	\brief Оптимизированные операции над одномерными массивами типа DataArray
@@ -356,4 +356,4 @@ void Apply_AAS_1D_F3(Array1 &&array_1, Array2 &&array_2, Scalar &&scalar, Functo
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __BasicArrayInteractions1D_h
+#endif // XRAD__File_BasicArrayInteractions1D_h

@@ -1,5 +1,5 @@
-﻿#ifndef __interpolation_auxiliaries_h
-#define __interpolation_auxiliaries_h
+﻿#ifndef XRAD__File_interpolation_auxiliaries_h
+#define XRAD__File_interpolation_auxiliaries_h
 
 #include <XRADBasic/MathFunctionTypes.h>
 
@@ -35,4 +35,4 @@ double	CalculateQuasiSpline(double x, double nu);
 
 XRAD_END
 
-#endif  //__interpolation_auxiliaries_h
+#endif  //XRAD__File_interpolation_auxiliaries_h

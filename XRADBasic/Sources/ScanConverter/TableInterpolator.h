@@ -1,5 +1,5 @@
-﻿#ifndef	__table_interpolator_h
-#define	__table_interpolator_h
+﻿#ifndef	XRAD__File_table_interpolator_h
+#define	XRAD__File_table_interpolator_h
 
 
 #include <XRADBasic/Sources/SampleTypes/ColorSample.h>
@@ -121,4 +121,4 @@ class	TableInterpolator
 
 XRAD_END
 
-#endif //__table_interpolator_h
+#endif //XRAD__File_table_interpolator_h

@@ -1,5 +1,5 @@
-﻿#ifndef __color_sample_h
-#define __color_sample_h
+﻿#ifndef XRAD__File_color_sample_h
+#define XRAD__File_color_sample_h
 
 #include <XRADBasic/Sources/Core/Config.h>
 #include <XRADBasic/Sources/Core/BasicMacros.h>
@@ -349,4 +349,4 @@ XRAD_END
 
 #include "ColorSample.hh"
 
-#endif //__color_sample_h
+#endif //XRAD__File_color_sample_h
