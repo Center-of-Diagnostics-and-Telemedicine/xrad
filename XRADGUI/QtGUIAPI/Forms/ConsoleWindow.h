@@ -1,4 +1,9 @@
-﻿#ifndef SIMPLETEST_QT_H
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef SIMPLETEST_QT_H
 #define SIMPLETEST_QT_H
 
 #include <XRADGUI/Sources/Internal/std.h>

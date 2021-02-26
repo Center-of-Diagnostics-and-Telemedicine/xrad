@@ -1,4 +1,9 @@
-﻿//	file TextWindow.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file TextWindow.h
 //	Created by KNS on 08.2013
 //--------------------------------------------------------------
 #ifndef XRAD__File_TextWindow_h

@@ -1,9 +1,10 @@
-﻿//
-//  ShowComplex.h
-//  SimpleTest_QT_XC
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
 //
-//  Created by macintosh on 10.09.13.
-//  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
+//  Created on 10.09.13.
 //
 
 #ifndef XRAD__File_ShowComplex_h
