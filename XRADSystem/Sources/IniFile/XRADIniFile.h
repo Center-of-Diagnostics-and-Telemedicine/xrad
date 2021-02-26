@@ -1,4 +1,9 @@
-﻿//	file XRADIniFile.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file XRADIniFile.h
 //	Created by ACS on 10.10.01
 //--------------------------------------------------------------
 #ifndef XRAD__File_XRADIniFile_h
