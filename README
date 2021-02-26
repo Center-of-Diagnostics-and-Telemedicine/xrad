@@ -1,6 +1,9 @@
-﻿XRADG
+﻿XRAD
 
-XRAD is a C++ software library for signal processing and visualization.
+XRAD is a C++ software library for 
+- digital signals processing;
+- digital images processing; 
+- signals and images analysis and visualization.
 
 XRAD consists of several packages:
 - XRADBasic;
