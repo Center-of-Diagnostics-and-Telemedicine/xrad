@@ -3,8 +3,8 @@
 	\date 2018/03/9 13:29
 	\author nicholas
 */
-#ifndef __file_info_h__
-#define __file_info_h__
+#ifndef XRAD__File_file_info_h__
+#define XRAD__File_file_info_h__
 
 #include <XRADBasic/Core.h>
 
@@ -72,4 +72,4 @@ namespace filesystem
 
 XRAD_END
 
-#endif // __file_info_h__
+#endif // XRAD__File_file_info_h__

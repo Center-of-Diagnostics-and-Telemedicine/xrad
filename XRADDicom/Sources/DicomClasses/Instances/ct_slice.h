@@ -3,8 +3,8 @@
 	\date 2018/03/8 20:23
 	\author nicholas
 */
-#ifndef __ct_slice_h__
-#define __ct_slice_h__
+#ifndef XRAD__File_ct_slice_h__
+#define XRAD__File_ct_slice_h__
 
 #include "tomogram_slice.h"
 
@@ -47,4 +47,4 @@ namespace Dicom
 
 XRAD_END
 
-#endif // __ct_slice_h__
+#endif // XRAD__File_ct_slice_h__

@@ -1,5 +1,5 @@
-﻿#ifndef __DicomFilenameFilters_h
-#define __DicomFilenameFilters_h
+﻿#ifndef XRAD__File_DicomFilenameFilters_h
+#define XRAD__File_DicomFilenameFilters_h
 
 #include <XRADBasic/Core.h>
 
@@ -24,4 +24,4 @@ bool	may_be_dicom_filename(const wstring &name);
 
 XRAD_END
 
-#endif //__DicomFilenameFilters_h
+#endif //XRAD__File_DicomFilenameFilters_h

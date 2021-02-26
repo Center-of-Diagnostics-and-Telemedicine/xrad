@@ -1,5 +1,5 @@
-﻿#ifndef __DicomProcessors_h__
-#define __DicomProcessors_h__
+﻿#ifndef XRAD__File_DicomProcessors_h__
+#define XRAD__File_DicomProcessors_h__
 /*!
 	\file
 	\date 2018/02/12 13:44
@@ -613,4 +613,4 @@ public:
 
 XRAD_END
 
-#endif // __DicomProcessors_h__
+#endif // XRAD__File_DicomProcessors_h__
