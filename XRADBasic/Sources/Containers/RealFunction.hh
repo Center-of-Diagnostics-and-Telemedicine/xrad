@@ -1,7 +1,12 @@
-﻿// file RealFunction.hh
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file RealFunction.hh
 //--------------------------------------------------------------
-#ifndef __RealFunction_cc
-#define __RealFunction_cc
+#ifndef XRAD__File_RealFunction_cc
+#define XRAD__File_RealFunction_cc
 //--------------------------------------------------------------
 
 #include "UniversalInterpolation.h"
@@ -35,4 +40,4 @@ auto RealFunction<XRAD__RealFunction_template_args>::d_dx(double x) const -> flo
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __RealFunction_cc
+#endif // XRAD__File_RealFunction_cc

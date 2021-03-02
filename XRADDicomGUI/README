@@ -1,0 +1,15 @@
+﻿XRADDicomGUI
+
+XRADDicomGUI is a software library that contains C++ functions and classes for
+GUI concerning handling data in DICOM format.
+
+XRADDicomGUI is a part of the XRAD library.
+
+For copyright and license information see LICENSE file.
+
+This library depends on the following XRAD and third party libraries:
+- XRADBasic;
+- XRADSystem;
+- XRADGUI (and its dependencies);
+- XRADDicom (and its dependencies);
+- DCMTK (and its dependencies).

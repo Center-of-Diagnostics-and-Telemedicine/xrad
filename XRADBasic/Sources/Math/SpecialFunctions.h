@@ -1,5 +1,10 @@
-﻿#ifndef __special_function_h
-#define __special_function_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_special_function_h
+#define XRAD__File_special_function_h
 
 #include <XRADBasic/Sources/SampleTypes/ComplexSample.h>
 
@@ -71,4 +76,4 @@ using namespace SpecialFunctions;
 XRAD_END
 
 //--------------------------------------------------------------
-#endif //__special_function_h
+#endif //XRAD__File_special_function_h

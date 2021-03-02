@@ -1,7 +1,12 @@
-﻿// file FlowControl.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file FlowControl.h
 //--------------------------------------------------------------
-#ifndef __FlowControl_h
-#define __FlowControl_h
+#ifndef XRAD__File_FlowControl_h
+#define XRAD__File_FlowControl_h
 //--------------------------------------------------------------
 
 #include "Config.h"
@@ -417,4 +422,4 @@ class ProgressBar
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __FlowControl_h
+#endif // XRAD__File_FlowControl_h

@@ -1,5 +1,10 @@
-﻿#ifndef __universal_interpolation_h
-#define __universal_interpolation_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_universal_interpolation_h
+#define XRAD__File_universal_interpolation_h
 /*!
 	\file
 	Подробное описание принципов работы интерполяторов см. в файле UnversalInterpolation2D.hh.
@@ -299,4 +304,4 @@ XRAD_END
 #include "UniversalInterpolation.hh"
 
 //--------------------------------------------------------------
-#endif //__universal_interpolation_h
+#endif //XRAD__File_universal_interpolation_h

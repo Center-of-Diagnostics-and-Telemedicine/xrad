@@ -1,8 +1,13 @@
-﻿// file Iterators.hh
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file Iterators.hh
 // Created by ACS on 17.02.02
 //--------------------------------------------------------------
 
-#ifndef __iterators_h
+#ifndef XRAD__File_iterators_h
 	#error This file must be included from <Iterators.h> only!
 #endif
 

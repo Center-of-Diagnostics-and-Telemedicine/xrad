@@ -1,10 +1,15 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 2018/03/8 12:35
 	\author nicholas
 */
-#ifndef __Modality_h__
-#define __Modality_h__
+#ifndef XRAD__File_Modality_h__
+#define XRAD__File_Modality_h__
 
 #include <XRADBasic/Core.h>
 
@@ -23,4 +28,4 @@ namespace Dicom
 
 XRAD_END
 
-#endif // __Modality_h__
+#endif // XRAD__File_Modality_h__

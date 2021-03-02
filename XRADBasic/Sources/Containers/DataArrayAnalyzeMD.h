@@ -1,5 +1,10 @@
-﻿#ifndef __DataArrayAnalyzeMD_h
-#define __DataArrayAnalyzeMD_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_DataArrayAnalyzeMD_h
+#define XRAD__File_DataArrayAnalyzeMD_h
 /*!
 	\file
 	\date 2014-10-10 17:48
@@ -408,4 +413,4 @@ void	ComputeComponentsHistogram(const DataArrayMD<A2T> &array, DataArray2D<HISTO
 XRAD_END
 
 //--------------------------------------------------------------
-#endif //__DataArrayAnalyzeMD_h
+#endif //XRAD__File_DataArrayAnalyzeMD_h

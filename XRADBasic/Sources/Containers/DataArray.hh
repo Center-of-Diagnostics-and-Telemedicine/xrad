@@ -1,5 +1,10 @@
-﻿#ifndef __data_array_cc
-#define __data_array_cc
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_data_array_cc
+#define XRAD__File_data_array_cc
 
 
 #include "BasicArrayInteractions1D.h"
@@ -453,4 +458,4 @@ void ApplyAction(DataArray<T> &array, const F &function)
 
 XRAD_END
 
-#endif // __data_array_cc
+#endif // XRAD__File_data_array_cc

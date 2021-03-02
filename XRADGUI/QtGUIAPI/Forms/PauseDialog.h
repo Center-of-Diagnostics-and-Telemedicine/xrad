@@ -1,4 +1,9 @@
-﻿#ifndef PauseDialog_h__
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef PauseDialog_h__
 #define PauseDialog_h__
 /********************************************************************
 	created:	2015/01/01

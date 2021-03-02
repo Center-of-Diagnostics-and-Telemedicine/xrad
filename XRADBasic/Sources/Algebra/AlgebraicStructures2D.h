@@ -1,9 +1,14 @@
-﻿#ifdef __AlgebraicStructures2D_h_inside
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifdef XRAD__File_AlgebraicStructures2D_h_inside
 #error Error: Recursive inclusion of AlgebraicStructures2D.h detected.
 #endif
-#ifndef __AlgebraicStructures2D_h
-#define __AlgebraicStructures2D_h
-#define __AlgebraicStructures2D_h_inside
+#ifndef XRAD__File_AlgebraicStructures2D_h
+#define XRAD__File_AlgebraicStructures2D_h
+#define XRAD__File_AlgebraicStructures2D_h_inside
 /*!
 	\addtogroup gr_Algebra
 	@{
@@ -68,5 +73,5 @@ using BooleanAlgebraBitwise2D = AlgebraicStructures::BooleanAlgebraElementBitwis
 //! @} <!-- ^group gr_Algebra -->
 XRAD_END
 
-#undef __AlgebraicStructures2D_h_inside
-#endif //__AlgebraicStructures2D_h
+#undef XRAD__File_AlgebraicStructures2D_h_inside
+#endif //XRAD__File_AlgebraicStructures2D_h

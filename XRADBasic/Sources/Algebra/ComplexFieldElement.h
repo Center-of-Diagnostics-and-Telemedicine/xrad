@@ -1,4 +1,9 @@
-﻿#ifdef ComplexFieldElement_h___inside
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifdef ComplexFieldElement_h___inside
 #error Error: Recursive inclusion of ComplexFieldElement.h detected.
 #endif
 #ifndef ComplexFieldElement_h__

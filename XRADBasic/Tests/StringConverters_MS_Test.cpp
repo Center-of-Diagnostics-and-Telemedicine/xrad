@@ -1,4 +1,9 @@
-﻿// file StringConverters_MS_Test.cpp
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file StringConverters_MS_Test.cpp
 //--------------------------------------------------------------
 #include "pre.h"
 #include "StringConverters_MS_Test.h"

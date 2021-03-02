@@ -1,0 +1,14 @@
+﻿XRADDicom
+
+XRADDicom is a software library that contains C++ functions and classes for
+reading and writing data in DICOM format.
+
+XRADDicom is a part of the XRAD library.
+
+For copyright and license information see LICENSE file.
+
+This library depends on the following XRAD and third party libraries:
+- XRADBasic;
+- XRADSystem;
+- DCMTK (and its dependencies);
+- OpenJPEG.

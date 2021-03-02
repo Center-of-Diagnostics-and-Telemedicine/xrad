@@ -1,5 +1,10 @@
-﻿#ifndef __text_displayer_h
-#define __text_displayer_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_text_displayer_h
+#define XRAD__File_text_displayer_h
 
 #include "DataDisplayer.h"
 
@@ -29,4 +34,4 @@ public:
 
 XRAD_END
 
-#endif // __text_displayer_h
+#endif // XRAD__File_text_displayer_h
