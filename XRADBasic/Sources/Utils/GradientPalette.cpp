@@ -16,12 +16,25 @@ GradientPalette::GradientPalette(const std::initializer_list<double> &in_positio
 	auto	p = in_positions.begin();
 	auto	c = in_colors.begin();
 
-	double	previous = *p;
+	double	previous_color_position = *p;
 	for(;p<in_positions.end(); ++p, ++c)
 	{
-		XRAD_ASSERT_THROW(*p>=previous);
+		XRAD_ASSERT_THROW(*p>=previous_color_position); // индекс цвета не должен убывать
 		colors.push_back(make_pair(*p, *c));
-		previous = *p;
+		previous_color_position = *p;
+	}
+}
+
+GradientPalette::GradientPalette(const std::initializer_list<base_color_t> in_colors)
+{
+	auto	c = in_colors.begin();
+
+	double	previous_color_position = c->first;
+	for(;c<in_colors.end(); ++c)
+	{
+		XRAD_ASSERT_THROW(c->first >= previous_color_position); // индекс цвета не должен убывать
+		colors.push_back(*c);
+		previous_color_position = c->first;
 	}
 }
 
