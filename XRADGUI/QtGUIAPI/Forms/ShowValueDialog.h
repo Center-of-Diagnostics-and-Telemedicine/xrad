@@ -1,5 +1,10 @@
-﻿#ifndef __show_value_h
-#define __show_value_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_show_value_h
+#define XRAD__File_show_value_h
 /********************************************************************
 	created:	2015/01/13
 	created:	13:1:2015   14:49
@@ -57,4 +62,4 @@ QString	ExtendedInformation(int64_t value);
 
 }//namespace XRAD_GUI
 
-#endif // __show_value_h
+#endif // XRAD__File_show_value_h

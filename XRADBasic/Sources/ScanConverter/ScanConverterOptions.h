@@ -1,5 +1,10 @@
-﻿#ifndef	__scan_convertor_options_h
-#define	__scan_convertor_options_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef	XRAD__File_scan_convertor_options_h
+#define	XRAD__File_scan_convertor_options_h
 
 #include "ScanAreaGeometry.h"
 
@@ -43,4 +48,4 @@ struct	ScanConverterOptions : public PhysicalFrameDimensions
 XRAD_END
 
 
-#endif //__scan_convertor_options_h
+#endif //XRAD__File_scan_convertor_options_h

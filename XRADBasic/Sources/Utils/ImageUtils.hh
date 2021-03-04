@@ -1,6 +1,11 @@
-﻿//	file ImageUtils.hh
-#ifndef __image_utils_cc
-#define __image_utils_cc
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file ImageUtils.hh
+#ifndef XRAD__File_image_utils_cc
+#define XRAD__File_image_utils_cc
 
 #include <XRADBasic/Sources/Utils/StatisticUtils.h>
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
@@ -429,4 +434,4 @@ void	TruncateImageValues(DataArray2D<ROW_T> &img, const AM &black_point, const A
 
 XRAD_END
 
-#endif	// __image_utils_cc
+#endif	// XRAD__File_image_utils_cc

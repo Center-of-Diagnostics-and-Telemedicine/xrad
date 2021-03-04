@@ -1,7 +1,12 @@
-﻿// file DynamicDialog.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file DynamicDialog.h
 //--------------------------------------------------------------
-#ifndef __DynamicDialog_h
-#define __DynamicDialog_h
+#ifndef XRAD__File_DynamicDialog_h
+#define XRAD__File_DynamicDialog_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
@@ -2209,4 +2214,4 @@ XRAD_END
 #include "DynamicDialog.hh"
 
 //--------------------------------------------------------------
-#endif // __DynamicDialog_h
+#endif // XRAD__File_DynamicDialog_h

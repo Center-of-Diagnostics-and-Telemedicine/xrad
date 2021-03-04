@@ -1,7 +1,12 @@
-﻿// file StringEncodeTest.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file StringEncodeTest.h
 //--------------------------------------------------------------
-#ifndef __StringEncodeTest_h
-#define __StringEncodeTest_h
+#ifndef XRAD__File_StringEncodeTest_h
+#define XRAD__File_StringEncodeTest_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Sources/Core/StringEncode.h>
@@ -25,4 +30,4 @@ void Test(ErrorReporter *error_reporter);
 XRAD_END
 
 //--------------------------------------------------------------
-#endif // __StringEncodeTest_h
+#endif // XRAD__File_StringEncodeTest_h

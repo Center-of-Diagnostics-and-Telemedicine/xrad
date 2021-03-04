@@ -1,7 +1,12 @@
-﻿// file StayOnTopDialog.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file StayOnTopDialog.h
 //--------------------------------------------------------------
-#ifndef __StayOnTopDialog_h
-#define __StayOnTopDialog_h
+#ifndef XRAD__File_StayOnTopDialog_h
+#define XRAD__File_StayOnTopDialog_h
 //--------------------------------------------------------------
 
 #include <XRADGUI/Sources/Internal/std.h>
@@ -38,4 +43,4 @@ class StayOnTopDialog: public QDialog, public IGUISettingsChanged
 } // namespace XRAD_GUI
 
 //--------------------------------------------------------------
-#endif // __StayOnTopDialog_h
+#endif // XRAD__File_StayOnTopDialog_h

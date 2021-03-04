@@ -1,7 +1,12 @@
-﻿// file CommonConfig.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file CommonConfig.h
 //--------------------------------------------------------------
-#ifndef __CommonConfig_h
-#define __CommonConfig_h
+#ifndef XRAD__File_CommonConfig_h
+#define XRAD__File_CommonConfig_h
 //--------------------------------------------------------------
 /*!
 	\addtogroup gr_Config
@@ -55,4 +60,4 @@ namespace xrad
 
 //--------------------------------------------------------------
 //! @} <!-- ^group gr_Config -->
-#endif // __CommonConfig_h
+#endif // XRAD__File_CommonConfig_h

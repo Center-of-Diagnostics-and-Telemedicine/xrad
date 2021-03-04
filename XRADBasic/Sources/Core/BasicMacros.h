@@ -1,4 +1,9 @@
-﻿//	file BasicMacros.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file BasicMacros.h
 //	Created by KNS on 20.06.03
 //--------------------------------------------------------------
 #ifndef XRAD__basic_macros_h
@@ -61,12 +66,12 @@
 
 	Первоначальный вариант не работал в конструкциях if(something) do_once{}:
 
-			#define do_once static int __first_time##__LINE__ = 0; if(!__first_time##__LINE__++)
+			#define do_once static int first_time__##__LINE__ = 0; if(!first_time__##__LINE__++)
 
 	Внимание! Не подходит для многопоточного выполнения.
 	Использование atomic не поможет?
 */
-#define do_once	for(static size_t __first_time##__LINE__ = 0; __first_time##__LINE__ < 1; ++__first_time##__LINE__)
+#define do_once	for(static size_t first_time__##__LINE__ = 0; first_time__##__LINE__ < 1; ++first_time__##__LINE__)
 
 //! \brief Размер в битах
 template<class T>

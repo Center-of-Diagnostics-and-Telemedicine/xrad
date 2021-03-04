@@ -1,5 +1,10 @@
-﻿#ifndef	__scan_area_geometry_h
-#define	__scan_area_geometry_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef	XRAD__File_scan_area_geometry_h
+#define	XRAD__File_scan_area_geometry_h
 
 #include <XRADBasic/Sources/Utils/PhysicalUnits.h>
 #include <XRADBasic/Sources/Containers/SpaceCoordinates.h>
@@ -17,7 +22,7 @@ struct	PhysicalFrameDimensions
 	{
 	private:
 		range_1<physical_angle, double> m_angle_range;
-//		physical_angle	_start_angle, _end_angle;
+//		physical_angle	m_start_angle, m_end_angle;
 			// для линейного сканирования оба параметра равны между собой,
 			// обычно (но необязательно) они нулевые
 	//public:
@@ -147,4 +152,4 @@ struct	SampledFrameDimensions
 
 XRAD_END
 
-#endif //__scan_area_geometry_h
+#endif //XRAD__File_scan_area_geometry_h

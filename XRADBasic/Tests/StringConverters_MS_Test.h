@@ -1,7 +1,12 @@
-﻿// file StringConverters_MS_Test.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file StringConverters_MS_Test.h
 //--------------------------------------------------------------
-#ifndef __StringConverters_MS_Test_h
-#define __StringConverters_MS_Test_h
+#ifndef XRAD__File_StringConverters_MS_Test_h
+#define XRAD__File_StringConverters_MS_Test_h
 //--------------------------------------------------------------
 
 #include <XRADBasic/Core.h>
@@ -42,4 +47,4 @@ XRAD_END
 #endif // XRAD_USE_MS_VERSION
 
 //--------------------------------------------------------------
-#endif // __StringConverters_MS_Test_h
+#endif // XRAD__File_StringConverters_MS_Test_h

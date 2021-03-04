@@ -1,7 +1,12 @@
-﻿// file Config.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file Config.h
 //--------------------------------------------------------------
-#ifndef __Config_h
-#define __Config_h
+#ifndef XRAD__File_Config_h
+#define XRAD__File_Config_h
 //--------------------------------------------------------------
 /*!
 	\defgroup gr_Config Конфигурация библиотеки XRAD
@@ -114,4 +119,4 @@
 
 //--------------------------------------------------------------
 //! @} <!-- ^group gr_Config -->
-#endif // __Config_h
+#endif // XRAD__File_Config_h

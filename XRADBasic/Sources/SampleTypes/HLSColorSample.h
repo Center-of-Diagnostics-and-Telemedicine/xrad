@@ -1,5 +1,10 @@
-﻿#ifndef __hls_color_sample_h
-#define __hls_color_sample_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_hls_color_sample_h
+#define XRAD__File_hls_color_sample_h
 
 #include "ColorSample.h"
 
@@ -22,4 +27,4 @@ public:
 
 XRAD_END
 
-#endif //__hls_color_sample_h
+#endif //XRAD__File_hls_color_sample_h

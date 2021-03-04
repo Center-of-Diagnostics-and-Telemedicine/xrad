@@ -1,9 +1,14 @@
-﻿//	file DataOwner.hh
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file DataOwner.hh
 //--------------------------------------------------------------
 // File "pre.h" should not be included
 
-#ifndef __dataowner_cc
-#define __dataowner_cc
+#ifndef XRAD__File_dataowner_cc
+#define XRAD__File_dataowner_cc
 
 #include <XRADBasic/Sources/Core/String.h>
 #include <XRADBasic/Sources/Core/BasicUtils.h>
@@ -395,4 +400,4 @@ namespace
 //--------------------------------------------------------------
 XRAD_END
 
-#endif //__dataowner_cc
+#endif //XRAD__File_dataowner_cc

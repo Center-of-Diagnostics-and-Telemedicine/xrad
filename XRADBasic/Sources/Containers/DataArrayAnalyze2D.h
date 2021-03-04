@@ -1,5 +1,10 @@
-﻿#ifndef __DataArray2DAnalyze_h
-#define __DataArray2DAnalyze_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_DataArray2DAnalyze_h
+#define XRAD__File_DataArray2DAnalyze_h
 /*!
 	\file
 	\date 2014-10-10 17:21
@@ -311,4 +316,4 @@ double AverageComponentValue(const DataArray2D<ROW_T> &array)
 XRAD_END
 
 //--------------------------------------------------------------
-#endif //__DataArray2DAnalyze_h
+#endif //XRAD__File_DataArray2DAnalyze_h
