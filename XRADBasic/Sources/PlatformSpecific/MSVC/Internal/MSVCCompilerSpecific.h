@@ -86,7 +86,8 @@
 	#define _HAS_STD_BYTE 0
 #else
 	#if _HAS_STD_BYTE != 0
-		#error
+		//TODO
+		//#error
 	#endif //
 #endif
 #endif
