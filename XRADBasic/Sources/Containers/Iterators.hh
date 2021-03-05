@@ -411,14 +411,15 @@ inline step_iterator<T, CH> &step_iterator<T, CH>::operator-=( difference_type d
 template<class T, class CH>
 inline typename  step_iterator<T,CH>::reference step_iterator<T,CH>::operator[](typename step_iterator<T,CH>::difference_type i) const
 {
-	return *(*this + i);
+	return reference(*(*this + i));
 }
 
 template<class T, class CH>
 inline typename  step_iterator<T,CH>::reference step_iterator<T,CH>::operator*() const
 {
 	checker.check_data();
-	return *kernel.current_datum();
+	// 2021_03_05 Без reference() не работают алгоритмы сортировки std::sort, nth_element
+	return reference(*kernel.current_datum());
 }
 
 template<class T, class CH>
@@ -431,7 +432,7 @@ inline typename  step_iterator<T,CH>::pointer step_iterator<T,CH>::operator->() 
 template<class T, class CH>
 inline typename  step_iterator<T,CH>::reference step_iterator<T,CH>::operator[](typename step_iterator<T,CH>::difference_type i)
 {
-	return *(*this + i);
+	return reference(*(*this + i));
 }
 
 template<class T, class CH>
