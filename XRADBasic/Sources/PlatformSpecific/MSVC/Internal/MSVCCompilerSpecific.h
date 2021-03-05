@@ -82,7 +82,13 @@
 // Проверено на: MSVC 2019 16.4.4 (_MSC_VER == 1924), Windows 10 SDK 18362.
 // https://developercommunity.visualstudio.com/content/problem/93889/error-c2872-byte-ambiguous-symbol.html
 // https://github.com/microsoft/STL/issues/204
-#define _HAS_STD_BYTE 0
+#ifndef _HAS_STD_BYTE 
+	#define _HAS_STD_BYTE 0
+#else
+	#if _HAS_STD_BYTE != 0
+		#error
+	#endif //
+#endif
 #endif
 
 //--------------------------------------------------------------
