@@ -69,30 +69,40 @@ namespace XRAD_GUI {
 	bool PainterWindow::eventFilter(QObject* target, QEvent* event)
 	{
 		if (target == ui.comboBox) {
-			if (ui.comboBox->currentText() == "Hand") {
-				pw->SetDrawer(PaintWidget::Drawers::Hand);
+			if (ui.comboBox->currentText() == "Hand") 
+			{
+				pw->setDrawer(PaintWidget::Drawers::Hand);
 			}
-			else if (ui.comboBox->currentText() == "Rect") {
-				pw->SetDrawer(PaintWidget::Drawers::Rect);
+			else if (ui.comboBox->currentText() == "Rect") 
+			{
+				pw->setDrawer(PaintWidget::Drawers::Rect);
 			}
-			else if (ui.comboBox->currentText() == "Ellipse") {
-				pw->SetDrawer(PaintWidget::Drawers::Ellipse);
+			else if (ui.comboBox->currentText() == "Ellipse") 
+			{
+				pw->setDrawer(PaintWidget::Drawers::Ellipse);
 			}
-			else if (ui.comboBox->currentText() == "Line") {
-				pw->SetDrawer(PaintWidget::Drawers::Line);
+			else if (ui.comboBox->currentText() == "Line") 
+			{
+				pw->setDrawer(PaintWidget::Drawers::Line);
+			}
+			else if (ui.comboBox->currentText() == "Fill")
+			{
+				pw->setDrawer(PaintWidget::Drawers::Fill);
 			}
 		}
-		if (target == ui.red_spinBox || target == ui.green_spinBox || target == ui.blue_spinBox) {
-			pw->SetColor(QColor::fromRgb(ui.red_spinBox->value(),
+		if (target == ui.red_spinBox || target == ui.green_spinBox || target == ui.blue_spinBox) 
+		{
+			pw->setColor(QColor::fromRgb(
+				ui.red_spinBox->value(),
 				ui.green_spinBox->value(),
 				ui.blue_spinBox->value()));
-			ui.color_view_widget->setStyleSheet(
-				GetStringStyleSheet(ui.red_spinBox->value(),
+			ui.color_view_widget->setStyleSheet(GetStringStyleSheet(
+					ui.red_spinBox->value(),
 					ui.green_spinBox->value(),
 					ui.blue_spinBox->value()));
 		}
 		if (target == ui.size_spinBox) {
-			pw->SetBrushSize(ui.size_spinBox->value());
+			pw->setBrushSize(ui.size_spinBox->value());
 			pw->setCursor(GetCursor(ui.size_spinBox->value() / 2));
 		}
 
@@ -114,8 +124,7 @@ namespace XRAD_GUI {
 		return QWidget::keyPressEvent(event);
 	}
 
-	QPixmap
-		PainterWindow::GetCursor(size_t in_radius)
+	QPixmap PainterWindow::GetCursor(size_t in_radius)
 	{
 		// radius = 10;
 		size_t radius = in_radius > 3 ? in_radius : 3;
@@ -152,8 +161,7 @@ namespace XRAD_GUI {
 		return result_pxmp;
 	}
 
-	QString
-		PainterWindow::GetStringStyleSheet(int r, int g, int b)
+	QString	PainterWindow::GetStringStyleSheet(int r, int g, int b)
 	{
 		QString result;
 

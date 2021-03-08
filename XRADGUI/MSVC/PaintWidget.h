@@ -24,17 +24,18 @@ public:
         std::shared_ptr<QImage> in_result);
     ~PaintWidget();
 
-    void SetDrawer(int);
-    void SetColor(const QColor&);
-    void SetBrushSize(size_t);
+    void setDrawer(int);
+    void setColor(const QColor&);
+    void setBrushSize(size_t);
 
-    QPoint GetCurrentBrushPos();
+    QPoint getCurrentBrushPos();
 
     enum Drawers {
         Hand,
         Line,
         Rect,
-        Ellipse
+        Ellipse,
+        Fill
     };
 
 protected:
@@ -45,7 +46,7 @@ protected:
 
 private:
     void initPen(QPen&, const QColor&, int, Qt::PenCapStyle);
-    void DrawFigure(QPainter&, QPoint, QPoint);
+    void drawFigure(QPainter&, QPoint, QPoint);
 
 private:
     QPixmap* m_qPTargetPixmap;

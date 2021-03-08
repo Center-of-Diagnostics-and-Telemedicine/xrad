@@ -83,13 +83,13 @@ namespace XRAD_GUI {
 		if (m_bButtonLeft)
 		{
 			painter.drawPixmap(0, 0, *m_qPTargetPixmap);
-			DrawFigure(painter, start_point, end_point);
+			drawFigure(painter, start_point, end_point);
 
 			wasPressed = true;
 		}
 		else if (wasPressed)
 		{
-			DrawFigure(PixmapPainter, start_point, end_point);
+			drawFigure(PixmapPainter, start_point, end_point);
 			painter.drawPixmap(0, 0, *m_qPTargetPixmap);
 			update();
 			wasPressed = false;
@@ -135,37 +135,39 @@ namespace XRAD_GUI {
 		pen.setCapStyle(in_style);
 	}
 
-	void PaintWidget::DrawFigure(QPainter& painter, QPoint inp1, QPoint inp2)
+	void PaintWidget::drawFigure(QPainter& painter, QPoint inp1, QPoint inp2)
 	{
 		if (m_nDrawer == Line)
 			painter.drawLine(QLine(inp1, inp2));
 		else if (m_nDrawer == Rect)
 			painter.drawRect(QRect(inp1, inp2));
+		else if (m_nDrawer == Fill)
+			painter.fillRect(QRect(0, 0, m_nHsize, m_nVsize), m_qcolor);
 		else if (m_nDrawer == Ellipse)
 			painter.drawEllipse(QRect(inp1, inp2));
 
 		//*m_pResult = m_qPTargetPixmap->toImage();
 	}
 
-	void PaintWidget::SetDrawer(int in_drawer)
+	void PaintWidget::setDrawer(int in_drawer)
 	{
 		m_nDrawer = in_drawer;
 	}
 
-	void PaintWidget::SetColor(const QColor& in_color)
+	void PaintWidget::setColor(const QColor& in_color)
 	{
 		m_qcolor = in_color;
 		m_qDrawingPen.setColor(m_qcolor);
 	}
 
-	void PaintWidget::SetBrushSize(size_t in_size)
+	void PaintWidget::setBrushSize(size_t in_size)
 	{
 		m_nSize = in_size;
 		m_qDrawingPen.setWidth(int(m_nSize));
 		m_qErasingPen.setWidth(int(m_nSize));
 	}
 
-	QPoint PaintWidget::GetCurrentBrushPos()
+	QPoint PaintWidget::getCurrentBrushPos()
 	{
 		return m_qCurrentPos;
 	}
