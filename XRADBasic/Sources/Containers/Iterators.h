@@ -80,8 +80,12 @@ class iterator_kernel
 			return *this;
 		}
 
-		value_type			*current_datum()		{return m_current_datum;}
-		const value_type	*current_datum() const	{return m_current_datum;}
+		//! \brief Получить указатель на элемент данных
+		//!
+		//! Const к указателю не добавляем, т.к. константность итератора не связана с константностью
+		//! данных, на которые он указывает.
+		//! (Раньше добавлялся const, это неверно.)
+		value_type	*current_datum() const	{return m_current_datum;}
 
 		difference_type step() const{return m_step;}
 
@@ -116,7 +120,6 @@ class iterator_checker_none
 {
 		typedef	DT difference_type;
 		typedef iterator_checker_none<T,DT> self;
-		typedef	iterator_kernel<T,DT> basic_params;
 		using value_type = add_const_t<T>;
 
 	public:
@@ -139,7 +142,6 @@ class iterator_range_checker
 		template <class T2, class DT2>
 		friend class iterator_range_checker;
 
-		typedef	iterator_kernel<T,DT> basic_params;
 		typedef	DT difference_type;
 		typedef	iterator_range_checker<T,DT> self;
 
