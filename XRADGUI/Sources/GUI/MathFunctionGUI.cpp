@@ -10,6 +10,7 @@
 #include "GraphSet.h"
 #include <XRADBasic/Sources/SampleTypes/HLSColorSample.h>
 #include <XRADBasic/FFT1D.h>
+#include <XRADGUI/Sources/GUI/DynamicDialog.h>
 
 XRAD_BEGIN
 
@@ -28,63 +29,51 @@ complex_function_oscillation AskOscillation()
 			});
 }
 
-window_function_e AskWindowFunction()
+
+vector<Button<window_function_e>> CreateWindowFunctionsButtons()
 {
+
 	auto window_types =
-			{
-				e_constant_window,
-				e_triangular_window,
-				e_cos2_window,
-				e_hamming_window,
-				e_nuttall_window,
-				e_blackman_harris_window,
-				e_blackman_nuttall_window,
-				e_flat_top_window
-			};
+	{
+		e_constant_window,
+		e_triangular_window,
+		e_cos2_window,
+		e_hamming_window,
+		e_nuttall_window,
+		e_blackman_harris_window,
+		e_blackman_nuttall_window,
+		e_flat_top_window
+	};
 	vector<Button<window_function_e>> buttons;
-	for (auto type: window_types)
+	for(auto type: window_types)
 	{
 		buttons.push_back(MakeButton(GetWindowFunctionName(type), type));
 	}
-	buttons.push_back(MakeButton(L"View window function", n_window_functions));
-	auto choice = GetButtonDecision(L"Choose window function", buttons);
-	if (choice != n_window_functions)
-		return choice;
-	vector<Button<window_function_e>> view_buttons;
-	for (auto type: window_types)
+
+	return buttons;
+}
+
+//!	Поворот массива с нечетным числом отсчетов считается по-разному в зависимости от того, оригинал это или спектр.
+const	bool	preferred_data_roll_direction = false;
+const	bool	preferred_spectrum_roll_direction = true;
+
+void ShowWindowFunction(size_t n, window_function_e wfe, bool roll_before)
+{
+	SafeExecute([&]()
 	{
-		view_buttons.push_back(MakeButton(GetWindowFunctionName(type), type));
-	}
-	for (;;)
-	{
-		auto view_choice = Decide(L"View window function", view_buttons);
-		SafeExecute([&]()
-			{
-				auto window_generator = GetWindowFunctionByEnum(view_choice);
-				RealFunctionF32 window_function(1024+1);
-				for (size_t i = 0; i < window_function.size(); ++i)
-				{
-					window_function[i] = (*window_generator)(double(i) / window_function.size());
-				}
-				DisplayMathFunction(window_function, 0, 1,
-						ssprintf("Window function: %s",
-								EnsureType<const char*>(GetWindowFunctionName(view_choice).c_str())));
-			});
-		enum { c_use, c_another, c_cancel };
-		auto func_choice = GetButtonDecision(L"Window function",
-				{
-					MakeButton(L"Use this function", c_use),
-					MakeButton(L"View another function", c_another),
-					MakeButton(L"Cancel", c_cancel)
-				});
-		switch (func_choice)
+		ComplexFunctionF32 window_function(n, complexF32(1));
+		ApplyWindowFunction(window_function, wfe);
+		DisplayMathFunction(window_function, 0, 1,
+				ssprintf("Window function: %s",
+						EnsureType<const char*>(GetWindowFunctionName(wfe).c_str())));
+		if(roll_before)
 		{
-			case c_cancel:
-				throw canceled_operation("Window function selection canceled.");
-			case c_use:
-				return view_choice;
+			window_function.roll_half(preferred_data_roll_direction);
+			DisplayMathFunction(window_function, 0, 1,
+								ssprintf("Window function rolled: %s",
+								EnsureType<const char*>(GetWindowFunctionName(wfe).c_str())));
 		}
-	}
+	});
 }
 
 
@@ -226,9 +215,6 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 		const axis_legend &xlegend,
 		bool)
 {
-	bool	inverse_ft_direction = false;
-	bool	roll_data_before_ft = false;
-	bool	roll_spectrum_after_ft = false;
 	bool	upsample_fragment = false;
 
 	bool	phase_radians = true;
@@ -410,7 +396,7 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 					case roll_option:
 					{
 						ComplexFunctionF64	rolled_data(data);
-						rolled_data.roll_half(true);
+						rolled_data.roll_half(preferred_data_roll_direction);
 
 						DisplayMathFunction(rolled_data, xlegend.min_value-xlegend.step*data.size()/2., xlegend.step, ssprintf(L"%Ls <Rolled>", data_title.c_str()), vlegend.label, xlegend.label);
 					}
@@ -418,37 +404,61 @@ void	grafc(const ComplexFunctionF64 &data, const wstring &data_title,
 
 					case spectrum_option:
 					{
-						if(GetCheckboxDecision("Choose FT options",
-						{"Inverse FT", "Roll before FT", "Roll after FT"},
-						{&inverse_ft_direction, &roll_data_before_ft, &roll_spectrum_after_ft}))
+						auto	dialog = DynamicDialog::OKCancelDialog::Create(L"Display spectrum options");
+
+						bool	inverse_ft_direction = false;
+						bool	roll_data_before_ft = false;
+						bool	roll_spectrum_after_ft = false;
+						bool	view_window_function = false;
+
+						window_function_e wfe = e_constant_window;
+
+						auto window_selection = DynamicDialog::EnumRadioButtonChoice::Create(L"Window function", 
+										CreateWindowFunctionsButtons(),
+										MakeGUIValue(&wfe, saved_default_value));
+
+						auto fft_options = make_shared<DynamicDialog::ControlContainer>(DynamicDialog::Layout::Vertical);
+						fft_options->AddControl(make_shared<DynamicDialog::ValueCheckBox>(L"Inverse FT", SavedGUIValue(&inverse_ft_direction)));
+						fft_options->AddControl(make_shared<DynamicDialog::ValueCheckBox>(L"Roll before FT", SavedGUIValue(&roll_data_before_ft)));
+						fft_options->AddControl(make_shared<DynamicDialog::ValueCheckBox>(L"Roll after FT", SavedGUIValue(&roll_spectrum_after_ft)));
+						fft_options->AddControl(make_shared<DynamicDialog::ValueCheckBox>(L"View window function", SavedGUIValue(&view_window_function)));
+
+						auto layout = make_shared<DynamicDialog::ControlContainer>(DynamicDialog::Layout::Horizontal);
+
+						layout->AddControl(fft_options);
+						layout->AddControl(window_selection);
+						dialog->AddControl(layout);
+
+						dialog->Show();
+						if(dialog->Choice() != DynamicDialog::OKCancelDialog::Result::OK) throw canceled_operation("Show spectrum canceled");
+
+						if(view_window_function)ShowWindowFunction(data.size(), wfe, roll_data_before_ft);
+
+						ComplexFunctionF64	spectrum(data);
+												
+						ApplyWindowFunction(spectrum, wfe);
+						
+						if(roll_data_before_ft) spectrum.roll_half(preferred_data_roll_direction);
+
+						if(!inverse_ft_direction) FT(spectrum, ftForward);
+						else FT(spectrum, ftReverse);
+
+						if(roll_spectrum_after_ft) spectrum.roll_half(preferred_spectrum_roll_direction);
+
+						double	dx = 2.*pi()/(xlegend.step*data.size());
+						
+						double	x0 = roll_spectrum_after_ft ?
+							-dx*(data.size()/2):
+							0;
+
+						wstring	frequency_label(L"");
+
+						if(xlegend.label.size())
 						{
-							ComplexFunctionF64	spectrum(data);
-
-							window_function_e wfe = AskWindowFunction();
-
-							ApplyWindowFunction(spectrum, wfe);
-							if(roll_data_before_ft)
-							{
-								spectrum.roll_half(true);
-							}
-							if(!inverse_ft_direction) FT(spectrum, ftForward);
-							else FT(spectrum, ftReverse);
-
-							if(roll_spectrum_after_ft)
-							{
-								spectrum.roll_half(true);
-							}
-
-							double	x0 = roll_spectrum_after_ft ? -pi()/xlegend.step : 0;
-							wstring	frequency_label(L"");
-
-							if(xlegend.label.size())
-							{
-								frequency_label = ssprintf(L"2*pi/(%Ls)", xlegend.label.c_str());
-							}
-
-							DisplayMathFunction(spectrum, x0, 2.*pi()/(xlegend.step*data.size()), ssprintf(L"%Ls <Spectrum>", data_title.c_str()), vlegend.label, frequency_label); // 2*PI
+							frequency_label = ssprintf(L"2*pi/(%Ls)", xlegend.label.c_str());
 						}
+
+						DisplayMathFunction(spectrum, x0, dx, ssprintf(L"%Ls <Spectrum>", data_title.c_str()), vlegend.label, frequency_label); // 2*PI
 					}
 					break;
 
