@@ -383,9 +383,6 @@
     <ClInclude Include="..\..\XRADQt\QtStringConverters.h">
       <Filter>XRADQt</Filter>
     </ClInclude>
-    <ClInclude Include="PaintWidget.h">
-      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\QtGUIAPI\Resources\brightness_contrast.png">
@@ -462,6 +459,7 @@
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.h">
       <Filter>QtGUIAPI\DataDisplayWindow</Filter>
     </QtMoc>
+    <QtMoc Include="PaintWidget.h" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.ui">
@@ -488,7 +486,7 @@
     <QtUic Include="..\QtGUIAPI\Forms\ShowValueDialog.ui">
       <Filter>QtGUIAPI\Forms</Filter>
     </QtUic>
-    <QtUic Include="..\..\..\..\source\repos\QPainterSB\QPainterSB\PainterWindow.ui">
+    <QtUic Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.ui">
       <Filter>QtGUIAPI\DataDisplayWindow</Filter>
     </QtUic>
   </ItemGroup>
