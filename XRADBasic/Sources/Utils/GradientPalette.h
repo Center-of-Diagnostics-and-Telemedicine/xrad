@@ -38,14 +38,21 @@ XRAD_BEGIN
 
 class	GradientPalette
 {
-	typedef  pair<double, ColorSampleF64> base_color_t;
-	std::vector<base_color_t>	colors;
 public:
-	GradientPalette(const std::initializer_list<double> &in_positions, const std::initializer_list<ColorSampleF64> &in_colors);
+	typedef  pair<double, ColorSampleF64> base_color_t;
+
+	GradientPalette(const std::initializer_list<double>& in_positions, const std::initializer_list<ColorSampleF64>& in_colors);
+	GradientPalette(const std::initializer_list<base_color_t> in_colors);
 	GradientPalette(size_t n_colors);
+
 	void	SetColor(size_t color_no, const base_color_t& new_color);
 	void	MoveColor(size_t color_no, double new_color_position);
 	ColorSampleF64	operator()(double color_position);
+
+	size_t	size() const { return colors.size(); }
+
+private:
+	std::vector<base_color_t>	colors;
 };
 
 XRAD_END

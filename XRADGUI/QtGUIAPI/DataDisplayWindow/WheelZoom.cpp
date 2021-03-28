@@ -115,8 +115,8 @@ void WheelZoom::applyWheel(QEvent *event)
 	QWheelEvent *wheel_event= static_cast<QWheelEvent *>(event);
 
 	// определяем положение курсора относительно геометрического центра графика
-	bool cursor_right = (wheel_event->pos().x() - (zoom.plot()->canvas()->geometry().x() + zoom.plot()->canvas()->geometry().width()/2))>0;
-	bool cursor_up = (wheel_event->pos().y() - (zoom.plot()->canvas()->geometry().y() + zoom.plot()->canvas()->geometry().height()/2))<0;
+	bool cursor_right = (wheel_event->position().x() - (zoom.plot()->canvas()->geometry().x() + zoom.plot()->canvas()->geometry().width()/2))>0;
+	bool cursor_up = (wheel_event->position().y() - (zoom.plot()->canvas()->geometry().y() + zoom.plot()->canvas()->geometry().height()/2))<0;
 
 	int mode_x;
 	int mode_y;
@@ -191,7 +191,7 @@ void WheelZoom::applyWheel(QEvent *event)
 
 	// определяем угол поворота колеса мыши
 	// (значение 120 соответствует углу поворота 15°)
-	double wheel_increment = double(wheel_event->delta())/120;
+	double wheel_increment = double(wheel_event->angleDelta().y())/120;
 	// вычисляем масштабирующий множитель
 	// (во сколько раз будет увеличен/уменьшен график)
 	if (wheel_increment != 0)    // если колесо вращалось, то

@@ -13,6 +13,7 @@
 #include <XRADSystem/CFile.h>
 #include <XRADSystem/System.h>
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>
+#include <XRADGui/Sources/GUI/Keyboard.h>
 
 namespace XRAD_GUI
 {
@@ -896,26 +897,28 @@ void ImageWindow::SaveVideo()
 	const char *type = "png (*.png);;jpeg (*.jpg);;bmp (*.bmp)";
 	QString folder_name = GetSaveFileName(QFileDialog::tr(prompt), QFileDialog::tr(type));
 	if(folder_name.isEmpty()) return;
-	string	format = FormatByFileExtension(folder_name).toStdString();
+	string	image_file_format = FormatByFileExtension(folder_name).toStdString();
 
 	QDir dir;
 	dir.mkdir(folder_name);
 
+	const char	*filename_format = CapsLock() ? "%5zu.%s" : "%05zu.%s";
+
 	for(size_t i = 0; i < n_frames; ++i)
 	{
-		QString	fn;
-		QString file_name = folder_name + path_separator() +
-				fn.asprintf("%05zu.%s", EnsureType<size_t>(i), EnsureType<const char*>(format.c_str()));
+//		QString	fn;
+		QString file_name_with_path = folder_name + path_separator() +
+				QString::asprintf(filename_format, EnsureType<size_t>(i), EnsureType<const char*>(image_file_format.c_str()));
 		frames_slider->setValue(int(i));
-		if(format == "bmp")
+		if(image_file_format == "bmp")
 		{
 			shared_cfile	file;
-			file.open(qstring_to_wstring(file_name), L"wb");
+			file.open(qstring_to_wstring(file_name_with_path), L"wb");
 			file.write(current_frame_bitmap.GetBitmapFile(), current_frame_bitmap.GetBitmapFileSize(), 1);
 		}
 		else
 		{
-			raster->pixmap()->save(file_name, format.c_str());
+			raster->pixmap()->save(file_name_with_path, image_file_format.c_str());
 		}
 		repaint();
 	}
