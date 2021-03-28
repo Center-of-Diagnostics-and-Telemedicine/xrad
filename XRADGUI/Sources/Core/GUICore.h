@@ -1,4 +1,9 @@
-﻿#ifndef GUICore_h__
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef GUICore_h__
 #define GUICore_h__
 /*!
 	\file
@@ -86,7 +91,8 @@ enum graph_value_transforms
 	e_log_compress,
 	e_1st_derivative,
 	e_2nd_derivative,
-	e_integral
+	e_integral,
+	e_sum
 };
 
 enum graph_line_style

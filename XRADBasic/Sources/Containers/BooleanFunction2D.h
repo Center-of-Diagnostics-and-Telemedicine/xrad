@@ -1,5 +1,10 @@
-﻿#ifndef __boolean_function_2d_h
-#define __boolean_function_2d_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_boolean_function_2d_h
+#define XRAD__File_boolean_function_2d_h
 
 #include "DataArray2D.h"
 #include <XRADBasic/Sources/Algebra/AlgebraicStructures2D.h>
@@ -63,4 +68,4 @@ class	BooleanFunctionBitwise2D: public BooleanAlgebraBitwise2D<BooleanFunctionBi
 
 XRAD_END
 
-#endif //__boolean_function_2d_h
+#endif //XRAD__File_boolean_function_2d_h

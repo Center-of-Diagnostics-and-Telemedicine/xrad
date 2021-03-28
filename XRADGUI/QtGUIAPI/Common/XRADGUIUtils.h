@@ -1,7 +1,12 @@
-﻿// file XRADGUIUtils.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file XRADGUIUtils.h
 //--------------------------------------------------------------
-#ifndef __XRADGUIUtils_h
-#define __XRADGUIUtils_h
+#ifndef XRAD__File_XRADGUIUtils_h
+#define XRAD__File_XRADGUIUtils_h
 //--------------------------------------------------------------
 
 #include <string>
@@ -20,4 +25,4 @@ string GetGUIExceptionString();
 } // namespace XRAD_GUI
 
 //--------------------------------------------------------------
-#endif // __XRADGUIUtils_h
+#endif // XRAD__File_XRADGUIUtils_h

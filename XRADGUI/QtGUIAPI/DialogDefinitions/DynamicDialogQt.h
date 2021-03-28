@@ -1,7 +1,12 @@
-﻿// file DynamicDialogQt.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file DynamicDialogQt.h
 //--------------------------------------------------------------
-#ifndef __DynamicDialogQt_h
-#define __DynamicDialogQt_h
+#ifndef XRAD__File_DynamicDialogQt_h
+#define XRAD__File_DynamicDialogQt_h
 //--------------------------------------------------------------
 
 #include <XRADGUI/Sources/Internal/std.h>
@@ -1572,4 +1577,4 @@ class DialogApi: public DialogApiInterface, protected DynamicDialogInterface,
 } // namespace XRAD_GUI
 
 //--------------------------------------------------------------
-#endif // __DynamicDialogQt_h
+#endif // XRAD__File_DynamicDialogQt_h

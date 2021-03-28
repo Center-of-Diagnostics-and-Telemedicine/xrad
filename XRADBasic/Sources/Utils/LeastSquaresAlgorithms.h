@@ -1,5 +1,10 @@
-﻿#ifndef __least_squares_algorithms_h
-#define __least_squares_algorithms_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_least_squares_algorithms_h
+#define XRAD__File_least_squares_algorithms_h
 
 #include <XRADBasic/MathFunctionTypes.h>
 #include <XRADBasic/MathMatrixTypes.h>
@@ -92,4 +97,4 @@ XRAD_END
 
 #include "LeastSquaresAlgorithms.hh"
 
-#endif //__least_squares_algorithms_h
+#endif //XRAD__File_least_squares_algorithms_h

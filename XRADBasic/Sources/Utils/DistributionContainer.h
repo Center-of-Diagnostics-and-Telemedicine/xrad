@@ -1,5 +1,10 @@
-﻿#ifndef __distribution_container_h
-#define __distribution_container_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_distribution_container_h
+#define XRAD__File_distribution_container_h
 
 #include "StatisticUtils.h"
 
@@ -95,4 +100,4 @@ class	TableDistributionContainer: public DistributionContainer
 
 XRAD_END
 
-#endif // __distribution_container_h
+#endif // XRAD__File_distribution_container_h

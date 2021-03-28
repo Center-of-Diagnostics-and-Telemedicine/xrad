@@ -1,4 +1,9 @@
-﻿//	file ThreadUser.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file ThreadUser.h
 //	Created by IRD on 05.2013
 //  Version 3.0.2
 /*!

@@ -1,4 +1,9 @@
-﻿//	file XRADGUIAPI.cpp
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file XRADGUIAPI.cpp
 //	Created by ACS on 16.02.07
 //  Modify by IRD on 05.2013 - create by QT
 //  version 1.0.3

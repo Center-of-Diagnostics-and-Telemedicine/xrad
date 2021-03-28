@@ -1,7 +1,12 @@
-﻿// file GUIQtUtils.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file GUIQtUtils.h
 //--------------------------------------------------------------
-#ifndef __GUIQtUtils_h
-#define __GUIQtUtils_h
+#ifndef XRAD__File_GUIQtUtils_h
+#define XRAD__File_GUIQtUtils_h
 //--------------------------------------------------------------
 
 #include <type_traits>
@@ -23,4 +28,4 @@ using RP = std::remove_pointer_t<T>;
 } // namespace XRAD_GUI
 
 //--------------------------------------------------------------
-#endif // __GUIQtUtils_h
+#endif // XRAD__File_GUIQtUtils_h

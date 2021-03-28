@@ -1,9 +1,14 @@
-﻿//	file DataIOTypesHelpers.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file DataIOTypesHelpers.h
 //	Created by ACS on 29.04.03
 //	!!! не включать непосредственно!!!
 //--------------------------------------------------------------
-#ifndef __DataIOTypesHelpers_h
-#define __DataIOTypesHelpers_h
+#ifndef XRAD__File_DataIOTypesHelpers_h
+#define XRAD__File_DataIOTypesHelpers_h
 
 #include <XRADBasic/Sources/SampleTypes/ComplexSample.h>
 #include <XRADBasic/Sources/SampleTypes/ColorSample.h>
@@ -254,4 +259,4 @@ public:
 
 XRAD_END
 
-#endif // __DataIOTypesHelpers_h
+#endif // XRAD__File_DataIOTypesHelpers_h

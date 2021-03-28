@@ -1,3 +1,8 @@
+/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
 #include "PixelNormalizersGUI.h"
 #include "RasterImageSet.h"
 #include "MathFunctionGUI2D.h"
@@ -657,7 +662,7 @@ if_tag<DISPLAY_TAG, DisplayTagRGB, void> MathFunction3DDisplayer<A3DT>::DisplayH
 				ComputeComponentsHistogram(array_md, histogram, range1_F64(minval, maxval));
 				double	step = (maxval-minval)/n;
 
-				GraphSet	gs(title + L" 'histogram'", L"probability", L"value");
+				GraphSet	gs(title + L" 'histogram (rgb)'", L"probability", L"value");
 				gs.AddGraphUniform(histogram.row(1), minval+step/2, step, "green");
 				gs.AddGraphUniform(histogram.row(2), minval+step/2, step, "blue");
 				gs.AddGraphUniform(histogram.row(0), minval+step/2, step, "red");

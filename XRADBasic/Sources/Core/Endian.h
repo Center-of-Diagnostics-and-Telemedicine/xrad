@@ -1,8 +1,13 @@
-﻿//	file Endian.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file Endian.h
 //	Created by KNS on 10.11.10
 //--------------------------------------------------------------
-#ifndef __Endian_h
-#define __Endian_h
+#ifndef XRAD__File_Endian_h
+#define XRAD__File_Endian_h
 /*!
 	\addtogroup gr_CompilerSpecific
 	\defgroup gr_CompilerSpecificByteOrder Разрядность и порядок байтов
@@ -88,4 +93,4 @@
 #define XRAD_BIG_ENDIAN 2
 
 //--------------------------------------------------------------
-#endif // __Endian_h
+#endif // XRAD__File_Endian_h

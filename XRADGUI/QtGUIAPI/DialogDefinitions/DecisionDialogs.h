@@ -1,4 +1,9 @@
-﻿//	file ButtonDecisionDialog.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file ButtonDecisionDialog.h
 //	Created by IRD on 06.2013
 //  Version 3.0.2
 #ifndef DecisionDialogs

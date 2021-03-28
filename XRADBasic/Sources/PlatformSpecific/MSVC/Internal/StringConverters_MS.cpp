@@ -1,4 +1,9 @@
-﻿//	Created by ACS on 20.06.03
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	Created by ACS on 20.06.03
 //--------------------------------------------------------------
 #include "pre.h"
 #include "StringConverters_MS.h"

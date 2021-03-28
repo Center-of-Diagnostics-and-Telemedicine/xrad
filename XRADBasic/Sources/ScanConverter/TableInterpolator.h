@@ -1,5 +1,10 @@
-﻿#ifndef	__table_interpolator_h
-#define	__table_interpolator_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef	XRAD__File_table_interpolator_h
+#define	XRAD__File_table_interpolator_h
 
 
 #include <XRADBasic/Sources/SampleTypes/ColorSample.h>
@@ -121,4 +126,4 @@ class	TableInterpolator
 
 XRAD_END
 
-#endif //__table_interpolator_h
+#endif //XRAD__File_table_interpolator_h

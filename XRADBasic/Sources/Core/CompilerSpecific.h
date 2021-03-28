@@ -1,4 +1,9 @@
-﻿// file CompilerSpecific.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file CompilerSpecific.h
 #ifndef CompilerSpecific_h__
 #define CompilerSpecific_h__
 //--------------------------------------------------------------

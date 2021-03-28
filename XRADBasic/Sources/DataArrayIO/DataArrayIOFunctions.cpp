@@ -1,4 +1,9 @@
-﻿//--------------------------------------------------------------
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//--------------------------------------------------------------
 #include "pre.h"
 
 #include "DataArrayIOFunctions.h"
@@ -282,7 +287,7 @@ size_t	io_sample_size(ioNumberOptions dataF)
 
 
 
-namespace __DataIO_Unnamed
+namespace DataIO_Unnamed__
 {
 
 	// раньше здесь было просто unnamed namespace,
@@ -299,7 +304,7 @@ inline void f_dummy_check_templates(void)
 	fread_numbers(f_buffer.begin(), 100, f, ioF32_LE);
 	fwrite_numbers(f_buffer.begin(), 100, f, ioComplexF32_LE);
 }
-} //namespace __DataIO_Unnamed
+} //namespace DataIO_Unnamed__
 
 
 //--------------------------------------------------------------

@@ -1,4 +1,9 @@
-﻿// file XRADGUIUtils.cpp
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file XRADGUIUtils.cpp
 //--------------------------------------------------------------
 #include "pre.h"
 #include "XRADGUIUtils.h"

@@ -1,4 +1,9 @@
-﻿#include "MathFunctionGUI.h"
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#include "MathFunctionGUI.h"
 #include "GraphSet.h"
 #include "PixelNormalizersGUI.h"
 #include <XRADBasic/SampleTypes.h>
@@ -432,13 +437,12 @@ template<>
 struct DisplayHistogram2D<DisplayTagScalar>
 {
 	template<class A2DT>
-	static void Display(const A2DT &image, const wstring &title, size_t in_moments_sizes)
+	static void Display(const A2DT &image, const wstring &title)
 	{
 		using namespace XRAD_PixelNormalizers;
 		typedef typename A2DT::value_type value_type;
 
-		size_t	histogram_type = Decide("Histogram type",
-			{"Linear", "Log. absolute value"});
+		size_t	histogram_type = Decide("Histogram type", {"Linear", "Log. absolute value"});
 		size_t	data_count = image.vsize()*image.hsize();
 		size_t	n = GetUnsigned("Histogram size", int(sqrt(double(data_count))), 3, data_count);
 		RealFunctionF64	histogram(n);
@@ -453,57 +457,8 @@ struct DisplayHistogram2D<DisplayTagScalar>
 
 					ComputeHistogram(image, histogram, absolute_range);
 					double	step = absolute_range.delta() / n;
-					vector<double> moments(in_moments_sizes, 0);
 
-					if(!CapsLock())
-					{
-	//					moments[0] = AverageValue(image);
-						for (size_t i1 = 0; i1 < image.vsize(); ++i1)
-						{
-							for (size_t j1 = 0; j1 < image.hsize(); ++j1)
-							{
-								moments[0] += image.at(i1,j1);
-							}
-						}
-						moments[0] /= (image.vsize()*image.hsize());
-						for (size_t j = 1; j <= moments.size() - 1; ++j)
-						{
-							for (size_t k = 0; k < image.vsize(); ++k)
-							{
-								for (size_t l = 0; l < image.hsize(); ++l)
-								{
-									moments[j] += pow(double(image.at(k,l) - moments[0]), double(j + 1));
-								}
-							}
-							moments[j] /= image.vsize()*image.hsize();
-						}
-					}
-
-					else
-					{
-						for (size_t i = 0; i < histogram.size() - 1; ++i)
-						{
-							moments[0] += histogram[i] * (absolute_range.p1() + i*step + step / 2);
-						}
-						for (size_t j = 1; j <= moments.size() - 1; ++j)
-						{
-							for (size_t k = 0; k < histogram.size() - 1; ++k)
-							{
-								moments[j] += histogram[k] * pow(double(absolute_range.p1() + k*step + step / 2 - moments[0]), double(j + 1));
-							}
-						}
-					}
-
-					for (size_t j = 1; j <= moments.size() - 1; ++j)
-					{
-						moments[j] = pow(abs(moments[j]), (1./(j+1))) * sign(moments[j]);
-					}
-					string moments_title = " calculated moments:  ";
-					for (size_t l = 0; l <= moments.size() - 1; ++l)
-					{
-						moments_title += ssprintf("m%d = %g; ", l+1, moments[l]);
-					}
-					DisplayMathFunction(histogram, absolute_range.p1() + step/2, step, "Histogram" + moments_title, "probability", "value");
+					DisplayMathFunction(histogram, absolute_range.p1() + step/2, step, title, L"probability", L"value");
 				}
 				else
 				{
@@ -534,7 +489,7 @@ template<>
 struct DisplayHistogram2D<DisplayTagComplex>
 {
 	template<class A2DT>
-	static void Display(const A2DT &image, const wstring &title, size_t /*in_moments_sizes*/)
+	static void Display(const A2DT &image, const wstring &title)
 	{
 		using namespace XRAD_PixelNormalizers;
 		typedef	typename A2DT::value_type complex_type;
@@ -556,7 +511,7 @@ struct DisplayHistogram2D<DisplayTagComplex>
 				ComputeComponentsHistogram(image, histogram, range1_F64(minval, maxval));
 				double	step = (maxval-minval)/n;
 
-				GraphSet	gs(title + L" Histogram", L"probability", L"value");
+				GraphSet	gs(title + L" (componentwise)", L"probability", L"value");
 				gs.AddGraphUniform(histogram.row(0), minval+step/2, step, L"real part");
 				gs.AddGraphUniform(histogram.row(1), minval+step/2, step, L"imag part");
 				gs.Display();
@@ -571,7 +526,7 @@ struct DisplayHistogram2D<DisplayTagComplex>
 
 				double	step = absolute_range.delta()/n;
 
-				DisplayMathFunction(histogram, absolute_range.x1() + step/2, step, title + L"Histogram (abs)", L"probability", L"abs. value");
+				DisplayMathFunction(histogram, absolute_range.x1() + step/2, step, title + L" (abs)", L"probability", L"abs. value");
 			}
 			break;
 
@@ -587,7 +542,7 @@ struct DisplayHistogram2D<DisplayTagComplex>
 				double	step = recommended_range.delta()/n;
 
 				DisplayMathFunction(histogram, recommended_range.x1() + step/2,
-									step, title + L"Histogram (log. abs)", L"probability", L"dB");
+									step, title + L" (log. abs)", L"probability", L"dB");
 			}
 			break;
 		}
@@ -598,7 +553,7 @@ template<>
 struct DisplayHistogram2D<DisplayTagRGB>
 {
 	template<class A2DT>
-	static void Display(const A2DT &image, const wstring &title, size_t /*in_moments_sizes*/)
+	static void Display(const A2DT &image, const wstring &title)
 	{
 		using namespace XRAD_PixelNormalizers;
 		typedef typename A2DT::value_type value_type;
@@ -618,7 +573,7 @@ struct DisplayHistogram2D<DisplayTagRGB>
 				ComputeComponentsHistogram(image, histogram, range1_F64(minval, maxval));
 				double	step = (maxval-minval)/n;
 
-				GraphSet	gs(title + L" 'histogram'", L"probability", L"value");
+				GraphSet	gs(title + L" (rgb)", L"probability", L"value");
 				gs.AddGraphUniform(histogram.row(1), minval+step/2, step, L"green");
 				gs.AddGraphUniform(histogram.row(2), minval+step/2, step, L"blue");
 				gs.AddGraphUniform(histogram.row(0), minval+step/2, step, L"red");
@@ -634,7 +589,7 @@ struct DisplayHistogram2D<DisplayTagRGB>
 
 				double	step = absolute_range.delta()/n;
 
-				DisplayMathFunction(histogram, absolute_range.x1() + step/2, step, title + L"Histogram (abs)", L"probability", L"abs. value");
+				DisplayMathFunction(histogram, absolute_range.x1() + step/2, step, title + L" (lightness)", L"probability", L"abs. value");
 			}
 			break;
 		}
@@ -712,10 +667,6 @@ void	DisplayMathFunction2DTemplate(const A2DT &img, const wstring &title, const 
 	double	mean_h = 5;
 	double	mean_v = 5;
 	size_t	col_no = img.hsize()/2;
-//	size_t	first_col_no = img.hsize() / 2;
-//	size_t	last_col_no = img.hsize() / 2;
-//	size_t	fragment_size = 50;
-	size_t in_moments_size = 5;
 
 	bool	no_scan_converter = sco.depth_range().cm() ? false : true;
 
@@ -913,9 +864,9 @@ void	DisplayMathFunction2DTemplate(const A2DT &img, const wstring &title, const 
 					break;
 
 				case e_histogram:
-					in_moments_size = GetUnsigned("Enter number of moments to calculate", in_moments_size, 1, 6);
-					DisplayHistogram2D<display_tag>::Display(img, title + L" 'histogram'", in_moments_size);
+					DisplayHistogram2D<display_tag>::Display(img, L"'" + title + L"' histogram");
 					break;
+
 				case e_extended:
 					DisplayExtended<display_tag>::Display(img, title, sco);
 					break;

@@ -1,4 +1,9 @@
-﻿#ifndef value_predicate_h__
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef value_predicate_h__
 #define value_predicate_h__
 
 /*!

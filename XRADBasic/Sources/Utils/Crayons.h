@@ -1,5 +1,10 @@
-﻿#ifndef __crayons_h
-#define __crayons_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_crayons_h
+#define XRAD__File_crayons_h
 
 #include <XRADBasic/Sources/SampleTypes/ColorSample.h>
 
@@ -53,4 +58,4 @@ namespace	crayons
 
 XRAD_END
 
-#endif //__crayons_h
+#endif //XRAD__File_crayons_h

@@ -1,9 +1,14 @@
-﻿// file Fourier.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file Fourier.h
 // Created by KNS, modified by ACS
 // FFT routines, machine-independent interface
 //--------------------------------------------------------------
-#ifndef __Fourier_h
-#define __Fourier_h
+#ifndef XRAD__File_Fourier_h
+#define XRAD__File_Fourier_h
 //--------------------------------------------------------------
 
 #include "FourierDefs.h"

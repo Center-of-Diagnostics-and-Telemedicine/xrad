@@ -1,4 +1,9 @@
-﻿#ifndef StringConverters_MS_h__
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef StringConverters_MS_h__
 #define StringConverters_MS_h__
 /*!
 	\file

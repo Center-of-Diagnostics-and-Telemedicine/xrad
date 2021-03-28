@@ -1,11 +1,16 @@
-﻿//	file XRADGUIAPI.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file XRADGUIAPI.h
 //	Created by ACS on 17.02.07
 
 //  Modify by IRD on 05.2013 - create by QT
 //  version 1.0.2
 //--------------------------------------------------------------
-#ifndef __XRADGUIAPI_h
-#define __XRADGUIAPI_h
+#ifndef XRAD__File_XRADGUIAPI_h
+#define XRAD__File_XRADGUIAPI_h
 //--------------------------------------------------------------
 
 #include "XRADGUIAPIDefs.h"
@@ -211,4 +216,4 @@ namespace XRAD_GUI
 } // namespace XRAD_GUI
 
 //--------------------------------------------------------------
-#endif // __XRADGUIAPI_h
+#endif // XRAD__File_XRADGUIAPI_h

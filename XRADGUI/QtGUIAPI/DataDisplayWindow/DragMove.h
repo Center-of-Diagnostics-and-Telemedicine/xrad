@@ -1,5 +1,10 @@
-﻿#ifndef __mouse_drag_h
-#define __mouse_drag_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_mouse_drag_h
+#define XRAD__File_mouse_drag_h
 
 //--------------------------------------------------------------
 //
@@ -46,4 +51,4 @@ class DragMove : public MouseDrag
 
 #include "ChartZoom.h"
 
-#endif //__mouse_drag_h
+#endif //XRAD__File_mouse_drag_h

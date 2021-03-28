@@ -1,5 +1,10 @@
-﻿#ifndef __ReferenceOwner_h
-#define __ReferenceOwner_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_ReferenceOwner_h
+#define XRAD__File_ReferenceOwner_h
 /*!
 	\file
 	\date 2014-10-01 17:06
@@ -108,4 +113,4 @@ class ReferenceOwner : public OT
 
 XRAD_END
 
-#endif //__ReferenceOwner_h
+#endif //XRAD__File_ReferenceOwner_h

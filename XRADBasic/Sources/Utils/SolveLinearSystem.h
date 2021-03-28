@@ -1,5 +1,10 @@
-﻿#ifndef __SolveLinearSystem_h
-#define __SolveLinearSystem_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_SolveLinearSystem_h
+#define XRAD__File_SolveLinearSystem_h
 
 #include <XRADBasic/MathMatrixTypes.h>
 
@@ -240,4 +245,4 @@ void	SolveLinearSystem(LinearVector<XRAD__LinearVector_template_args> &solution,
 
 XRAD_END
 
-#endif //__SolveLinearSystem_h
+#endif //XRAD__File_SolveLinearSystem_h
