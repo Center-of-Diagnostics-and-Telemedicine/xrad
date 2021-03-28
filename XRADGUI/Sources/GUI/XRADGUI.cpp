@@ -650,9 +650,9 @@ void SetVersionInfo(const string& text)
 	api_SetVersionInfo(text);
 }
 
-RealFunction2D_F32	GetPainting(const wstring& title, size_t vsize, size_t hsize)
+RealFunction2D_F32	GetGrayscalePainting(const wstring& title, size_t vsize, size_t hsize)
 {
-	RealFunction2D_F32 result = api_GetPainting(title, vsize, hsize);
+	RealFunction2D_F32 result = api_GetGrayscalePainting(title, vsize, hsize);
 	return result;
 }
 

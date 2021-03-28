@@ -208,7 +208,7 @@ namespace XRAD_GUI
 
 	void api_SetVersionInfo(const string& text);
 
-	RealFunction2D_F32 api_GetPainting(const wstring& title, size_t vsize, size_t hsize);
+	RealFunction2D_F32 api_GetGrayscalePainting(const wstring& title, size_t vsize, size_t hsize);
 
 
 	//--------------------------------------------------------------

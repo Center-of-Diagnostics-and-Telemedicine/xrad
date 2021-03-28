@@ -964,7 +964,7 @@ namespace XRAD_GUI
 
 	}
 
-	RealFunction2D_F32 api_GetPainting(const wstring& title, size_t vsize, size_t hsize)
+	RealFunction2D_F32 api_GetGrayscalePainting(const wstring& title, size_t vsize, size_t hsize)
 	{
 		shared_ptr<QImage>	result_qimage = make_shared<QImage>();
 		PainterWindow* pw = emit work_thread().request_CreatePainterWindow(wstring_to_qstring(title), vsize, hsize, result_qimage);
