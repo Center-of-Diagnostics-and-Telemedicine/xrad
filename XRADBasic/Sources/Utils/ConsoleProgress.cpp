@@ -23,20 +23,41 @@ class ConsoleProgressApi: public ProgressApi
 		ConsoleProgressApi() {}
 		virtual ~ConsoleProgressApi() {}
 	public:
+		static bool EnablePercent(bool enabled)
+		{
+			bool prev_value = percent_enabled;
+			percent_enabled = enabled;
+			return prev_value;
+		}
+	public:
 		virtual void Start(const wstring &in_prompt, double in_count) override
 		{
 			prompt = convert_to_string(in_prompt);
 			max_count = in_count;
 			position = 0;
-			printf("\n%s\n0%%        ", prompt.c_str());
-			fflush(stdout);
+			if (percent_enabled)
+			{
+				printf("\n%s\n0%%        ", prompt.c_str());
+				fflush(stdout);
+			}
+			else
+			{
+				printf("%s\n", prompt.c_str());
+			}
 			started = true;
 		}
 		virtual void End() override
 		{
 			started = false;
-			printf("\r%s Done        \n", prompt.c_str());
-			fflush(stdout);
+			if (percent_enabled)
+			{
+				printf("\r%s Done        \n", prompt.c_str());
+				fflush(stdout);
+			}
+			else
+			{
+				printf("%s Done\n", prompt.c_str());
+			}
 		}
 		virtual bool Started() const override
 		{
@@ -45,8 +66,11 @@ class ConsoleProgressApi: public ProgressApi
 		virtual void SetPosition(double pos) override
 		{
 			position = pos;
-			printf("\r%lf%%        ", EnsureType<double>(100*double(pos)/max_count));
-			fflush(stdout);
+			if (percent_enabled)
+			{
+				printf("\r%lf%%        ", EnsureType<double>(100*double(pos)/max_count));
+				fflush(stdout);
+			}
 		}
 		virtual void Update() override
 		{
@@ -66,10 +90,12 @@ class ConsoleProgressApi: public ProgressApi
 	private:
 		static bool started;
 		static bool overflow_reported;
+		static bool percent_enabled;
 };
 
 bool ConsoleProgressApi::started = false;
 bool ConsoleProgressApi::overflow_reported = false;
+bool ConsoleProgressApi::percent_enabled = true;
 
 } // namespace
 
@@ -78,6 +104,13 @@ bool ConsoleProgressApi::overflow_reported = false;
 ProgressProxy ConsoleProgressProxy()
 {
 	return make_shared<ProgressProxyApi>(make_shared<ConsoleProgressApi>());
+}
+
+//--------------------------------------------------------------
+
+bool ConsoleProgressProxyEnablePercent(bool enable)
+{
+	return ConsoleProgressApi::EnablePercent(enable);
 }
 
 //--------------------------------------------------------------
