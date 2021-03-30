@@ -12,22 +12,28 @@
 #include <stack>
 
 
+XRAD_USING
 
+
+namespace xrad
+{
+	enum Drawers
+	{
+		Hand,
+		Line,
+		Rect,
+		Ellipse,
+		Eraser,
+		Filler
+	};
+};
 
 namespace XRAD_GUI 
 {
 
-XRAD_USING
 
-enum Drawers
-{
-	Hand,
-	Line,
-	Rect,
-	Ellipse,
-	Eraser,
-	Filler
-};
+
+
 
 class PaintWidget : public QWidget {
 	Q_OBJECT
