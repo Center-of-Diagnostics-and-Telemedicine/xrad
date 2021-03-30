@@ -14,56 +14,67 @@
 #include <ui_PainterWindow.h>
 #include <XRADBasic/ContainersAlgebra.h>
 #include <XRADGUI/QTGUIAPI/DataDisplayWindow/DataDisplayWindow.h>
+#include <QSpinBox>
 
+#include "ColorPanel.h"
+#include "SpinBoxWidget.h"
+#include "ToolsMenuWidget.h"
 #include "PaintWidget.h"
+
+XRAD_USING
 
 namespace XRAD_GUI
 {
 
-	XRAD_USING
+
+
+class PainterWindow : public DataDisplayWindow
+{
+	Q_OBJECT
+
+public:
+	PainterWindow(const QString& in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc);
+	~PainterWindow();
 
 
 
-
-		class PainterWindow : public DataDisplayWindow
-	{
-		Q_OBJECT
-
-	public:
-		PainterWindow(const QString& in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc);
-		~PainterWindow();
+private:
 
 
 
-	private:
+	void closeEvent(QCloseEvent* event);
+	void keyPressEvent(QKeyEvent* event);
+
+	bool eventFilter(QObject* target, QEvent* event);
+
+	void addToolsMenuItem(size_t w, size_t h, int drawer, const QString& path);
 
 
-
-		void closeEvent(QCloseEvent* event);
-		void keyPressEvent(QKeyEvent* event);
-
-		bool eventFilter(QObject* target, QEvent* event);
+private: // fields
 
 
-		QPixmap GetCursor(size_t);
-		QString GetStringStyleSheet(int, int, int);
-		QString m_sTitle;
+	SpinBoxWidget* spin_box_;
+	ColorPanel* color_panel_;
+	ToolsMenuWidget* tools_menu_;
+	QFrame* painter_frame_;
 
-		size_t m_nVSize, m_nHSize;
-		
-		shared_ptr<QImage> m_pResult;
-		PaintWidget* pw;
+	QString title_;
 
-		Ui::Dialog ui;
+	size_t height_, width_;
+
+	shared_ptr<QImage> presult_;
+	PaintWidget* paint_widget_;
+
+	Ui::Dialog ui;
 
 
-	public slots:
-		//void slotSavePicture();
-		//void slotSaveRawData();
+public slots:
+	//void slotSavePicture();
+	//void slotSaveRawData();
 
-	signals:
-		void signal_esc();
-	};
+signals:
+	void signal_esc();
+};
 
 
 

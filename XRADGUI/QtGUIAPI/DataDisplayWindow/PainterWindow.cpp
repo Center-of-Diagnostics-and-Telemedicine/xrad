@@ -6,175 +6,151 @@
 #include "ThreadGUI.h"
 #include <XRADQt/QtStringConverters.h>
 #include <XRADSystem/TextFile.h>
+#include <QSpinBox>
 
 namespace XRAD_GUI {
 
-	XRAD_USING
+XRAD_USING
 
-		//
-		//--------------------------------------------------------------
+//
+//--------------------------------------------------------------
 
-		PainterWindow::PainterWindow(const QString& in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc)
-		: DataDisplayWindow(gc),
-		m_nVSize(in_vsize),
-		m_nHSize(in_hsize),
-		m_sTitle(in_title),
-		m_pResult(in_result)
-	{
-		try {
-			ui.setupUi(this);
+PainterWindow::PainterWindow(const QString& in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc)
+	: DataDisplayWindow(gc),
+	height_(in_vsize),
+	width_(in_hsize),
+	title_(in_title),
+	presult_(in_result)
+{
+	try {
+		ui.setupUi(this);
 
-			// QHBoxLayout* hbox = new QHBoxLayout();
+		// QHBoxLayout* hbox = new QHBoxLayout();
 
-			pw = new PaintWidget(this, m_nVSize, m_nHSize, m_pResult);
+		spin_box_ = new SpinBoxWidget(this, "Brush size:", 1, 255);
+		color_panel_ = new ColorPanel(this);
+		tools_menu_ = new ToolsMenuWidget(0, ui.verticalLayoutWidget->height(), this);
+		painter_frame_ = new QFrame(this);
+		paint_widget_ = new PaintWidget(painter_frame_, width_, height_, presult_);
 
-			setWindowTitle(in_title);
-			setFixedSize(QSize(int(m_nHSize) + 10, int(m_nVSize) + 100));
-			setMinimumSize(460, int(m_nVSize) + 50);
 
-			*m_pResult = QImage(QSize(int(m_nHSize), int(m_nVSize)), QImage::Format_RGB888);
+		paint_widget_->init(1, 1, width_, height_, Drawers::Hand, Qt::black, 10);
+		setWindowTitle(title_);
+	
 
-			setLayout(ui.verticalLayout);
+		*presult_ = QImage(QSize(int(width_), int(height_)), QImage::Format_RGBA8888);
 
-			ui.verticalLayout->addWidget(pw);
+		addToolsMenuItem(50, 50, Drawers::Hand, "c:/temp/hand.png");
+		addToolsMenuItem(50, 50, Drawers::Line, "c:/temp/line.png");
+		addToolsMenuItem(50, 50, Drawers::Rect, "c:/temp/rect.png");
+		addToolsMenuItem(50, 50, Drawers::Ellipse, "c:/temp/ellipse.png");
+		addToolsMenuItem(50, 50, Drawers::Eraser, "c:/temp/eraser.png");
+		addToolsMenuItem(50, 50, Drawers::Filler, "c:/temp/fill.png");
 
-			ui.red_spinBox->installEventFilter(this);
-			ui.green_spinBox->installEventFilter(this);
-			ui.blue_spinBox->installEventFilter(this);
-			ui.size_spinBox->installEventFilter(this);
-			ui.comboBox->installEventFilter(this);
+		painter_frame_->setGeometry(tools_menu_->width() + 1, ui.verticalLayoutWidget->height() + 1, paint_widget_->width() + 2, paint_widget_->height() + 2);
+		painter_frame_->setFrameShape(QFrame::Shape::Box);
 
-			pw->installEventFilter(this);
-			installEventFilter(this);
+		setMinimumSize(720, paint_widget_->height() < 420 ? 420 : paint_widget_->height() + ui.verticalLayoutWidget->height() + 50);
 
-			//добавляем объект в массив добавляем
-			gui_controller.AddWidget(this);
-		}
-		catch (...) {
-		}
+		setGeometry(0, 0, tools_menu_->width() + paint_widget_->width() + 10, paint_widget_->height() + ui.verticalLayoutWidget->height() + 50);
+
+		
+		ui.horizontalLayout->addWidget(spin_box_);
+		ui.horizontalLayout->addWidget(color_panel_);
+
+		paint_widget_->installEventFilter(this);
+		color_panel_->installEventFilter(this);
+		spin_box_->installEventFilter(this);
+		paint_widget_->installEventFilter(this);
+		installEventFilter(this);
+
+		//добавляем объект в массив добавляем
+		gui_controller.AddWidget(this);
 	}
-
-	PainterWindow::~PainterWindow()
-	{
-		//удаляем объект из массива диалогов
-		gui_controller.RemoveWidget(this);
+	catch (...) {
 	}
+}
 
-	void PainterWindow::closeEvent(QCloseEvent* event)
+PainterWindow::~PainterWindow()
+{
+	//удаляем объект из массива диалогов
+	gui_controller.RemoveWidget(this);
+}
+
+void PainterWindow::closeEvent(QCloseEvent* event)
+{
+	QDialog::closeEvent(event);
+}
+
+
+
+// Обработчик всех событий
+bool PainterWindow::eventFilter(QObject* target, QEvent* event)
+{
+	
+	if (target == paint_widget_ && event->type() == QMouseEvent::MouseButtonPress)
 	{
-		QDialog::closeEvent(event);
+		paint_widget_->setColor(color_panel_->currentColor());
+		paint_widget_->setDrawer(tools_menu_->getCurrentDrawer());
 	}
-
-	// Обработчик всех событий
-	bool PainterWindow::eventFilter(QObject* target, QEvent* event)
+	if (target == spin_box_)
 	{
-		if (target == ui.comboBox) {
-			if (ui.comboBox->currentText() == "Hand") 
-			{
-				pw->setDrawer(Drawers::Hand);
-			}
-			else if (ui.comboBox->currentText() == "Rect") 
-			{
-				pw->setDrawer(Drawers::Rect);
-			}
-			else if (ui.comboBox->currentText() == "Ellipse") 
-			{
-				pw->setDrawer(Drawers::Ellipse);
-			}
-			else if (ui.comboBox->currentText() == "Line") 
-			{
-				pw->setDrawer(Drawers::Line);
-			}
-			else if (ui.comboBox->currentText() == "Fill")
-			{
-				pw->setDrawer(Drawers::Filler);
-			}
-		}
-		if (target == ui.red_spinBox || target == ui.green_spinBox || target == ui.blue_spinBox) 
+		paint_widget_->setBrushSize(spin_box_->value());
+		paint_widget_->setCursor(paint_widget_->getCursor(spin_box_->value() / 2));
+	}
+	
+	if (event->type() == QEvent::KeyPress)
+	{
+		
+		switch (static_cast<QKeyEvent*>(event)->key())
 		{
-			pw->setColor(QColor::fromRgb(
-				ui.red_spinBox->value(),
-				ui.green_spinBox->value(),
-				ui.blue_spinBox->value()));
-			ui.color_view_widget->setStyleSheet(GetStringStyleSheet(
-					ui.red_spinBox->value(),
-					ui.green_spinBox->value(),
-					ui.blue_spinBox->value()));
+			case Qt::Key_Shift:
+				paint_widget_->setShiftPressed(true);
+				break;
+			case Qt::Key_Z:
+				paint_widget_->undo();
+				break;
+			case Qt::Key_Y:
+				paint_widget_->redo();
+				break;
+			case Qt::Key_Delete:
+				paint_widget_->clear();
+				break;
+			default:
+				break;
 		}
-		if (target == ui.size_spinBox) {
-			pw->setBrushSize(ui.size_spinBox->value());
-			pw->setCursor(GetCursor(ui.size_spinBox->value() / 2));
-		}
-
-		return QObject::eventFilter(target, event);
+	}
+	if (event->type() == QEvent::KeyRelease)
+	{
+		if (static_cast<QKeyEvent*>(event)->key() == Qt::Key_Shift)
+		{
+			paint_widget_->setShiftPressed(false);
+		};
 	}
 
-	void PainterWindow::keyPressEvent(QKeyEvent* event)
-	{
-		if (event->type() == QEvent::KeyPress) {
-			switch (event->key()) {
+
+
+	return DataDisplayWindow::eventFilter(target, event);
+}
+
+void PainterWindow::keyPressEvent(QKeyEvent* event)
+{
+	if (event->type() == QEvent::KeyPress) {
+		switch (event->key()) {
 			case Qt::Key_Escape:
 				emit signal_esc();
 				break;
-			case Qt::Key_Shift:
-				emit signal_esc();
-				break;
-			};
-		}
-		return QWidget::keyPressEvent(event);
-	}
-
-	QPixmap PainterWindow::GetCursor(size_t in_radius)
-	{
-		// radius = 10;
-		size_t radius = in_radius > 3 ? in_radius : 3;
-
-		QPixmap result_pxmp;
-		QImage result_img(int(radius) * 2, int(radius) * 2, QImage::Format_RGBA8888);
-
-		float thickness = radius < 30 ? 1.7 : float(radius) / 20;
-		float circle_radius = radius - thickness;
-
-		auto alpha = [](float d) -> unsigned int {
-			return unsigned int(255. * sqrt(d)) << 24;
+			
 		};
-		int black = 0;
-		int white = 0xFFFFFF;
-
-		for (size_t i = 0; i < 2 * radius; i++) {
-			for (size_t j = 0; j < 2 * radius; j++) {
-				float delta = hypot(float(i) - radius, float(j) - radius) - circle_radius;
-				auto pt = QPoint(int(i), int(j));
-				float d = fabs(delta) / thickness;
-
-				if (d < 1) {
-					int color = delta < 0 ? black : white;
-
-					result_img.setPixel(pt, color | alpha(1 - d));
-				}
-				else
-					result_img.setPixel(pt, 0x00000000);
-			}
-		}
-		result_pxmp = QPixmap::fromImage(result_img);
-
-		return result_pxmp;
 	}
+	return DataDisplayWindow::keyPressEvent(event);
+}
 
-	QString	PainterWindow::GetStringStyleSheet(int r, int g, int b)
-	{
-		QString result;
+void PainterWindow::addToolsMenuItem(size_t w, size_t h, int drawer, const QString& path)
+{
+	QIcon icon = QIcon(QPixmap(path));
+	tools_menu_->addItem(w, h, drawer, icon);
 
-		result.append("background-color: rgb(");
-		result.append(QString::number(r));
-		result.append(", ");
-		result.append(QString::number(g));
-		result.append(", ");
-		result.append(QString::number(b));
-		result.append(", ");
+}
 
-		result.append(");");
-
-		return result;
-	}
 } // namespace XRAD_GUI
