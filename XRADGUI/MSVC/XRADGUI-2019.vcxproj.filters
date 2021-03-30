@@ -459,7 +459,9 @@
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.h">
       <Filter>QtGUIAPI\DataDisplayWindow</Filter>
     </QtMoc>
-    <QtMoc Include="PaintWidget.h" />
+    <QtMoc Include="PaintWidget.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.ui">
