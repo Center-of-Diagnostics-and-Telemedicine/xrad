@@ -213,6 +213,18 @@
     <ClCompile Include="PaintWidget.cpp">
       <Filter>QtGUIAPI\DataDisplayWindow</Filter>
     </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ColorPanel.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\SpinBoxWidget.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\StyleSheetUtils.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ToolsMenuWidget.cpp">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pre.h">
@@ -380,6 +392,12 @@
     <ClInclude Include="..\..\XRADQt\QtStringConverters.h">
       <Filter>XRADQt</Filter>
     </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\StyleSheetUtils.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\ToolsMenuWidget.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\QtGUIAPI\Resources\brightness_contrast.png">
@@ -454,6 +472,12 @@
       <Filter>QtGUIAPI\DataDisplayWindow</Filter>
     </QtMoc>
     <QtMoc Include="PaintWidget.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\ColorPanel.h">
+      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\SpinBoxWidget.h">
       <Filter>QtGUIAPI\DataDisplayWindow</Filter>
     </QtMoc>
   </ItemGroup>

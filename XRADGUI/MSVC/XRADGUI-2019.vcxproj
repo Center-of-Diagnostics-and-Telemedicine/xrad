@@ -243,6 +243,7 @@
     <ClCompile Include="..\QtGUIAPI\Common\XRADGUIUtils.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\AxisZoom.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ChartZoom.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ColorPanel.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\DataDisplayWindow.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\DragMove.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\DragZoom.cpp" />
@@ -251,7 +252,10 @@
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\MouseDrag.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\SpinBoxWidget.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\StyleSheetUtils.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ToolsMenuWidget.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\WheelZoom.cpp" />
     <ClCompile Include="..\QtGUIAPI\DialogDefinitions\DecisionDialogs.cpp" />
@@ -318,12 +322,16 @@
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\DataDisplayWindow.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\DragMove.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\DragZoom.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\ColorPanel.h" />
     <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\GraphStyleSet.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\MouseDrag.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\SpinBoxWidget.h" />
+    <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\StyleSheetUtils.h" />
+    <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\ToolsMenuWidget.h" />
     <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\WheelZoom.h" />
     <QtMoc Include="..\QtGUIAPI\DialogDefinitions\DecisionDialogs.h" />
