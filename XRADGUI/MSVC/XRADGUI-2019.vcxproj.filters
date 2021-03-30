@@ -210,9 +210,6 @@
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.cpp">
       <Filter>QtGUIAPI\DataDisplayWindow</Filter>
     </ClCompile>
-    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\PaintScene.cpp">
-      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
-    </ClCompile>
     <ClCompile Include="PaintWidget.cpp">
       <Filter>QtGUIAPI\DataDisplayWindow</Filter>
     </ClCompile>
@@ -452,9 +449,6 @@
     </QtMoc>
     <QtMoc Include="..\QtGUIAPI\Forms\ShowValueDialog.h">
       <Filter>QtGUIAPI\Forms</Filter>
-    </QtMoc>
-    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PaintScene.h">
-      <Filter>QtGUIAPI\DataDisplayWindow</Filter>
     </QtMoc>
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.h">
       <Filter>QtGUIAPI\DataDisplayWindow</Filter>

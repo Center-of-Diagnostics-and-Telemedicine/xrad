@@ -251,7 +251,6 @@
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\MouseDrag.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.cpp" />
-    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\PaintScene.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\WheelZoom.cpp" />
@@ -325,7 +324,6 @@
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\MouseDrag.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.h" />
-    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PaintScene.h" />
     <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\WheelZoom.h" />
     <QtMoc Include="..\QtGUIAPI\DialogDefinitions\DecisionDialogs.h" />
