@@ -12,120 +12,267 @@ namespace XRAD_GUI {
 
 	PaintWidget::PaintWidget(QWidget* parent, size_t in_vsize, size_t in_hsize, std::shared_ptr<QImage> in_result) :
 		QWidget(parent),
-		m_nHsize(in_hsize),
-		m_nVsize(in_vsize),
-		m_pResult(in_result)
+		width_(in_hsize),
+		height_(in_vsize),
+		p_result_(in_result)
 	{
-		m_qPTargetPixmap = new QPixmap(int(m_nHsize), int(m_nVsize));
-		m_qPTargetPixmap->fill();
+		ptarget_pixmap_ = new QPixmap(int(width_), int(height_));
+		ptarget_pixmap_->fill();
 
 		
-		initPen(m_qDrawingPen, m_qcolor, 10, Qt::RoundCap);
-		initPen(m_qErasingPen, Qt::white, 10, Qt::RoundCap);
+		initPen(drawing_pen_, color_, 10, Qt::RoundCap);
+		drawing_pen_.setJoinStyle(Qt::MiterJoin);
+		initPen(erasing_pen_, Qt::white, 10, Qt::RoundCap);
 	}
 
 	PaintWidget::~PaintWidget()
 	{
-		delete m_qPTargetPixmap;
+		delete ptarget_pixmap_;
 	}
+
+	//events
 
 	void PaintWidget::mousePressEvent(QMouseEvent* event)
 	{
-		QPainter PixmapPainter(m_qPTargetPixmap);
+		QPainter PixmapPainter(ptarget_pixmap_);
+
 		if (event->button() == Qt::MouseButton::LeftButton)
 		{
-			m_bButtonLeft = true;
-			if (m_nDrawer == Hand)
+			is_L_button_pressed_ = true;
+			if (drawer_ == Drawers::Hand)
 			{
-				PixmapPainter.setPen(m_qDrawingPen);
+				PixmapPainter.setPen(drawing_pen_);
 				PixmapPainter.drawPoint(event->pos());
+			}
+			if (drawer_ == Drawers::Eraser)
+			{
+				PixmapPainter.setPen(erasing_pen_);
+				PixmapPainter.drawPoint(event->pos());
+			}
+			if (drawer_ == Drawers::Filler)
+			{
+				PixmapPainter.drawImage(QPoint(0, 0), getFilledImageFromPoint(*p_result_, event->pos(), color_.rgb()));
+
 			}
 		}
 		if (event->button() == Qt::MouseButton::RightButton)
 		{
-			m_bButtonRight = true;
+			is_R_button_pressed_ = true;
 
-			PixmapPainter.setPen(m_qErasingPen);
+			PixmapPainter.setPen(erasing_pen_);
 			PixmapPainter.drawPoint(event->pos());
 		}
 
-		m_qFigure.setP1(event->pos());
-		m_qFigure.setP2(event->pos());
-		m_qPreviousPoint = event->pos();
-		m_qCurrentPos = event->pos();
+
+		figure_.setP1(event->pos());
+		figure_.setP2(event->pos());
+		previous_pos_ = event->pos();
+		current_pos_ = event->pos();
+
+		last_state_.push(*p_result_);
+
 		update();
 	}
 
 	void PaintWidget::mouseReleaseEvent(QMouseEvent* event)
 	{
+
 		if (event->button() == Qt::MouseButton::LeftButton)
-			m_bButtonLeft = false;
+			is_L_button_pressed_ = false;
 
 		if (event->button() == Qt::MouseButton::RightButton)
-			m_bButtonRight = false;
+			is_R_button_pressed_ = false;
 
-		m_qCurrentPos = event->pos();
+
+		last_state_.push(*p_result_);
+		current_pos_ = event->pos();
 		update();
+
+
 	}
 
 	void PaintWidget::paintEvent(QPaintEvent* event)
 	{
-		QPoint start_point = m_qFigure.p1();
-		QPoint end_point = m_qFigure.p2();
 
 		static bool wasPressed = false;
 		QPainter painter(this);
-		QPainter PixmapPainter(m_qPTargetPixmap);
+		QPainter PixmapPainter(ptarget_pixmap_);
 
-		PixmapPainter.setPen(m_qDrawingPen);
-		painter.setPen(m_qDrawingPen);
+		PixmapPainter.setPen(drawing_pen_);
+		painter.setPen(drawing_pen_);
 
-		if (m_bButtonLeft)
+
+
+		if (is_L_button_pressed_)
 		{
-			painter.drawPixmap(0, 0, *m_qPTargetPixmap);
-			drawFigure(painter, start_point, end_point);
+			painter.drawPixmap(0, 0, *ptarget_pixmap_);
+			drawFigure(painter, figure_.p1(), figure_.p2());
 
 			wasPressed = true;
 		}
 		else if (wasPressed)
 		{
-			drawFigure(PixmapPainter, start_point, end_point);
-			painter.drawPixmap(0, 0, *m_qPTargetPixmap);
+			drawFigure(PixmapPainter, figure_.p1(), figure_.p2());
+			painter.drawPixmap(0, 0, *ptarget_pixmap_);
 			update();
 			wasPressed = false;
 		}
 		else
 		{
-			painter.drawPixmap(0, 0, *m_qPTargetPixmap);
+
+			painter.drawPixmap(0, 0, *ptarget_pixmap_);
+			update();
 		}
-		*m_pResult = m_qPTargetPixmap->toImage();
-		//*m_pResult = m_qPTargetPixmap->toImage();
+		*p_result_ = ptarget_pixmap_->toImage();
+		update();
 	}
 
 	void PaintWidget::mouseMoveEvent(QMouseEvent* event)
 	{
-		QPainter PixmapPainter(m_qPTargetPixmap);
-		PixmapPainter.setPen(m_qDrawingPen);
 
-		m_qFigure.setP2(event->pos());
+		QPainter PixmapPainter(ptarget_pixmap_);
+		PixmapPainter.setPen(drawing_pen_);
 
-		m_qCurrentPos = event->pos();
-		if (m_bButtonLeft) {
-			if (m_nDrawer == Hand)
+
+		if (is_shift_pressed_ == true)
+		{
+			int wid = event->pos().x() - figure_.p1().x();
+			int hei = event->pos().y() - figure_.p1().y();
+
+			int mid = (abs(wid) + abs(hei)) / 2;
+
+			QPoint middle;
+
+			if (wid <= 0 && hei <= 0)
+				middle = QPoint(figure_.p1().x() - mid, figure_.p1().y() - mid);
+			if (wid >= 0 && hei >= 0)
+				middle = QPoint(figure_.p1().x() + mid, figure_.p1().y() + mid);
+			if (wid <= 0 && hei >= 0)
+				middle = QPoint(figure_.p1().x() - mid, figure_.p1().y() + mid);
+			if (wid >= 0 && hei <= 0)
+				middle = QPoint(figure_.p1().x() + mid, figure_.p1().y() - mid);
+
+			figure_.setP2(middle);
+
+
+		}
+		else
+			figure_.setP2(event->pos());
+
+
+		current_pos_ = event->pos();
+		if (is_L_button_pressed_)
+		{
+			if (drawer_ == Drawers::Hand)
 			{
-				PixmapPainter.setPen(m_qDrawingPen);
-				PixmapPainter.drawLine(m_qPreviousPoint, event->pos());
-				m_qPreviousPoint = event->pos();
+				PixmapPainter.setPen(drawing_pen_);
+				PixmapPainter.drawLine(previous_pos_, event->pos());
+				previous_pos_ = event->pos();
+			}
+			if (drawer_ == Drawers::Eraser)
+			{
+				PixmapPainter.setPen(erasing_pen_);
+				PixmapPainter.drawLine(previous_pos_, event->pos());
+				previous_pos_ = event->pos();
 			}
 		}
-		else if (m_bButtonRight)
+		else if (is_R_button_pressed_)
 		{
-			PixmapPainter.setPen(m_qErasingPen);
-			PixmapPainter.drawLine(m_qPreviousPoint, event->pos());
-			m_qPreviousPoint = event->pos();
+			PixmapPainter.setPen(erasing_pen_);
+			PixmapPainter.drawLine(previous_pos_, event->pos());
+			previous_pos_ = event->pos();
 		}
 
-		update();
+	}
+
+
+	//operations
+	void PaintWidget::init(int x, int y, size_t w, size_t h, int drawer, const QColor& color, size_t brush_size)
+	{
+		setGeometry(x, y, w, h);
+		setDrawer(drawer);
+		setColor(color);
+		setBrushSize(brush_size);
+	}
+
+	void PaintWidget::clear()
+	{
+		QImage ci = QImage(width_, height_, QImage::Format_RGBA8888);
+
+		for (size_t i = 0; i < width_; i++)
+		{
+			for (size_t j = 0; j < height_; j++)
+			{
+				ci.setPixel(i, j, 0xffffffff);
+			}
+		}
+		*ptarget_pixmap_ = QPixmap::fromImage(ci);
+	}
+
+	void PaintWidget::undo()
+	{
+		if (!last_state_.empty() && !is_L_button_pressed_)
+		{
+			pre_lastState_.push(*p_result_);
+			*ptarget_pixmap_ = QPixmap::fromImage(last_state_.top());
+			last_state_.pop();
+			update();
+		}
+
+	}
+
+	void PaintWidget::redo()
+	{
+		if (!pre_lastState_.empty() && !is_L_button_pressed_)
+		{
+			last_state_.push(*p_result_);
+			*ptarget_pixmap_ = QPixmap::fromImage(pre_lastState_.top());
+			pre_lastState_.pop();
+			update();
+		}
+	}
+
+
+	//supporting methods
+
+	QPixmap PaintWidget::getCursor(size_t in_radius)
+	{
+
+		size_t radius = in_radius > 3 ? in_radius : 3;
+
+
+		QPixmap result_pxmp;
+		QImage result_img(int(radius) * 2, int(radius) * 2, QImage::Format_RGBA8888);
+
+		float thickness = radius < 30 ? 1.7 : float(radius) / 20;
+		float	circle_radius = radius - thickness;
+
+		auto alpha = [](float d) -> unsigned int {return unsigned int(255. * sqrt(d)) << 24; };
+		int	black = 0x000000;
+		int white = 0xFFFFFF;
+
+
+		for (size_t i = 0; i < 2 * radius; i++)
+		{
+			for (size_t j = 0; j < 2 * radius; j++)
+			{
+				float delta = hypot(float(i) - radius, float(j) - radius) - circle_radius;
+				auto pt = QPoint(int(i), int(j));
+				float	d = fabs(delta) / thickness;
+
+				if (d < 1)
+				{
+					int	color = delta < 0 ? black : white;
+
+					result_img.setPixel(pt, color | alpha(1 - d));
+				}
+				else result_img.setPixel(pt, 0x00000000);
+			}
+		}
+		result_pxmp = QPixmap::fromImage(result_img);
+
+		return result_pxmp;
+
 	}
 
 	void PaintWidget::initPen(QPen& pen, const QColor& in_color, int in_width, Qt::PenCapStyle in_style)
@@ -135,41 +282,114 @@ namespace XRAD_GUI {
 		pen.setCapStyle(in_style);
 	}
 
-	void PaintWidget::drawFigure(QPainter& painter, QPoint inp1, QPoint inp2)
+	void PaintWidget::drawFigure(QPainter& painter, const  QPoint& inp1, const  QPoint& inp2)
 	{
-		if (m_nDrawer == Line)
+
+		if (drawer_ == Drawers::Line)
 			painter.drawLine(QLine(inp1, inp2));
-		else if (m_nDrawer == Rect)
+		else if (drawer_ == Drawers::Rect)
 			painter.drawRect(QRect(inp1, inp2));
-		else if (m_nDrawer == Fill)
-			painter.fillRect(QRect(0, 0, m_nHsize, m_nVsize), m_qcolor);
-		else if (m_nDrawer == Ellipse)
+		else if (drawer_ == Drawers::Ellipse)
 			painter.drawEllipse(QRect(inp1, inp2));
 
-		//*m_pResult = m_qPTargetPixmap->toImage();
 	}
 
+	QImage PaintWidget::getFilledImageFromPoint(const QImage& img, const QPoint& point, const QRgb& color)
+	{
+		QImage result = img;
+		QRgb targetColor = result.pixel(point.x(), point.y());
+
+		std::stack<QPoint> points;
+		points.push(point);
+		if (targetColor == color)
+		{
+			return result;
+		}
+
+		while (!points.empty())
+		{
+			int x = points.top().x();
+			int y = points.top().y();
+			points.pop();
+
+			if (result.pixel(x - 1, y) == targetColor)
+			{
+				result.setPixel(x - 1, y, color);
+				points.push(QPoint(x - 1, y));
+			}
+			if (result.pixel(x + 1, y) == targetColor)
+			{
+				result.setPixel(x + 1, y, color);
+				points.push(QPoint(x + 1, y));
+			}
+			if (result.pixel(x, y - 1) == targetColor)
+			{
+				result.setPixel(x, y - 1, color);
+				points.push(QPoint(x, y - 1));
+			}
+			if (result.pixel(x, y + 1) == targetColor)
+			{
+				result.setPixel(x, y + 1, color);
+				points.push(QPoint(x, y + 1));
+			}
+		}
+
+		return result;
+	}
+
+	void PaintWidget::fillFromPoint(const QPoint& point, const QColor& color)
+	{
+		*ptarget_pixmap_ = QPixmap::fromImage(getFilledImageFromPoint(*p_result_, point, color.rgb()));
+	}
+
+
+
+
+	//setters
 	void PaintWidget::setDrawer(int in_drawer)
 	{
-		m_nDrawer = in_drawer;
+		drawer_ = in_drawer;
 	}
 
 	void PaintWidget::setColor(const QColor& in_color)
 	{
-		m_qcolor = in_color;
-		m_qDrawingPen.setColor(m_qcolor);
+		color_ = in_color;
+		drawing_pen_.setColor(color_);
 	}
 
 	void PaintWidget::setBrushSize(size_t in_size)
 	{
-		m_nSize = in_size;
-		m_qDrawingPen.setWidth(int(m_nSize));
-		m_qErasingPen.setWidth(int(m_nSize));
+		brush_size_ = in_size;
+		drawing_pen_.setWidth(brush_size_);
+		erasing_pen_.setWidth(brush_size_);
 	}
 
-	QPoint PaintWidget::getCurrentBrushPos()
+	void PaintWidget::setShiftPressed(bool is)
 	{
-		return m_qCurrentPos;
+		is_shift_pressed_ = is;
 	}
+
+
+
+
+	//getters
+	QImage PaintWidget::image()
+	{
+		return *p_result_;
+	}
+
+	QColor PaintWidget::color()
+	{
+		return color_;
+	}
+
+	size_t PaintWidget::brushSize()
+	{
+		return brush_size_;
+	}
+
+
+
+
 
 } // namespace XRAD_GUI

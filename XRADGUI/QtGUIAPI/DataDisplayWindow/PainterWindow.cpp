@@ -71,23 +71,23 @@ namespace XRAD_GUI {
 		if (target == ui.comboBox) {
 			if (ui.comboBox->currentText() == "Hand") 
 			{
-				pw->setDrawer(PaintWidget::Drawers::Hand);
+				pw->setDrawer(Drawers::Hand);
 			}
 			else if (ui.comboBox->currentText() == "Rect") 
 			{
-				pw->setDrawer(PaintWidget::Drawers::Rect);
+				pw->setDrawer(Drawers::Rect);
 			}
 			else if (ui.comboBox->currentText() == "Ellipse") 
 			{
-				pw->setDrawer(PaintWidget::Drawers::Ellipse);
+				pw->setDrawer(Drawers::Ellipse);
 			}
 			else if (ui.comboBox->currentText() == "Line") 
 			{
-				pw->setDrawer(PaintWidget::Drawers::Line);
+				pw->setDrawer(Drawers::Line);
 			}
 			else if (ui.comboBox->currentText() == "Fill")
 			{
-				pw->setDrawer(PaintWidget::Drawers::Fill);
+				pw->setDrawer(Drawers::Filler);
 			}
 		}
 		if (target == ui.red_spinBox || target == ui.green_spinBox || target == ui.blue_spinBox) 
