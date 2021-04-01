@@ -657,11 +657,11 @@ void SetVersionInfo(const string& text)
 // }
 
 
-// ColorImageF32	GetColorPainting(const wstring& title, size_t vsize, size_t hsize)
-// {
-// 	ColorImageF32 result = api_GetPainting(title, vsize, hsize);
-// 	return result;
-// }
+ColorImageF32	GetColorPainting(const wstring& title, size_t vsize, size_t hsize)
+{
+	ColorImageF32 result = api_GetColorPainting(title, vsize, hsize);
+	return result;
+}
 
 
 RealFunction2D_F32	GetGrayscalePainting(const wstring& title, size_t vsize, size_t hsize)

@@ -997,7 +997,42 @@ namespace XRAD_GUI
 		}
 		return RealFunction2D_F32();
 	}
+	ColorImageF32 api_GetColorPainting(const wstring& title, size_t vsize, size_t hsize)
+	{
+		shared_ptr<QImage>	result_qimage = make_shared<QImage>();
+		PainterWindow* pw = emit work_thread().request_CreatePainterWindow(wstring_to_qstring(title), vsize, hsize, result_qimage);
 
+		if (IsPointerAValidGUIWidget(pw))
+		{
+			try
+			{
+
+				emit work_thread().request_ShowDataWindow(pw, true);
+				work_thread().Suspend(ThreadUser::suspend_for_data_analyze);
+
+
+				ColorImageF32    result(vsize, hsize);
+
+				for (size_t i = 0; i < hsize; ++i)
+				{
+					for (size_t j = 0; j < vsize; j++)
+					{
+						//result.at(i, j) = result_qimage->pixelColor(int(i), int(j));
+
+						QColor pixel_color = result_qimage->pixelColor(i, j);
+						result.at(i, j) = ColorSampleF32::RGBColorSample(pixel_color.red(), pixel_color.green(), pixel_color.blue());
+					}
+				}
+
+
+				return result;
+			}
+			catch (...)
+			{
+			}
+		}
+		return ColorImageF32();
+	}
 
 	/*!
 		\details

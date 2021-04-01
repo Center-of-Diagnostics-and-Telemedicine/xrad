@@ -210,7 +210,7 @@ namespace XRAD_GUI
 
 	RealFunction2D_F32 api_GetGrayscalePainting(const wstring& title, size_t vsize, size_t hsize);
 
-
+	ColorImageF32 api_GetColorPainting(const wstring& title, size_t vsize, size_t hsize);
 	//--------------------------------------------------------------
 
 } // namespace XRAD_GUI

@@ -478,7 +478,7 @@ void DisplayImage(string name, const SAMPLE_T* data,
 
 RealFunction2D_F32	GetGrayscalePainting(const wstring& title, size_t vsize, size_t hsize);
 
-
+ColorImageF32	GetColorPainting(const wstring& title, size_t vsize, size_t hsize);
 //--------------------------------------------------------------
 //
 // TODO запрос области интереса (доделать применительно к RasterAnimations)
