@@ -252,6 +252,7 @@
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\MouseDrag.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\PaintWidget.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\SpinBoxWidget.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\StyleSheetUtils.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.cpp" />
@@ -281,7 +282,6 @@
     <ClCompile Include="..\..\XRADQt\QtStringConverters.cpp" />
     <ClCompile Include="..\Sources\RasterImageFile\RasterImageFile.cpp" />
     <ClCompile Include="..\Sources\Utils\AutoProgressIndicatorScheduler.cpp" />
-    <ClCompile Include="PaintWidget.cpp" />
     <ClCompile Include="XRADGUI_pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'">Create</PrecompiledHeader>
@@ -330,6 +330,7 @@
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\SpinBoxWidget.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PaintWidget.h" />
     <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\StyleSheetUtils.h" />
     <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\ToolsMenuWidget.h" />
     <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.h" />
@@ -375,7 +376,6 @@
     <ClInclude Include="..\Sources\PlatformSpecific\Qt\Internal\Keyboard_Qt.h" />
     <ClInclude Include="..\..\XRADQt\QtStringConverters.h" />
     <ClInclude Include="..\Sources\Utils\AutoProgressIndicatorScheduler.h" />
-    <QtMoc Include="PaintWidget.h" />
     <ClInclude Include="pre.h" />
   </ItemGroup>
   <ItemGroup>
