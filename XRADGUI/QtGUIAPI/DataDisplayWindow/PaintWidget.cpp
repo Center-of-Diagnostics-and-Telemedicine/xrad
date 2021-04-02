@@ -201,13 +201,13 @@ void PaintWidget::init(int x, int y, size_t w, size_t h, int drawer, const QColo
 
 void PaintWidget::clear()
 {
-	QImage ci = QImage(width_, height_, QImage::Format_RGBA8888);
+	QImage ci = QImage(int(width_), int(height_), QImage::Format_RGBA8888);
 
 	for (size_t i = 0; i < width_; i++)
 	{
 		for (size_t j = 0; j < height_; j++)
 		{
-			ci.setPixel(i, j, 0xffffffff);
+			ci.setPixel(int(i), int(j), 0xffffffff);
 		}
 	}
 	*ptarget_pixmap_ = QPixmap::fromImage(ci);
@@ -364,8 +364,8 @@ void PaintWidget::setColor(const QColor& in_color)
 void PaintWidget::setBrushSize(size_t in_size)
 {
 	brush_size_ = in_size;
-	drawing_pen_.setWidth(brush_size_);
-	erasing_pen_.setWidth(brush_size_);
+	drawing_pen_.setWidth(int(brush_size_));
+	erasing_pen_.setWidth(int(brush_size_));
 }
 
 void PaintWidget::setShiftPressed(bool is)
