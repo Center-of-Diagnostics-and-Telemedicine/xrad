@@ -170,7 +170,10 @@ namespace XRAD_GUI
 		bool	request_SetImageAxesScales(ImageWindow*, double, double, double, double, double, double);
 
 		XRAD_GUI::TextWindow* request_CreateTextDisplayer(const QString& title);
-		XRAD_GUI::PainterWindow* request_CreatePainterWindow(const QString& title, size_t vsize, size_t hsize, shared_ptr<QImage> qimg_result);
+		XRAD_GUI::PainterWindow* request_CreatePainterWindow(const QString& title, shared_ptr<QImage> qimg_result);
+
+		//XRAD_GUI::PainterWindow* request_CreatePainterWindow(const QString& title, const QImage& image, shared_ptr<QImage> qimg_result);
+
 		bool	request_SetFixedWidth(TextWindow*, bool fixed_width);
 		bool	request_SetEditable(TextWindow*, bool editable);
 		bool	request_SetFontSize(TextWindow*, double size);

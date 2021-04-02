@@ -114,7 +114,7 @@ namespace XRAD_GUI
 		bool	do_SetupImageDefaultRanges(ImageWindow* img, double min_value, double max_value, double gamma);
 		bool	do_SetImageAxesScales(ImageWindow* img, double z0, double dz, double y0, double dy, double x0, double dx);
 
-		PainterWindow* do_CreatePainterWindow(const QString& title, size_t vsize, size_t hsize, shared_ptr<QImage> qimg_result);
+		PainterWindow* do_CreatePainterWindow(const QString& title, shared_ptr<QImage> qimg_result);
 		TextWindow* do_CreateTextDisplayer(const QString& title);
 
 		bool	do_SetFixedWidth(TextWindow*, bool fixed_width);

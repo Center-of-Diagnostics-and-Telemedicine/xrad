@@ -684,9 +684,9 @@ namespace XRAD_GUI
 		main_window->UpdateConsole();
 	}
 
-	PainterWindow* ThreadGUI::do_CreatePainterWindow(const QString& title, size_t vsize, size_t hsize, shared_ptr<QImage> qimg_result)
+	PainterWindow* ThreadGUI::do_CreatePainterWindow(const QString& title, shared_ptr<QImage> qimg_result)
 	{
-		auto result = new PainterWindow(title, vsize, hsize, qimg_result, gui_controller);
+		auto result = new PainterWindow(title, qimg_result, gui_controller);
 		return result;
 	}
 

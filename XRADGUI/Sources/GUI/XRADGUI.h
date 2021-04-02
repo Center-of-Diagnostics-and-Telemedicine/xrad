@@ -475,8 +475,11 @@ void DisplayImage(string name, const SAMPLE_T* data,
 		vs, hs, y_axis_legend, x_axis_legend, vlegend);
 }
 
+RealFunction2D_F32	GetGrayscalePainting(const wstring& title, const RealFunction2D_F32& original);
 
 RealFunction2D_F32	GetGrayscalePainting(const wstring& title, size_t vsize, size_t hsize);
+
+ColorImageF32	GetColorPainting(const wstring& title, const ColorImageF32&);
 
 ColorImageF32	GetColorPainting(const wstring& title, size_t vsize, size_t hsize);
 //--------------------------------------------------------------

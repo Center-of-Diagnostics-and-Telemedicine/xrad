@@ -663,6 +663,19 @@ ColorImageF32	GetColorPainting(const wstring& title, size_t vsize, size_t hsize)
 	return result;
 }
 
+ColorImageF32 GetColorPainting(const wstring& title, const ColorImageF32& original)
+{
+	ColorImageF32 result = api_GetColorPainting(title, original);
+	return result;
+}
+
+
+
+RealFunction2D_F32 GetGrayscalePainting(const wstring& title, const RealFunction2D_F32& original)
+{
+	RealFunction2D_F32 result = api_GetGrayscalePainting(title, original);
+	return result;
+}
 
 RealFunction2D_F32	GetGrayscalePainting(const wstring& title, size_t vsize, size_t hsize)
 {

@@ -964,10 +964,28 @@ namespace XRAD_GUI
 
 	}
 
-	RealFunction2D_F32 api_GetGrayscalePainting(const wstring& title, size_t vsize, size_t hsize)
+
+	RealFunction2D_F32 api_GetGrayscalePainting(const wstring& title,  RealFunction2D_F32 original)
 	{
 		shared_ptr<QImage>	result_qimage = make_shared<QImage>();
-		PainterWindow* pw = emit work_thread().request_CreatePainterWindow(wstring_to_qstring(title), vsize, hsize, result_qimage);
+
+		*result_qimage = QImage(original.hsize(), original.vsize(), QImage::Format_RGBA8888);
+
+		
+
+		size_t hsize = result_qimage->width();
+		size_t vsize = result_qimage->height();
+
+		for (size_t i = 0; i < hsize; i++)
+		{
+			for (size_t j = 0; j < vsize; j++)
+			{
+				float l = original.at(j, i);
+				result_qimage->setPixelColor(i, j, QColor(l, l, l));
+			}
+		}
+	
+		PainterWindow* pw = emit work_thread().request_CreatePainterWindow(wstring_to_qstring(title), result_qimage);
 
 		if (IsPointerAValidGUIWidget(pw))
 		{
@@ -997,10 +1015,35 @@ namespace XRAD_GUI
 		}
 		return RealFunction2D_F32();
 	}
-	ColorImageF32 api_GetColorPainting(const wstring& title, size_t vsize, size_t hsize)
+
+
+	RealFunction2D_F32 api_GetGrayscalePainting(const wstring& title, size_t vsize, size_t hsize)
+	{
+		RealFunction2D_F32	empty_image(vsize, hsize);
+		return api_GetGrayscalePainting(title, empty_image);
+	}
+
+
+	ColorImageF32 api_GetColorPainting(const wstring& title,  ColorImageF32 original)
 	{
 		shared_ptr<QImage>	result_qimage = make_shared<QImage>();
-		PainterWindow* pw = emit work_thread().request_CreatePainterWindow(wstring_to_qstring(title), vsize, hsize, result_qimage);
+		*result_qimage = QImage(original.hsize(), original.vsize(), QImage::Format_RGBA8888);
+
+		
+
+		size_t vsize = result_qimage->width();
+		size_t hsize = result_qimage->height();
+
+		for (size_t i = 0; i < hsize; i++)
+		{
+			for (size_t j = 0; j < vsize; j++)
+			{
+				result_qimage->setPixelColor(i, j, QColor(original.at(i, j).red() , original.at(i, j).green(), original.at(i, j).blue()));
+			}
+		}
+		
+
+		PainterWindow* pw = emit work_thread().request_CreatePainterWindow(wstring_to_qstring(title), result_qimage);
 
 		if (IsPointerAValidGUIWidget(pw))
 		{
@@ -1017,8 +1060,6 @@ namespace XRAD_GUI
 				{
 					for (size_t j = 0; j < vsize; j++)
 					{
-						//result.at(i, j) = result_qimage->pixelColor(int(i), int(j));
-
 						QColor pixel_color = result_qimage->pixelColor(i, j);
 						result.at(i, j) = ColorSampleF32::RGBColorSample(pixel_color.red(), pixel_color.green(), pixel_color.blue());
 					}
@@ -1032,6 +1073,12 @@ namespace XRAD_GUI
 			}
 		}
 		return ColorImageF32();
+	}
+
+	ColorImageF32 api_GetColorPainting(const wstring& title, size_t vsize, size_t hsize)
+	{
+		ColorImageF32	empty_image(vsize, hsize, ColorSampleF32::RGBColorSample(255,255,255));
+		return api_GetColorPainting(title, empty_image);
 	}
 
 	/*!
