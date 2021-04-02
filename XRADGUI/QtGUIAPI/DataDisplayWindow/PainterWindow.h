@@ -33,7 +33,9 @@ class PainterWindow : public DataDisplayWindow
 	Q_OBJECT
 
 public:
-	PainterWindow(const QString& in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc);
+	PainterWindow(const QString& in_title,  shared_ptr<QImage> in_result, GUIController& gc);
+	//PainterWindow(const QString& in_title, const QImage& image, shared_ptr<QImage> in_result, GUIController& gc);
+
 	~PainterWindow();
 
 

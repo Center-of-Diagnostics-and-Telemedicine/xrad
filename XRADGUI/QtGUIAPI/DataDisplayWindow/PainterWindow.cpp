@@ -15,10 +15,10 @@ XRAD_USING
 //
 //--------------------------------------------------------------
 
-PainterWindow::PainterWindow(const QString& in_title, size_t in_vsize, size_t in_hsize, shared_ptr<QImage> in_result, GUIController& gc)
+PainterWindow::PainterWindow(const QString& in_title, shared_ptr<QImage> in_result, GUIController& gc)
 	: DataDisplayWindow(gc),
-	height_(in_vsize),
-	width_(in_hsize),
+	height_(in_result->height()),
+	width_(in_result->width()),
 	title_(in_title),
 	presult_(in_result)
 {
@@ -33,12 +33,13 @@ PainterWindow::PainterWindow(const QString& in_title, size_t in_vsize, size_t in
 		painter_frame_ = new QFrame(this);
 		paint_widget_ = new PaintWidget(painter_frame_, width_, height_, presult_);
 
-
+		paint_widget_->setImage(*presult_);
+		
 		paint_widget_->init(1, 1, width_, height_, Drawers::Hand, Qt::black, 10);
 		setWindowTitle(title_);
 	
 
-		*presult_ = QImage(QSize(int(width_), int(height_)), QImage::Format_RGBA8888);
+//		*presult_ = QImage(QSize(int(width_), int(height_)), QImage::Format_RGBA8888);
 
 		addToolsMenuItem(50, 50, Drawers::Hand, "c:/temp/hand.png");
 		addToolsMenuItem(50, 50, Drawers::Line, "c:/temp/line.png");
@@ -70,6 +71,59 @@ PainterWindow::PainterWindow(const QString& in_title, size_t in_vsize, size_t in
 	catch (...) {
 	}
 }
+
+
+// PainterWindow::PainterWindow(const QString& in_title, const QImage& image, shared_ptr<QImage> in_result, GUIController& gc)
+// 	: DataDisplayWindow(gc),
+// 	height_(image.height()),
+// 	width_(image.width()),
+// 	title_(in_title),
+// 	presult_(in_result)
+// {
+// 
+// 	ui.setupUi(this);
+// 
+// 	setWindowTitle(title_);
+// 	setMinimumSize(720, paint_widget_->height() < 420 ? 420 : paint_widget_->height() + ui.verticalLayoutWidget->height() + 50);
+// 	setGeometry(0, 0, tools_menu_->width() + paint_widget_->width() + 10, paint_widget_->height() + ui.verticalLayoutWidget->height() + 50);
+// 
+// 
+// 	*presult_ = image;
+// 
+// 	spin_box_ = new SpinBoxWidget(this, "Brush size:", 1, 255);
+// 	color_panel_ = new ColorPanel(this);
+// 	tools_menu_ = new ToolsMenuWidget(0, ui.verticalLayoutWidget->height(), this);
+// 	painter_frame_ = new QFrame(this);
+// 	paint_widget_ = new PaintWidget(painter_frame_, width_, height_, presult_);
+// 
+// 
+// 	paint_widget_->init(1, 1, width_, height_, Drawers::Hand, Qt::black, 10);
+// 	painter_frame_->setGeometry(tools_menu_->width() + 1, ui.verticalLayoutWidget->height() + 1, paint_widget_->width() + 2, paint_widget_->height() + 2);
+// 	painter_frame_->setFrameShape(QFrame::Shape::Box);
+// 
+// 	ui.horizontalLayout->addWidget(spin_box_);
+// 	ui.horizontalLayout->addWidget(color_panel_);
+// 
+// 	addToolsMenuItem(50, 50, Drawers::Hand, "c:/temp/hand.png");
+// 	addToolsMenuItem(50, 50, Drawers::Line, "c:/temp/line.png");
+// 	addToolsMenuItem(50, 50, Drawers::Rect, "c:/temp/rect.png");
+// 	addToolsMenuItem(50, 50, Drawers::Ellipse, "c:/temp/ellipse.png");
+// 	addToolsMenuItem(50, 50, Drawers::Eraser, "c:/temp/eraser.png");
+// 	addToolsMenuItem(50, 50, Drawers::Filler, "c:/temp/fill.png");
+// 
+// 
+// 
+// 	paint_widget_->installEventFilter(this);
+// 	color_panel_->installEventFilter(this);
+// 	spin_box_->installEventFilter(this);
+// 	paint_widget_->installEventFilter(this);
+// 	installEventFilter(this);
+// 
+// 	//добавляем объект в массив добавляем
+// 	gui_controller.AddWidget(this);
+// 
+// 
+// }
 
 PainterWindow::~PainterWindow()
 {
