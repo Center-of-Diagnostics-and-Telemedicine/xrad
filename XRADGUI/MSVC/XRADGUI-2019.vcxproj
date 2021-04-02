@@ -183,48 +183,72 @@
       <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
+    <QtMoc>
+      <NoWarnings>true</NoWarnings>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
+    <QtMoc>
+      <NoWarnings>true</NoWarnings>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
+    <QtMoc>
+      <NoWarnings>true</NoWarnings>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
+    <QtMoc>
+      <NoWarnings>true</NoWarnings>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
+    <QtMoc>
+      <NoWarnings>true</NoWarnings>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
+    <QtMoc>
+      <NoWarnings>true</NoWarnings>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
+    <QtMoc>
+      <NoWarnings>true</NoWarnings>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(IntDir)\GeneratedFiles5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
+    <QtMoc>
+      <NoWarnings>true</NoWarnings>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\QtGUIAPI\Common\AsyncTextBuffer.cpp" />
