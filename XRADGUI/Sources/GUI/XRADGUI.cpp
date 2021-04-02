@@ -147,24 +147,24 @@ size_t GetButtonDecision(wstring prompt, const std::vector<wstring>& buttons, GU
 namespace
 {
 
-	bool GetCheckboxDecisionBig(wstring prompt, const vector<pair<wstring, bool*> >& boxes)
+bool GetCheckboxDecisionBig(wstring prompt, const vector<pair<wstring, bool*> >& boxes)
+{
+	bool res = false;
+	if (boxes.size() <= api_GetCheckboxDecisionMaxBoxes())
+		res = api_GetCheckboxDecision(prompt, boxes);
+	else
 	{
-		bool res = false;
-		if (boxes.size() <= api_GetCheckboxDecisionMaxBoxes())
-			res = api_GetCheckboxDecision(prompt, boxes);
-		else
-		{
-			// переписать с "постраничным" выводом
-			res = api_GetCheckboxDecision(prompt, boxes);
-		}
-		if (res)
-		{
-			for (size_t i = 0; i < boxes.size(); ++i)
-			{
-			}
-		}
-		return res;
+		// переписать с "постраничным" выводом
+		res = api_GetCheckboxDecision(prompt, boxes);
 	}
+	if (res)
+	{
+		for (size_t i = 0; i < boxes.size(); ++i)
+		{
+		}
+	}
+	return res;
+}
 
 } // namespace
 
@@ -286,45 +286,45 @@ bool IsProgressActive()
 namespace
 {
 
-	class GUIProgressApi : public ProgressApi
+class GUIProgressApi : public ProgressApi
+{
+public:
+	virtual void Start(const wstring& message, double count) override
 	{
-	public:
-		virtual void Start(const wstring& message, double count) override
-		{
-			api_StartProgress(message, count);
-			started = true;
-		}
-		virtual void End() override
-		{
-			started = false;
-			api_EndProgress();
-		}
-		virtual bool Started() const override
-		{
-			return started;
-		}
-		virtual void SetPosition(double position) override
-		{
-			api_SetProgressPosition(position);
-		}
-		virtual void Update() override
-		{
-			xrad::ForceUpdateGUI();
-		}
-		virtual void ReportOverflow() override
-		{
-			if (overflow_reported)
-				return;
-			fprintf(stderr, "Progress: position overflow in set_position().\n");
-			overflow_reported = true;
-		}
-	private:
-		static bool started;
-		static bool overflow_reported;
-	};
+		api_StartProgress(message, count);
+		started = true;
+	}
+	virtual void End() override
+	{
+		started = false;
+		api_EndProgress();
+	}
+	virtual bool Started() const override
+	{
+		return started;
+	}
+	virtual void SetPosition(double position) override
+	{
+		api_SetProgressPosition(position);
+	}
+	virtual void Update() override
+	{
+		xrad::ForceUpdateGUI();
+	}
+	virtual void ReportOverflow() override
+	{
+		if (overflow_reported)
+			return;
+		fprintf(stderr, "Progress: position overflow in set_position().\n");
+		overflow_reported = true;
+	}
+private:
+	static bool started;
+	static bool overflow_reported;
+};
 
-	bool GUIProgressApi::started = false;
-	bool GUIProgressApi::overflow_reported = false;
+bool GUIProgressApi::started = false;
+bool GUIProgressApi::overflow_reported = false;
 
 } // namespace
 

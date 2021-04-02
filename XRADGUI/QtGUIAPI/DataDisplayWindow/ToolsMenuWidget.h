@@ -25,7 +25,7 @@ public:
 
 private: //methods
 
-	QRadioButton* getNewButton(int x, int y, size_t w, size_t h, const QIcon& icon,QWidget* parent);
+	QRadioButton* getNewButton(int x, int y, size_t w, size_t h, const QIcon& icon, QWidget* parent);
 
 private slots:
 	void click();
@@ -39,8 +39,8 @@ private: //fields
 	int chosen_item_value_;
 
 	QVBoxLayout* main_layout_;
-	
-	
+
+
 
 	size_t buttons_counter_ = 0;
 	size_t button_width = 40;
