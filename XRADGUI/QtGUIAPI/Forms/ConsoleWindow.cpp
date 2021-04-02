@@ -146,39 +146,35 @@ ConsoleWindow::ConsoleWindow(GUIController &in_gui_globals, QWidget *parent, Qt:
 	LoadProcessPrioritySettings();
 }
 
+QScreen* any_secondary_screen()
+{
+//	auto screens = QGuiApplication::screens();// вариант, позволяющий использовать не связанные между собой экраны
+	auto screens = QGuiApplication::primaryScreen()->virtualSiblings();
+	if(screens.size() <= 1) return nullptr;
+	for(auto& screen: screens)
+	{
+		if(screen != QGuiApplication::primaryScreen()) return screen;
+	}
+	return nullptr;
+}
+
 void ConsoleWindow::SetWindowPosition()
 {
-	QDesktopWidget desktop;
-#if 1
-	auto screens = QGuiApplication::screens();
-	size_t	n_screens = screens.size();
+	QRect console_rect;
 
-	QRect console_rect = QGuiApplication::primaryScreen()->geometry();
-	bool	virtual_desktop = QGuiApplication::primaryScreen()->virtualSiblings().size()>1;
-#pragma message тестировать, сколько экранов и сколько siblings на системе с двумя мониторами
-#else
-	QRect console_rect = desktop.screenGeometry(desktop.primaryScreen()); // or screenGeometry(), depending on your needs
-	bool	virtual_desktop = desktop.isVirtualDesktop();
-	size_t	n_screens = desktop.screenCount();
-#endif
-	console_rect.setLeft(console_rect.right() - WindowGeometry::console_width()); // правая часть первичного экрана
+	auto	secondary_screen = any_secondary_screen();
 
-	if(n_screens > 1 && virtual_desktop)
+	if(!secondary_screen)
 	{
-		//если экранов более одного...
-		int	secondary_screen_no = QGuiApplication::primaryScreen() == 0 ? 1:0;
-		//QGuiApplication::primaryScreen()
-		
-		auto	secondary_screen = QGuiApplication::screens().at(secondary_screen_no);
-		if(secondary_screen)
-//		if(desktop.screen(secondary_screen_no))
-		{
-			//...и если экран с заданным номером существует, то занимаем под консоль весь вторичный экран
-//			console_rect = desktop.screenGeometry(secondary_screen_no);
-			console_rect = secondary_screen->geometry();
-
-			console_rect.setLeft(console_rect.left() + 8);
-		}
+		// если экран один, консоль занимает правую часть первичного экрана
+		console_rect = QGuiApplication::primaryScreen()->geometry();
+		console_rect.setLeft(console_rect.right() - WindowGeometry::console_width()); 
+	}
+	else
+	{
+		// если экранов более одного, то занимаем под консоль целиком второй экран
+		console_rect = secondary_screen->geometry();
+		console_rect.setLeft(console_rect.left() + WindowGeometry::left_margin());
 	}
 
 	console_rect.setTop(console_rect.top() + WindowGeometry::top_margin());
