@@ -31,10 +31,6 @@ namespace xrad
 namespace XRAD_GUI 
 {
 
-
-
-
-
 class PaintWidget : public QWidget {
 	Q_OBJECT
 
@@ -50,7 +46,7 @@ public:
 	void setColor(const QColor&);
 	void setBrushSize(size_t);
 	void setShiftPressed(bool is);
-
+	void setImage(const QImage&);
 
 
 

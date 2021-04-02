@@ -10,6 +10,8 @@ namespace XRAD_GUI {
 
 	XRAD_USING
 
+
+
 	PaintWidget::PaintWidget(QWidget* parent, size_t in_vsize, size_t in_hsize, std::shared_ptr<QImage> in_result) :
 		QWidget(parent),
 		width_(in_hsize),
@@ -23,6 +25,8 @@ namespace XRAD_GUI {
 		initPen(drawing_pen_, color_, 10, Qt::RoundCap);
 		drawing_pen_.setJoinStyle(Qt::MiterJoin);
 		initPen(erasing_pen_, Qt::white, 10, Qt::RoundCap);
+
+		
 	}
 
 	PaintWidget::~PaintWidget()
@@ -367,6 +371,11 @@ namespace XRAD_GUI {
 	void PaintWidget::setShiftPressed(bool is)
 	{
 		is_shift_pressed_ = is;
+	}
+
+	void PaintWidget::setImage(const QImage& img)
+	{
+		*ptarget_pixmap_ = QPixmap::fromImage(img);
 	}
 
 
