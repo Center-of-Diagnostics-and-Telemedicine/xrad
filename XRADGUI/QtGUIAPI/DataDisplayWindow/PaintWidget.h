@@ -81,26 +81,26 @@ private: //methods
 private: //fields
 
 
-	std::stack<QImage> last_state_;
-	std::stack<QImage> pre_lastState_;
+	std::stack<QImage> m_last_state;
+	std::stack<QImage> m_pre_last_state;
 
-	QPixmap* ptarget_pixmap_;
+	QPixmap* m_ptarget_pixmap;
 
-	QLine figure_;
-	QColor color_ = Qt::black;
-	QPen drawing_pen_, erasing_pen_;
-	QPoint current_pos_, previous_pos_;
+	QLine m_figure;
+	QColor m_color = Qt::black;
+	QPen m_drawing_pen, m_erasing_pen;
+	QPoint m_current_pos, m_previous_pos;
 
 
-	std::shared_ptr<QImage> p_result_;
+	std::shared_ptr<QImage> m_presult;
 
-	size_t brush_size_ = 10;
-	size_t width_, height_;
+	size_t m_brush_size = 10;
+	size_t m_width, m_height;
 
-	int drawer_;
+	int m_drawer;
 
 	
-	bool is_L_button_pressed_ = false, is_R_button_pressed_ = false;
+	bool m_left_btn_pressed = false, m_right_btn_pressed = false;
 
 };
 

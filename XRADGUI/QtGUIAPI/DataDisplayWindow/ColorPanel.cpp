@@ -4,54 +4,50 @@
 ColorPanel::ColorPanel(QWidget* parent)
 	: QWidget(parent)
 {
-	main_layout_ = new QHBoxLayout(this);
-	main_layout_->setSpacing(5);
-	main_layout_->setMargin(0);
+	m_main_layout = new QHBoxLayout(this);
+	m_main_layout->setSpacing(5);
+	m_main_layout->setMargin(0);
 
-	title_label_ = new QLabel("Color:");
-	red_label_ = new QLabel("R:");
-	green_label_ = new QLabel("G:");
-	blue_label_ = new QLabel("B:");
-
-
-	red_spin_box_ = getNewSpinBox(0, 255);
-	gren_spin_box_ = getNewSpinBox(0, 255);
-	blue_spin_box_ = getNewSpinBox(0, 255);
+	m_title_label = new QLabel("Color:");
+	m_red_label = new QLabel("R:");
+	m_green_label = new QLabel("G:");
+	m_blue_label = new QLabel("B:");
 
 
+	m_red_spin_box = getNewSpinBox(0, 255);
+	m_gren_spin_box = getNewSpinBox(0, 255);
+	m_blue_spin_box = getNewSpinBox(0, 255);
 
-	main_layout_->addWidget(title_label_);
-	main_layout_->addWidget(red_label_);
-	main_layout_->addWidget(red_spin_box_);
-	main_layout_->addWidget(green_label_);
-	main_layout_->addWidget(gren_spin_box_);
-	main_layout_->addWidget(blue_label_);
-	main_layout_->addWidget(blue_spin_box_);
+	m_main_layout->addWidget(m_title_label);
+	m_main_layout->addWidget(m_red_label);
+	m_main_layout->addWidget(m_red_spin_box);
+	m_main_layout->addWidget(m_green_label);
+	m_main_layout->addWidget(m_gren_spin_box);
+	m_main_layout->addWidget(m_blue_label);
+	m_main_layout->addWidget(m_blue_spin_box);
 
 
 	for (size_t i = 0; i < 5; i++)
 	{
-		items_.push_back(new QRadioButton);
-		colors_.push_back(QColor(QColor::fromRgb(i % 2 == 0 && i != 4 ? 255 : 0, i % 3 == 0 ? 255 : 0, i % 4 == 0 ? 255 : 0)));
+		m_items.push_back(new QRadioButton);
+		m_colors.push_back(QColor(QColor::fromRgb(i % 2 == 0 && i != 4 ? 255 : 0, i % 3 == 0 ? 255 : 0, i % 4 == 0 ? 255 : 0)));
 	}
-	for (size_t i = 0; i < items_.size(); i++)
+	for (size_t i = 0; i < m_items.size(); i++)
 	{
 
-		items_[i]->setStyleSheet(getStyleSheet(colors_[i]));
-		items_[i]->setObjectName((QString)int(i));
-		items_[i]->setFocusPolicy(Qt::TabFocus);
-		main_layout_->addWidget(items_[i]);
-		connect(items_[i], &QRadioButton::clicked, this, &ColorPanel::click);
+		m_items[i]->setStyleSheet(getStyleSheet(m_colors[i]));
+		m_items[i]->setObjectName((QString)int(i));
+		m_items[i]->setFocusPolicy(Qt::TabFocus);
+		m_main_layout->addWidget(m_items[i]);
+		connect(m_items[i], &QRadioButton::clicked, this, &ColorPanel::click);
 	}
 
 
 
-	items_[0]->setChecked(true);
-	setColorPickerValue(colors_[0]);
+	m_items[0]->setChecked(true);
+	setColorPickerValue(m_colors[0]);
 
 	installEventFilter(this);
-
-
 }
 ColorPanel::~ColorPanel()
 {
@@ -60,14 +56,11 @@ ColorPanel::~ColorPanel()
 
 bool ColorPanel::eventFilter(QObject* target, QEvent* event)
 {
-	if (target == blue_spin_box_ || target == red_spin_box_ || target == gren_spin_box_)
+	if (target == m_blue_spin_box || target == m_red_spin_box || target == m_gren_spin_box)
 	{
-   		setColorPanelValue(QColor::fromRgb(red_spin_box_->value(), gren_spin_box_->value(), blue_spin_box_->value()));
-		
+   		setColorPanelValue(QColor::fromRgb(m_red_spin_box->value(), m_gren_spin_box->value(), m_blue_spin_box->value()));
 	}
-
 	return parent()->eventFilter(target, event);
-	
 }
 
 QSpinBox* ColorPanel::getNewSpinBox(int min, int max)
@@ -82,32 +75,32 @@ QSpinBox* ColorPanel::getNewSpinBox(int min, int max)
 }
 QColor ColorPanel::currentColor()
 {
-	return colors_[changed_item_number_];
+	return m_colors[m_changed_item_number];
 }
 
 void ColorPanel::setColorPanelValue(const QColor& in_color)
 {
-	colors_[changed_item_number_] = in_color;
-	items_[changed_item_number_]->setStyleSheet(getStyleSheet(in_color));
+	m_colors[m_changed_item_number] = in_color;
+	m_items[m_changed_item_number]->setStyleSheet(getStyleSheet(in_color));
 }
 
 void ColorPanel::setColorPickerValue(const QColor& color)
 {
-	red_spin_box_->setValue(color.red());
-	gren_spin_box_->setValue(color.green());
-	blue_spin_box_->setValue(color.blue());
+	m_red_spin_box->setValue(color.red());
+	m_gren_spin_box->setValue(color.green());
+	m_blue_spin_box->setValue(color.blue());
 }
 
 void ColorPanel::click()
 {
 	QObject* obj = sender();
 
-	for (size_t i = 0; i < items_.size(); i++)
+	for (size_t i = 0; i < m_items.size(); i++)
 	{
-		if (obj->objectName() == items_[i]->objectName())
+		if (obj->objectName() == m_items[i]->objectName())
 		{
-			changed_item_number_ = i;
-			setColorPickerValue(colors_[i]);
+			m_changed_item_number = i;
+			setColorPickerValue(m_colors[i]);
 		}
 	}
 

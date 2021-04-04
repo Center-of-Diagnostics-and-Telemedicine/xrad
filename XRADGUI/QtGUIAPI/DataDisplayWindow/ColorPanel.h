@@ -36,22 +36,22 @@ private: //methods
 	void setColorPickerValue(const QColor&);
 
 private:  //fields
-	QLabel* title_label_;
-	QLabel* red_label_;
-	QLabel* green_label_;
-	QLabel* blue_label_;
+	QLabel* m_title_label;
+	QLabel* m_red_label;
+	QLabel* m_green_label;
+	QLabel* m_blue_label;
 
-	QSpinBox* red_spin_box_;
-	QSpinBox* gren_spin_box_;
-	QSpinBox* blue_spin_box_;
+	QSpinBox* m_red_spin_box;
+	QSpinBox* m_gren_spin_box;
+	QSpinBox* m_blue_spin_box;
 
-	QHBoxLayout* main_layout_;
+	QHBoxLayout* m_main_layout;
 
-	size_t changed_item_number_ = 0;
+	size_t m_changed_item_number = 0;
 	
 
-	std::vector<QRadioButton*> items_;
-	std::vector<QColor> colors_;
+	std::vector<QRadioButton*> m_items;
+	std::vector<QColor> m_colors;
 
 
 

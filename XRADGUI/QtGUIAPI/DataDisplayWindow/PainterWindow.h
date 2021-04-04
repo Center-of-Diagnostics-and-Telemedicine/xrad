@@ -55,17 +55,17 @@ private:
 private: // fields
 
 
-	SpinBoxWidget* spin_box_;
-	ColorPanel* color_panel_;
-	ToolsMenuWidget* tools_menu_;
-	QFrame* painter_frame_;
+	SpinBoxWidget* m_sb_brush_size;
+	ColorPanel* m_color_panel;
+	ToolsMenuWidget* m_tools_menu;
+	QFrame* m_painter_frame;
 
-	QString title_;
+	QString m_title;
 
-	size_t height_, width_;
+	size_t m_height, m_width;
 
-	shared_ptr<QImage> presult_;
-	PaintWidget* paint_widget_;
+	shared_ptr<QImage> m_presult;
+	PaintWidget* m_paint_widget;
 
 	Ui::Dialog ui;
 

@@ -33,18 +33,18 @@ private slots:
 
 private: //fields
 
-	std::vector<QRadioButton*> items_;
-	std::vector<int> values_;
+	std::vector<QRadioButton*> m_items;
+	std::vector<int> m_values;
 
-	int chosen_item_value_;
+	int m_chosen_item_value;
 
-	QVBoxLayout* main_layout_;
+	QVBoxLayout* m_main_layout;
 
 
 
-	size_t buttons_counter_ = 0;
-	size_t button_width = 40;
-	size_t button_height = 40;
+	size_t m_buttons_counter = 0;
+	size_t m_button_width = 40;
+	size_t m_button_height = 40;
 
 };
 

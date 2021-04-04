@@ -24,10 +24,10 @@ public:
 
 private:
 
-	QSpinBox* spin_box_;
-	QHBoxLayout* main_layout_;
+	QSpinBox* m_spin_box;
+	QHBoxLayout* m_main_layout;
 
-	QLabel* title_label_;
+	QLabel* m_title_label;
 	
 
 };
