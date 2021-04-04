@@ -965,11 +965,11 @@ void api_ShowImage(const wstring& wtitle,
 }
 
 
-RealFunction2D_F32 api_GetGrayscalePainting(const wstring& title, RealFunction2D_F32 original)
+RealFunction2D_F32 api_GetGrayscalePainting(const wstring& title, const RealFunction2D_F32& original)
 {
 	shared_ptr<QImage>	result_qimage = make_shared<QImage>();
 
-	*result_qimage = QImage(original.hsize(), original.vsize(), QImage::Format_RGBA8888);
+	*result_qimage = QImage(int(original.hsize()), int(original.vsize()), QImage::Format_RGBA8888);
 
 
 
@@ -981,7 +981,7 @@ RealFunction2D_F32 api_GetGrayscalePainting(const wstring& title, RealFunction2D
 		for (size_t j = 0; j < vsize; j++)
 		{
 			float l = original.at(j, i);
-			result_qimage->setPixelColor(i, j, QColor(l, l, l));
+			result_qimage->setPixelColor(int(i), int(j), QColor(l, l, l));
 		}
 	}
 
@@ -1024,21 +1024,20 @@ RealFunction2D_F32 api_GetGrayscalePainting(const wstring& title, size_t vsize, 
 }
 
 
-ColorImageF32 api_GetColorPainting(const wstring& title, ColorImageF32 original)
+ColorImageF32 api_GetColorPainting(const wstring& title, const ColorImageF32& original)
 {
+	int height = int(original.vsize());
+	int width = int(original.hsize());
+
 	shared_ptr<QImage>	result_qimage = make_shared<QImage>();
-	*result_qimage = QImage(original.hsize(), original.vsize(), QImage::Format_RGBA8888);
+	*result_qimage = QImage(width, height, QImage::Format_RGBA8888);
 
 
-
-	size_t vsize = result_qimage->width();
-	size_t hsize = result_qimage->height();
-
-	for (size_t i = 0; i < hsize; i++)
+	for (int i = 0; i < height; i++)
 	{
-		for (size_t j = 0; j < vsize; j++)
+		for (int j = 0; j < width; j++)
 		{
-			result_qimage->setPixelColor(i, j, QColor(original.at(i, j).red(), original.at(i, j).green(), original.at(i, j).blue()));
+			result_qimage->setPixelColor(j, i, QColor(original.at(i, j).red(), original.at(i, j).green(), original.at(i, j).blue()));
 		}
 	}
 
@@ -1054,13 +1053,13 @@ ColorImageF32 api_GetColorPainting(const wstring& title, ColorImageF32 original)
 			work_thread().Suspend(ThreadUser::suspend_for_data_analyze);
 
 
-			ColorImageF32    result(vsize, hsize);
+			ColorImageF32    result(height, width);
 
-			for (size_t i = 0; i < hsize; ++i)
+			for (int i = 0; i < height; ++i)
 			{
-				for (size_t j = 0; j < vsize; j++)
+				for (int j = 0; j < width; j++)
 				{
-					QColor pixel_color = result_qimage->pixelColor(i, j);
+					QColor pixel_color = result_qimage->pixelColor(j, i);
 					result.at(i, j) = ColorSampleF32::RGBColorSample(pixel_color.red(), pixel_color.green(), pixel_color.blue());
 				}
 			}
