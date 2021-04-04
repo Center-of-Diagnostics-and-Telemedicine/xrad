@@ -29,11 +29,16 @@ private slots:
 
 private: //methods
 
-	bool eventFilter(QObject* target, QEvent* event);
+
 	QSpinBox* getNewSpinBox(int min, int max);
 
-	void setColorPanelValue(const QColor&);
+	void setColorValue(const QColor&);
 	void setColorPickerValue(const QColor&);
+
+	void spinsValueChanged(int n);
+	
+
+	void blockSpinBoxesSignals(bool);
 
 private:  //fields
 	QLabel* m_title_label;

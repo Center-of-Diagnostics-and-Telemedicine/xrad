@@ -42,26 +42,34 @@ ColorPanel::ColorPanel(QWidget* parent)
 		connect(m_items[i], &QRadioButton::clicked, this, &ColorPanel::click);
 	}
 
-
+	
+	
 
 	m_items[0]->setChecked(true);
 	setColorPickerValue(m_colors[0]);
 
-	installEventFilter(this);
+	
+	
+
+	
+	
+	installEventFilter(parent);
 }
 ColorPanel::~ColorPanel()
 {
+	delete m_main_layout;
+
+	delete m_title_label;
+	delete m_red_label;
+	delete m_green_label;
+	delete m_blue_label;
+
+	delete m_red_spin_box;
+	delete m_gren_spin_box;
+	delete m_blue_spin_box;
 
 }
 
-bool ColorPanel::eventFilter(QObject* target, QEvent* event)
-{
-	if (target == m_blue_spin_box || target == m_red_spin_box || target == m_gren_spin_box)
-	{
-   		setColorPanelValue(QColor::fromRgb(m_red_spin_box->value(), m_gren_spin_box->value(), m_blue_spin_box->value()));
-	}
-	return parent()->eventFilter(target, event);
-}
 
 QSpinBox* ColorPanel::getNewSpinBox(int min, int max)
 {
@@ -69,8 +77,9 @@ QSpinBox* ColorPanel::getNewSpinBox(int min, int max)
 	result->setRange(min, max);
 	result->setFocusPolicy(Qt::FocusPolicy::ClickFocus);
 
-	result->installEventFilter(this);
-
+	connect(result, qOverload<int>(&QSpinBox::valueChanged), this, &ColorPanel::spinsValueChanged);
+	result->installEventFilter(parent());
+	   
 	return result;
 }
 QColor ColorPanel::currentColor()
@@ -78,7 +87,7 @@ QColor ColorPanel::currentColor()
 	return m_colors[m_changed_item_number];
 }
 
-void ColorPanel::setColorPanelValue(const QColor& in_color)
+void ColorPanel::setColorValue(const QColor& in_color)
 {
 	m_colors[m_changed_item_number] = in_color;
 	m_items[m_changed_item_number]->setStyleSheet(getStyleSheet(in_color));
@@ -86,9 +95,25 @@ void ColorPanel::setColorPanelValue(const QColor& in_color)
 
 void ColorPanel::setColorPickerValue(const QColor& color)
 {
+	blockSpinBoxesSignals(true);
+	
 	m_red_spin_box->setValue(color.red());
 	m_gren_spin_box->setValue(color.green());
 	m_blue_spin_box->setValue(color.blue());
+
+	blockSpinBoxesSignals(false);
+}
+
+void ColorPanel::spinsValueChanged(int n)
+{
+	setColorValue(QColor::fromRgb(m_red_spin_box->value(), m_gren_spin_box->value(), m_blue_spin_box->value()));
+}
+
+void ColorPanel::blockSpinBoxesSignals(bool is_block)
+{
+	m_red_spin_box->blockSignals(is_block);
+	m_gren_spin_box->blockSignals(is_block);
+	m_blue_spin_box->blockSignals(is_block);
 }
 
 void ColorPanel::click()
