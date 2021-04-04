@@ -156,19 +156,28 @@ bool PainterWindow::eventFilter(QObject* target, QEvent* event)
 	
 	if (event->type() == QEvent::KeyPress)
 	{
+		if (static_cast<QKeyEvent*>(event)->modifiers() == Qt::Modifier::CTRL)
+		{
+			switch (static_cast<QKeyEvent*>(event)->key())
+			{
+
+				case Qt::Key_Z:
+					m_paint_widget->undo();
+					break;
+				case Qt::Key_Y:
+					m_paint_widget->redo();
+					break;
+				case Qt::Key_Delete:
+					m_paint_widget->clear();
+					break;
+					break;
+				default:
+					break;
+			}
+		}
 		
 		switch (static_cast<QKeyEvent*>(event)->key())
 		{
-			
-			case Qt::Key_Z:
-				m_paint_widget->undo();
-				break;
-			case Qt::Key_Y:
-				m_paint_widget->redo();
-				break;
-			case Qt::Key_Delete:
-				m_paint_widget->clear();
-				break;
 			case Qt::Key_BracketLeft:
 				m_sb_brush_size->setVal(m_paint_widget->brushSize() - 1);
 				break;
@@ -181,10 +190,7 @@ bool PainterWindow::eventFilter(QObject* target, QEvent* event)
 	}
 	if (event->type() == QEvent::KeyRelease)
 	{
-		if (static_cast<QKeyEvent*>(event)->key() == Qt::Key_Shift)
-		{
-		//	paint_widget_->setShiftPressed(false);
-		};
+		
 	}
 
 
