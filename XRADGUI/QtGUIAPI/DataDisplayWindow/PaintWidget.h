@@ -45,7 +45,6 @@ public:
 	void setDrawer(int drawer);
 	void setColor(const QColor&);
 	void setBrushSize(size_t);
-	void setShiftPressed(bool is);
 	void setImage(const QImage&);
 
 
@@ -100,7 +99,7 @@ private: //fields
 
 	int drawer_;
 
-	bool is_shift_pressed_ = false;
+	
 	bool is_L_button_pressed_ = false, is_R_button_pressed_ = false;
 
 };

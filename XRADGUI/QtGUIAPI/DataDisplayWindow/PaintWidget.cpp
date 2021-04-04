@@ -138,7 +138,7 @@ void PaintWidget::mouseMoveEvent(QMouseEvent* event)
 	PixmapPainter.setPen(drawing_pen_);
 
 
-	if (is_shift_pressed_ == true)
+	if (event->modifiers() ==Qt::ShiftModifier)
 	{
 		int wid = event->pos().x() - figure_.p1().x();
 		int hei = event->pos().y() - figure_.p1().y();
@@ -368,10 +368,7 @@ void PaintWidget::setBrushSize(size_t in_size)
 	erasing_pen_.setWidth(int(brush_size_));
 }
 
-void PaintWidget::setShiftPressed(bool is)
-{
-	is_shift_pressed_ = is;
-}
+
 
 void PaintWidget::setImage(const QImage& img)
 {
