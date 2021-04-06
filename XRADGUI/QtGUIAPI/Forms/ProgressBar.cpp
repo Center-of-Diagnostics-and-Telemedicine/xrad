@@ -10,14 +10,16 @@
 #include "GUIController.h"
 #include "WorkflowControl.h"
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>
+#include <XRADGUI/QtGUIAPI/Common/SecondaryScreen.h>
+#include <XRADGUI/QtGUIAPI/Common/SavedSettings.h>
 
 //--------------------------------------------------------------
 
 namespace XRAD_GUI
 {
 
-bool	ProgressBar::geometry_stored = false;
-QRect	ProgressBar::progress_geometry;
+// bool	ProgressBar::geometry_stored = false;
+// QRect	ProgressBar::progress_geometry;
 
 ProgressBar::ProgressBar(QString prompt, double count) :
 	current_value(0), max_value(count > 0? count: 1),
@@ -232,9 +234,39 @@ void ProgressBar::UpdateIndicator()
 
 void ProgressBar::StoreGeometry(void)
 {
-	progress_geometry = geometry();
-	geometry_stored = true;
+	auto current_geometry = geometry();
+	GUISaveParameter(progress_stored_setting(), "top", current_geometry.top());
+	GUISaveParameter(progress_stored_setting(), "left", current_geometry.left());
+	GUISaveParameter(progress_stored_setting(), "bottom", current_geometry.bottom());
+	GUISaveParameter(progress_stored_setting(), "right", current_geometry.right());
+	GUISaveParameter(progress_stored_setting(), "n_screens", QGuiApplication::primaryScreen()->virtualSiblings().size());
+//	geometry_stored = true;
 }
+
+bool ProgressBar::LoadGeometry(QRect &geometry)
+{
+	bool	found;
+	int	top = GUILoadParameter(progress_stored_setting(), "top", 0, &found);
+	if(!found) return false;
+	int	left = GUILoadParameter(progress_stored_setting(), "left", 0, &found);
+	if(!found) return false;
+	int	right = GUILoadParameter(progress_stored_setting(), "right", 0, &found);
+	if(!found) return false;
+	int	bottom = GUILoadParameter(progress_stored_setting(), "bottom", 0, &found);
+	if(!found) return false;
+	int	n_screens = GUILoadParameter(progress_stored_setting(), "n_screens", 0, &found);
+	if(!found) return false;
+
+	if(n_screens != QGuiApplication::primaryScreen()->virtualSiblings().size()) return false;
+
+	geometry.setTop(top);
+	geometry.setBottom(bottom);
+	geometry.setLeft(left);
+	geometry.setRight(right);
+
+	return true;
+}
+
 
 void ProgressBar::EndProgress(void)
 {
@@ -247,37 +279,33 @@ void ProgressBar::EndProgress(void)
 
 void ProgressBar::SetWindowPosition()
 {
-	if(geometry_stored)
+	QRect	loaded_geometry;
+	if(LoadGeometry(loaded_geometry))
 	{
-		setGeometry(progress_geometry);
+		setGeometry(loaded_geometry);
 	}
 	else
 	{
-		QDesktopWidget desktop;
-		QRect desktop_rect = desktop.screenGeometry(desktop.primaryScreen()); // or screenGeometry(), depending on your needs
+		auto	secondary_screen = any_secondary_screen();
 		QRect progress_rect = geometry();
 		int	progress_height = progress_rect.bottom() - progress_rect.top();
 		int	progress_width = progress_rect.right() - progress_rect.left();
 
-// 		progress_rect.setRight(desktop_rect.right() - WindowGeometry::console_width() - 16); // совпадает с левым краем консоли
+		QRect progress_screen_rect;
 
-		if(desktop.screenCount()>1 && desktop.isVirtualDesktop())			//если экранов более одного, то помещаем индикатор на второй экран
+		if(secondary_screen)
 		{
-			int	secondary_screen_no = desktop.primaryScreen() == 0 ? 1 : 0;
-			QRect secondary_desktop_rect = desktop.screenGeometry(secondary_screen_no);
-
-			progress_rect.setRight(secondary_desktop_rect.left() + WindowGeometry::left_margin() + progress_width);
-			progress_rect.setBottom(secondary_desktop_rect.bottom() - WindowGeometry::bottom_margin()); // совпадает с нижним краем консоли
-			progress_rect.setTop(progress_rect.bottom() - progress_height);
-			progress_rect.setLeft(progress_rect.right() - progress_width);
+			progress_screen_rect = secondary_screen->geometry();
 		}
 		else
 		{
-			progress_rect.setRight(desktop_rect.left() + WindowGeometry::left_margin() + progress_width); // окно помещается в левом нижнем краю основного экрана
-			progress_rect.setBottom(desktop_rect.bottom() - WindowGeometry::bottom_margin()); // совпадает с нижним краем консоли
-			progress_rect.setTop(progress_rect.bottom() - progress_height);
-			progress_rect.setLeft(progress_rect.right() - progress_width);
+			progress_screen_rect = QGuiApplication::primaryScreen()->geometry();
 		}
+
+		progress_rect.setRight(progress_screen_rect.left() + WindowGeometry::left_margin() + progress_width);
+		progress_rect.setBottom(progress_screen_rect.bottom() - WindowGeometry::bottom_margin()); // совпадает с нижним краем консоли
+		progress_rect.setTop(progress_rect.bottom() - progress_height);
+		progress_rect.setLeft(progress_rect.right() - progress_width);
 
 		setGeometry(progress_rect);
 	}
