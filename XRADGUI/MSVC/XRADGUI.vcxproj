@@ -180,6 +180,7 @@
     <ClCompile Include="..\QtGUIAPI\Common\FileSaveUtils.cpp" />
     <ClCompile Include="..\QtGUIAPI\Common\GUIController.cpp" />
     <ClCompile Include="..\QtGUIAPI\Common\OutputRedirector.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\SecondaryScreen.cpp" />
     <ClCompile Include="..\QtGUIAPI\Common\XRADGUIUtils.cpp" />
     <ClCompile Include="..\QtGUIAPI\Common\XRADGUIAPI.cpp" />
     <ClCompile Include="..\QtGUIAPI\Common\OutputSubstitution.cpp" />

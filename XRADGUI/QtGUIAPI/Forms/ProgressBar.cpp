@@ -10,6 +10,7 @@
 #include "GUIController.h"
 #include "WorkflowControl.h"
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>
+#include <XRADGUI/QtGUIAPI/Common/SecondaryScreen.h>
 
 //--------------------------------------------------------------
 

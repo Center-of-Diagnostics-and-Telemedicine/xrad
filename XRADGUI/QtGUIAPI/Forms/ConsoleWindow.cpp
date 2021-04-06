@@ -12,6 +12,7 @@
 #include "SavedSettings.h"
 #include "WorkflowControl.h"
 #include <XRADGUI/Sources/GUI/I18nSupport.h>
+#include <XRADGUI/QtGUIAPI/Common/SecondaryScreen.h>
 
 //--------------------------------------------------------------
 
@@ -146,17 +147,6 @@ ConsoleWindow::ConsoleWindow(GUIController &in_gui_globals, QWidget *parent, Qt:
 	LoadProcessPrioritySettings();
 }
 
-QScreen* any_secondary_screen()
-{
-//	auto screens = QGuiApplication::screens();// вариант, позволяющий использовать не связанные между собой экраны
-	auto screens = QGuiApplication::primaryScreen()->virtualSiblings();
-	if(screens.size() <= 1) return nullptr;
-	for(auto& screen: screens)
-	{
-		if(screen != QGuiApplication::primaryScreen()) return screen;
-	}
-	return nullptr;
-}
 
 void ConsoleWindow::SetWindowPosition()
 {
