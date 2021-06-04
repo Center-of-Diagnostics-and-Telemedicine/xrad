@@ -18,13 +18,15 @@
 *********************************************************************/
 
 XRAD_BEGIN
-
+namespace
+{
 RealInterpolator2D interpolator;
 
 int	interpolator_size(32);
 int	interpolators_amount(256);
+}
 
-void xrad::InitRadonTransform()
+void InitRadonTransform()
 {
 	interpolator.InitFilters(interpolators_amount, interpolators_amount, SincFilterGenerator2D<FIRFilter2DReal>(interpolator_size, interpolator_size));
 //	interpolator.InitFilters(interpolators_amount, interpolators_amount, BesselFilterGenerator<FIRFilter2DReal>(interpolator_size, interpolators2D::besselRadiusMIN_LOST));
