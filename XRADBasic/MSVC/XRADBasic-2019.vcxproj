@@ -226,11 +226,11 @@
     <ClCompile Include="..\Sources\Utils\FibonacciRandoms.cpp" />
     <ClCompile Include="..\Sources\Utils\GradientPalette.cpp" />
     <ClCompile Include="..\Sources\Utils\LeastSquares.cpp" />
-    <ClCompile Include="..\Sources\Utils\RadonTransform.cpp" />
     <ClCompile Include="..\Sources\Utils\md5.cpp" />
     <ClCompile Include="..\Sources\Utils\numbers_in_string.cpp" />
     <ClCompile Include="..\Sources\Utils\ProgressIndicatorScheduler.cpp" />
     <ClCompile Include="..\Sources\Utils\ProgressProxyApi.cpp" />
+    <ClCompile Include="..\Sources\Utils\RadonTransform.cpp" />
     <ClCompile Include="..\Sources\Utils\RandomNoiseGenerator.cpp" />
     <ClCompile Include="..\Sources\Utils\StatisticUtils.cpp" />
     <ClCompile Include="..\Sources\Utils\ThreadUtils.cpp" />
