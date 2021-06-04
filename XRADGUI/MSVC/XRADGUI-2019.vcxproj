@@ -257,6 +257,7 @@
     <ClCompile Include="..\QtGUIAPI\Common\OutputRedirector.cpp" />
     <ClCompile Include="..\QtGUIAPI\Common\OutputSubstitution.cpp" />
     <ClCompile Include="..\QtGUIAPI\Common\SavedSettings.cpp" />
+    <ClCompile Include="..\QtGUIAPI\Common\SecondaryScreen.cpp" />
     <ClCompile Include="..\QtGUIAPI\Common\StayOnTopDialog.cpp" />
     <ClCompile Include="..\QtGUIAPI\Common\stdio_console.cpp" />
     <ClCompile Include="..\QtGUIAPI\Common\ThreadGUI.cpp" />
