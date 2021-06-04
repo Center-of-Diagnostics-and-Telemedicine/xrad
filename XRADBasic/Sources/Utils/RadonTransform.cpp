@@ -1,4 +1,8 @@
 ﻿#include "pre.h"
+
+#include <XRADBasic/Sources/Utils/PhysicalUnits.h>
+#include <XRADBasic/FFT2D.h>
+
 #include "RadonTransform.h"
 
 /********************************************************************

@@ -13,6 +13,7 @@
 	purpose:	
 *********************************************************************/
 
+#include <XRADBasic/ContainersAlgebra.h>
 
 XRAD_BEGIN
 
