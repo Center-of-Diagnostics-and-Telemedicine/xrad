@@ -78,7 +78,7 @@ void RadonTransformReverse(RealFunction2D_F32 &restored, const RealFunction2D_F3
 		}
 	}
 
-	FFTf(radonc, fftRevRollBoth, fftNone);
+	FFTf(radonc, fftRevRollBoth, fftNone, e_use_omp);
 	
 	RealFunction2D_F32 real_d(real(radonc));
 	RealFunction2D_F32 imaginary_d(imag(radonc));
@@ -120,7 +120,7 @@ void RadonTransformReverse(RealFunction2D_F32 &restored, const RealFunction2D_F3
 	}
 	progress.end();
 
-	FFTf(restoredc, fftRevRollBefore, fftRevRollBefore);
+	FFTf(restoredc, fftRevRollBefore, fftRevRollBefore, e_use_omp);
 
 	restoredc.roll(ptrdiff_t(restored.vsize()/2), ptrdiff_t(restored.hsize()/2));
 	restored.CopyData(restoredc.real());
@@ -150,7 +150,7 @@ void RadonTransformForward(RealFunction2D_F32 &radon, const RealFunction2D_F32 &
 	enlarged_c.CopyData(original);
 	enlarged_c.roll(-ptrdiff_t(vs / 2), -ptrdiff_t(hs / 2));
 	
-	FFTf(enlarged_c, fftFwdRollAfter, fftFwdRollAfter);
+	FFTf(enlarged_c, fftFwdRollAfter, fftFwdRollAfter, e_use_omp);
 
  	RealFunction2D_F32 real_d(real(enlarged_c));
  	RealFunction2D_F32 imaginary_d(imag(enlarged_c));
@@ -173,7 +173,7 @@ void RadonTransformForward(RealFunction2D_F32 &radon, const RealFunction2D_F32 &
 	}
 	progress.end();
 
-	FFTf(radonc, fftFwdRollBoth, fftNone);
+	FFTf(radonc, fftFwdRollBoth, fftNone, e_use_omp);
 
 	radon.CopyData(radonc.real());
 	radon *= enlarge_factor;
@@ -190,7 +190,7 @@ void MakeIsotropic(RealFunction2D_F32& original)
 	size_t hs2 = hs/2;
 
 	ComplexFunction2D_F32 data_to_process(original);
-	FFTf(data_to_process, fftFwdRollAfter, fftFwdRollAfter);
+	FFTf(data_to_process, fftFwdRollAfter, fftFwdRollAfter, e_use_omp);
 	for(size_t i = 0; i< vs; ++i)
 	{
 		for(size_t j = 0; j< hs; ++j)
@@ -202,7 +202,7 @@ void MakeIsotropic(RealFunction2D_F32& original)
 			}
 		}
 	}
-	FFTf(data_to_process, fftRevRollBefore, fftRevRollBefore);
+	FFTf(data_to_process, fftRevRollBefore, fftRevRollBefore, e_use_omp);
 
 	original.CopyData(data_to_process.real());
 
