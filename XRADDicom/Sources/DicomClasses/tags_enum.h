@@ -65,15 +65,20 @@ namespace Dicom
 		e_institution_code_sequence = 0x00080082,
 		e_referring_physicians_name = 0x00080090,
 		e_referring_physicians_address = 0x00080092,
+		e_referring_physicians_id_sequence = 0x00080096,
+		e_referring_physicians_telephone_number = 0x00080094,
 
-		referring_physicians_telephone_numbers = 0x00080094,
-		referring_physician_identification_sequence = 0x00080096,
+		e_physician_of_record = 0x00081048,
+		e_physician_of_record_ids = 0x00081049,
+
 		e_responsible_person = 0x00102297,
 		e_evaluator_name = 0x00142006,
 
 		e_operators_name = 0x00081070,
-		e_name_of_physicians_reading_study = 0x00081060,
+		e_name_of_physician_reading_study = 0x00081060,
+		e_physicians_reading_study_id_sequence = 0x00081062,
 		e_performing_physicians_name = 0x00081050,
+		e_performing_physicians_id_sequence = 0x00081052,
 
 
 		e_coding_scheme_designator = 0x00080102,
