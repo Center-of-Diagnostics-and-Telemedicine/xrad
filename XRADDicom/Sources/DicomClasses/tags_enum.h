@@ -106,6 +106,11 @@ namespace Dicom
 		e_series_description =		0x0008103E, //	0008103E	0008,103E	 SeriesDescription	AX T2
 		e_frame_of_reference_uid =	0x00200052,
 
+		e_overlay_date = 0x00080024,
+		e_overlay_time = 0x00080034,
+		e_curve_date = 0x00080025,
+		e_curve_time = 0x00080035,
+
 		e_instance_number =			0x00200013,
 		e_sop_instance_uid =		0x00080018,//(0008,0018)
 		e_media_storage_sop_instance_uid =		0x00020003,
