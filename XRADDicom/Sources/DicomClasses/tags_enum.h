@@ -23,9 +23,15 @@ namespace Dicom
 	{
 		e_specific_character_set =	0x00080005,//	00080005	0008,0005	SpecificCharacterSet	ISO_IR 192
 
+		e_date_time = 0x040A120,
+		e_date = 0x040A121,
+		e_time = 0x040A122,
+		e_person_name = 0x040A123,
+
 		//personal data
 		e_patient_name =			0x00100010,
 		e_patient_birthdate =		0x00100030,
+		e_patient_birthtime = 		0x00100032,
 		e_patient_sex =				0x00100040,
 		e_patient_age =				0x00101010,
 		e_patient_id =				0x00100020,
@@ -41,6 +47,12 @@ namespace Dicom
 		e_referenced_patient_photo = 0x00101100,
 		e_patient_telephone_numbers = 0x00102154,
 		e_patient_address =			0x00101040,
+
+		e_current_patient_location = 0x00380300,
+		e_patient_institution_residence = 0x00380400,
+		e_country_of_residence = 0x00102150,
+		e_region_of_residence = 0x00102152,
+
 
 		//personal data history
 		e_assigning_faculty_sequence = 0x00401036,
@@ -76,7 +88,7 @@ namespace Dicom
 
 		e_operators_name = 0x00081070,
 		e_name_of_physician_reading_study = 0x00081060,
-		e_physicians_reading_study_id_sequence = 0x00081062,
+		e_physician_reading_study_id_sequence = 0x00081062,
 		e_performing_physicians_name = 0x00081050,
 		e_performing_physicians_id_sequence = 0x00081052,
 
