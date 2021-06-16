@@ -56,6 +56,17 @@ double RandomGaussianStandard(); // центрированная, СКО =1
 double RandomGaussian(double sigma); // центрированная, СКО = sigma
 double RandomGaussian(double mean, double sigma);	// мат. ожидание = mean, СКО = sigma
 
+
+//!	\brief Случайная величина с распределением Лапласа (биэкспоненциальным).
+//!	\param sigma Среднеквадратичное отклонение получаемой величины
+inline double	RandomLaplacian(double sigma = 1)
+{
+	const	double factor = sigma/sqrt(2.);
+	double	x = RandomUniformF64(0, 2);
+	return x<1 ? log(x)*factor : -log(2.-x)*factor;
+}
+
+
 //
 //--------------------------------------------------------------
 
