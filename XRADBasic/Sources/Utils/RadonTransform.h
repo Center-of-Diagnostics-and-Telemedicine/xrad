@@ -17,7 +17,7 @@
 
 XRAD_BEGIN
 
-void	InitRadonTransform();
+void	InitRadonTransform(size_t interpolator_size = 32, size_t interpolators_amount = 256);
 void RadonTransformReverse(RealFunction2D_F32 &generated_data, const RealFunction2D_F32 &radon_data, size_t enlarge_factor, ProgressProxy pp);
 void RadonTransformForward(RealFunction2D_F32 &radon_data, const RealFunction2D_F32 &original_data, size_t enlarge_factor, ProgressProxy pp);
 
