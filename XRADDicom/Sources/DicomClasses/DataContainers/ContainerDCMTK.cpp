@@ -11,6 +11,16 @@
 #include "pre.h"
 #include "ContainerDCMTK.h"
 
+#include "dcmtk/dcmimage/diregist.h"
+
+#ifdef XRAD_COMPILER_MSC
+#if _MSC_VER >= 1900 // MSVC2015+
+#ifndef XRAD_COMPILER_CMAKE
+#pragma comment(lib, "dcmimage.lib")
+#endif
+#endif
+#endif // XRAD_COMPILER_MSC
+
 #include <XRADDicom/Sources/DCMTKAccess/dcmtkElementsTools.h>
 #include <XRADDicom/Sources/DCMTKAccess/dcmtkCodec.h>
 #include <XRADDicom/Sources/DCMTKAccess/dcmtkUtils.h>
@@ -1018,14 +1028,15 @@ namespace Dicom
 
 		try
 		{
-			DcmFileFormat fileformat = *m_dicom_file.get();
-			DcmDataset* dcmDataset = m_dicom_file->getDataset();
+			DcmFileFormat fileformat1;// = *m_dicom_file.get();
+			OFCondition status = fileformat1.loadFile("D:/june/1/1.2.40.0.13.1.110623347169722461097686482239455076524/DICOM/1.2.840.113619.2.261.4.2147483647.1596114745.155502.1006.1.dcm");
+			DcmDataset* dcmDataset1 = fileformat1.getDataset();
 
 			OFString xferstr;
 
-			if (fileformat.getMetaInfo()->tagExists(DCM_TransferSyntaxUID, false))
+			if (fileformat1.getMetaInfo()->tagExists(DCM_TransferSyntaxUID, false))
 			{
-				OFCondition condition = fileformat.getMetaInfo()->findAndGetOFString(DCM_TransferSyntaxUID, xferstr, false);//DCM_TransferSyntaxUID//DCM_ImplementationClassUID
+				OFCondition condition = fileformat1.getMetaInfo()->findAndGetOFString(DCM_TransferSyntaxUID, xferstr, false);//DCM_TransferSyntaxUID//DCM_ImplementationClassUID
 				cout << " DCM_TransferSyntaxUID found = " << xferstr << endl;
 			}
 			else	cout << "no DCM_TransferSyntaxUID found" << endl;
@@ -1039,7 +1050,7 @@ namespace Dicom
 
 			else
 			{
-				codec_type = recognizeCodecType(fileformat.getDataset()->getCurrentXfer());
+				codec_type = recognizeCodecType(fileformat1.getDataset()->getCurrentXfer());
 			}
 
 			//switch (codec_type)
@@ -1064,32 +1075,36 @@ namespace Dicom
 			{
 			case e_unknown:	throw runtime_error("I dont know this codec. Cant decompress it.");
 
-				//case e_jpeg2k:	throw runtime_error("I dont like this Jpeg2000. Cant decompress it.");//getPixelsJpeg2000(*dcmDataset, pixeldata, vs, hs, bpp, signedness, ncomp, 0);
+			case e_jpeg2k:	throw runtime_error("I dont like this Jpeg2000. Cant decompress it.");//getPixelsJpeg2000(*dcmDataset, pixeldata, vs, hs, bpp, signedness, ncomp, 0);
 
 			default:
 			{
-				E_TransferSyntax xfer = dcmDataset->getOriginalXfer();
+				E_TransferSyntax xfer = dcmDataset1->getOriginalXfer();
 
-				dcmDataset->chooseRepresentation(EXS_LittleEndianExplicit, nullptr);
+				OFCondition condition = dcmDataset1->chooseRepresentation(EXS_LittleEndianExplicit, nullptr);
 
-				//	unique_ptr<DicomImage> image(new DicomImage(dcmDataset, xfer, CIF_UsePartialAccessToPixelData, image_no, 1 /* fcount */));
-				unique_ptr<DicomImage> image = make_unique<DicomImage>(dcmDataset, xfer, CIF_UsePartialAccessToPixelData, 1, 1 /* fcount */);//CIF_UsePartialAccessToPixelData | CIF_IgnoreModalityTransformation
+				//	unique_ptr<DicomImage> image1(new DicomImage(dcmDataset1, xfer, CIF_UsePartialAccessToPixelData, 1, 1 /* fcount */));
+				unique_ptr<DicomImage> image1 = make_unique<DicomImage>(dcmDataset1, xfer, CIF_UsePartialAccessToPixelData, 1, 1 /* fcount */);//CIF_UsePartialAccessToPixelData | CIF_IgnoreModalityTransformation
 
-				vs = image->getHeight();
-				hs = image->getWidth();
-				ncomp = image->isMonochrome() ? 1 : 3;
+				//cerr << "some text 1" << "\n";
+				//unique_ptr<DicomImage> image1(new DicomImage(dcmDataset1, xfer, CIF_UsePartialAccessToPixelData, 1, 1 /* fcount */));
+				//unique_ptr<DicomImage> image1 = make_unique<DicomImage>(dcmDataset1, EXS_Unknown, CIF_UsePartialAccessToPixelData , 0, 0 /* fcount */);//CIF_UsePartialAccessToPixelData | CIF_IgnoreModalityTransformation
+				//cerr << "some text 2" << "\n";
+				vs = image1->getHeight();
+				hs = image1->getWidth();
+				ncomp = image1->isMonochrome() ? 1 : 3;
 
-				if (image->getStatus() != EIS_Normal) throw runtime_error("There is no pixel data in dataset!");
+//				if (image1->getStatus() != EIS_Normal) throw runtime_error("There is no pixel data in dataset!");
 
 				unsigned char* ptr;
-
-				pixelData = make_unique<unsigned char[]>(image->getOutputDataSize());
+				cerr << image1->getOutputDataSize() << "\n";
+				pixelData = make_unique<unsigned char[]>(image1->getOutputDataSize());
 
 				redPixels = make_unique<unsigned char[]>(vs * hs);
 				greenPixels = make_unique<unsigned char[]>(vs * hs);
 				bluePixels = make_unique<unsigned char[]>(vs * hs);
 
-				image->getOutputData(pixelData.get(), image->getOutputDataSize(), 0, 0, 0);
+				image1->getOutputData(pixelData.get(), image1->getOutputDataSize(), 0, 0, 0);
 
 				ptr = pixelData.get();
 

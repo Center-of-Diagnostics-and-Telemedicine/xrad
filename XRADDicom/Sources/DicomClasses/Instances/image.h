@@ -87,7 +87,7 @@ namespace Dicom
 			dicom_container()->get_color_pixeldata(image_p);
 
 			// Важно: копирование в существующий массив без переаллокирования
-			//image_p.CopyData(image_p/*, [&intercept, &slope](auto &y, const auto &x){y = x*slope + intercept;}*/);
+			image_p.CopyData(image_p/*, [&intercept, &slope](auto &y, const auto &x){y = x*slope + intercept;}*/);
 		}
 		virtual void get_image(RealFunction2D_F32 &image_p, size_t m_frame_no) const
 		{
