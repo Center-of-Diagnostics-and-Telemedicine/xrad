@@ -70,7 +70,25 @@ namespace Dicom
 			// Важно: копирование в существующий массив без переаллокирования
 			image_p.CopyData(image_p/*, [&intercept, &slope](auto &y, const auto &x){y = x*slope + intercept;}*/);
 		}
+		virtual void get_image(ColorImageF32& image_p) const
+		{
+			if (image_p.vsize() != vsize() || image_p.hsize() != hsize())
+			{
+				ForceDebugBreak();
+				throw invalid_argument("Dicom::image::load_image, invalid buffer dimensions");
+			}
 
+
+			//получаем изображение из файла
+			size_t bpp = dicom_container()->get_uint(e_bits_allocated);
+			bool signedness = dicom_container()->get_uint(e_pixel_representation) != 0;
+			//size_t ncomponents = 0;
+			size_t ncomponents = dicom_container()->get_uint(e_samples_per_pixel);
+			dicom_container()->get_color_pixeldata(image_p);
+
+			// Важно: копирование в существующий массив без переаллокирования
+			//image_p.CopyData(image_p/*, [&intercept, &slope](auto &y, const auto &x){y = x*slope + intercept;}*/);
+		}
 		virtual void get_image(RealFunction2D_F32 &image_p, size_t m_frame_no) const
 		{
 			if (image_p.vsize() != vsize() || image_p.hsize() != hsize())
