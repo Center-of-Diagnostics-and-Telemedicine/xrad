@@ -1028,8 +1028,8 @@ namespace Dicom
 
 		try
 		{
-			DcmFileFormat fileformat1;// = *m_dicom_file.get();
-			OFCondition status = fileformat1.loadFile("D:/june/1/1.2.40.0.13.1.110623347169722461097686482239455076524/DICOM/1.2.840.113619.2.261.4.2147483647.1596114745.155502.1006.1.dcm");
+			DcmFileFormat fileformat1 = *m_dicom_file.get();
+			//OFCondition status = fileformat1.loadFile("D:/june/1/1.2.40.0.13.1.110623347169722461097686482239455076524/DICOM/1.2.840.113619.2.261.4.2147483647.1596114745.155502.1006.1.dcm");
 			DcmDataset* dcmDataset1 = fileformat1.getDataset();
 
 			OFString xferstr;
