@@ -1032,15 +1032,15 @@ namespace Dicom
 
 			xrad::Dicom::e_compression_type_t codec_type;
 
-			//if (xferstr.length())
-			//{
-			//	codec_type = recognizeCodecType(xferstr);
-			//}
+			if (xferstr.length())
+			{
+				codec_type = recognizeCodecType(xferstr);
+			}
 
-			//else
-			//{
-			//	codec_type = recognizeCodecType(fileformat.getDataset()->getCurrentXfer());
-			//}
+			else
+			{
+				codec_type = recognizeCodecType(fileformat.getDataset()->getCurrentXfer());
+			}
 
 			//switch (codec_type)
 			//{

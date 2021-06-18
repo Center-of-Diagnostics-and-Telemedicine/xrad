@@ -80,10 +80,10 @@ namespace Dicom
 
 
 			//получаем изображение из файла
-			size_t bpp = dicom_container()->get_uint(e_bits_allocated);
-			bool signedness = dicom_container()->get_uint(e_pixel_representation) != 0;
-			//size_t ncomponents = 0;
-			size_t ncomponents = dicom_container()->get_uint(e_samples_per_pixel);
+			//size_t bpp = dicom_container()->get_uint(e_bits_allocated);
+			//bool signedness = dicom_container()->get_uint(e_pixel_representation) != 0;
+			////size_t ncomponents = 0;
+			//size_t ncomponents = dicom_container()->get_uint(e_samples_per_pixel);
 			dicom_container()->get_color_pixeldata(image_p);
 
 			// Важно: копирование в существующий массив без переаллокирования
