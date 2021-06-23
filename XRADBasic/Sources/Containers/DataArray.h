@@ -75,7 +75,7 @@ class DataArray : public DataOwner<T>
 		DataArray(const self &f){ MakeCopy(f); }
 
 		//! \brief См. \ref pg_MoveOperations
-		DataArray(self &&f) { owner_move(f); }
+		DataArray(self &&f) noexcept { owner_move(f); }
 
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		template<class T2> DataArray(const DataArray<T2> &f){ MakeCopy(f); }
@@ -123,7 +123,7 @@ class DataArray : public DataOwner<T>
 		DataArray &operator = (const self &original);
 
 		//! \brief См. \ref pg_MoveOperations
-		DataArray &operator = (self &&original) { owner_move(original); return *this; }
+		DataArray &operator = (self &&original) noexcept { owner_move(original); return *this; }
 
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		template<class T2> DataArray &operator = (const DataArray<T2> &original);

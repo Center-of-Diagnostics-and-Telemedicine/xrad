@@ -45,7 +45,7 @@ DataArray2D<RT>::DataArray2D(const DataArray2D<RT> &original)
 }
 
 template<class RT>
-DataArray2D<RT>::DataArray2D(DataArray2D<RT> &&original)
+DataArray2D<RT>::DataArray2D(DataArray2D<RT> &&original) noexcept
 {
 	MoveData(original);
 }
@@ -57,7 +57,7 @@ DataArray2D<RT> &DataArray2D<RT>::operator=(const DataArray2D<RT> &original)
 }
 
 template<class RT>
-DataArray2D<RT> &DataArray2D<RT>::operator=(DataArray2D<RT> &&original)
+DataArray2D<RT> &DataArray2D<RT>::operator=(DataArray2D<RT> &&original) noexcept
 {
 	MoveData(original);
 	return *this;
