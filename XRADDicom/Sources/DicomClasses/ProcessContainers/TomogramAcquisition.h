@@ -33,6 +33,7 @@ public:
 
 	//constructors
 	TomogramAcquisition(const shared_ptr<Dicom::acquisition_loader> &acquisition_loader_p);
+	TomogramAcquisition(){}
 
 	//operators
 	virtual TomogramAcquisition &operator=(const TomogramAcquisition &original);

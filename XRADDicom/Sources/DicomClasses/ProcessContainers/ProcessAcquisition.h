@@ -20,6 +20,8 @@ XRAD_BEGIN
 class ProcessAcquisition
 {
 public:
+	ProcessAcquisition(){}
+
 	ProcessAcquisition(const shared_ptr<Dicom::acquisition_loader> &acquisition_loader_p)
 		: m_acquisition_loader{ acquisition_loader_p }
 	{

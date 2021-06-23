@@ -19,6 +19,7 @@ class CTAcquisition : public TomogramAcquisition
 {
 public:
 	//constructors
+	CTAcquisition(){}
 	CTAcquisition(const shared_ptr<Dicom::acquisition_loader> &acquisition_loader_p)
 		: TomogramAcquisition(acquisition_loader_p)
 	{}
