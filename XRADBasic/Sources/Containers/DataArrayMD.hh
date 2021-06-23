@@ -47,7 +47,7 @@ DataArrayMD<A2DT>::DataArrayMD(const self &original)
 }
 
 template<class A2DT>
-DataArrayMD<A2DT>::DataArrayMD(self &&original)
+DataArrayMD<A2DT>::DataArrayMD(self &&original) noexcept
 {
 	MoveData(original);
 }
@@ -59,7 +59,7 @@ DataArrayMD<A2DT> &DataArrayMD<A2DT>::operator=(const self &original)
 }
 
 template <class A2DT>
-DataArrayMD<A2DT> &DataArrayMD<A2DT>::operator=(self &&original)
+DataArrayMD<A2DT> &DataArrayMD<A2DT>::operator=(self &&original) noexcept
 {
 	MoveData(original);
 	return *this;
