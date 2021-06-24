@@ -31,13 +31,21 @@ void InitRadonTransform(size_t in_interpolator_size, size_t in_interpolators_amo
 	interpolator_size = int(in_interpolator_size);
 	interpolators_amount = int(in_interpolators_amount);
 
-	interpolator.InitFilters(interpolators_amount, interpolators_amount, SincFilterGenerator2D<FIRFilter2DReal>(interpolator_size, interpolator_size));
-//	interpolator.InitFilters(interpolators_amount, interpolators_amount, BesselFilterGenerator<FIRFilter2DReal>(interpolator_size, interpolators2D::besselRadiusMIN_LOST));
-//	interpolator.InitFilters(interpolators_amount, interpolators_amount, ISplineFilterGenerator2D<FIRFilter2DReal>(3));
+	switch(interpolator_size)
+	{
+		case 2:
+		case 4:
+			interpolator.InitFilters(interpolators_amount, interpolators_amount, ISplineFilterGenerator2D<FIRFilter2DReal>(interpolator_size));
+			break;
 
-	//	interpolator.InitFilters(interpolators_amount, interpolators_amount, BesselFilterGenerator<FIRFilter2DReal>(interpolator_size, interpolators2D::besselRadius_ISOTROPIC));
-//	interpolator.InitFilters(interpolators_amount, interpolators_amount, SincFilterGenerator2D<FIRFilter2DReal>(interpolator_size, interpolator_size));
-	interpolator.SetExtrapolationMethod(extrapolation::by_zero);
+		default:
+			XRAD_ASSERT_THROW(interpolator_size >= 8);//sinc-based интерполяторы
+			interpolator.InitFilters(interpolators_amount, interpolators_amount, SincFilterGenerator2D<FIRFilter2DReal>(interpolator_size, interpolator_size));
+	}
+
+
+//	interpolator.SetExtrapolationMethod(extrapolation::by_zero);
+	interpolator.SetExtrapolationMethod(extrapolation::by_last_value);
 }
 
 //	Обратное преобразование Радона (формирование таблицы коэффициентов затухания по набору проекционных рентгенограмм)
