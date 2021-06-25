@@ -59,6 +59,7 @@ namespace Dicom
 		if (is_modality_tomogram(modality_string)) return true;
 		if (is_modality_xray(modality_string)) return true;
 		if (modality_string == L"ASMT") return true;
+		if (modality_string == L"AS") return true;
 
 		return false;
 	}

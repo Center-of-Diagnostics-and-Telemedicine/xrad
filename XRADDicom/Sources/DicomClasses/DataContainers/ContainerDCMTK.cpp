@@ -1097,7 +1097,6 @@ namespace Dicom
 //				if (image1->getStatus() != EIS_Normal) throw runtime_error("There is no pixel data in dataset!");
 
 				unsigned char* ptr;
-				cerr << image1->getOutputDataSize() << "\n";
 				pixelData = make_unique<unsigned char[]>(image1->getOutputDataSize());
 
 				redPixels = make_unique<unsigned char[]>(vs * hs);
