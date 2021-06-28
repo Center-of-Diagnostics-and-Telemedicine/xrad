@@ -45,11 +45,17 @@ namespace Dicom
 		if (modality_string == L"DSA") return true;
 		if (modality_string == L"DX") return true;
 		if (modality_string == L"GM") return true;
-		if (modality_string == L"MG") return true;
+//		if (modality_string == L"MG") return true;
 		if (modality_string == L"PX") return true;
 		if (modality_string == L"XA") return true;
 		if (modality_string == L"XC") return true;
 
+		return false;
+	}
+	
+		bool is_modality_mmg(const wstring &modality_string)
+	{
+		if (modality_string == L"MG") return true;
 		return false;
 	}
 
