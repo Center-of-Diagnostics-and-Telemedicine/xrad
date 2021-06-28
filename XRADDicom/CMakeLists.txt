@@ -23,6 +23,7 @@ set(Project_Sources_cpp
 	Sources/DCMTKAccess/dcmtkUtils.cpp
 	Sources/DCMTKAccess/pacsTools.cpp
 	Sources/DCMTKAccess/pacsUtils.cpp
+	Sources/DCMTKAccess/RecognizeCodecType.cpp
 	Sources/DicomClasses/DataContainers/Container.cpp
 	Sources/DicomClasses/DataContainers/ContainerDCMTK.cpp
 	Sources/DicomClasses/DataContainers/datasource.cpp
