@@ -52,12 +52,20 @@ namespace Dicom
 
 		return false;
 	}
+	
+		bool is_modality_mmg(const wstring &modality_string)
+	{
+		if (modality_string == L"MG") return true;
+		return false;
+	}
 
 
 	bool is_modality_image(const wstring &modality_string)
 	{
 		if (is_modality_tomogram(modality_string)) return true;
 		if (is_modality_xray(modality_string)) return true;
+		if (modality_string == L"ASMT") return true;
+		if (modality_string == L"AS") return true;
 
 		return false;
 	}

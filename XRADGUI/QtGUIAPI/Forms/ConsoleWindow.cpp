@@ -12,6 +12,7 @@
 #include "SavedSettings.h"
 #include "WorkflowControl.h"
 #include <XRADGUI/Sources/GUI/I18nSupport.h>
+#include <XRADGUI/QtGUIAPI/Common/SecondaryScreen.h>
 
 //--------------------------------------------------------------
 
@@ -146,22 +147,24 @@ ConsoleWindow::ConsoleWindow(GUIController &in_gui_globals, QWidget *parent, Qt:
 	LoadProcessPrioritySettings();
 }
 
+
 void ConsoleWindow::SetWindowPosition()
 {
-	QDesktopWidget desktop;
-	QRect console_rect = desktop.screenGeometry(desktop.primaryScreen()); // or screenGeometry(), depending on your needs
-	console_rect.setLeft(console_rect.right() - WindowGeometry::console_width()); // правая часть первичного экрана
+	QRect console_rect;
 
-	if(desktop.screenCount() > 1 && desktop.isVirtualDesktop())
+	auto	secondary_screen = any_secondary_screen();
+
+	if(!secondary_screen)
 	{
-		//если экранов более одного...
-		int	secondary_screen_no = desktop.primaryScreen() == 0 ? 1:0;
-		if(desktop.screen(secondary_screen_no))
-		{
-			//...и если экран с заданным номером существует, то занимаем под консоль весь вторичный экран
-			console_rect = desktop.screenGeometry(secondary_screen_no);
-			console_rect.setLeft(console_rect.left() + 8);
-		}
+		// если экран один, консоль занимает правую часть первичного экрана
+		console_rect = QGuiApplication::primaryScreen()->geometry();
+		console_rect.setLeft(console_rect.right() - WindowGeometry::console_width()); 
+	}
+	else
+	{
+		// если экранов более одного, то занимаем под консоль целиком второй экран
+		console_rect = secondary_screen->geometry();
+		console_rect.setLeft(console_rect.left() + WindowGeometry::left_margin());
 	}
 
 	console_rect.setTop(console_rect.top() + WindowGeometry::top_margin());

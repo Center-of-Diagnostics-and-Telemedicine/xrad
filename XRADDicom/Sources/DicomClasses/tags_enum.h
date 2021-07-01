@@ -23,9 +23,15 @@ namespace Dicom
 	{
 		e_specific_character_set =	0x00080005,//	00080005	0008,0005	SpecificCharacterSet	ISO_IR 192
 
+		e_date_time = 0x040A120,
+		e_date = 0x040A121,
+		e_time = 0x040A122,
+		e_person_name = 0x040A123,
+
 		//personal data
 		e_patient_name =			0x00100010,
 		e_patient_birthdate =		0x00100030,
+		e_patient_birthtime = 		0x00100032,
 		e_patient_sex =				0x00100040,
 		e_patient_age =				0x00101010,
 		e_patient_id =				0x00100020,
@@ -41,6 +47,12 @@ namespace Dicom
 		e_referenced_patient_photo = 0x00101100,
 		e_patient_telephone_numbers = 0x00102154,
 		e_patient_address =			0x00101040,
+
+		e_current_patient_location = 0x00380300,
+		e_patient_institution_residence = 0x00380400,
+		e_country_of_residence = 0x00102150,
+		e_region_of_residence = 0x00102152,
+
 
 		//personal data history
 		e_assigning_faculty_sequence = 0x00401036,
@@ -65,15 +77,20 @@ namespace Dicom
 		e_institution_code_sequence = 0x00080082,
 		e_referring_physicians_name = 0x00080090,
 		e_referring_physicians_address = 0x00080092,
+		e_referring_physicians_id_sequence = 0x00080096,
+		e_referring_physicians_telephone_number = 0x00080094,
 
-		referring_physicians_telephone_numbers = 0x00080094,
-		referring_physician_identification_sequence = 0x00080096,
+		e_physician_of_record = 0x00081048,
+		e_physician_of_record_ids = 0x00081049,
+
 		e_responsible_person = 0x00102297,
 		e_evaluator_name = 0x00142006,
 
 		e_operators_name = 0x00081070,
-		e_name_of_physicians_reading_study = 0x00081060,
+		e_name_of_physician_reading_study = 0x00081060,
+		e_physician_reading_study_id_sequence = 0x00081062,
 		e_performing_physicians_name = 0x00081050,
+		e_performing_physicians_id_sequence = 0x00081052,
 
 
 		e_coding_scheme_designator = 0x00080102,
@@ -105,6 +122,11 @@ namespace Dicom
 		e_series_time =				0x00080031,
 		e_series_description =		0x0008103E, //	0008103E	0008,103E	 SeriesDescription	AX T2
 		e_frame_of_reference_uid =	0x00200052,
+
+		e_overlay_date = 0x00080024,
+		e_overlay_time = 0x00080034,
+		e_curve_date = 0x00080025,
+		e_curve_time = 0x00080035,
 
 		e_instance_number =			0x00200013,
 		e_sop_instance_uid =		0x00080018,//(0008,0018)

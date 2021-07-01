@@ -57,9 +57,6 @@
     <Filter Include="XRADQt">
       <UniqueIdentifier>{f2cdbf4d-9b49-4093-a99b-7ca28f4dc2c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\RasterImageFile">
-      <UniqueIdentifier>{d83ea510-7e92-46e9-8c08-dbbba4cb3c70}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Sources\GUI\GraphScale.cpp">
@@ -278,8 +275,8 @@
     <ClCompile Include="..\..\XRADQt\QtStringConverters.cpp">
       <Filter>XRADQt</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\RasterImageFile\RasterImageFile.cpp">
-      <Filter>Sources\RasterImageFile</Filter>
+    <ClCompile Include="..\QtGUIAPI\Common\SecondaryScreen.cpp">
+      <Filter>Sources\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -468,12 +465,6 @@
     </ClInclude>
     <ClInclude Include="..\..\XRADQt\QtStringConverters.h">
       <Filter>XRADQt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\RasterImageFile\RasterImageFile.hh">
-      <Filter>Sources\RasterImageFile</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\RasterImageFile\RasterImageFile.h">
-      <Filter>Sources\RasterImageFile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

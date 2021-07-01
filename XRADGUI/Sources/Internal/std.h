@@ -16,6 +16,10 @@
 //--------------------------------------------------------------
 
 #ifdef XRAD_COMPILER_MSC
+
+//'QT_LARGEFILE_SUPPORT': macro redefinition in Qt sources
+#pragma warning (disable: 4005)
+
 // Type name first seen using 'class' now seen using 'struct'
 #pragma warning (disable: 4099)
 

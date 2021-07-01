@@ -1,7 +1,7 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 include_guard()
 
-option(XRAD_Use_Common_BuildDir "Use XRAD common build directory" ON)
+option(XRAD_Use_Common_BuildDir "Use XRAD common build directory" OFF)
 
 if(XRAD_Use_Common_BuildDir)
 	set(XRAD_BuildDir "${XRAD_BuildDir}" CACHE PATH "XRAD library build directory." FORCE)

@@ -38,15 +38,18 @@ class ProgressBar: public StayOnTopDialog, public Ui::ProgressBar
 		const physical_time update_period;
 
 		string	GenerateDetailedInfo();
+		
+		//! \brief Имя настройки, под которым будут сохраняться данные индикатора прогресса
+		inline QString	progress_stored_setting() const { return "Progress bar settings"; }
 
 		enum{n_indicator_divisions = 1024};
 		double	indicator_quotient;//на сколько увеличивается индикатор за один шаг прогресса
 
-		static	bool	geometry_stored;
-		static	QRect	progress_geometry;
 		void	SetWindowPosition();
 
 		void	StoreGeometry();
+		bool	LoadGeometry(QRect &);
+		
 		bool eventFilter(QObject *target,QEvent *event);
 		bool	esc_pressed;
 

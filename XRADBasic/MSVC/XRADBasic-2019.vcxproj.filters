@@ -183,6 +183,9 @@
     <ClCompile Include="..\Sources\Utils\numbers_in_string.cpp">
       <Filter>Sources\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Utils\RadonTransform.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\BooleanFunctionTypes.h">

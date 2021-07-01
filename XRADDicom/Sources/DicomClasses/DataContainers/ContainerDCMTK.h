@@ -54,6 +54,7 @@ namespace Dicom
 		virtual bool get_bool(tag_e) const;
 
 		virtual bool get_pixeldata(RealFunction2D_F32 &img_in, size_t &bpp, bool &is_signed, size_t &ncomp, size_t num_of_frame = 0) const override;
+		virtual bool get_color_pixeldata(ColorImageF32& img) const override;
 		virtual wstring get_elements_to_wstring(bool byDCMTK) const override;
 		virtual elemsmap_t get_elements_list() const override;
 
