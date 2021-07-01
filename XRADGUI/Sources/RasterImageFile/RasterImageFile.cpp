@@ -18,7 +18,7 @@ XRAD_BEGIN
 using namespace std;
 
 
-void	file::raster_image::init(wstring in_filename, wstring in_format)
+void	RasterImageFile::init(wstring in_filename, wstring in_format)
 {
 	m_filename = in_filename;
 	if (in_format.size())
@@ -114,7 +114,7 @@ double	GetChannelValue(QColor c, color_channel ct)
 }
 
 
-ColorImageF64 file::raster_image::rgb_internal()
+ColorImageF64 RasterImageFile::rgb_internal()
 {
 	ColorImageF64 result(m_sizes[0], m_sizes[1]);
 
@@ -132,7 +132,7 @@ ColorImageF64 file::raster_image::rgb_internal()
 	return result;
 }
 
-RealFunction2D_F64 file::raster_image::channel_internal(color_channel c)
+RealFunction2D_F64 RasterImageFile::channel_internal(color_channel c)
 {
 	RealFunction2D_F64 result(m_sizes[0], m_sizes[1]);
 

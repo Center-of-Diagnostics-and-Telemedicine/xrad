@@ -21,16 +21,14 @@ enum class color_channel
 };
 
 
-namespace file
-{
-class raster_image
+class RasterImageFile
 {
 public:
 
-	raster_image(std::string filename, std::string format = string()) { init(convert_to_wstring(filename), convert_to_wstring(format)); }
-	raster_image(std::wstring filename, std::wstring format = wstring()) { init(convert_to_wstring(filename), convert_to_wstring(format)); }
+	RasterImageFile(std::string filename, std::string format = string()) { init(convert_to_wstring(filename), convert_to_wstring(format)); }
+	RasterImageFile(std::wstring filename, std::wstring format = wstring()) { init(convert_to_wstring(filename), convert_to_wstring(format)); }
 
-	raster_image() = delete;
+	RasterImageFile() = delete;
 
 public:
 
@@ -75,8 +73,6 @@ private:
 	int	m_bits_per_channel;
 	size_t m_color_space;
 };
-
-}
 
 
 
