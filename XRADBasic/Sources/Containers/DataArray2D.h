@@ -80,11 +80,11 @@ class DataArray2D : private DataOwner<typename RT::value_type>
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		DataArray2D(const self &original);
 		//! \brief См. \ref pg_MoveOperations
-		DataArray2D(self &&original);
+		DataArray2D(self &&original) noexcept;
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		DataArray2D &operator=(const self &m);
 		//! \brief См. \ref pg_MoveOperations
-		DataArray2D &operator=(self &&original);
+		DataArray2D &operator=(self &&original) noexcept;
 
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		template<class RT2>
