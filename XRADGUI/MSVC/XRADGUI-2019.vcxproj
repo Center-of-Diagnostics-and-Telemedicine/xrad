@@ -268,6 +268,7 @@
     <ClCompile Include="..\QtGUIAPI\Common\XRADGUIUtils.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\AxisZoom.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ChartZoom.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ColorPanel.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\DataDisplayWindow.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\DragMove.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\DragZoom.cpp" />
@@ -275,7 +276,12 @@
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\MouseDrag.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\PaintWidget.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\SpinBoxWidget.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\StyleSheetUtils.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.cpp" />
+    <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\ToolsMenuWidget.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.cpp" />
     <ClCompile Include="..\QtGUIAPI\DataDisplayWindow\WheelZoom.cpp" />
     <ClCompile Include="..\QtGUIAPI\DialogDefinitions\DecisionDialogs.cpp" />
@@ -299,6 +305,7 @@
     <ClCompile Include="..\Sources\PlatformSpecific\MSVC\Internal\Keyboard_Win32.cpp" />
     <ClCompile Include="..\Sources\PlatformSpecific\Qt\Internal\Keyboard_Qt.cpp" />
     <ClCompile Include="..\..\XRADQt\QtStringConverters.cpp" />
+    <ClCompile Include="..\Sources\RasterImageFile\RasterImageFile.cpp" />
     <ClCompile Include="..\Sources\Utils\AutoProgressIndicatorScheduler.cpp" />
     <ClCompile Include="XRADGUI_pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -340,11 +347,17 @@
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\DataDisplayWindow.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\DragMove.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\DragZoom.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\ColorPanel.h" />
     <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\GraphStyleSet.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\MouseDrag.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\SpinBoxWidget.h" />
+    <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\PaintWidget.h" />
+    <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\StyleSheetUtils.h" />
+    <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\ToolsMenuWidget.h" />
     <ClInclude Include="..\QtGUIAPI\DataDisplayWindow\VisualizationPlot.h" />
     <QtMoc Include="..\QtGUIAPI\DataDisplayWindow\WheelZoom.h" />
     <QtMoc Include="..\QtGUIAPI\DialogDefinitions\DecisionDialogs.h" />
@@ -403,6 +416,12 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="..\QtGUIAPI\DataDisplayWindow\PainterWindow.ui">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleaseEHA|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugEHA|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </QtUic>
     <QtUic Include="..\QtGUIAPI\DataDisplayWindow\GraphWindow.ui" />
     <QtUic Include="..\QtGUIAPI\DataDisplayWindow\ImageWindow.ui" />
     <QtUic Include="..\QtGUIAPI\DataDisplayWindow\TextWindow.ui" />
