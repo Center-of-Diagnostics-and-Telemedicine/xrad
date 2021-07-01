@@ -27,6 +27,7 @@
 @call :DoCopyDll "%dcmtk_path%\bin\charls.dll" "%OutDir%"
 @call :DoCopyDll "%dcmtk_path%\bin\dcmdata.dll" "%OutDir%"
 @call :DoCopyDll "%dcmtk_path%\bin\dcmimgle.dll" "%OutDir%"
+@call :DoCopyDll "%dcmtk_path%\bin\dcmimage.dll" "%OutDir%"
 @call :DoCopyDll "%dcmtk_path%\bin\dcmjpeg.dll" "%OutDir%"
 @call :DoCopyDll "%dcmtk_path%\bin\dcmjpls.dll" "%OutDir%"
 @call :DoCopyDll "%dcmtk_path%\bin\ijg12.dll" "%OutDir%"

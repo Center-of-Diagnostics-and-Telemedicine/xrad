@@ -141,6 +141,7 @@
     <ClCompile Include="..\Sources\DCMTKAccess\dcmtkCodec.cpp" />
     <ClCompile Include="..\Sources\DCMTKAccess\pacsTools.cpp" />
     <ClCompile Include="..\Sources\DCMTKAccess\pacsUtils.cpp" />
+    <ClCompile Include="..\Sources\DCMTKAccess\RecognizeCodecType.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\DataContainers\datasource.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\DataContainers\Container.cpp" />
     <ClCompile Include="..\Sources\DicomClasses\DataContainers\ContainerDCMTK.cpp" />

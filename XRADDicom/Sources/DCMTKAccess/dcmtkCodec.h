@@ -17,8 +17,13 @@
 
 XRAD_BEGIN
 
+Dicom::e_compression_type_t	recognizeCodecType(const string& codec_code_string);
+Dicom::e_compression_type_t	recognizeCodecType(const E_TransferSyntax transf_syntax);
+
 namespace Dicom
 {
+
+
 	class dcmtkCodec
 	{
 	public:

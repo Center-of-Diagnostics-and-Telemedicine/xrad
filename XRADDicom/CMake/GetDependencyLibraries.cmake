@@ -23,6 +23,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 	set(XRAD_DCMTK_Libraries
 		"${XRAD_DCMTK_LibrariesDir}/libdcmnet.a"
 		"${XRAD_DCMTK_LibrariesDir}/libdcmimgle.a"
+        "${XRAD_DCMTK_LibrariesDir}/libdcmimage.a"
 		"${XRAD_DCMTK_LibrariesDir}/libdcmdata.a"
 		"${XRAD_DCMTK_LibrariesDir}/libdcmjpeg.a"
 		"${XRAD_DCMTK_LibrariesDir}/libdcmjpls.a"
