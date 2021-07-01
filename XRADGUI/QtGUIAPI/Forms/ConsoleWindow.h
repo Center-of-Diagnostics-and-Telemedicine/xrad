@@ -1,4 +1,9 @@
-﻿#ifndef SIMPLETEST_QT_H
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef SIMPLETEST_QT_H
 #define SIMPLETEST_QT_H
 
 #include <XRADGUI/Sources/Internal/std.h>
@@ -14,7 +19,7 @@ class ConsoleWindow : public QMainWindow
 {
 	Q_OBJECT
 	public:
-		ConsoleWindow(GUIController &in_gui_globals, QWidget *parent = 0, Qt::WindowFlags flags = 0);
+		ConsoleWindow(GUIController &in_gui_globals, QWidget *parent = 0, Qt::WindowFlags flags = Qt::WindowFlags());
 		~ConsoleWindow();
 
 	private:

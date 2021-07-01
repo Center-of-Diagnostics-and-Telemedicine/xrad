@@ -1,9 +1,14 @@
-﻿#ifdef __field_element_h_inside
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifdef XRAD__File_field_element_h_inside
 #error Error: Recursive inclusion of FieldElement.h detected.
 #endif
-#ifndef __field_element_h
-#define __field_element_h
-#define __field_element_h_inside
+#ifndef XRAD__File_field_element_h
+#define XRAD__File_field_element_h
+#define XRAD__File_field_element_h_inside
 /*!
 	\addtogroup gr_Algebra
 	@{
@@ -223,9 +228,7 @@ class GenericFieldElement : public CONTAINER_T
 		// действия со скалярным результатом
 		// скалярное произведение, результат возвращается, тип результата совпадает с value_type
 		template<XRAD__template_2>
-#ifdef XRAD_COMPILER_MSC
-		__declspec(deprecated("FieldElement::operator | is deprecated. Use sp() function instead"))
-#endif // TODO: GCC
+		[[deprecated("FieldElement::operator | is deprecated. Use sp() function instead")]]
 		value_type	operator | (const GenericFieldElement<XRAD__template_2_args> &f2) const
 		{
 			return sp(f2);
@@ -462,5 +465,5 @@ XRAD__define_action(subtract_divide)
 
 XRAD_END
 
-#undef __field_element_h_inside
-#endif //__field_element_h
+#undef XRAD__File_field_element_h_inside
+#endif //XRAD__File_field_element_h

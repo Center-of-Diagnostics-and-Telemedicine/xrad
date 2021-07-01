@@ -1,5 +1,10 @@
-﻿#ifndef __data_array_2d_h
-#define __data_array_2d_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_data_array_2d_h
+#define XRAD__File_data_array_2d_h
 //--------------------------------------------------------------
 
 #include "DataArray.h"
@@ -75,11 +80,11 @@ class DataArray2D : private DataOwner<typename RT::value_type>
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		DataArray2D(const self &original);
 		//! \brief См. \ref pg_MoveOperations
-		DataArray2D(self &&original);
+		DataArray2D(self &&original) noexcept;
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		DataArray2D &operator=(const self &m);
 		//! \brief См. \ref pg_MoveOperations
-		DataArray2D &operator=(self &&original);
+		DataArray2D &operator=(self &&original) noexcept;
 
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		template<class RT2>
@@ -543,4 +548,4 @@ XRAD_END
 #include "DataArray2D.hh"
 
 //--------------------------------------------------------------
-#endif //__data_array_2d_h
+#endif //XRAD__File_data_array_2d_h

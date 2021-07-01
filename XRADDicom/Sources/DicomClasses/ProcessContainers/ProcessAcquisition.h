@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 4/19/2018 2:27:56 PM
 	\author kovbas
@@ -15,6 +20,8 @@ XRAD_BEGIN
 class ProcessAcquisition
 {
 public:
+	ProcessAcquisition(){}
+
 	ProcessAcquisition(const shared_ptr<Dicom::acquisition_loader> &acquisition_loader_p)
 		: m_acquisition_loader{ acquisition_loader_p }
 	{

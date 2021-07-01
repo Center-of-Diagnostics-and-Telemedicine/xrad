@@ -1,4 +1,9 @@
-﻿//	file BasicUtils.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file BasicUtils.h
 //	Created by KNS on 20.06.03
 //--------------------------------------------------------------
 #ifndef XRAD__basic_utils_h

@@ -1,4 +1,9 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 2017/10/02 17:28
 	\author kulberg
@@ -88,6 +93,7 @@ namespace Dicom
 		virtual bool get_bool(tag_e) const = 0;
 
 		virtual bool	get_pixeldata(RealFunction2D_F32 &img_in, size_t &bpp, bool &is_signed, size_t &ncomp, size_t num_of_frame = 0) const = 0;
+		virtual bool get_color_pixeldata(ColorImageF32& img) const = 0;
 		virtual wstring get_elements_to_wstring(bool by_lib) const = 0;
 		virtual elemsmap_t get_elements_list() const = 0;
 

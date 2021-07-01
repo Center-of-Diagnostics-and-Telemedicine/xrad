@@ -1,8 +1,13 @@
-﻿//	file DataArray.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file DataArray.h
 //	Created by ACS on 09.06.03
 //--------------------------------------------------------------
-#ifndef __data_array_h
-#define __data_array_h
+#ifndef XRAD__File_data_array_h
+#define XRAD__File_data_array_h
 //--------------------------------------------------------------
 
 #include "DataOwner.h"
@@ -70,7 +75,7 @@ class DataArray : public DataOwner<T>
 		DataArray(const self &f){ MakeCopy(f); }
 
 		//! \brief См. \ref pg_MoveOperations
-		DataArray(self &&f) { owner_move(f); }
+		DataArray(self &&f) noexcept { owner_move(f); }
 
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		template<class T2> DataArray(const DataArray<T2> &f){ MakeCopy(f); }
@@ -118,7 +123,7 @@ class DataArray : public DataOwner<T>
 		DataArray &operator = (const self &original);
 
 		//! \brief См. \ref pg_MoveOperations
-		DataArray &operator = (self &&original) { owner_move(original); return *this; }
+		DataArray &operator = (self &&original) noexcept { owner_move(original); return *this; }
 
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		template<class T2> DataArray &operator = (const DataArray<T2> &original);
@@ -525,4 +530,4 @@ XRAD_END
 #include "DataArray.hh"
 
 //--------------------------------------------------------------
-#endif // __data_array_h
+#endif // XRAD__File_data_array_h

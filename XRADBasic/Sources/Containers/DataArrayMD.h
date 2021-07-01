@@ -1,5 +1,10 @@
-﻿#ifndef __data_array_multidimensional_h
-#define __data_array_multidimensional_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_data_array_multidimensional_h
+#define XRAD__File_data_array_multidimensional_h
 
 #include "DataArray2D.h"
 #include "IndexVector.h"
@@ -168,11 +173,11 @@ class	DataArrayMD : private DataOwner<typename A2DT::value_type>
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		DataArrayMD(const self &original);
 		//! \brief См. \ref pg_MoveOperations
-		DataArrayMD(self &&original);
+		DataArrayMD(self &&original) noexcept;
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		DataArrayMD &operator=(const self &original);
 		//! \brief См. \ref pg_MoveOperations
-		DataArrayMD &operator=(self &&original);
+		DataArrayMD &operator=(self &&original) noexcept;
 
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		template<class A2DT2>
@@ -634,4 +639,4 @@ XRAD_END
 #include "DataArrayMD.hh"
 
 //--------------------------------------------------------------
-#endif //__data_array_multidimensional_h
+#endif //XRAD__File_data_array_multidimensional_h

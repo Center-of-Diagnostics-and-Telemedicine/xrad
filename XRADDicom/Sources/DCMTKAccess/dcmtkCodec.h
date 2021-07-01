@@ -1,4 +1,9 @@
-﻿#ifndef dcmtkCodec_h__
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef dcmtkCodec_h__
 #define dcmtkCodec_h__
 /*!
 	\file
@@ -12,8 +17,13 @@
 
 XRAD_BEGIN
 
+Dicom::e_compression_type_t	recognizeCodecType(const string& codec_code_string);
+Dicom::e_compression_type_t	recognizeCodecType(const E_TransferSyntax transf_syntax);
+
 namespace Dicom
 {
+
+
 	class dcmtkCodec
 	{
 	public:

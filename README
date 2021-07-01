@@ -1,0 +1,22 @@
+﻿XRAD
+
+XRAD is a C++ software library for 
+- digital signals processing;
+- digital images processing; 
+- signals and images analysis and visualization.
+
+XRAD consists of several packages:
+- XRADBasic;
+- XRADSystem;
+- XRADConsoleUI;
+- XRADGUI;
+- XRADDicom;
+- XRADDicomGUI.
+
+Each package is located in a separate directory with the corresponding name.
+Documentation specific to each package is located in the package directory.
+
+XRAD also contains common library files in the root and CMake directories
+and files under way in the Projects and Sources directories.
+
+General license information is located in the LICENSE file.

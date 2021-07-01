@@ -1,7 +1,12 @@
-﻿//	file PCVisualCSpecific.h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+//	file PCVisualCSpecific.h
 //	Created by KNS on 29.08.13
-#ifndef __PCVisualCSpecific_h
-#define __PCVisualCSpecific_h
+#ifndef XRAD__File_PCVisualCSpecific_h
+#define XRAD__File_PCVisualCSpecific_h
 //--------------------------------------------------------------
 /*!
 	\addtogroup gr_CompilerSpecific
@@ -77,7 +82,14 @@
 // Проверено на: MSVC 2019 16.4.4 (_MSC_VER == 1924), Windows 10 SDK 18362.
 // https://developercommunity.visualstudio.com/content/problem/93889/error-c2872-byte-ambiguous-symbol.html
 // https://github.com/microsoft/STL/issues/204
-#define _HAS_STD_BYTE 0
+#ifndef _HAS_STD_BYTE 
+	#define _HAS_STD_BYTE 0
+#else
+	#if _HAS_STD_BYTE != 0
+		//TODO
+		//#error
+	#endif //
+#endif
 #endif
 
 //--------------------------------------------------------------
@@ -157,4 +169,4 @@ typedef	unsigned char	rgb_pixel_component_type;
 
 //--------------------------------------------------------------
 //! @} <!-- ^group gr_CompilerSpecific -->
-#endif // __PCVisualCSpecific_h
+#endif // XRAD__File_PCVisualCSpecific_h

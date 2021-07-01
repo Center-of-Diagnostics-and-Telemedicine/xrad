@@ -1,4 +1,9 @@
-﻿#include "pre.h"
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#include "pre.h"
 #include "FileSystem.h"
 #include "FileNamePatternMatch.h"
 #include "FileNameOperations.h"
@@ -123,12 +128,13 @@ wstring PathFilenameToWString(const filesystem::path &path)
 time_t FSTimeToTime(filesystem::file_time_type ft)
 {
 #if defined(XRAD_COMPILER_MSC)
-#if _MSC_VER > 1928
-	#error This version of MSVC is too new and it should be tested.
-	// Необходимо убедиться, что для для отсчета времени в filesystem используется время FILETIME.
-	// Если это так, то код ниже будет работать верно, можно использовать его.
-	// Если не так, то нужно писать новое преобразование времени.
-#elif _MSC_VER >= 1924
+//#if _MSC_VER > 1928
+////	#error This version of MSVC is too new and it should be tested.
+//	// Необходимо убедиться, что для для отсчета времени в filesystem используется время FILETIME.
+//	// Если это так, то код ниже будет работать верно, можно использовать его.
+//	// Если не так, то нужно писать новое преобразование времени.
+//#elif _MSC_VER >= 1924
+#if _MSC_VER >= 1924
 	// Проверено для версий 1924..1928.
 	// Здесь file_time_type::clock не содержит метод to_time_t. Преобразуем вручную, используя
 	// информацию об устройстве runtime-библиотеки MSVC.

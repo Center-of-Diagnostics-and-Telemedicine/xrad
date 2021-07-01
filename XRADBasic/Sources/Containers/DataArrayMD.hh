@@ -1,5 +1,10 @@
-﻿#ifndef __data_array_multidimensional_cc
-#define __data_array_multidimensional_cc
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_data_array_multidimensional_cc
+#define XRAD__File_data_array_multidimensional_cc
 
 #include "BasicArrayInteractionsMD.h"
 
@@ -42,7 +47,7 @@ DataArrayMD<A2DT>::DataArrayMD(const self &original)
 }
 
 template<class A2DT>
-DataArrayMD<A2DT>::DataArrayMD(self &&original)
+DataArrayMD<A2DT>::DataArrayMD(self &&original) noexcept
 {
 	MoveData(original);
 }
@@ -54,7 +59,7 @@ DataArrayMD<A2DT> &DataArrayMD<A2DT>::operator=(const self &original)
 }
 
 template <class A2DT>
-DataArrayMD<A2DT> &DataArrayMD<A2DT>::operator=(self &&original)
+DataArrayMD<A2DT> &DataArrayMD<A2DT>::operator=(self &&original) noexcept
 {
 	MoveData(original);
 	return *this;
@@ -1156,4 +1161,4 @@ void ApplyAction(DataArrayMD<A2DT> &array, const F &function)
 
 XRAD_END
 
-#endif //__data_array_multidimensional_cc
+#endif //XRAD__File_data_array_multidimensional_cc

@@ -1,5 +1,10 @@
-﻿#ifndef __MathFunctionTypes_h
-#define __MathFunctionTypes_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_MathFunctionTypes_h
+#define XRAD__File_MathFunctionTypes_h
 /*!
 	\file
 	\date 2014-04-15 16:53
@@ -147,4 +152,4 @@ using ColorFunctionF64 = ColorFunction<ColorSampleF64, double>;
 
 XRAD_END
 
-#endif //__MathFunctionTypes_h
+#endif //XRAD__File_MathFunctionTypes_h

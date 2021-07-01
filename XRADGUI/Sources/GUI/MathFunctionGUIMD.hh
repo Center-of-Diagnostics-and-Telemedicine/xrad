@@ -1,3 +1,8 @@
+/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
 #include "PixelNormalizersGUI.h"
 #include "RasterImageSet.h"
 #include "MathFunctionGUI2D.h"
@@ -139,7 +144,7 @@ class	MathFunction3DDisplayer
 			slice_number_1 = array_md.sizes(1)/2;
 			slice_number_2 = array_md.sizes(2)/2;
 
-			slice_orientation_01 = 0;//2015_08_12 изменено на 0, чтобы ориентация по умолчанию соответствовала виду "главной проекции" (1-2 вдоль 0)
+			slice_orientation_01 = 1;//2021_06_24 вернул на 1, т.к. чаще получается менее удобная проекция//2015_08_12 изменено на 0, чтобы ориентация по умолчанию соответствовала виду "главной проекции" (1-2 вдоль 0)
 			slice_orientation_12 = 1;
 			slice_orientation_02 = 1;
 		}

@@ -1,5 +1,10 @@
-﻿#ifndef __physical_units_h
-#define __physical_units_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_physical_units_h
+#define XRAD__File_physical_units_h
 
 #include <XRADBasic/Sources/Core/Config.h>
 #include <XRADBasic/Sources/Core/BasicMacros.h>
@@ -43,7 +48,7 @@ private:
 	// если не будет работать, вернуть динамическое преобразование
 	// для корректной работы dynamic_cast понадобится полиморфизм, достигаем этого созданием
 	// фиктивной виртуальной функции:
-	// virtual	void	__make_this_class_polymorphic(){}
+	// virtual	void	make_this_class_polymorphic__(){}
 
 protected:
 	T value;
@@ -529,4 +534,4 @@ FieldTraits<double>::tag_t GetFieldElementTag(physical_unit<T>*);
 
 XRAD_END
 
-#endif //__physical_units_h
+#endif //XRAD__File_physical_units_h

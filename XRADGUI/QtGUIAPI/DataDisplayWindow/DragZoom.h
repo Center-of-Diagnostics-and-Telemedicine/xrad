@@ -1,5 +1,10 @@
-﻿#ifndef __drag_zoom
-#define __drag_zoom
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_drag_zoom
+#define XRAD__File_drag_zoom
 
 //--------------------------------------------------------------
 //
@@ -48,4 +53,4 @@ class DragZoom : public MouseDrag
 
 }//namespace XRAD_GUI
 
-#endif //__drag_zoom
+#endif //XRAD__File_drag_zoom

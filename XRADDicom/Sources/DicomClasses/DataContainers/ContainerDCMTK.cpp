@@ -1,10 +1,25 @@
-﻿/*!
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+/*!
 	\file
 	\date 2017/10/03 14:40
 	\author kulberg
 */
 #include "pre.h"
 #include "ContainerDCMTK.h"
+
+#include "dcmtk/dcmimage/diregist.h"
+
+#ifdef XRAD_COMPILER_MSC
+#if _MSC_VER >= 1900 // MSVC2015+
+#ifndef XRAD_COMPILER_CMAKE
+#pragma comment(lib, "dcmimage.lib")
+#endif
+#endif
+#endif // XRAD_COMPILER_MSC
 
 #include <XRADDicom/Sources/DCMTKAccess/dcmtkElementsTools.h>
 #include <XRADDicom/Sources/DCMTKAccess/dcmtkCodec.h>
@@ -323,7 +338,7 @@ namespace Dicom
 			}
 
 			// регистрируем кодер (через наш класс кодека, чтобы автоматически отключался)
-			//unique_lock<mutex> lck{ dicom_file_mutex };
+			//lock_guard<mutex> lck{ dicom_file_mutex };
 			Dicom::dcmtkCodec codec(Dicom::dcmtkCodec::e_encode, transfer_syntax, m_dicom_file->getDataset()->getOriginalXfer());
 
 			// задаём тип компрессии в объекте файла
@@ -350,7 +365,7 @@ namespace Dicom
 
 	bool ContainerDCMTK::exist_element(tag_e id) const
 	{
-		unique_lock<mutex> lck(dicom_file_mutex);
+		lock_guard<mutex> lck(dicom_file_mutex);
 		return exist_element(element_id_to_DcmTag(id));
 	}
 	bool ContainerDCMTK::exist_element(const DcmTag &dcmTag) const
@@ -444,11 +459,11 @@ namespace Dicom
 				{
 
 					DcmItem* item2 = dcmSequenceOfItems1->getItem(0);
-				
+
 					item2->findAndGetOFStringArray(DCM_SliceThickness, str, true);
 				}
 				else throw logic_error("No tag of frame sequence in file");
-	
+
 				result = strtod(str.c_str(), NULL);
 						}
 			else throw logic_error("No tag of frame sequence in file");
@@ -503,7 +518,7 @@ namespace Dicom
 
 
 
-	vector<double> ContainerDCMTK::get_image_position(size_t frame_no) 
+	vector<double> ContainerDCMTK::get_image_position(size_t frame_no)
 	{
 		DcmDataset *Dataset = m_dicom_file->getDataset();
 
@@ -895,43 +910,43 @@ namespace Dicom
 	{
 		try
 		{
-			//unique_lock<mutex> lck{ dicom_file_mutex };
-			dicom_file_mutex.lock();
+			unique_lock<mutex> lck{ dicom_file_mutex };
 
-				if(m_dicom_file->isEmpty()) throw invalid_argument("File is empty.");
-				//создаём объект для декодирования
+			if(m_dicom_file->isEmpty()) throw invalid_argument("File is empty.");
+			//создаём объект для декодирования
 
-				//Dicom::dcmtkCodec	dcmCodec(dcmtkCodec::e_decode, element_value_to_hidden_ustring(*m_dicom_file, DCM_TransferSyntaxUID));
+			//Dicom::dcmtkCodec	dcmCodec(dcmtkCodec::e_decode, element_value_to_hidden_ustring(*m_dicom_file, DCM_TransferSyntaxUID));
 
-				//if (tmpstr == "")
-				//E_TransferSyntax ts = m_dicom_file->getDataset()->getCurrentXfer();
-				//stringstream ss;
-				//m_dicom_file->print(ss);
-				//printf("--file--\n %s \n ---file--- \n", ss.str().c_str());
-				//ShowText(L"", convert_to_wstring(ss.str()));
-				unique_ptr<dcmtkCodec> dcmCodec_ptr;
-				//string xferstr = element_value_to_hidden_ustring(*m_dicom_file, DCM_TransferSyntaxUID);
-				string xferstr = convert_to_string(get_wstring(DcmTag_to_element_id(DCM_TransferSyntaxUID))); //(*m_dicom_file, DCM_TransferSyntaxUID);
-				if (xferstr == "")
-					dcmCodec_ptr = make_unique<dcmtkCodec>(dcmtkCodec::e_decode, m_dicom_file->getDataset()->getCurrentXfer());
-				else
-					dcmCodec_ptr = make_unique<dcmtkCodec>(dcmtkCodec::e_decode, xferstr);
+			//if (tmpstr == "")
+			//E_TransferSyntax ts = m_dicom_file->getDataset()->getCurrentXfer();
+			//stringstream ss;
+			//m_dicom_file->print(ss);
+			//printf("--file--\n %s \n ---file--- \n", ss.str().c_str());
+			//ShowText(L"", convert_to_wstring(ss.str()));
+			unique_ptr<dcmtkCodec> dcmCodec_ptr;
+			//string xferstr = element_value_to_hidden_ustring(*m_dicom_file, DCM_TransferSyntaxUID);
+			string xferstr = convert_to_string(get_wstring(DcmTag_to_element_id(DCM_TransferSyntaxUID))); //(*m_dicom_file, DCM_TransferSyntaxUID);
+			if (xferstr == "")
+				dcmCodec_ptr = make_unique<dcmtkCodec>(dcmtkCodec::e_decode, m_dicom_file->getDataset()->getCurrentXfer());
+			else
+				dcmCodec_ptr = make_unique<dcmtkCodec>(dcmtkCodec::e_decode, xferstr);
 
-				//забираем данные
-				DcmDataset *dcmDataset = m_dicom_file->getDataset();
-				if(dcmDataset == NULL) throw runtime_error("DcmDataset is NULL");
+			//забираем данные
+			DcmDataset *dcmDataset = m_dicom_file->getDataset();
+			if(dcmDataset == NULL) throw runtime_error("DcmDataset is NULL");
 
-				//забираем изображение со всеми параметрами
-				unique_ptr<char[]> pixeldata;
-				//size_t pixeldata_length;
-				//bool signedness = true;
-				//size_t bpp = 0;
-				size_t vs = 0;
-				size_t hs = 0;
-				//size_t ncomp = 1;
-				dcmCodec_ptr->getPixelData(*dcmDataset, pixeldata, vs, hs, bpp, is_signed, ncomp, num_of_frame);
+			//забираем изображение со всеми параметрами
+			unique_ptr<char[]> pixeldata;
+			//size_t pixeldata_length;
+			//bool signedness = true;
+			//size_t bpp = 0;
+			size_t vs = 0;
+			size_t hs = 0;
+			//size_t ncomp = 1;
+			dcmCodec_ptr->getPixelData(*dcmDataset, pixeldata, vs, hs, bpp, is_signed, ncomp, num_of_frame);
 
-			dicom_file_mutex.unlock();
+			// Разблокируем dicom_file_mutex, дальше блокировка не требуется.
+			lck.unlock();
 
 			if (!pixeldata) throw logic_error("pixeldata is empty!");
 			if (!vs || !hs) throw logic_error(ssprintf("Wrong size value  = %d x %d", vs, hs));
@@ -994,9 +1009,150 @@ namespace Dicom
 		}
 	}
 
+
+	bool ContainerDCMTK::get_color_pixeldata(ColorImageF32& img) const
+	{
+
+		unique_ptr<unsigned char[]> pixelData;
+		unique_ptr<unsigned char[]> redPixels;
+		unique_ptr<unsigned char[]> greenPixels;
+		unique_ptr<unsigned char[]> bluePixels;
+
+		//	Uint32 bpp = 0;
+		bool is_signed = false;
+		Uint32 ncomp = 0;
+		size_t vs = 0;
+		size_t hs = 0;
+
+		string str;
+
+		try
+		{
+			DcmFileFormat fileformat1 = *m_dicom_file.get();
+			//OFCondition status = fileformat1.loadFile("D:/june/1/1.2.40.0.13.1.110623347169722461097686482239455076524/DICOM/1.2.840.113619.2.261.4.2147483647.1596114745.155502.1006.1.dcm");
+			DcmDataset* dcmDataset1 = fileformat1.getDataset();
+
+			OFString xferstr;
+
+			if (fileformat1.getMetaInfo()->tagExists(DCM_TransferSyntaxUID, false))
+			{
+				OFCondition condition = fileformat1.getMetaInfo()->findAndGetOFString(DCM_TransferSyntaxUID, xferstr, false);//DCM_TransferSyntaxUID//DCM_ImplementationClassUID
+				cout << " DCM_TransferSyntaxUID found = " << xferstr << endl;
+			}
+			else	cout << "no DCM_TransferSyntaxUID found" << endl;
+
+			xrad::Dicom::e_compression_type_t codec_type;
+
+			if (xferstr.length())
+			{
+				codec_type = recognizeCodecType(xferstr);
+			}
+
+			else
+			{
+				codec_type = recognizeCodecType(fileformat1.getDataset()->getCurrentXfer());
+			}
+
+			//switch (codec_type)
+			//{
+			//case e_jpeg: case e_jpeg_lossless:
+			//{
+			//	std::lock_guard<std::mutex> guard(DCMTKDecoderJPEGInitialize);
+			//	if (numOpenedDCMTKDecoderJPEG++ == 0)
+			//		DJDecoderRegistration::registerCodecs(); // register JPEG decoder
+			//}
+			//break;
+
+			//case e_jpeg_ls:
+			//{
+			//	std::lock_guard<std::mutex> guard(DCMTKDecoderJPEGLSInitialize);
+			//	if (numOpenedDCMTKDecoderJPEGLS++ == 0)
+			//		DJLSDecoderRegistration::registerCodecs(); // register JPEG-LS decoder
+			//}
+			//}
+
+			switch (codec_type)
+			{
+			case e_unknown:	throw runtime_error("I dont know this codec. Cant decompress it.");
+
+			case e_jpeg2k:	throw runtime_error("I dont like this Jpeg2000. Cant decompress it.");//getPixelsJpeg2000(*dcmDataset, pixeldata, vs, hs, bpp, signedness, ncomp, 0);
+
+			default:
+			{
+				E_TransferSyntax xfer = dcmDataset1->getOriginalXfer();
+
+				OFCondition condition = dcmDataset1->chooseRepresentation(EXS_LittleEndianExplicit, nullptr);
+
+				//	unique_ptr<DicomImage> image1(new DicomImage(dcmDataset1, xfer, CIF_UsePartialAccessToPixelData, 1, 1 /* fcount */));
+				unique_ptr<DicomImage> image1 = make_unique<DicomImage>(dcmDataset1, xfer, CIF_UsePartialAccessToPixelData, 1, 1 /* fcount */);//CIF_UsePartialAccessToPixelData | CIF_IgnoreModalityTransformation
+
+				//cerr << "some text 1" << "\n";
+				//unique_ptr<DicomImage> image1(new DicomImage(dcmDataset1, xfer, CIF_UsePartialAccessToPixelData, 1, 1 /* fcount */));
+				//unique_ptr<DicomImage> image1 = make_unique<DicomImage>(dcmDataset1, EXS_Unknown, CIF_UsePartialAccessToPixelData , 0, 0 /* fcount */);//CIF_UsePartialAccessToPixelData | CIF_IgnoreModalityTransformation
+				//cerr << "some text 2" << "\n";
+				vs = image1->getHeight();
+				hs = image1->getWidth();
+				ncomp = image1->isMonochrome() ? 1 : 3;
+
+//				if (image1->getStatus() != EIS_Normal) throw runtime_error("There is no pixel data in dataset!");
+
+				unsigned char* ptr;
+				pixelData = make_unique<unsigned char[]>(image1->getOutputDataSize());
+
+				redPixels = make_unique<unsigned char[]>(vs * hs);
+				greenPixels = make_unique<unsigned char[]>(vs * hs);
+				bluePixels = make_unique<unsigned char[]>(vs * hs);
+
+				image1->getOutputData(pixelData.get(), image1->getOutputDataSize(), 0, 0, 0);
+
+				ptr = pixelData.get();
+
+				for (size_t i = 0; i < vs * hs; i++)
+				{
+					redPixels[i] = *ptr;
+					ptr++;
+					greenPixels[i] = *ptr;
+					ptr++;
+					bluePixels[i] = *ptr;
+					ptr++;
+				}
+			}
+			}
+
+			//		if (!pixeldata) throw logic_error("pixeldata is empty!");
+			if (!vs || !hs) throw logic_error(ssprintf("Wrong size value  = %d x %d", vs, hs));
+
+			//size_t bytes_per_pixel = (bpp + (CHAR_BIT - 1)) / CHAR_BIT;
+
+
+			if (img.empty()) img.realloc(vs, hs);
+
+			//инициализируем наш массив, в который будут положены данные
+			if (vs != img.vsize() || hs != img.hsize())
+			{
+				ForceDebugBreak();
+				throw invalid_argument("Image object has incorrect size(s).");
+			}
+
+			is_signed = false;
+
+			img.red().CopyData(redPixels.get());
+			img.green().CopyData(greenPixels.get());
+			img.blue().CopyData(bluePixels.get());
+			return true;
+		}
+		catch (...)
+		{
+			cout << "some exception happened" << endl;
+			return false;
+		}
+
+	}
+
+
 	wstring ContainerDCMTK::get_elements_to_wstring(bool byDCMTK) const
 	{
-		unique_lock<mutex> lck{ dicom_file_mutex };
+		lock_guard<mutex> lck{ dicom_file_mutex };
 		return elements_to_wstring(*m_dicom_file, byDCMTK);
 	}
 

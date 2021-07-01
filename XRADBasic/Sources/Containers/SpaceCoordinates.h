@@ -1,5 +1,10 @@
-﻿#ifndef __SpaceCoordinates_h
-#define __SpaceCoordinates_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_SpaceCoordinates_h
+#define XRAD__File_SpaceCoordinates_h
 /*!
 	\file
 	\date 2014-03-12 17:20
@@ -411,4 +416,4 @@ using	range3_PDT = range_3<ptrdiff_t, ptrdiff_t>;
 
 XRAD_END
 
-#endif //__SpaceCoordinates_h
+#endif //XRAD__File_SpaceCoordinates_h

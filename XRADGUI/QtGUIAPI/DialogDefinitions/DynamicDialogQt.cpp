@@ -1,4 +1,9 @@
-﻿// file DynamicDialogQt.cpp
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+// file DynamicDialogQt.cpp
 //--------------------------------------------------------------
 #include "pre.h"
 #include "DynamicDialogQt.h"
@@ -232,7 +237,7 @@ void SetupMiscButton(QPushButton *button)
 const Qt::KeyboardModifiers KeyFilterModifiersMask =
 		Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier;
 
-const Qt::KeyboardModifiers KeyFilterCursorModifiers = 0;
+const Qt::KeyboardModifiers KeyFilterCursorModifiers = Qt::NoModifier;//0;
 
 constexpr int KeyFilterMaxKey = Qt::Key_PageUp;
 constexpr int KeyFilterMinKey = Qt::Key_PageDown;
@@ -2265,7 +2270,7 @@ void NumberEditApi<T>::AddToDialog(QDialog *dialog, QBoxLayout *layout,
 					return;
 				if (!obj->ui_edit || !obj->ui_ddi)
 					return;
-				value_t v;
+				value_t v = value_t();//конструктор по умолчанию добавлен во избежание warning C4701: potentially uninitialized local variable 'v' used
 				bool valid = ParseValue(&v, obj->ui_edit->text());
 				if (valid)
 				{

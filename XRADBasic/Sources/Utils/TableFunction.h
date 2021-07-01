@@ -1,5 +1,10 @@
-﻿#ifndef __table_function_h
-#define __table_function_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_table_function_h
+#define XRAD__File_table_function_h
 
 #include <XRADBasic/Sources/Containers/MathFunction.h>
 
@@ -42,4 +47,4 @@ XRAD_END
 
 #include "TableFunction.hh"
 
-#endif //__table_function_h
+#endif //XRAD__File_table_function_h

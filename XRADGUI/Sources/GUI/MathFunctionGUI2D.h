@@ -1,5 +1,10 @@
-﻿#ifndef __MathFunctionGUI2D_h
-#define __MathFunctionGUI2D_h
+﻿/*
+	Copyright (c) 2021, Moscow Center for Diagnostics & Telemedicine
+	All rights reserved.
+	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
+*/
+#ifndef XRAD__File_MathFunctionGUI2D_h
+#define XRAD__File_MathFunctionGUI2D_h
 
 //--------------------------------------------------------------
 //
@@ -25,4 +30,4 @@ XRAD_END
 
 #include "MathFunctionGUI2D.hh"
 
-#endif //__MathFunctionGUI2D_h
+#endif //XRAD__File_MathFunctionGUI2D_h
