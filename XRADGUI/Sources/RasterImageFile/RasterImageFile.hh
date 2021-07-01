@@ -10,7 +10,7 @@ XRAD_BEGIN
 
 
 template<class RGB_IMAGE_T> 
-RGB_IMAGE_T file::raster_image::rgb()
+RGB_IMAGE_T RasterImageFile::rgb()
 {
 	using value_type = typename RGB_IMAGE_T::value_type;
 	ColorImageF64	buffer = rgb_internal();
@@ -21,7 +21,7 @@ RGB_IMAGE_T file::raster_image::rgb()
 	return result;
 }
 
-template <typename IMAGE_T> IMAGE_T file::raster_image::channel(color_channel in_channel)
+template <typename IMAGE_T> IMAGE_T RasterImageFile::channel(color_channel in_channel)
 {
 	using value_type = typename IMAGE_T::value_type;
 	RealFunction2D_F64	buffer = channel_internal(in_channel);
@@ -45,7 +45,7 @@ template <typename IMAGE_T> IMAGE_T file::raster_image::channel(color_channel in
 }
 
 template <typename IMAGE_T>
-IMAGE_T file::raster_image::lightness()
+IMAGE_T RasterImageFile::lightness()
 {
 	return channel(color_channel::lightness);
 }

@@ -207,6 +207,9 @@
     <ClCompile Include="..\QtGUIAPI\Common\SecondaryScreen.cpp">
       <Filter>Sources\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\RasterImageFile\RasterImageFile.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pre.h">
