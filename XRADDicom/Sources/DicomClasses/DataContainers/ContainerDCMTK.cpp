@@ -1037,7 +1037,7 @@ namespace Dicom
 			if (fileformat1.getMetaInfo()->tagExists(DCM_TransferSyntaxUID, false))
 			{
 				OFCondition condition = fileformat1.getMetaInfo()->findAndGetOFString(DCM_TransferSyntaxUID, xferstr, false);//DCM_TransferSyntaxUID//DCM_ImplementationClassUID
-				cout << " DCM_TransferSyntaxUID found = " << xferstr << endl;
+				//cout << " DCM_TransferSyntaxUID found = " << xferstr << endl;
 			}
 			else	cout << "no DCM_TransferSyntaxUID found" << endl;
 
