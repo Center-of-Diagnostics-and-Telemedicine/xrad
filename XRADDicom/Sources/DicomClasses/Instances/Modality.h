@@ -23,7 +23,7 @@ namespace Dicom
 	bool	is_modality_ct(const wstring &modality_string);
 	bool	is_modality_mr(const wstring &modality_string);
 	bool	is_modality_xray(const wstring &modality_string);
-	bool 	is_modality_mmg(const wstring &modality_string);
+	bool 	is_modality_mg(const wstring &modality_string);
 
 }//namespace Dicom
 

@@ -53,7 +53,7 @@ namespace Dicom
 		return false;
 	}
 	
-		bool is_modality_mmg(const wstring &modality_string)
+		bool is_modality_mg(const wstring &modality_string)
 	{
 		if (modality_string == L"MG") return true;
 		return false;
