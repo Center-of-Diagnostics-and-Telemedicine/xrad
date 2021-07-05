@@ -47,40 +47,42 @@ int32_t	RandomUniformI32();
 //--------------------------------------------------------------
 
 
-//--------------------------------------------------------------
-//
-// гауссова случайная величина через преобразование бокса-мюллера
-//
-
-double RandomGaussianStandard(); // центрированная, СКО =1
+//!	\brief Гауссова случайная величина через преобразование Бокса-Мюллера
+//!	\param sigma Среднеквадратичное отклонение получаемой величины
+//!	\param mean Математическое ожидание получаемой величины
+double RandomGaussianStandard(); // центрированная, СКО=1
 double RandomGaussian(double sigma); // центрированная, СКО = sigma
 double RandomGaussian(double mean, double sigma);	// мат. ожидание = mean, СКО = sigma
 
-//
-//--------------------------------------------------------------
 
+//!	\brief Случайная величина с распределением Лапласа (биэкспоненциальным).
+//!	\param sigma Среднеквадратичное отклонение получаемой величины
+inline double	RandomLaplacian(double sigma = 1)
+{
+	const	double factor = sigma/sqrt(2.);
+	double	x = RandomUniformF64(0, 2);
+	return x<1 ? log(x)*factor : -log(2.-x)*factor;
+}
 
+//!	\brief Функция плотности и функция распределения Гаусса
+//!	\param sigma Среднеквадратичное отклонение
+//!	\param average Математическое ожидание
 
-
-//--------------------------------------------------------------
-//
-//	прочее
-//
-//--------------------------------------------------------------
-
-
-// функция плотности и функция распределения гаусса
 double	gaussian_pdf(double x, double average, double sigma);
 double	gaussian_cdf(double x, double average, double sigma);
 
-// функция плотности пуассона
+//!	\brief Функция плотности распределения Пуассона
+//!	\param lambda Параметр распределения
 double	poisson_pdf(double x, double lambda);
 
-// функция плотности и функция распределения релея
+//!	\brief Функция плотности и функция распределения Рэлея
+//!	\param sigma Среднеквадратичное отклонение
 double	rayleigh_pdf(double x, double sigma);
 double	rayleigh_cdf(double x, double sigma);
 
-// функция плотности и функция распределения райса
+//!	\brief Функция плотности и функция распределения Райса
+//!	\param nu Смещение распределение
+//!	\param sigma Шум распределения
 double	rician_pdf(double x, double nu, double sigma);
 double	rician_cdf(double x, double nu, double sigma);
 

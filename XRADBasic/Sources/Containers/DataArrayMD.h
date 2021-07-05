@@ -173,11 +173,11 @@ class	DataArrayMD : private DataOwner<typename A2DT::value_type>
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		DataArrayMD(const self &original);
 		//! \brief См. \ref pg_MoveOperations
-		DataArrayMD(self &&original);
+		DataArrayMD(self &&original) noexcept;
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		DataArrayMD &operator=(const self &original);
 		//! \brief См. \ref pg_MoveOperations
-		DataArrayMD &operator=(self &&original);
+		DataArrayMD &operator=(self &&original) noexcept;
 
 		//! \brief См. \ref pg_CopyContructorOperatorEq
 		template<class A2DT2>
