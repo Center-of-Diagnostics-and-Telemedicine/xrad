@@ -16,7 +16,7 @@
 */
 
 //! \brief Макро-функция для выхода в отладчик в DEBUG-режиме
-#ifdef XRAD_DEBUG
+#if true //@@@def XRAD_DEBUG
 	#define ForceDebugBreak()	XRAD_FORCE_DEBUG_BREAK_FUNCTION()
 #else
 //	#define ForceDebugBreak()
