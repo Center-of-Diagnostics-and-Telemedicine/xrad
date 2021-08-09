@@ -117,6 +117,7 @@ namespace Dicom
 		virtual double get_intercept_mf() = 0;
 		virtual vector<double> get_scales_xy_mf() = 0;
 		virtual double get_thickness_mf() = 0;
+		virtual vector<double> get_currents_mf() = 0;
 
 	};
 

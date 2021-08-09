@@ -127,6 +127,14 @@ RealFunctionF64 TomogramAcquisition::prepare_RealFunctionF64(Dicom::tag_e elem_t
 	return arrTmp;
 }
 
+
+//RealFunctionF32 TomogramAcquisition::prepare_currents() const
+//{
+//	return prepare_RealFunctionF32(Dicom::e_tube_current);
+//}
+
+
+
 RealFunctionF64	TomogramAcquisition::thickness() const
 {
 	Dicom::tomogram_slice &first= dynamic_cast<Dicom::tomogram_slice&>(*(m_acquisition_loader->front()));
@@ -142,6 +150,8 @@ RealFunctionF64	TomogramAcquisition::thickness() const
 		return prepare_RealFunctionF64(Dicom::e_slice_thickness);
 	}
 }
+
+
 
 VectorFunction2_F64	TomogramAcquisition::scales_xy() const
 {

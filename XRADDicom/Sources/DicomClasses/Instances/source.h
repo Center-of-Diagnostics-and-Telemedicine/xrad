@@ -103,7 +103,7 @@ namespace Dicom
 		void delete_all_private_tags() { dicom_container()->delete_all_private_tags(); }
 
 		size_t & get_m_frame_no() { return m_frame_no; }
-
+		vector<double> get_currents_mf() { return m_dicom_container->get_currents_mf(); }
 	public:
 		shared_ptr<Container> dicom_container() { return m_dicom_container; }
 		shared_ptr<const Container> dicom_container() const { return m_dicom_container; }

@@ -46,6 +46,7 @@ namespace Dicom
 		vector<double> image_position_patient(size_t frame_no) { return dicom_container()->get_image_position(frame_no); }
 		vector<double> scales_xy_mf() { return dicom_container()->get_scales_xy_mf(); }
 		double thickness_mf() { return dicom_container()->get_thickness_mf(); }
+		vector<double> currentss_mf() { return dicom_container()->get_currents_mf(); }
 		
 		//sets
 		void set_slice_thickness(double val) { dicom_container()->set_double(e_slice_thickness, val); }

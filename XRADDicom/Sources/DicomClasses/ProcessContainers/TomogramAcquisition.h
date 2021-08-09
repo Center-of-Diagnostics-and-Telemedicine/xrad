@@ -49,6 +49,28 @@ public:
 	RealFunctionF32 prepare_RealFunctionF32(Dicom::tag_e elem_tag) const;
 	RealFunctionF64 prepare_RealFunctionF64(Dicom::tag_e elem_tag) const;
 
+	RealFunctionF32	prepare_currents() const
+	{
+		Dicom::tomogram_slice& first = dynamic_cast<Dicom::tomogram_slice&>(*(m_acquisition_loader->front()));
+
+		if (first.get_m_frame_no())
+		{
+			RealFunctionF64 result(first.get_m_frame_no());
+			auto currents = first.get_currents_mf();
+			for (size_t i = 0; i < first.get_m_frame_no(); i++)
+			{
+				result[i] = currents.at(i);
+			}
+			//		result[0] = first.currents_mf();
+					//return first.currents_mf();;
+			return result;
+		}
+		else
+		{
+			return prepare_RealFunctionF32(Dicom::e_tube_current);
+		}
+	};
+
 	RealFunctionF64	thickness() const;
 	VectorFunction2_F64	scales_xy() const;
 	VectorFunction3_F64	image_positions_patient() const;

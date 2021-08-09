@@ -83,6 +83,7 @@ namespace Dicom
 		virtual  double get_slope_mf() override;
 		virtual double get_intercept_mf() override;
 		virtual vector<double> get_scales_xy_mf() override;
+		vector<double> get_currents_mf() override;
 		virtual double get_thickness_mf() override;
 
 	private:

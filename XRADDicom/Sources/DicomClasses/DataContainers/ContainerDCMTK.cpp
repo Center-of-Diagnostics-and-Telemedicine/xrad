@@ -442,6 +442,49 @@ namespace Dicom
 		return result;
 	}
 
+	vector<double> ContainerDCMTK::get_currents_mf()
+	{
+		OFCondition status;
+		DcmDataset* Dataset = m_dicom_file->getDataset();
+		vector<double> result;
+
+		string XRayTubeCurrentInmAstr;
+		if (status.good())
+		{
+
+			DcmSequenceOfItems* dcmSqPerFrame;
+			DcmSequenceOfItems* dcmSqCTExposure;
+
+			if (Dataset->findAndGetSequence(DCM_PerFrameFunctionalGroupsSequence, dcmSqPerFrame, true, true).good())
+			{
+				auto item1 = make_unique<DcmItem>();
+				int i = 0;
+				item1.reset(dcmSqPerFrame->getItem(i));
+				while (item1.get())
+				{
+					if (item1.get()->findAndGetSequence(DCM_CTExposureSequence, dcmSqCTExposure, true, true).good())
+					{
+						dcmSqCTExposure->getItem(0)->findAndGetOFStringArray(DCM_XRayTubeCurrentInmA, XRayTubeCurrentInmAstr, true);
+//						cout << XRayTubeCurrentInmAstr << endl;
+//						fflush(stdout);
+						char* pEnd;
+
+					result.push_back(strtod(XRayTubeCurrentInmAstr.c_str(), &pEnd));
+					}
+					i++;
+					item1.reset(dcmSqPerFrame->getItem(i));
+				}
+				cout << endl << i << endl;
+			}
+			else cerr << "Error: cannot read tag (" << status.text() << ")" << endl;
+
+		}
+		else
+			cerr << "Error: cannot read DICOM file (" << status.text() << ")" << endl;
+
+		return result;
+	}
+
 	double ContainerDCMTK::get_thickness_mf()
 	{
 		DcmDataset *Dataset = m_dicom_file->getDataset();
