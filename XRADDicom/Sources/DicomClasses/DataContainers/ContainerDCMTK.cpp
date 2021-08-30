@@ -442,6 +442,43 @@ namespace Dicom
 		return result;
 	}
 
+	double ContainerDCMTK::get_current_mf(const size_t& index)
+	{
+		OFCondition status;
+		DcmDataset* Dataset = m_dicom_file->getDataset();
+		double result;
+
+		string XRayTubeCurrentInmAstr;
+		if (status.good())
+		{
+			DcmSequenceOfItems* dcmSqPerFrame;
+			DcmSequenceOfItems* dcmSqCTExposure;
+
+			if (Dataset->findAndGetSequence(DCM_PerFrameFunctionalGroupsSequence, dcmSqPerFrame, true, true).good())
+			{
+				auto item1 = make_unique<DcmItem>();
+//				int i = 0;
+				item1.reset(dcmSqPerFrame->getItem(index));
+//				while (item1.get())
+//				{
+					if (item1.get()->findAndGetSequence(DCM_CTExposureSequence, dcmSqCTExposure, true, true).good())
+					{
+						dcmSqCTExposure->getItem(0)->findAndGetOFStringArray(DCM_XRayTubeCurrentInmA, XRayTubeCurrentInmAstr, true);
+						char* pEnd;
+						result = strtod(XRayTubeCurrentInmAstr.c_str(), &pEnd);
+					}
+//					i++;
+//					item1.reset(dcmSqPerFrame->getItem(i));
+//				}
+			}
+			else cerr << "Error: cannot read tag (" << status.text() << ")" << endl;
+		}
+		else
+			cerr << "Error: cannot read DICOM file (" << status.text() << ")" << endl;
+
+		return result;
+	}
+
 	vector<double> ContainerDCMTK::get_currents_mf()
 	{
 		OFCondition status;
@@ -465,19 +502,14 @@ namespace Dicom
 					if (item1.get()->findAndGetSequence(DCM_CTExposureSequence, dcmSqCTExposure, true, true).good())
 					{
 						dcmSqCTExposure->getItem(0)->findAndGetOFStringArray(DCM_XRayTubeCurrentInmA, XRayTubeCurrentInmAstr, true);
-//						cout << XRayTubeCurrentInmAstr << endl;
-//						fflush(stdout);
 						char* pEnd;
-
 					result.push_back(strtod(XRayTubeCurrentInmAstr.c_str(), &pEnd));
 					}
 					i++;
 					item1.reset(dcmSqPerFrame->getItem(i));
 				}
-				cout << endl << i << endl;
 			}
 			else cerr << "Error: cannot read tag (" << status.text() << ")" << endl;
-
 		}
 		else
 			cerr << "Error: cannot read DICOM file (" << status.text() << ")" << endl;
@@ -958,14 +990,6 @@ namespace Dicom
 			if(m_dicom_file->isEmpty()) throw invalid_argument("File is empty.");
 			//создаём объект для декодирования
 
-			//Dicom::dcmtkCodec	dcmCodec(dcmtkCodec::e_decode, element_value_to_hidden_ustring(*m_dicom_file, DCM_TransferSyntaxUID));
-
-			//if (tmpstr == "")
-			//E_TransferSyntax ts = m_dicom_file->getDataset()->getCurrentXfer();
-			//stringstream ss;
-			//m_dicom_file->print(ss);
-			//printf("--file--\n %s \n ---file--- \n", ss.str().c_str());
-			//ShowText(L"", convert_to_wstring(ss.str()));
 			unique_ptr<dcmtkCodec> dcmCodec_ptr;
 			//string xferstr = element_value_to_hidden_ustring(*m_dicom_file, DCM_TransferSyntaxUID);
 			string xferstr = convert_to_string(get_wstring(DcmTag_to_element_id(DCM_TransferSyntaxUID))); //(*m_dicom_file, DCM_TransferSyntaxUID);
@@ -980,9 +1004,7 @@ namespace Dicom
 
 			//забираем изображение со всеми параметрами
 			unique_ptr<char[]> pixeldata;
-			//size_t pixeldata_length;
-			//bool signedness = true;
-			//size_t bpp = 0;
+
 			size_t vs = 0;
 			size_t hs = 0;
 			//size_t ncomp = 1;
@@ -995,7 +1017,6 @@ namespace Dicom
 			if (!vs || !hs) throw logic_error(ssprintf("Wrong size value  = %d x %d", vs, hs));
 
 			size_t bytes_per_pixel = (bpp + (CHAR_BIT - 1)) / CHAR_BIT;
-
 
 			if(img_in.empty()) img_in.realloc(vs, hs);
 
@@ -1126,13 +1147,8 @@ namespace Dicom
 
 				OFCondition condition = dcmDataset1->chooseRepresentation(EXS_LittleEndianExplicit, nullptr);
 
-				//	unique_ptr<DicomImage> image1(new DicomImage(dcmDataset1, xfer, CIF_UsePartialAccessToPixelData, 1, 1 /* fcount */));
 				unique_ptr<DicomImage> image1 = make_unique<DicomImage>(dcmDataset1, xfer, CIF_UsePartialAccessToPixelData, 1, 1 /* fcount */);//CIF_UsePartialAccessToPixelData | CIF_IgnoreModalityTransformation
 
-				//cerr << "some text 1" << "\n";
-				//unique_ptr<DicomImage> image1(new DicomImage(dcmDataset1, xfer, CIF_UsePartialAccessToPixelData, 1, 1 /* fcount */));
-				//unique_ptr<DicomImage> image1 = make_unique<DicomImage>(dcmDataset1, EXS_Unknown, CIF_UsePartialAccessToPixelData , 0, 0 /* fcount */);//CIF_UsePartialAccessToPixelData | CIF_IgnoreModalityTransformation
-				//cerr << "some text 2" << "\n";
 				vs = image1->getHeight();
 				hs = image1->getWidth();
 				ncomp = image1->isMonochrome() ? 1 : 3;
@@ -1164,9 +1180,6 @@ namespace Dicom
 
 			//		if (!pixeldata) throw logic_error("pixeldata is empty!");
 			if (!vs || !hs) throw logic_error(ssprintf("Wrong size value  = %d x %d", vs, hs));
-
-			//size_t bytes_per_pixel = (bpp + (CHAR_BIT - 1)) / CHAR_BIT;
-
 
 			if (img.empty()) img.realloc(vs, hs);
 

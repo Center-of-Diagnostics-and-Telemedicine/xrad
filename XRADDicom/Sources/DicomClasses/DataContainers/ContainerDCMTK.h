@@ -86,6 +86,8 @@ namespace Dicom
 		vector<double> get_currents_mf() override;
 		virtual double get_thickness_mf() override;
 
+		double get_current_mf(const size_t& index) override;
+
 	private:
 		//read/save
 		//! \details При ошибке возвращает false или вызывает исключение в зависимости от use_exceptions.

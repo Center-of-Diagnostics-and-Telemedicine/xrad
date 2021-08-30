@@ -103,7 +103,7 @@ namespace Dicom
 		void delete_all_private_tags() { dicom_container()->delete_all_private_tags(); }
 
 		size_t & get_m_frame_no() { return m_frame_no; }
-		vector<double> get_currents_mf() { return m_dicom_container->get_currents_mf(); }
+		double get_current_mf(const size_t & index) { return m_dicom_container->get_current_mf(index); }
 	public:
 		shared_ptr<Container> dicom_container() { return m_dicom_container; }
 		shared_ptr<const Container> dicom_container() const { return m_dicom_container; }
@@ -117,7 +117,7 @@ namespace Dicom
 
 	protected:
 		bool m_init_from_preindex;
-		size_t m_frame_no; //номер фрейма в мультифрейме. Имеет значение от 1. В однофрейме имеет также значение 1. В функциях используется значение по умолчанию =0 для забора данных, не зависящих от номера фрейма, например, имя пациента.
+		size_t m_frame_no; //номер фрейма в мультифрейме. Имеет значение от 0. В однофрейме имеет также значение 0. В функциях используется значение по умолчанию =0 для забора данных, не зависящих от номера фрейма, например, имя пациента.
 		map<tag_e, wstring> m_IDs_set; //todo (Kovbas) реализовать наполнение его при открытии файла, наверное, правильнее это сделать при создании объекта или при открытии файла из него.
 
 	private:

@@ -118,6 +118,7 @@ namespace Dicom
 		virtual vector<double> get_scales_xy_mf() = 0;
 		virtual double get_thickness_mf() = 0;
 		virtual vector<double> get_currents_mf() = 0;
+		virtual double get_current_mf(const size_t& index) = 0;
 
 	};
 

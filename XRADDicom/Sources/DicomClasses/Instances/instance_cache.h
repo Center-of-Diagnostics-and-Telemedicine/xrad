@@ -68,6 +68,7 @@ namespace Dicom
 		auto begin() const { return m_cache.begin(); }
 		auto end() const { return m_cache.end(); }
 		bool empty() const{ return m_cache.empty(); }
+		const cache_t& cache() const { return m_cache; };
 	};
 
 

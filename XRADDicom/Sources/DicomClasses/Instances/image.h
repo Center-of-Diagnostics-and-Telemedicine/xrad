@@ -78,18 +78,12 @@ namespace Dicom
 				throw invalid_argument("Dicom::image::load_image, invalid buffer dimensions");
 			}
 
-
-			//получаем изображение из файла
-			//size_t bpp = dicom_container()->get_uint(e_bits_allocated);
-			//bool signedness = dicom_container()->get_uint(e_pixel_representation) != 0;
-			////size_t ncomponents = 0;
-			//size_t ncomponents = dicom_container()->get_uint(e_samples_per_pixel);
 			dicom_container()->get_color_pixeldata(image_p);
 
 			// Важно: копирование в существующий массив без переаллокирования
 			image_p.CopyData(image_p/*, [&intercept, &slope](auto &y, const auto &x){y = x*slope + intercept;}*/);
 		}
-		virtual void get_image(RealFunction2D_F32 &image_p, size_t m_frame_no) const
+		virtual void get_image(RealFunction2D_F32 &image_p, size_t frame_no) const
 		{
 			if (image_p.vsize() != vsize() || image_p.hsize() != hsize())
 			{
@@ -103,7 +97,7 @@ namespace Dicom
 			bool signedness = dicom_container()->get_uint(e_pixel_representation) != 0;
 			//size_t ncomponents = 0;
 			size_t ncomponents = dicom_container()->get_uint(e_samples_per_pixel);
-			dicom_container()->get_pixeldata(image_p, bpp, signedness, ncomponents, m_frame_no);
+			dicom_container()->get_pixeldata(image_p, bpp, signedness, ncomponents, frame_no);
 
 			// Важно: копирование в существующий массив без переаллокирования
 			image_p.CopyData(image_p/*, [&intercept, &slope](auto &y, const auto &x){y = x*slope + intercept;}*/);
@@ -188,24 +182,9 @@ namespace Dicom
 		void set_precision(const size_t val) { dicom_container()->set_uint(e_bits_stored, val); }
 		void set_signedness(const bool val) { if (val) dicom_container()->set_uint(e_signedness, 1); else dicom_container()->set_uint(e_signedness, 0); }
 		void set_ncomponents(const size_t val) { dicom_container()->set_uint(e_samples_per_pixel, val); }
-		//void set_image(const RealFunction2D_F32 &image_in) { get_image().MakeCopy(image_in); } //потенциально не будет сохранять изображение, если изначально не было выделено под это место в текущей переменной
 
-		//virtual void set_new_values_to_file() override;
-		//virtual void set_new_values_to_instance(Container::error_process_mode epm) override;
-		//void set_to_file_image_data();
-		//void set_to_file_pixeldata();
-		//void set_to_instance_image_data();
-		//void set_to_instance_pixeldata(Container::error_process_mode epm);
 
-		//methods
-		//-virtual bool collect_image() override;
-//		void delete_image();
 
-// 		virtual void clear() override
-// 		{
-// 			delete_image();
-// 			parent::clear();
-// 		}
 
 		virtual	instance *clone() const override
 		{

@@ -237,6 +237,45 @@ size_t	TomogramAcquisition::sizes(size_t dim) const
 	return sizes()[dim];
 }
 
+RealFunctionF32	TomogramAcquisition::load_ordered_currents() const
+{
+	return load_ordered_currents(determine_slice_order());
+}
+
+RealFunctionF32	TomogramAcquisition::load_ordered_currents(
+	const vector<pair<size_t, size_t>>& slice_order) const
+{
+	//    XRAD_ASSERT_THROW(slice_order.size() == sizes(0));
+	RealFunctionF32 currents(slice_order.size());
+
+
+	for (size_t i = 0; i < slice_order.size(); i++)
+	{
+		auto instance_index = slice_order[i].first;
+
+		XRAD_ASSERT_THROW_M(instance_index < slice_order.size(), runtime_error,
+			"Invalid slice order data: index is too big.");
+
+		auto el = (*m_acquisition_loader)[instance_index];
+		Dicom::tomogram_slice& current_slice = dynamic_cast<Dicom::tomogram_slice&>(*el);
+
+		if (!current_slice.get_m_frame_no())
+		{
+//			current_slice.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref());
+			currents.at(i) = current_slice.get_double(Dicom::e_tube_current);
+		}
+
+		else
+		{
+//			current_slice.get_image(slices.GetSlice({ i, slice_mask(0), slice_mask(1) }).ref(), slice_order[i].second);
+		currents.at(i) = current_slice.get_current_mf(slice_order[i].second);
+		}
+	}
+
+	return currents;
+}
+
+
 RealFunctionMD_F32	TomogramAcquisition::slices() const
 {
 
@@ -340,7 +379,7 @@ vector<pair<size_t, size_t>> TomogramAcquisition::determine_slice_order() const
 		}
 	}
 
-	std::sort(frame_positions.begin(), frame_positions.end(), std::greater<pair<double, pair<size_t, size_t>>>());
+	std::sort(frame_positions.begin(), frame_positions.end(), std::less<pair<double, pair<size_t, size_t>>>());
 
 	vector<pair<size_t, size_t>> frame_order;
 	frame_order.reserve(frame_positions.size());

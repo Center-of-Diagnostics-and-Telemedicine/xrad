@@ -33,7 +33,7 @@ public:
 
 	//methods
 	RealFunctionF32 voltages() const { return prepare_RealFunctionF32(Dicom::e_tube_voltage_KVP); }
-	RealFunctionF32 currents() const { return prepare_currents(); };//{ return prepare_RealFunctionF32(Dicom::e_tube_current); }prepare_currents()
+	RealFunctionF32 currents() const { return load_ordered_currents(); };
 	RealFunctionF32 CTDIvols() const { return prepare_RealFunctionF32(Dicom::e_CTDIvol); }
 
 	virtual void put_elements_to_instance(Dicom::instance &instance, size_t num_frame) const override;
