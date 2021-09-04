@@ -102,6 +102,8 @@ namespace Dicom
 		virtual void	set_pixeldata(const RealFunction2D_F32 &img_in, size_t bpp, bool is_signed, size_t ncomp) = 0;
 		virtual void set_pixeldata_mf(const RealFunctionMD_F32 &img_in, size_t bpp, bool is_signed, size_t ncomp) = 0;
 
+		virtual void set_rescaled_tags_mf(const size_t& new_size, const double& current, const double& thickness) = 0;
+
 		virtual bool set_wstring(tag_e id, const wstring &new_value, size_t num_of_frame = 0, bool set_only_if_exist = false) = 0;
 		virtual void set_wstring_values(tag_e id, const vector<wstring> &new_values, wchar_t delimeter = L'\\', size_t num_of_frame = 0, bool set_only_if_exist = false) = 0;
 		virtual void set_double(tag_e id, double new_value, size_t num_of_frame = 0, bool set_only_if_exist = false) = 0;

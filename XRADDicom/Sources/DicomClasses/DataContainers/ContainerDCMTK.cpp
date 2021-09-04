@@ -1263,6 +1263,106 @@ namespace Dicom
 		return result;
 	}
 
+	void ContainerDCMTK::set_rescaled_tags_mf(const size_t& new_size, const double& current, const double& thickness)
+	{
+		bool if_first_frame = true;
+		double x_position;
+		double y_position;
+		double x_center = 5.;
+		double y_center = 6.;
+		double first_z_position;
+		double first_table_position;
+		DcmDataset* Dataset = m_dicom_file->getDataset();
+
+		DcmSequenceOfItems* dcmSqSharedFunctionalGroups;
+		DcmSequenceOfItems* dcmSqPixelMeasures;
+
+		DcmSequenceOfItems* dcmSqPerFrame;
+		DcmSequenceOfItems* dcmSqCTExposure;
+		DcmSequenceOfItems* dcmSqPlanePosition;
+		DcmSequenceOfItems* dcmSqCTPosition;
+
+		if (Dataset->findAndGetSequence(DCM_SharedFunctionalGroupsSequence, dcmSqSharedFunctionalGroups, true, false).good())
+		{
+			DcmItem* item = dcmSqSharedFunctionalGroups->getItem(0);
+			if (item->findAndGetSequence(DCM_PixelMeasuresSequence, dcmSqPixelMeasures, true, false).good())
+			{
+				dcmSqPixelMeasures->getItem(0)->putAndInsertString(DCM_SliceThickness, to_string(fabs(thickness)).c_str());
+			}
+		}
+
+		if (Dataset->findAndGetSequence(DCM_PerFrameFunctionalGroupsSequence, dcmSqPerFrame, true, false).good())
+		{
+						for (unsigned long i = dcmSqPerFrame->card(); i > new_size; --i)
+			{
+				delete dcmSqPerFrame->remove(i - 1);
+			}
+			size_t index = 0;
+			DcmItem* item = dcmSqPerFrame->getItem(index);
+
+			while (item)
+			{
+				if (item->findAndGetSequence(DCM_CTExposureSequence, dcmSqCTExposure, true, false).good())
+				{
+					if (dcmSqCTExposure->getItem(0)->putAndInsertString(DCM_XRayTubeCurrentInmA, to_string(current).c_str()).good());
+				}
+
+				if (item->findAndGetSequence(DCM_PlanePositionSequence, dcmSqPlanePosition, true, false).good())
+				{
+					if (if_first_frame)
+					{
+						string str;
+						dcmSqPlanePosition->getItem(0)->findAndGetOFStringArray(DCM_ImagePositionPatient, str);
+
+						char* pEnd;
+						x_position = strtod(str.c_str(), &pEnd);
+						y_position = strtod(pEnd + 1, &pEnd);
+						first_z_position = strtod(pEnd + 1, nullptr);
+					}
+					string pos = to_string(x_position) + "\\" + to_string(y_position) + "\\" + to_string(first_z_position + thickness*index);
+					if (dcmSqPlanePosition->getItem(0)->putAndInsertString(DCM_ImagePositionPatient, pos.c_str()).good());
+				}
+
+				if (item->findAndGetSequence(DCM_CTPositionSequence, dcmSqCTPosition, true, false).good())
+				{
+					if (if_first_frame)
+					{
+						string str;
+						dcmSqPlanePosition->getItem(0)->findAndGetOFStringArray(DCM_DataCollectionCenterPatient, str);
+						char* pEnd;
+						x_center = strtod(str.c_str(), &pEnd);
+						y_center = strtod(pEnd + 1, nullptr);
+					}
+
+					string pos = to_string(x_center) + "\\" + to_string(y_center) + "\\" + to_string(first_z_position + thickness * index);
+					if (dcmSqCTPosition->getItem(0)->putAndInsertString(DCM_DataCollectionCenterPatient, pos.c_str()).good())
+						cout << "";// "DCM_DataCollectionCenterPatient is written\n";
+
+					if (dcmSqCTPosition->getItem(0)->putAndInsertString(DCM_ReconstructionTargetCenterPatient, pos.c_str()).good())
+						cout << "";//"DCM_ReconstructionTargetCenterPatient is written\n";
+
+					if (if_first_frame)
+					{
+						string str;
+						dcmSqCTPosition->getItem(0)->findAndGetOFStringArray(DCM_TablePosition, str);
+//						cout << "the string" << str << endl;
+						char* pEnd;
+						first_table_position = strtod(str.c_str(), &pEnd);
+						if_first_frame = false;
+					}
+
+					if (dcmSqCTPosition->getItem(0)->putAndInsertString(DCM_TablePosition, to_string(first_table_position + thickness * index).c_str()).good())
+						cout << ""; //"DCM_TablePosition is written\n";
+				}
+				index++;
+				item = dcmSqPerFrame->getItem(index);
+			}
+
+		}
+//		else cerr << "Error: cannot read tag (" << status.text() << ")" << endl;
+		Dataset->putAndInsertString(DCM_NumberOfFrames, to_string(new_size).c_str());
+	}
+
 	void ContainerDCMTK::set_pixeldata_mf(const RealFunctionMD_F32 &img_in, size_t bpp, bool is_signed, size_t ncomp)
 	{
 		(void)ncomp; //note (Kovbas) нужно будет для сохранения цветных изображений

@@ -67,7 +67,7 @@ namespace Dicom
 		virtual void set_uint(tag_e id, size_t new_value, size_t num_of_frame = 0, bool set_only_if_exist = false) override;
 		virtual void set_int_values(tag_e id, const vector<int> &new_values, wchar_t delimeter = L'\\', size_t num_of_frame = 0, bool set_only_if_exist = false) override;
 
-
+		virtual void set_rescaled_tags_mf(const size_t& new_size, const double& current, const double& thickness) override;
 		/*!
 			\brief Кладёт изображение в объект файла
 			\note Здесь не устанавливается то, как будет кодировано изображение. Это делается только при сохранении файла

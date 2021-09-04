@@ -156,6 +156,11 @@ namespace Dicom
 			
 		}
 
+		void set_rescaled_tags_mf(const size_t& new_size, const double& current, const double& thickness)
+		{
+			dicom_container()->set_rescaled_tags_mf(new_size, current, thickness);
+		}
+
 		//constructors
 		//?image();
 
