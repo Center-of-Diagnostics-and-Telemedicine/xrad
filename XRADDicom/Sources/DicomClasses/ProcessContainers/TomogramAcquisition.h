@@ -62,10 +62,12 @@ public:
 	RealFunctionF32	load_ordered_currents() const;
 
 	RealFunctionMD_F32	slices() const;
+	RealFunctionF32	currents() const;
 	//! \brief Загрузить данные, упорядоченные в соответствии с determine_slice_order()
 	RealFunctionMD_F32	load_ordered_slices() const;
 	RealFunctionMD_F32	load_ordered_slices(const vector<pair<size_t, size_t>> &slice_order) const;
 	vector<pair<size_t, size_t>> determine_slice_order() const;
+	vector<pair<size_t, size_t>>	non_sorted_slice_order() const;
 
 	//! \brief Определяет ось, по которой следует производить сортировку срезов томограммы.
 	//! Выбирает ту ось, по которой происходит самая большая разница

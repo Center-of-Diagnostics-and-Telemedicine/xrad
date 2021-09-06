@@ -98,9 +98,6 @@ point3_F64 TomogramAcquisition::scales() const
 RealFunctionF32 TomogramAcquisition::prepare_RealFunctionF32(Dicom::tag_e elem_tag) const
 {
 	RealFunctionF32 arrTmp(m_acquisition_loader->size());
-	//size_t	z_size = source_tomogram.size();
-	//size_t	y_size = first_frame.vsize();
-	//size_t	x_size = first_frame.hsize();
 
 	size_t i{ 0 };
 	for (auto el : *m_acquisition_loader)
@@ -114,9 +111,6 @@ RealFunctionF32 TomogramAcquisition::prepare_RealFunctionF32(Dicom::tag_e elem_t
 RealFunctionF64 TomogramAcquisition::prepare_RealFunctionF64(Dicom::tag_e elem_tag) const
 {
 	RealFunctionF64 arrTmp(m_acquisition_loader->size());
-	//size_t	z_size = source_tomogram.size();
-	//size_t	y_size = first_frame.vsize();
-	//size_t	x_size = first_frame.hsize();
 
 	size_t i{ 0 };
 	for (auto el : *m_acquisition_loader)
@@ -126,12 +120,6 @@ RealFunctionF64 TomogramAcquisition::prepare_RealFunctionF64(Dicom::tag_e elem_t
 	}
 	return arrTmp;
 }
-
-
-//RealFunctionF32 TomogramAcquisition::prepare_currents() const
-//{
-//	return prepare_RealFunctionF32(Dicom::e_tube_current);
-//}
 
 
 
@@ -237,6 +225,11 @@ size_t	TomogramAcquisition::sizes(size_t dim) const
 	return sizes()[dim];
 }
 
+RealFunctionF32	TomogramAcquisition::currents() const
+{
+	return load_ordered_currents(non_sorted_slice_order());
+}
+
 RealFunctionF32	TomogramAcquisition::load_ordered_currents() const
 {
 	return load_ordered_currents(determine_slice_order());
@@ -275,21 +268,19 @@ RealFunctionF32	TomogramAcquisition::load_ordered_currents(
 	return currents;
 }
 
-
-RealFunctionMD_F32	TomogramAcquisition::slices() const
+vector<pair<size_t, size_t>>	TomogramAcquisition::non_sorted_slice_order() const
 {
 
 	vector<pair<size_t, size_t>> frame_order;
 	size_t index = 0;
 
-	for (auto &el : *m_acquisition_loader)
+	for (auto& el : *m_acquisition_loader)
 	{
-
-		Dicom::tomogram_slice &current_slice = dynamic_cast<Dicom::tomogram_slice&>(*el);
+		Dicom::tomogram_slice& current_slice = dynamic_cast<Dicom::tomogram_slice&>(*el);
 
 		if (!current_slice.get_m_frame_no())
 		{
-			frame_order.emplace_back( make_pair(EnsureType<size_t>(index), 0));
+			frame_order.emplace_back(make_pair(EnsureType<size_t>(index), 0));
 			++index;
 		}
 
@@ -297,14 +288,19 @@ RealFunctionMD_F32	TomogramAcquisition::slices() const
 		{
 			for (size_t i = 0; i < current_slice.get_m_frame_no(); ++i)
 			{
-				frame_order.emplace_back( make_pair(EnsureType<size_t>(index), i));
+				frame_order.emplace_back(make_pair(EnsureType<size_t>(index), i));
 			}
 			index += current_slice.get_m_frame_no();
 		}
 	}
 
+	return frame_order;
+}
 
-	return load_ordered_slices(frame_order);
+
+RealFunctionMD_F32	TomogramAcquisition::slices() const
+{
+	return load_ordered_slices(non_sorted_slice_order());
 }
 
 RealFunctionMD_F32	TomogramAcquisition::load_ordered_slices() const
