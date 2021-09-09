@@ -35,11 +35,11 @@ string GetExceptionString()
 			str_buf[strftime(str_buf, sizeof(str_buf), "%F %T%z", local_tm)] = 0;
 		else
 			strcpy(str_buf, "???");
-		return ssprintf("%s [%s at %s]", e.what(), typeid(e).name(), str_buf);
+		return ssprintf("%s [%s at %s]\n", e.what(), typeid(e).name(), str_buf);
 	}
 	catch (...)
 	{
-		return """Unknown exception";
+		return """Unknown exception\n";
 	}
 }
 
