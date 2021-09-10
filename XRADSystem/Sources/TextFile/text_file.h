@@ -96,6 +96,9 @@ class text_file_writer : public text_file
 private:
 	bool	write_bom(text_encoding::file_type tff);
 
+	//! \brief Если флаг auto_flush=true, при каждом выводе данные принудительно пишутся на диск. Учитывая как правило небольшой объем ввода-вывода в текстовых документах, устанавливается в true по умолчанию
+	bool	auto_flush = true;
+
 	size_t	printf_util(const char *format, text_encoding::file_type tff, va_list args);
 	size_t	printf_util(const wchar_t *format, text_encoding::file_type tff, va_list args);
 //	size_t	printf_util(const uchar_t *format, text_encoding::file_type tff, va_list args);
@@ -105,6 +108,9 @@ public:
 	text_file_writer(){}
 	text_file_writer(const string &filename, text_encoding::file_type enc){ open_create(filename, enc); };
 	text_file_writer(const wstring &filename, text_encoding::file_type enc){ open_create(filename, enc); };
+
+	//!	\brief Установка флага auto_flush
+	bool	set_auto_flush(bool af){ auto_flush = af; }
 
 	void	open_append(const string &filename)
 	{
@@ -155,6 +161,7 @@ private:
 		va_start(args, format);
 		size_t result = printf_util(format, encoding(), args);
 		va_end(args);
+		if(auto_flush) flush();
 		return result;
 	}
 };
