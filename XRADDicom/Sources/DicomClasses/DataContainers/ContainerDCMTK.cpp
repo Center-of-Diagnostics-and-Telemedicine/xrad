@@ -453,23 +453,16 @@ namespace Dicom
 		{
 			DcmSequenceOfItems* dcmSqPerFrame;
 			DcmSequenceOfItems* dcmSqCTExposure;
-
-			if (Dataset->findAndGetSequence(DCM_PerFrameFunctionalGroupsSequence, dcmSqPerFrame, true, true).good())
+			
+			if(Dataset->findAndGetSequence(DCM_PerFrameFunctionalGroupsSequence, dcmSqPerFrame, true, false).good())
 			{
-				auto item1 = make_unique<DcmItem>();
-//				int i = 0;
-				item1.reset(dcmSqPerFrame->getItem(index));
-//				while (item1.get())
-//				{
-					if (item1.get()->findAndGetSequence(DCM_CTExposureSequence, dcmSqCTExposure, true, true).good())
-					{
-						dcmSqCTExposure->getItem(0)->findAndGetOFStringArray(DCM_XRayTubeCurrentInmA, XRayTubeCurrentInmAstr, true);
-						char* pEnd;
-						result = strtod(XRayTubeCurrentInmAstr.c_str(), &pEnd);
-					}
-//					i++;
-//					item1.reset(dcmSqPerFrame->getItem(i));
-//				}
+				auto item1 = dcmSqPerFrame->getItem(index);
+				if(item1->findAndGetSequence(DCM_CTExposureSequence, dcmSqCTExposure, true, false).good())
+				{
+					dcmSqCTExposure->getItem(0)->findAndGetOFStringArray(DCM_XRayTubeCurrentInmA, XRayTubeCurrentInmAstr, true);
+					char* pEnd;
+					result = strtod(XRayTubeCurrentInmAstr.c_str(), &pEnd);
+				}
 			}
 			else cerr << "Error: cannot read tag (" << status.text() << ")" << endl;
 		}
