@@ -1,8 +1,8 @@
-﻿#ifndef __pre_h
-#define __pre_h
+﻿#ifndef XRAD__pre_h 
+#define XRAD__pre_h 
 
 #define XRAD_USE_OPENCL
 
 #include <XRADBasic/Core.h>
 
-#endif //__pre_h
+#endif //XRAD__pre_h 
