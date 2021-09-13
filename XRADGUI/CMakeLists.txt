@@ -13,6 +13,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+set(AUTOUIC ON)
+ 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CMake/pre.h.in
 	${XRAD_Project_Generated_pre_h}
 	@ONLY)
@@ -26,6 +28,7 @@ set(Project_IncludeDirs ${Project_IncludeDirs}
 	${CMAKE_CURRENT_SOURCE_DIR}/QtGUIAPI/Forms
 	${Qt5Widgets_INCLUDE_DIRS}
 	${XRAD_Qwt_Include}
+	${AUTOGEN_BUILD_DIR}/include
 	)
 
 set(Project_Sources_Qt
@@ -168,10 +171,10 @@ set(Project_Sources_CXX
 	../XRADQt/QtStringConverters.h
 	)
 
-set(ProjectTests_Sources_CXX
-	../XRADQt/Tests/QtStringConverters_Test.cpp
-	../XRADQt/Tests/QtStringConverters_Test.h
-	)
+#set(ProjectTests_Sources_CXX
+#	../XRADQt/Tests/QtStringConverters_Test.cpp
+#	../XRADQt/Tests/QtStringConverters_Test.h
+#	)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 	set(Project_Sources_PlatformSpecific)

@@ -2,7 +2,7 @@
 #define TOOLS_MENU_WIDGET_H
 
 #include "pre.h"
-#include <QWidget.h>
+#include <qwidget.h>
 #include <QPushButton>
 #include <QMouseEvent>
 #include <QVBoxLayout>

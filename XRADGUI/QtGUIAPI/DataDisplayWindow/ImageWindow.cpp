@@ -13,7 +13,7 @@
 #include <XRADSystem/CFile.h>
 #include <XRADSystem/System.h>
 #include <XRADBasic/Sources/Utils/TimeProfiler.h>
-#include <XRADGui/Sources/GUI/Keyboard.h>
+#include <XRADGUI/Sources/GUI/Keyboard.h>
 
 namespace XRAD_GUI
 {

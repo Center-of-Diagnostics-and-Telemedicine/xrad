@@ -25,7 +25,7 @@ struct utf8_ofstream : public ofstream
 {
 	PARENT(ofstream);
 
-	utf8_ofstream(const wstring &fn, ios_base::openmode mode = ios_base::out) : ofstream(fn, mode)
+    utf8_ofstream(const wstring &fn, ios_base::openmode mode = ios_base::out) : ofstream(convert_to_string(fn), mode)
 	{
 		*this << ("\xEF\xBB\xBF");
 		// Отступы табуляцией включаются прямо здесь, т.к. класс создавался прежде всего для вывода json. Возможно, надо сделать отдельно

@@ -13,7 +13,7 @@
 #include <XRADBasic/Core.h>
 #include <ui_PainterWindow.h>
 #include <XRADBasic/ContainersAlgebra.h>
-#include <XRADGUI/QTGUIAPI/DataDisplayWindow/DataDisplayWindow.h>
+#include <XRADGUI/QtGUIAPI/DataDisplayWindow/DataDisplayWindow.h>
 #include <QSpinBox>
 
 #include "ColorPanel.h"

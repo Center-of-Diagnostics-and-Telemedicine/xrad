@@ -11,7 +11,7 @@
 #ifndef DisplayGenericImageAcquisition_h__
 #define DisplayGenericImageAcquisition_h__
 
-#include <XRADDicom/Sources/DicomClasses/ProcessContainers/XRAYAcquisition.h>
+#include <XRADDicom/Sources/DicomClasses/ProcessContainers/XRayAcquisition.h>
 
 XRAD_BEGIN
 
