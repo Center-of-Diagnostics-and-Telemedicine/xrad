@@ -4,6 +4,8 @@ set(Project "XRADGUI")
 set(ProjectTests "${Project}TestsLib")
 project(${Project} LANGUAGES CXX)
 
+set(Qt5_DIR "/home/prokudaylo/Qt/5.15.2/gcc_64/lib/cmake/Qt5/" CACHE PATH "Qt5 library cmake directory")
+
 include(../XRADBasic/CMake/CommonOptions.cmake)
 include(../XRADBasic/CMake/StdLib.cmake)
 include(CMake/DetectQtConfiguration.cmake)
@@ -68,6 +70,8 @@ set(Project_Sources_Qt
 	QtGUIAPI/Common/XRADGUIAPIDefs.h
 	QtGUIAPI/Common/XRADGUIUtils.cpp
 	QtGUIAPI/Common/XRADGUIUtils.h
+        QtGUIAPI/Common/SecondaryScreen.cpp
+        QtGUIAPI/Common/SecondaryScreen.h
 	QtGUIAPI/DataDisplayWindow/AxisZoom.cpp
 	QtGUIAPI/DataDisplayWindow/AxisZoom.h
 	QtGUIAPI/DataDisplayWindow/ChartZoom.cpp
@@ -95,6 +99,27 @@ set(Project_Sources_Qt
 	QtGUIAPI/DataDisplayWindow/VisualizationPlot.h
 	QtGUIAPI/DataDisplayWindow/WheelZoom.cpp
 	QtGUIAPI/DataDisplayWindow/WheelZoom.h
+#@@@ todo sort it!
+        QtGUIAPI/DataDisplayWindow/PainterWindow.cpp
+        QtGUIAPI/DataDisplayWindow/PainterWindow.h
+        QtGUIAPI/DataDisplayWindow/PainterWindow.ui
+
+        QtGUIAPI/DataDisplayWindow/ColorPanel.cpp
+        QtGUIAPI/DataDisplayWindow/ColorPanel.h
+
+         QtGUIAPI/DataDisplayWindow/ToolsMenuWidget.cpp
+         QtGUIAPI/DataDisplayWindow/ToolsMenuWidget.h
+
+         QtGUIAPI/DataDisplayWindow/PaintWidget.cpp
+         QtGUIAPI/DataDisplayWindow/PaintWidget.h
+
+         QtGUIAPI/DataDisplayWindow/SpinBoxWidget.cpp
+         QtGUIAPI/DataDisplayWindow/SpinBoxWidget.h
+
+
+         QtGUIAPI/DataDisplayWindow/StyleSheetUtils.cpp
+         QtGUIAPI/DataDisplayWindow/StyleSheetUtils.h
+#@@@ todo sort it!
 	QtGUIAPI/DialogDefinitions/DecisionDialogs.cpp
 	QtGUIAPI/DialogDefinitions/DecisionDialogs.h
 	QtGUIAPI/DialogDefinitions/DynamicDialogQt.cpp
@@ -196,8 +221,26 @@ set(ProjectTests_Sources_All
 	${ProjectTests_Sources_CXX}
 	)
 
+set(libXRADBasic_Path /home/prokudaylo/projects/build-release/BatchAnonymizer/XRADBasic/)
+set(libXRADBasic /home/prokudaylo/projects/build-release/BatchAnonymizer/XRADBasic/libXRADBasic.a)
+link_directories( ${libXRADBasic_Path} )
+
+set(libXRADSystem_Path /home/prokudaylo/projects/build-release/BatchAnonymizer/XRADSystem/)
+set(libXRADSystem libXRADSystem.a)
+link_directories( ${libXRADSystem_Path} )
+
+set(lnk_dirs ${libXRADBasic}
+    ${libXRADSystem}
+    )
+
 add_library(${Project} STATIC ${Project_Sources_All})
 target_include_directories(${Project} PRIVATE ${Project_IncludeDirs})
+target_link_libraries(${Project}
+    Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Svg
+
+#    ${XRADBasic_Libraries} #remove ?
+#    ${XRADSystem_Libraries} #remove ?
+)
 
 add_library(${ProjectTests} STATIC ${ProjectTests_Sources_All})
 target_include_directories(${ProjectTests} PRIVATE ${Project_IncludeDirs})

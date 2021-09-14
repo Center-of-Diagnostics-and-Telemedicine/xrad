@@ -8,7 +8,7 @@
 	\date 2017-10-24 17:55
 	\author kulberg
 */
-#include "pre.h"
+#include "/home/prokudaylo/projects/sources/BatchAnonymizer/BatchAnonymizer/sources/pre.h"
 #include "QtStringConverters.h"
 #include <XRADGUI/Sources/Core/GUIConfig.h>
 
