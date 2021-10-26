@@ -471,6 +471,56 @@ inline size_t fwrite_numbers(const DataArray2D<VT> &data, FILE *file, ioNumberOp
 	return result;
 }
 
+//2021_10_26 Добавлены функции чтения/записи для многомерного массива DataArrayMD
+template<class ARR2T>
+inline size_t fread_numbers(DataArrayMD<ARR2T>& data, FILE* file, ioNumberOptions number_options)
+{
+	size_t	result = 0;
+	size_t	n_subsets = data.sizes(0);
+	if(data.n_dimensions() > 3)
+	{
+		index_vector	iv(data.n_dimensions());
+		for(size_t j = 0; j < data.n_dimensions()-1; ++j) iv[j+1] = slice_mask(j);
+		for(size_t i = 0; i < n_subsets; ++i)
+		{
+			iv[0] = i;
+			result += fread_numbers(data.GetSubset(iv).ref(), file, number_options);
+		}
+	}
+	else
+	{
+		for(size_t i = 0; i < n_subsets; ++i)
+		{
+			result += fread_numbers(data.GetSlice({i, slice_mask(0), slice_mask(1)}).ref(), file, number_options);
+		}
+	}
+	return result;
+}
+
+template<class ARR2T>
+inline size_t fwrite_numbers(const DataArrayMD<ARR2T>& data, FILE* file, ioNumberOptions number_options)
+{
+	size_t	result = 0;
+	size_t	n_subsets = data.sizes(0);
+	if(data.n_dimensions() > 3)
+	{
+		index_vector	iv(data.n_dimensions());
+		for(size_t j = 0; j < data.n_dimensions()-1; ++j) iv[j+1] = slice_mask(j);
+		for(size_t i = 0; i < n_subsets; ++i)
+		{
+			iv[0] = i;
+			result += fwrite_numbers(data.GetSubset(iv).ref(), file, number_options);
+		}
+	}
+	else
+	{
+		for(size_t i = 0; i < n_subsets; ++i)
+		{
+			result += fwrite_numbers(data.GetSlice({i, slice_mask(0), slice_mask(1)}).ref(), file, number_options);
+		}
+	}
+	return result;
+}
 
 
 XRAD_END
