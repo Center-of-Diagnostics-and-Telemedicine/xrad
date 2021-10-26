@@ -148,6 +148,9 @@ enum ioNumberOptions
 	ioComplexF32_LE = DataArrayIOAuxiliaries::ioNumberType::complex | DataArrayIOAuxiliaries::ioEndian::little | DataArrayIOAuxiliaries::ioNumberFormat::F32,
 	ioComplexF32_BE = DataArrayIOAuxiliaries::ioNumberType::complex | DataArrayIOAuxiliaries::ioEndian::big | DataArrayIOAuxiliaries::ioNumberFormat::F32,
 
+	ioComplexF64_LE = DataArrayIOAuxiliaries::ioNumberType::complex | DataArrayIOAuxiliaries::ioEndian::little | DataArrayIOAuxiliaries::ioNumberFormat::F64,
+	ioComplexF64_BE = DataArrayIOAuxiliaries::ioNumberType::complex | DataArrayIOAuxiliaries::ioEndian::big | DataArrayIOAuxiliaries::ioNumberFormat::F64,
+
 	ioComplexI8 = DataArrayIOAuxiliaries::ioNumberType::complex | DataArrayIOAuxiliaries::ioNumberFormat::I8,
 
 	ioComplexI16_LE = DataArrayIOAuxiliaries::ioNumberType::complex | DataArrayIOAuxiliaries::ioEndian::little | DataArrayIOAuxiliaries::ioNumberFormat::I16,
