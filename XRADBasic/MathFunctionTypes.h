@@ -58,6 +58,7 @@ typedef RealFunction<uint16_t,double> RealFunctionUI16F;
 typedef RealFunction<int32_t,double> RealFunctionI32F;
 typedef RealFunction<uint32_t,double> RealFunctionUI32F;
 
+typedef RealFunction<int64_t, double> RealFunctionI64F;
 
 
 //--------------------------------------------------------------

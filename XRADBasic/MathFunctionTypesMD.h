@@ -50,6 +50,7 @@ typedef MathFunctionMD<RealFunction2D_UI16F> RealFunctionMD_UI16F;
 typedef MathFunctionMD<RealFunction2D_I32F> RealFunctionMD_I32F;
 typedef MathFunctionMD<RealFunction2D_UI32F> RealFunctionMD_UI32F;
 
+typedef MathFunctionMD<RealFunction2D_I64F> RealFunctionMD_I64F;
 
 
 //--------------------------------------------------------------

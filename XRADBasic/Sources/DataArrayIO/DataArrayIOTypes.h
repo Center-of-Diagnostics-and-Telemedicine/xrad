@@ -36,6 +36,8 @@ typedef io_type_le<int16_t> int16_be_iotype;
 typedef io_type_le<uint16_t> uint16_be_iotype;
 typedef io_type_le<int32_t> int32_be_iotype;
 typedef io_type_le<uint32_t> uint32_be_iotype;
+typedef io_type_le<int64_t> int64_be_iotype;
+typedef io_type_le<uint64_t> uint64_be_iotype;
 typedef io_type_le<float> float32_be_iotype;
 typedef io_type_le<double> float64_be_iotype;
 
@@ -43,6 +45,8 @@ typedef io_type_be<int16_t> int16_le_iotype;
 typedef io_type_be<uint16_t> uint16_le_iotype;
 typedef io_type_be<int32_t> int32_le_iotype;
 typedef io_type_be<uint32_t> uint32_le_iotype;
+typedef io_type_be<int64_t> int64_le_iotype;
+typedef io_type_be<uint64_t> uint64_le_iotype;
 typedef io_type_be<float> float32_le_iotype;
 typedef io_type_be<double> float64_le_iotype;
 
@@ -57,6 +61,8 @@ typedef io_type_le<int16_t> int16_le_iotype;
 typedef io_type_le<uint16_t> uint16_le_iotype;
 typedef io_type_le<int32_t> int32_le_iotype;
 typedef io_type_le<uint32_t> uint32_le_iotype;
+typedef io_type_le<int64_t> int64_le_iotype;
+typedef io_type_le<uint64_t> uint64_le_iotype;
 typedef io_type_le<float> float32_le_iotype;
 typedef io_type_le<double> float64_le_iotype;
 
@@ -64,6 +70,8 @@ typedef io_type_be<int16_t> int16_be_iotype;
 typedef io_type_be<uint16_t> uint16_be_iotype;
 typedef io_type_be<int32_t> int32_be_iotype;
 typedef io_type_be<uint32_t> uint32_be_iotype;
+typedef io_type_be<int64_t> int64_be_iotype;
+typedef io_type_be<uint64_t> uint64_be_iotype;
 typedef io_type_be<float> float32_be_iotype;
 typedef io_type_be<double> float64_be_iotype;
 

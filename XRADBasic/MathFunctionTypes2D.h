@@ -54,6 +54,7 @@ typedef MathFunction2D<RealFunctionUI16F> RealFunction2D_UI16F;
 typedef MathFunction2D<RealFunctionI32F> RealFunction2D_I32F;
 typedef MathFunction2D<RealFunctionUI32F> RealFunction2D_UI32F;
 
+typedef MathFunction2D<RealFunctionI64F> RealFunction2D_I64F;
 
 
 //--------------------------------------------------------------

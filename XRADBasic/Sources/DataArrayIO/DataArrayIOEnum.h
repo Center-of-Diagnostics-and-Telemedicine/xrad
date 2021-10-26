@@ -62,7 +62,10 @@ struct ioNumberFormat
 		I32 = 0x0500,
 		UI32 = 0x0600,
 		F32 = 0x0700,
-		F64 = 0x0800
+		F64 = 0x0800,
+
+		I64 = 0x0900,
+		UI64 = 0x0a00
 	};
 };
 
@@ -127,6 +130,11 @@ enum ioNumberOptions
 	ioI32_BE = DataArrayIOAuxiliaries::ioEndian::big | DataArrayIOAuxiliaries::ioNumberFormat::I32,
 	ioUI32_LE = DataArrayIOAuxiliaries::ioEndian::little | DataArrayIOAuxiliaries::ioNumberFormat::UI32,
 	ioUI32_BE = DataArrayIOAuxiliaries::ioEndian::big | DataArrayIOAuxiliaries::ioNumberFormat::UI32,
+	//
+	ioI64_LE = DataArrayIOAuxiliaries::ioEndian::little | DataArrayIOAuxiliaries::ioNumberFormat::I64,
+	ioI64_BE = DataArrayIOAuxiliaries::ioEndian::big | DataArrayIOAuxiliaries::ioNumberFormat::I64,
+	ioUI64_LE = DataArrayIOAuxiliaries::ioEndian::little | DataArrayIOAuxiliaries::ioNumberFormat::UI64,
+	ioUI64_BE = DataArrayIOAuxiliaries::ioEndian::big | DataArrayIOAuxiliaries::ioNumberFormat::UI64,
 	//
 	ioF32_LE = DataArrayIOAuxiliaries::ioEndian::little | DataArrayIOAuxiliaries::ioNumberFormat::F32,
 	ioF32_BE = DataArrayIOAuxiliaries::ioEndian::big | DataArrayIOAuxiliaries::ioNumberFormat::F32,

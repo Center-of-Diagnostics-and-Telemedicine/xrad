@@ -126,6 +126,9 @@ inline	size_t read_scalar_samples(store_iter data, size_t count, FILE *file, ioN
 		manage_iotype_case_read(ioI32_LE, int32_le_iotype);
 		manage_iotype_case_read(ioUI32_LE, uint32_le_iotype);
 
+		manage_iotype_case_read(ioI64_LE, int64_le_iotype);
+		manage_iotype_case_read(ioUI64_LE, uint64_le_iotype);
+
 		manage_iotype_case_read(ioF32_LE, float32_le_iotype);
 		manage_iotype_case_read(ioF64_LE, float64_le_iotype);
 
@@ -134,6 +137,9 @@ inline	size_t read_scalar_samples(store_iter data, size_t count, FILE *file, ioN
 
 		manage_iotype_case_read(ioI32_BE, int32_be_iotype);
 		manage_iotype_case_read(ioUI32_BE, uint32_be_iotype);
+
+		manage_iotype_case_read(ioI64_BE, int64_be_iotype);
+		manage_iotype_case_read(ioUI64_BE, uint64_be_iotype);
 
 		manage_iotype_case_read(ioF32_BE, float32_be_iotype);
 		manage_iotype_case_read(ioF64_BE, float64_be_iotype);
