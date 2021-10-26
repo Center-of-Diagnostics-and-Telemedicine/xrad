@@ -400,7 +400,8 @@ inline size_t fread_numbers(store_iter data, size_t count, FILE *file, ioNumberO
 	catch(DataArrayIOAuxiliaries::io_type_does_not_match_data &)
 	{
 		ForceDebugBreak();
-		return 0;
+		throw;
+//		return 0;
 	}
 }
 
@@ -416,7 +417,8 @@ inline size_t fwrite_numbers(store_const_iter data, size_t count, FILE *file, io
 	catch(DataArrayIOAuxiliaries::io_type_does_not_match_data &)
 	{
 		ForceDebugBreak();
-		return 0;
+		throw;
+//		return 0;
 	}
 }
 
