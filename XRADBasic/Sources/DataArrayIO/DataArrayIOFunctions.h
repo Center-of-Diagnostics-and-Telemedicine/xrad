@@ -14,6 +14,7 @@
 #include <XRADBasic/Core.h>
 #include <XRADBasic/Sources/Containers/DataArray.h>
 #include <XRADBasic/Sources/Containers/DataArray2D.h>
+#include <XRADBasic/Sources/Containers/DataArrayMD.h>
 
 XRAD_BEGIN
 

@@ -226,7 +226,6 @@ public:
 		storeType::put(data, x.red());
 		storeType::put(data + storeType::fsize(), x.green());
 		storeType::put(data + storeType::fsize() * 2, x.blue());
-		storeType::put(data + storeType::fsize() * 3, x.alpha());
 	}
 };
 
@@ -253,6 +252,7 @@ public:
 		storeType::put(data, x.red());
 		storeType::put(data + storeType::fsize(), x.green());
 		storeType::put(data + storeType::fsize() * 2, x.blue());
+		storeType::put(data + storeType::fsize() * 3, x.alpha());
 	}
 };
 
