@@ -12,8 +12,7 @@
 //
 //------------------------------------------------------------------
 
-#include <XRADSystem/ThirdParty/nifti/niftilib/nifti1.h>
-//#include <nifti1_io.h>
+#include <XRADSystem/sources/nifti/nifti_datatypes.h>
 
 #include <XRADSystem/CFile.h>
 #include <XRADBasic/ContainersAlgebra.h>
@@ -81,93 +80,9 @@ namespace nifti_aux
 		}
 
 
-		size_t	bits_per_byte = CHAR_BIT;
 
-		switch(hdr.datatype)
-		{
-			case DT_UINT8:
-			//case DT_UNSIGNED_CHAR:
-				XRAD_ASSERT_THROW(sizeof(uint8_t)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioUI8);
-				break;
-
-			case DT_INT8:
-				XRAD_ASSERT_THROW(sizeof(int8_t)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioI8);
-				break;
-
-			case DT_UINT16:
-				XRAD_ASSERT_THROW(sizeof(uint16_t)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioUI16_LE);
-				break;
-
-			case DT_INT16:
-			//case DT_SIGNED_SHORT:
-				XRAD_ASSERT_THROW(sizeof(int16_t)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioI16_LE);
-				break;
-
-			case DT_INT32:
-			//case DT_SIGNED_INT:
-				XRAD_ASSERT_THROW(sizeof(int32_t)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioI32_LE);
-				break;
-
-			case DT_UINT32:
-				XRAD_ASSERT_THROW(sizeof(uint32_t)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioUI32_LE);
-				break;
-
-			case DT_INT64:
-				XRAD_ASSERT_THROW(sizeof(int64_t)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioI64_LE);
-				break;
-
-			case DT_UINT64:
-				XRAD_ASSERT_THROW(sizeof(uint64_t)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioUI32_LE);
-				break;
-
-			//case DT_FLOAT:
-			case DT_FLOAT32:
-				XRAD_ASSERT_THROW(sizeof(float)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioF32_LE);
-				break;
-
-			//case DT_DOUBLE:
-			case DT_FLOAT64:
-				XRAD_ASSERT_THROW(sizeof(double)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioF64_LE);
-				break;
-
-			case DT_COMPLEX64:
-				XRAD_ASSERT_THROW(sizeof(complexF32)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioComplexF32_LE);
-				break;
-
-			case DT_COMPLEX128:
-				XRAD_ASSERT_THROW(sizeof(complexF64)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioComplexF64_LE);
-				break;
-
-			case DT_RGB24:
-			//case DT_RGB:
-				XRAD_ASSERT_THROW(sizeof(ColorSampleUI8)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioRGB_UI8);
-				break;
-
-			case DT_RGBA32:
-				XRAD_ASSERT_THROW(sizeof(ColorPixel)*bits_per_byte==hdr.bitpix);
-				data_file.read_numbers(result, ioRGBA_UI8_LE);
-				break;
-
-			// пока не сделаны: (надо дописать в xrad DataArrayIO соответствующие определения)
-			case DT_FLOAT128:
-			case DT_COMPLEX256:
-			default:
-				throw invalid_argument("can not load format that is not supported yet");
-				break;
-		}
+		
+		data_file.read_numbers(result, nifti_format_to_io_enum(hdr.datatype, hdr.bitpix));
 
 		//TODO hdr.scl_slope, hdr.scl_inter сейчас никак не учтены. С точки зрения CT тестовый датасет некорректен (intercept должен был бы быть равен -1000 или 1000 или наподобие)
 	}

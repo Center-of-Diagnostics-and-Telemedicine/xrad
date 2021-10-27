@@ -11,9 +11,78 @@
 
 
 #include <XRADSystem/ThirdParty/nifti/niftilib/nifti1.h>
+#include <XRADBasic/Sources/DataArrayIO/DataArrayIOEnum.h>
 
 XRAD_BEGIN
 
+
+auto	nifti_format_to_io_enum(int16_t nifti_datatype, size_t bitpix)
+{
+	switch(nifti_datatype)
+	{
+		case DT_FLOAT32: 
+			XRAD_ASSERT_THROW(sizeof(float)*CHAR_BIT==bitpix);
+			return ioF32_LE;
+
+		case DT_FLOAT64: 
+			XRAD_ASSERT_THROW(sizeof(double)*CHAR_BIT==bitpix);
+			return ioF64_LE;
+
+		case DT_UINT8:	
+			XRAD_ASSERT_THROW(sizeof(uint8_t)*CHAR_BIT==bitpix);
+			return ioUI8;
+
+		case DT_INT8:	
+			XRAD_ASSERT_THROW(sizeof(int8_t)*CHAR_BIT==bitpix);
+			return ioI8;
+
+		case DT_UINT16:	
+			XRAD_ASSERT_THROW(sizeof(uint16_t)*CHAR_BIT==bitpix);
+			return ioUI16_LE;
+
+		case DT_INT16:	
+			XRAD_ASSERT_THROW(sizeof(int16_t)*CHAR_BIT==bitpix);
+			return ioI16_LE;
+
+		case DT_UINT32:	
+			XRAD_ASSERT_THROW(sizeof(uint32_t)*CHAR_BIT==bitpix);
+			return ioUI32_LE;
+
+		case DT_INT32:	
+			XRAD_ASSERT_THROW(sizeof(int32_t)*CHAR_BIT==bitpix);
+			return ioI32_LE;
+
+		case DT_UINT64:	
+			XRAD_ASSERT_THROW(sizeof(uint64_t)*CHAR_BIT==bitpix);
+			return ioUI64_LE;
+
+		case DT_INT64:	
+			XRAD_ASSERT_THROW(sizeof(int64_t)*CHAR_BIT==bitpix);
+			return ioI64_LE;
+
+		case DT_COMPLEX64:
+			XRAD_ASSERT_THROW(sizeof(complexF32)*CHAR_BIT==bitpix);
+			return ioComplexF32_LE;
+
+		case DT_COMPLEX128:	
+			XRAD_ASSERT_THROW(sizeof(complexF64)*CHAR_BIT==bitpix);
+			return ioComplexF64_LE;
+
+		case DT_RGB24: 
+			XRAD_ASSERT_THROW(sizeof(ColorSampleUI8)*CHAR_BIT==bitpix);
+			return ioRGB_UI8;
+
+		case DT_RGBA32: 
+			XRAD_ASSERT_THROW(sizeof(ColorPixel)*CHAR_BIT==bitpix);
+			return ioRGBA_UI8_LE;
+
+
+		case DT_FLOAT128:
+		case DT_COMPLEX256:
+		default: 
+			throw invalid_argument("Unknown or unsupported nifti data format");
+	}
+}
 
 
 #define bitsizeof(...) sizeof(__VA_ARGS__)*CHAR_BIT

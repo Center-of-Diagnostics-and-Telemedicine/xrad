@@ -8,6 +8,9 @@
 
 	\brief  
 */
+
+#include <XRADSystem/sources/nifti/nifti_datatypes.h>
+
 #include <XRADSystem/ThirdParty/nifti/niftilib/nifti1.h>
 //#include <XRADSystem/ThirdParty/nifti/niftilib/nifti1_io.h>
 
@@ -105,21 +108,13 @@ nifti_1_header CreateNiftiHeader(const DataArrayMD<SLICE> &array, const vector<d
 	return hdr;
 }
 
-template<class SLICE>
-typename DataArray<typename SLICE::value_type>::ref_invariable CreateNiftiData(const DataArrayMD<SLICE> &array)
-{
-	typename DataArray<typename SLICE::value_type>::ref_invariable nifti_data;
-	nifti_data.UseData(&array.at(index_vector(array.n_dimensions(), 0)), array.element_count());
-	return nifti_data;
-}
 
 
 template<class SLICE>
-int write_nifti_file(const DataArrayMD<SLICE> &array, wstring filename, nifti_file_type type)
+void write_nifti_file(const DataArrayMD<SLICE> &array, wstring filename, nifti_file_type type)
 {
 	auto hdr = CreateNiftiHeader(array, {2,2,2}, type);
 
-	auto	nifti_data = CreateNiftiData(array);
 
 	/********** if nii, write extender pad and image data   */
 	if(type == nifti_file_type::nii)
@@ -130,7 +125,8 @@ int write_nifti_file(const DataArrayMD<SLICE> &array, wstring filename, nifti_fi
 
 		nifti1_extender pad={0,0,0,0};
 		nii_writer.write(&pad, 4, 1);
-		nii_writer.write(nifti_data.data(), (size_t)(hdr.bitpix/8), array.element_count());
+		nii_writer.write_numbers(array, nifti_format_to_io_enum(hdr.datatype, hdr.bitpix));
+//		nii_writer.write(nifti_data.data(), (size_t)(hdr.bitpix/8), array.element_count());
 	}
 
 	/********** if hdr/img, close .hdr and write image data to .img */
@@ -141,12 +137,8 @@ int write_nifti_file(const DataArrayMD<SLICE> &array, wstring filename, nifti_fi
 		hdr_writer.write(&hdr, MIN_HEADER_SIZE, 1);
 
 		img_writer.open(filename + L".img", L"wb");
-		img_writer.write(nifti_data.data(), (size_t)(hdr.bitpix/8), array.element_count());
+		img_writer.write_numbers(array, nifti_format_to_io_enum(hdr.datatype, hdr.bitpix));
 	}
-
-
-
-	return(0);
 }
 
 
