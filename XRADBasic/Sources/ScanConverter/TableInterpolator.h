@@ -27,7 +27,8 @@ class	TableInterpolator
 		// слегка оптимизированные алгоритмы умножения для разных исходных данных
 		enum
 			{
-			one_shift=7
+			one_shift=7,
+			integral_divisor = 1<<one_shift
 			};
 
 		double	multiply(double ij, double i_j, double ij_, double i_j_) const
@@ -43,7 +44,7 @@ class	TableInterpolator
 
 		int	multiply(unsigned char ij, unsigned char i_j, unsigned char ij_, unsigned char i_j_) const
 			{
-			return	(ij*f00 + i_j*f01 + ij_*f10 + i_j_*f11)>>one_shift;
+			return	(ij*f00 + i_j*f01 + ij_*f10 + i_j_*f11)/integral_divisor;
 			}
 
 		int	multiply(int ij, int i_j, int ij_, int i_j_) const
@@ -62,6 +63,17 @@ class	TableInterpolator
 				multiply(ij.green(), i_j.green(), ij_.green(), i_j_.green()),
 				multiply(ij.blue(), i_j.blue(), ij_.blue(), i_j_.blue()));
 			}
+
+		ColorPixel multiply(const ColorPixel& ij, const ColorPixel& i_j, const ColorPixel& ij_, const ColorPixel& i_j_) const
+		{
+			return RGBColorSample<T>(
+				multiply(ij.red(), i_j.red(), ij_.red(), i_j_.red()),
+				multiply(ij.green(), i_j.green(), ij_.green(), i_j_.green()),
+				multiply(ij.blue(), i_j.blue(), ij_.blue(), i_j_.blue()),
+				multiply(ij.alpha(), i_j.alpha(), ij_.alpha(), i_j_.alpha())
+				);
+		}
+
 
 		template<class T, class ST>
 		ComplexSample<T,ST> multiply(const ComplexSample<T,ST> &ij, const ComplexSample<T,ST> &i_j, const ComplexSample<T,ST> &ij_, const ComplexSample<T,ST> &i_j_) const

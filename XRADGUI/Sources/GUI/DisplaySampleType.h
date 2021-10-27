@@ -27,6 +27,7 @@ enum display_sample_type
 
 	rgba_sample_ui8,
 	rgb_sample_f32,
+	rgb_sample_ui8,
 
 	complex_sample_f32,
 	complex_sample_f64,
@@ -50,6 +51,7 @@ template<> inline display_sample_type DisplaySampleTypeUtil<float>() { return gr
 template<> inline display_sample_type DisplaySampleTypeUtil<double>() { return gray_sample_f64; }
 
 template<> inline display_sample_type DisplaySampleTypeUtil<ColorPixel>() { return rgba_sample_ui8; }
+template<> inline display_sample_type DisplaySampleTypeUtil<ColorSampleUI8>() { return rgb_sample_ui8; }
 template<> inline display_sample_type DisplaySampleTypeUtil<ColorSampleF32>() { return rgb_sample_f32; }
 
 template<> inline display_sample_type DisplaySampleTypeUtil<complexF32>() { return complex_sample_f32; }
