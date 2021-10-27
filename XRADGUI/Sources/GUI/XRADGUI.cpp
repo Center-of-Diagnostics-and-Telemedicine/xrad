@@ -472,7 +472,7 @@ void DisplayImage<uint8_t>(wstring name, const uint8_t* data,
 	const axis_legend& xlegend,
 	const value_legend& value_legend)
 {
-	if (!vs || !hs) Error(ssprintf("DisplayImage(%s,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
+    if (!vs || !hs) Error(ssprintf("DisplayImage(%s,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
 	api_ShowImage(name, data, gray_sample_ui8,
 		vs, hs,
 		ylegend.min_value, ylegend.step, ylegend.label,
@@ -487,7 +487,7 @@ void DisplayImage<int16_t>(wstring name, const int16_t* data,
 	const axis_legend& xlegend,
 	const value_legend& value_legend)
 {
-	if (!vs || !hs) Error(ssprintf("DisplayImage(%s,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
+    if (!vs || !hs) Error(ssprintf("DisplayImage(%s,%d,%d), invalid dimensions.", name.c_str(), vs, hs));
 	api_ShowImage(name, data, gray_sample_i16,
 		vs, hs,
 		ylegend.min_value, ylegend.step, ylegend.label,

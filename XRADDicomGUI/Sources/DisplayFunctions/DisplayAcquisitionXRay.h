@@ -11,7 +11,7 @@
 #ifndef DisplayAcquisitionXRay_h__
 #define DisplayAcquisitionXRay_h__
 
-#include <XRADDicom/Sources/DicomClasses/ProcessContainers/XRAYAcquisition.h>
+#include <XRADDicom/Sources/DicomClasses/ProcessContainers/XRayAcquisition.h>
 
 XRAD_BEGIN
 

@@ -42,7 +42,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 	set(XRADZLib_LibrariesDir "${XRAD_ThirdParty}/lib")
 	set(XRADZLib_Libraries
-		"${XRADZLib_LibrariesDir}/libz.a"
+#@@@		"${XRADZLib_LibrariesDir}/libz.a"
 		)
 else()
 	message(FATAL_ERROR "Unsupported CMAKE_CXX_COMPILER_ID: \"${CMAKE_CXX_COMPILER_ID}\".")

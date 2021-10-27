@@ -1060,7 +1060,7 @@ ColorImageF32 api_GetColorPainting(const wstring& title, const ColorImageF32& or
 				for (int j = 0; j < width; j++)
 				{
 					QColor pixel_color = result_qimage->pixelColor(j, i);
-					result.at(i, j) = ColorSampleF32::RGBColorSample(pixel_color.red(), pixel_color.green(), pixel_color.blue());
+                    result.at(i, j) = ColorSampleF32(pixel_color.red(), pixel_color.green(), pixel_color.blue());
 				}
 			}
 
@@ -1076,7 +1076,7 @@ ColorImageF32 api_GetColorPainting(const wstring& title, const ColorImageF32& or
 
 ColorImageF32 api_GetColorPainting(const wstring& title, size_t vsize, size_t hsize)
 {
-	ColorImageF32	empty_image(vsize, hsize, ColorSampleF32::RGBColorSample(255, 255, 255));
+    ColorImageF32	empty_image(vsize, hsize, ColorSampleF32(255, 255, 255));
 	return api_GetColorPainting(title, empty_image);
 }
 

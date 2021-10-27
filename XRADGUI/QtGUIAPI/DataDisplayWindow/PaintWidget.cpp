@@ -1,6 +1,6 @@
 #include "pre.h"
 
-#include "paintwidget.h"
+#include "PaintWidget.h"
 #include <QBrush>
 #include <QDebug>
 #include <QPainter>
@@ -251,7 +251,7 @@ QPixmap PaintWidget::getCursor(size_t in_radius)
 	float thickness = radius < 30 ? 1.7 : float(radius) / 20;
 	float	circle_radius = radius - thickness;
 
-	auto alpha = [](float d) -> unsigned int {return unsigned int(255. * sqrt(d)) << 24; };
+    auto alpha = [](float d) -> unsigned int {return (unsigned int)(255. * sqrt(d)) << 24; };
 	int	black = 0x000000;
 	int white = 0xFFFFFF;
 
