@@ -121,6 +121,7 @@ typedef io_type_le<complexI8F> complexI8_iotype;
 //--------------------------------------------------------------
 
 typedef io_type_rgb<uint8_iotype> rgbUI8_iotype;
+typedef io_type_rgba<uint8_iotype> rgbaUI8_le_iotype;
 
 typedef io_type_rgb<uint16_le_iotype> rgbUI16_le_iotype;
 typedef io_type_rgb<uint16_be_iotype> rgbUI16_be_iotype;

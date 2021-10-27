@@ -64,6 +64,8 @@ typedef MathFunctionMD<RealFunction2D_F64> RealFunctionMD_F64;
 //--------------------------------------------------------------
 // Массивы цветных отсчетов
 
+
+using ColorImageMD_RGBA = ColorContainer<MathFunctionMD<ColorImageRGBA>, RealFunctionMD_UI8F>;
 using ColorImageMD_UI8 = ColorContainer<MathFunctionMD<ColorImageUI8>, RealFunctionMD_UI8F>;
 
 using ColorImageMD_I16 = ColorContainer<MathFunctionMD<ColorImageI16>, RealFunctionMD_I16F>;

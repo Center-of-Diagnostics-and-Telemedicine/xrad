@@ -120,6 +120,7 @@ template <class RGB, class ST>
 using ColorImage = typename ColorImageHelper<RGB, ST>::type;
 
 
+using ColorImageRGBA = ColorImage<ColorPixel, double>;
 
 using ColorImageUI8 = ColorImage<ColorSampleUI8, double>;
 

@@ -4,6 +4,7 @@
 	This file is licensed under BSD-3-Clause license. See LICENSE file for details.
 */
 #include <XRADBasic/SampleTypes.h>
+#include <XRADBasic/Sources/SampleTypes/ColorSample.h>
 #include <XRADBasic/Sources/SampleTypes/FixedPointSample.h>
 #include <XRADBasic/Sources/Containers/MathFunctionMD.h>
 #ifdef XRAD_USE_OPENCL
@@ -70,10 +71,21 @@ inline	void iir_one_point(int32_t &result, const int32_t &b0, const int32_t &a)
 	result += ((result - b0)*a) >> fixed_point_position<int32_t>();
 }
 
-inline	void iir_one_point(short &result, const short &b0, const int &a)
+inline	void iir_one_point(int16_t &result, const int16_t &b0, const int &a)
 {
-	result += ((result - b0)*a) >> fixed_point_position<int>();
+	result += (int32_t(result - b0)*a) >> fixed_point_position<int32_t>();
 }
+
+inline	void iir_one_point(int8_t& result, const int8_t& b0, const int& a)
+{
+	result += (int32_t(result - b0)*a) >> fixed_point_position<int32_t>();
+}
+
+inline	void iir_one_point(uint8_t& result, const uint8_t& b0, const int& a)
+{
+	result += (int32_t(result - b0)*a) >> fixed_point_position<int32_t>();
+}
+
 
 // здесь нужен отдельный тип для скаляров, т.к. целочисленные данные умножаются в алгоритме
 // на целое со сдвигом. а ST для них может быть с плавающей запятой
@@ -82,6 +94,15 @@ inline	void iir_one_point(ComplexSample<T, ST> &result, const ComplexSample<T, S
 {
 	iir_one_point(result.re, b0.re, a);
 	iir_one_point(result.im, b0.im, a);
+}
+
+template<class ST>
+inline	void iir_one_point(ColorPixel& result, const ColorPixel& b0, const ST& a)
+{
+	iir_one_point(result.alpha(), b0.alpha(), a);
+	iir_one_point(result.red(), b0.red(), a);
+	iir_one_point(result.green(), b0.green(), a);
+	iir_one_point(result.blue(), b0.blue(), a);
 }
 
 

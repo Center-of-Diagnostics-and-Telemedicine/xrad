@@ -283,6 +283,7 @@ inline	size_t write_rgb_samples(store_const_iter data, size_t count, FILE *file,
 
 	switch(number_options)
 	{
+		manage_iotype_case_write(ioRGBA_UI8_LE, rgbaUI8_le_iotype);
 		manage_iotype_case_write(ioRGB_UI8, rgbUI8_iotype);
 
 		manage_iotype_case_write(ioRGB_UI16_LE, rgbUI16_le_iotype);

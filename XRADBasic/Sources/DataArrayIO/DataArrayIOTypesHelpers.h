@@ -226,8 +226,37 @@ public:
 		storeType::put(data, x.red());
 		storeType::put(data + storeType::fsize(), x.green());
 		storeType::put(data + storeType::fsize() * 2, x.blue());
+		storeType::put(data + storeType::fsize() * 3, x.alpha());
 	}
 };
+
+template <class storeType> // int16 или int8
+class io_type_rgba : public io_type_rgb<storeType>
+{
+	PARENT(io_type_rgb);
+public:
+	static size_t fsize(){ return 4*storeType::fsize(); }
+	typedef ColorPixel value_type;
+
+	static ColorSampleF64 get(const uint8_t* data)
+	{
+		double	r = storeType::get(data);
+		double	g = storeType::get(data + storeType::fsize());
+		double	b = storeType::get(data + storeType::fsize()*2);
+		double	a = store_type::get(data + store_type::fsize()*3);
+
+		return ColorPixel(r, g, b, a);
+	}
+
+	static void put(uint8_t* data, const ColorSampleF64& x)
+	{
+		storeType::put(data, x.red());
+		storeType::put(data + storeType::fsize(), x.green());
+		storeType::put(data + storeType::fsize() * 2, x.blue());
+	}
+};
+
+
 //
 // template <class storeType> // int16 или int8
 // class io_type_rgba

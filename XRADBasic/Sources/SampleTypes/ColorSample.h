@@ -82,7 +82,7 @@ class PlatformIndependentRGBColorTraits
 
 		enum
 		{
-			red_position, green_position, blue_position
+			red_position, green_position, blue_position, alpha_position
 		};
 
 		static component_type allowed_pixel_value(component_type v) {return v;}
