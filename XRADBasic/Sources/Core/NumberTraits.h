@@ -88,6 +88,7 @@ enum number_complexity_e
 	scalar,
 	complex,
 	rgb,
+	rgba,
 	array,
 	array2D,
 	arrayMD

@@ -100,8 +100,7 @@ class DataArray2D : private DataOwner<typename RT::value_type>
 		//! \brief Изменение размера, для типов без конструктора контейнер содержит произвольные значения
 		void	realloc(size_t vs, size_t hs);
 		//! \brief Изменение размера с заполнением контейнера заданным значением
-		void	realloc(size_t vs, size_t hs, const value_type &default_value)
-		{ realloc(vs, hs); fill(default_value); }
+		void	realloc(size_t vs, size_t hs, const value_type &default_value) { realloc(vs, hs); fill(default_value); }
 		//! \brief Изменение размера с сохранением данных в общей части и обнулением новых ячеек при расширении
 		void	resize(size_t vs, size_t hs);
 
