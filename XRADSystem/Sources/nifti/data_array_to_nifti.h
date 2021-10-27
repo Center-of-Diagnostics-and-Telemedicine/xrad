@@ -80,7 +80,7 @@ nifti_1_header CreateNiftiHeader(const DataArrayMD<SLICE> &array, const vector<d
 	hdr.scl_inter = 0;
 	// единичная матрица преобразования координат. прочие поля и четвертый столбец нулевые (memset выше)
 	hdr.srow_x[0] = 1;
-	hdr.srow_x[1] = 1;
+	hdr.srow_y[1] = 1;
 	hdr.srow_z[2] = 1;
 
 	if(n_dimensions >= 4)
