@@ -155,8 +155,14 @@ void write_nifti_file(const DataArrayMD<ARR>& array, wstring filename, RealFunct
 	nifti_aux::write_nifti_util(array, filename, scales, type);
 }
 
-template<class ROW>
-void write_nifti_file(const DataArray2D<ROW>& array, wstring filename, RealFunctionF32 scales = RealFunctionF32(), nifti_file_type type = nifti_file_type::nii)
+template<class T>
+void write_nifti_file(const DataArray2D<T>& array, wstring filename, RealFunctionF32 scales = RealFunctionF32(), nifti_file_type type = nifti_file_type::nii)
+{
+	nifti_aux::write_nifti_util(array, filename, scales, type);
+}
+
+template<class T>
+void write_nifti_file(const DataArray<T>& array, wstring filename, RealFunctionF32 scales = RealFunctionF32(), nifti_file_type type = nifti_file_type::nii)
 {
 	nifti_aux::write_nifti_util(array, filename, scales, type);
 }
