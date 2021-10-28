@@ -148,6 +148,7 @@ class DataArray : public DataOwner<T>
 
 		//! \brief Заполнение массива заданным значением
 		void	fill(const T &value);
+		static constexpr size_t n_dimensions() { return 1; }
 
 
 
