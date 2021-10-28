@@ -106,7 +106,7 @@ enum number_complexity_e
 */
 
 
-void	get_nifti_info(const wstring &filename, index_vector &sizes, number_complexity_e &format, size_t &bits_per_number)
+inline void	get_nifti_info(const wstring &filename, index_vector &sizes, number_complexity_e &format, size_t &bits_per_number)
 {
 	shared_cfile	header_file(filename, L"rb");
 	nifti_1_header hdr;

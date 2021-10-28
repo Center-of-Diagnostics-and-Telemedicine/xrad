@@ -71,8 +71,10 @@ nifti_1_header CreateNiftiHeader(const ARR& array, const RealFunctionF32& scales
 		hdr.pixdim[n_dimensions-i] = scales[i];
 	}
 
-	hdr.datatype = nifti_datatype<typename ARR::value_type>();
-	hdr.bitpix = nifti_sample_size(ARR::value_type());
+	using sample_type = typename remove_cv<ARR::value_type>::type;
+
+	hdr.datatype = nifti_datatype<sample_type>();
+	hdr.bitpix = nifti_sample_size(sample_type());
 
 	hdr.qform_code = 0;
 	hdr.sform_code = 2;
