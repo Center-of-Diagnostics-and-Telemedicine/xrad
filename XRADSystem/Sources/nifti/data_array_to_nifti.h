@@ -68,8 +68,8 @@ nifti_1_header CreateNiftiHeader(const DataArrayMD<SLICE> &array, const vector<d
 		hdr.pixdim[n_dimensions-i] = scales[i];
 	}
 
-	hdr.datatype = nifti_datatype(array);
-	hdr.bitpix = nifti_sample_size(array);
+	hdr.datatype = nifti_datatype<typename SLICE::value_type>();
+	hdr.bitpix = nifti_sample_size(SLICE::value_type());
 	
 	hdr.qform_code = 0;
 	hdr.sform_code = 2;

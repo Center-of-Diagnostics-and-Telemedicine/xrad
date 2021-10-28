@@ -110,6 +110,7 @@ template<> short nifti_datatype<int64_t>(){ return NIFTI_TYPE_INT64; }
 template<> short nifti_datatype<complexF32>(){ static_assert(bitsizeof(complexF32)==64, "Invalid nifti sample size"); return NIFTI_TYPE_COMPLEX64; }
 template<> short nifti_datatype<complexF64>(){ static_assert(bitsizeof(complexF64)==128, "Invalid nifti sample size"); return NIFTI_TYPE_COMPLEX128; }
 
+template<> short nifti_datatype<ColorSampleF32>(){ static_assert(bitsizeof(ColorSampleUI8)==24, "Invalid nifti sample size"); return NIFTI_TYPE_RGB24; }
 template<> short nifti_datatype<ColorSampleUI8>(){ static_assert(bitsizeof(ColorSampleUI8)==24, "Invalid nifti sample size"); return NIFTI_TYPE_RGB24; }
 template<> short nifti_datatype<ColorPixel>(){ static_assert(bitsizeof(ColorPixel)==32, "Invalid nifti sample size"); return NIFTI_TYPE_RGBA32; }
 
@@ -123,17 +124,13 @@ template<> short nifti_datatype<ColorPixel>(){ static_assert(bitsizeof(ColorPixe
 #endif
 
 
-template<class CONTAINER_T>
-short	nifti_datatype(const CONTAINER_T &)
-{
-	return nifti_datatype<remove_cv<typename CONTAINER_T::value_type>::type>();
-}
 
-template<class CONTAINER_T>
-short	nifti_sample_size(const CONTAINER_T &)
-{
-	return bitsizeof(typename CONTAINER_T::value_type);
-}
+template<class SAMPLE_T>
+short	nifti_sample_size(const SAMPLE_T &) {return static_cast<short>(bitsizeof<SAMPLE_T>());}
+
+short	nifti_sample_size(const ColorSampleF32&) { return static_cast<short>(bitsizeof<ColorSampleUI8>()); }
+short	nifti_sample_size(const ColorSampleF64&) { return static_cast<short>(bitsizeof<ColorSampleUI8>()); }
+
 
 #undef bitsizeof
 
