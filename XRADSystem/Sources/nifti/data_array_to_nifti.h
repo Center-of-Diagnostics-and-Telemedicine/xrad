@@ -19,6 +19,9 @@
 
 XRAD_BEGIN
 
+namespace nifti_aux
+{
+
 enum
 {
 	MIN_HEADER_SIZE = 348,
@@ -44,8 +47,8 @@ some software, vox_offset should be an integral multiple of 16.
 
 */
 
-template<class SLICE>
-nifti_1_header CreateNiftiHeader(const DataArrayMD<SLICE> &array, const RealFunctionF32 &scales, nifti_file_type type)
+template<class ARR>
+nifti_1_header CreateNiftiHeader(const ARR& array, const RealFunctionF32& scales, nifti_file_type type)
 {
 	size_t	n_dimensions = array.n_dimensions();
 
@@ -54,7 +57,7 @@ nifti_1_header CreateNiftiHeader(const DataArrayMD<SLICE> &array, const RealFunc
 
 	nifti_1_header hdr;
 
-	memset((void *)&hdr, 0, sizeof(hdr));
+	memset((void*)&hdr, 0, sizeof(hdr));
 	hdr.sizeof_hdr = MIN_HEADER_SIZE;
 
 	std::fill(begin(hdr.dim), end(hdr.dim), 1);
@@ -68,9 +71,9 @@ nifti_1_header CreateNiftiHeader(const DataArrayMD<SLICE> &array, const RealFunc
 		hdr.pixdim[n_dimensions-i] = scales[i];
 	}
 
-	hdr.datatype = nifti_datatype<typename SLICE::value_type>();
-	hdr.bitpix = nifti_sample_size(SLICE::value_type());
-	
+	hdr.datatype = nifti_datatype<typename ARR::value_type>();
+	hdr.bitpix = nifti_sample_size(ARR::value_type());
+
 	hdr.qform_code = 0;
 	hdr.sform_code = 2;
 	// как-то определяют преобразование координат в пространстве. Подробнее изучать:
@@ -110,10 +113,10 @@ nifti_1_header CreateNiftiHeader(const DataArrayMD<SLICE> &array, const RealFunc
 
 
 
-template<class SLICE>
-void write_nifti_file(const DataArrayMD<SLICE> &array, wstring filename, RealFunctionF32 scales = RealFunctionF32(),  nifti_file_type type = nifti_file_type::nii)
+template<class ARR_T>
+void write_nifti_util(const ARR_T& array, wstring filename, RealFunctionF32 scales = RealFunctionF32(), nifti_file_type type = nifti_file_type::nii)
 {
-	if (scales.empty()) scales.realloc(array.n_dimensions(), 1);
+	if(scales.empty()) scales.realloc(array.n_dimensions(), 1);
 	else XRAD_ASSERT_THROW(scales.size() == array.n_dimensions());
 
 	auto hdr = CreateNiftiHeader(array, scales, type);
@@ -142,6 +145,20 @@ void write_nifti_file(const DataArrayMD<SLICE> &array, wstring filename, RealFun
 		img_writer.open(filename + L".img", L"wb");
 		img_writer.write_numbers(array, nifti_format_to_io_enum(hdr.datatype, hdr.bitpix));
 	}
+}
+
+}//namespace nifti_aux
+
+template<class ARR>
+void write_nifti_file(const DataArrayMD<ARR>& array, wstring filename, RealFunctionF32 scales = RealFunctionF32(), nifti_file_type type = nifti_file_type::nii)
+{
+	nifti_aux::write_nifti_util(array, filename, scales, type);
+}
+
+template<class ROW>
+void write_nifti_file(const DataArray2D<ROW>& array, wstring filename, RealFunctionF32 scales = RealFunctionF32(), nifti_file_type type = nifti_file_type::nii)
+{
+	nifti_aux::write_nifti_util(array, filename, scales, type);
 }
 
 
