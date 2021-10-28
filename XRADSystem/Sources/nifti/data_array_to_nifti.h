@@ -45,7 +45,7 @@ some software, vox_offset should be an integral multiple of 16.
 */
 
 template<class SLICE>
-nifti_1_header CreateNiftiHeader(const DataArrayMD<SLICE> &array, const vector<double> &scales, nifti_file_type type)
+nifti_1_header CreateNiftiHeader(const DataArrayMD<SLICE> &array, const RealFunctionF32 &scales, nifti_file_type type)
 {
 	size_t	n_dimensions = array.n_dimensions();
 
@@ -111,9 +111,12 @@ nifti_1_header CreateNiftiHeader(const DataArrayMD<SLICE> &array, const vector<d
 
 
 template<class SLICE>
-void write_nifti_file(const DataArrayMD<SLICE> &array, wstring filename, nifti_file_type type)
+void write_nifti_file(const DataArrayMD<SLICE> &array, wstring filename, RealFunctionF32 scales = RealFunctionF32(),  nifti_file_type type = nifti_file_type::nii)
 {
-	auto hdr = CreateNiftiHeader(array, {2,2,2}, type);
+	if (scales.empty()) scales.realloc(array.n_dimensions(), 1);
+	else XRAD_ASSERT_THROW(scales.size() == array.n_dimensions());
+
+	auto hdr = CreateNiftiHeader(array, scales, type);
 
 
 	/********** if nii, write extender pad and image data   */
